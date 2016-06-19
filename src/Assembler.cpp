@@ -1,5 +1,7 @@
 #include "Assembler.h"
 
+#include "Coder.h"
+
 #include <bitset>
 #include <iomanip>
 
@@ -9,7 +11,6 @@ Assembler::Assembler(std::istream& in, std::ostream& out)
     : in(in),
       out(out),
       parser(in),
-      code(),
       symbolTable(),
       RAMaddress(Hasm::INIT_RAM_ADDRESS),
       predefinedSymbols() {
@@ -73,9 +74,9 @@ void Assembler::assembleACommand() {
 void Assembler::assembleCCommand() {
   unsigned int cc = 0;
 
-  cc = code.dest(parser.dest());
-  cc |= code.comp(parser.comp());
-  cc |= code.jump(parser.jump());
+  cc = Coder::dest(parser.dest());
+  cc |= Coder::comp(parser.comp());
+  cc |= Coder::jump(parser.jump());
   cc |= 0b1110000000000000;
 
   output(cc);

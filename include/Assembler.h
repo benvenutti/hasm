@@ -1,7 +1,6 @@
 #ifndef HASM_ASSEMBLER_H_
 #define HASM_ASSEMBLER_H_
 
-#include "Coder.h"
 #include "Parser.h"
 #include "SymbolTable.h"
 
@@ -28,7 +27,6 @@ namespace Hasm {
       std::istream& in;
       std::ostream& out;
       Parser parser;
-      Coder code;
       SymbolTable symbolTable;
       int RAMaddress;
       std::map<std::string, int> predefinedSymbols;

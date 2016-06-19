@@ -6,9 +6,9 @@
 namespace Hasm {
   class Coder {
     public:
-      unsigned int dest(const std::string& mnemonic) const;
-      unsigned int comp(const std::string& mnemonic) const;
-      unsigned int jump(const std::string& mnemonic) const;
+      static unsigned int dest(const std::string& mnemonic);
+      static unsigned int comp(const std::string& mnemonic);
+      static unsigned int jump(const std::string& mnemonic);
   };
 }
 

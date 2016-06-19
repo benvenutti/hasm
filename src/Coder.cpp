@@ -4,7 +4,7 @@
 
 using Hasm::Coder;
 
-unsigned int Coder::dest(const std::string& mnemonic) const {
+unsigned int Coder::dest(const std::string& mnemonic) {
   unsigned int dest = 0;
 
   if (mnemonic.find('M') != std::string::npos) dest |= 0b001;
@@ -14,7 +14,7 @@ unsigned int Coder::dest(const std::string& mnemonic) const {
   return dest << 3;
 }
 
-unsigned int Coder::comp(const std::string& mnemonic) const {
+unsigned int Coder::comp(const std::string& mnemonic) {
   std::string m(mnemonic);
   unsigned int mask = 0;
 
@@ -48,7 +48,7 @@ unsigned int Coder::comp(const std::string& mnemonic) const {
   return (comp |= mask) << 6;
 }
 
-unsigned int Coder::jump(const std::string& mnemonic) const {
+unsigned int Coder::jump(const std::string& mnemonic) {
   if (mnemonic == "JGT") return 0b001;
   if (mnemonic == "JEQ") return 0b010;
   if (mnemonic == "JGE") return 0b011;
