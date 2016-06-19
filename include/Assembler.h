@@ -24,7 +24,6 @@ namespace Hasm {
       void output(unsigned int value);
       void mapPredefinedSymbols();
 
-      std::istream& in;
       std::ostream& out;
       Parser parser;
       SymbolTable symbolTable;
