@@ -2,6 +2,20 @@ sudo: required
 dist: precise
 language: cpp
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "QFshf+UW0T7NYVUS58x8SdrzeKPzVVa/dcOyyHYb/H6XZdppK0g/pYTBmKFmv/uyEDTDQe126WjVMLbV5XM75AMUj9EjK28RIB/0FrDHI1TxNG387Go2Xa86LlYqfaxg8UqobrWDk24pry89knqAsx63sRdnqSYV6pFbE1+pRODCm3UZeltYYd3tvBUFGqWrLzGezx8eTrR3fwAgHpp/3GYLRvMXj1kdYnNneEhARrqTVIiwzLY12JwHPhwCBUtM0X9jHsEzqSRXicgk10SLqO3z3pRpd6fk1u1PHWflhBgmPsNj8AYP/iZzb2c1tGAe/jp7NBZbIXqByAHKygMDQtC+4TaMdH2R/zSkZkcGhdq2ojsNpVAl8OiksGPVrKDANvuhnQz/wPqv+D4rfWvza3FFwjSdRLc+as43fomBe4D7HVzH9GIufyyqNw5Zae0EXoPTJjmnRw2Oa3S5PmFp6sUDCsFfLWmKuR8w8cAm1Spq0oYHZYi8tn2ig5DcBmNANXvRrJySgVDDf62oOkumqTriyK8koSBxxuPKKBsdfLqyoJf05Jy8zNO7fQp9F7ryaw/z71T2bniyf3VQVMg2Mutmc5ggPbKj4M7qmLIPmMUsbY7YMfEy3i8mKuZHz1tJzVgtLJe3YoLWU4NrmoB1Ku0HQU+t/0gQbHCGBQDfJ6c="
+
+addons:
+  coverity_scan:
+    project:
+      name: "benvenutti/hasmTest"
+      description: "Build submitted via Travis CI"
+    build_command: "make -j 4"
+    branch_pattern: coverity_scan
+
 matrix:
   include:
     - compiler: gcc
