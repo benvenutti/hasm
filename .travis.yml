@@ -24,7 +24,7 @@ matrix:
           packages:
             - cmake
             - cmake-data
-      env: COMPILER=clang
+      env: COMPILER=clang++
 
 before_install:
   - sudo apt-get update -qq
