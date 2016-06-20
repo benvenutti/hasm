@@ -20,13 +20,13 @@ matrix:
             - g++-5
             - cmake
             - cmake-data
-          coverity_scan:
-            project:
-              name: "benvenutti/hasmTest"
-              description: "Build submitted via Travis CI"
-            build_command_prepend: "export CC=gcc-${GCC_VERSION} CXX=g++-${GCC_VERSION} && cd build && cmake -DWITH_TESTS=ON -DWITH_BENCHMARKS=ON -DWITH_UPNP=ON"
-            build_command: "make -j2"
-            branch_pattern: coverity_scan
+        coverity_scan:
+          project:
+            name: "benvenutti/hasmTest"
+            description: "Build submitted via Travis CI"
+          build_command_prepend: "export CC=gcc-${GCC_VERSION} CXX=g++-${GCC_VERSION} && cd build && cmake -DWITH_TESTS=ON -DWITH_BENCHMARKS=ON -DWITH_UPNP=ON"
+          build_command: "make -j2"
+          branch_pattern: coverity_scan
       env: COMPILER=g++-5
     - compiler: clang
       addons:
