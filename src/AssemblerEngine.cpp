@@ -84,8 +84,8 @@ int AssemblerEngine::run(int argc, char** argv) {
 
 void AssemblerEngine::printUsageMessage() const {
   std::cerr << "usage: " << "hasm" << " [-vs] file.asm" << std::endl;
-  std::cerr << "       -v verbose" << std::endl;
-  std::cerr << "       -s export symbol table" << std::endl;
+  std::cerr << "  -v verbose" << std::endl;
+  std::cerr << "  -s export symbol table" << std::endl;
 }
 
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::string, int>& table) const {
