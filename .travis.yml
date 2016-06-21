@@ -45,6 +45,7 @@ before_install:
   - sudo apt-get update -qq
 
 script:
+  - cat /home/travis/build/benvenutti/hasmTest/buildCoverity/cov-int/build-log.txt
   - mkdir build
   - cd build
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
