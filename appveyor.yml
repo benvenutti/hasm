@@ -1,8 +1,5 @@
 version: "{build}"
 
-install:
-  - git submodule update --init cpplint
-
 configuration:
   - Debug
   - Release
