@@ -2,10 +2,6 @@
 
 using Hasm::SymbolTable;
 
-SymbolTable::SymbolTable()
-    : table() {
-}
-
 void SymbolTable::addEntry(const std::string& symbol, int address) {
   table.insert(std::pair<std::string, int>(symbol, address));
 }

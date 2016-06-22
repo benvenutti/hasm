@@ -5,9 +5,7 @@
 using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
-    : input(input),
-      command(""),
-      lineNumber(0) {
+    : input(input) {
 }
 
 const std::string& Parser::getCommand() const {

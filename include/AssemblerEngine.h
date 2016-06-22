@@ -8,8 +8,6 @@
 namespace Hasm {
   class AssemblerEngine {
     public:
-      AssemblerEngine();
-
       int run(int argc, char** argv);
 
     private:

@@ -7,8 +7,6 @@
 namespace Hasm {
   class SymbolTable {
     public:
-      SymbolTable();
-
       void addEntry(const std::string& symbol, int address);
       bool contains(const std::string& symbol) const;
       int getAddress(const std::string& symbol) const;

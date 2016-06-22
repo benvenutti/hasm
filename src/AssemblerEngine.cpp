@@ -11,9 +11,6 @@ using Hasm::Assembler;
 using Hasm::AssemblerEngine;
 using Hasm::FileHandler;
 
-AssemblerEngine::AssemblerEngine() {
-}
-
 int AssemblerEngine::run(int argc, char** argv) {
   if (argc == 1) {
     printUsageMessage();
