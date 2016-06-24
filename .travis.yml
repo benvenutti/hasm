@@ -11,20 +11,14 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-5
-            - gcc-5
-            #- cmake
-            #- cmake-data
       env:
         - COMPILER=g++-5
-#    - compiler: clang
-#      addons:
-#        apt:
-#         sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - cmake
-#            - cmake-data
-#      env: COMPILER=clang++
+    - compiler: clang
+      addons:
+        apt:
+         sources:
+            - ubuntu-toolchain-r-test
+      env: COMPILER=clang++
 
 before_install:
   - sudo apt-get update -qq
@@ -35,7 +29,6 @@ script:
   - cd build
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
   - make
-  - cmake --version
 
 notifications:
   email: false
