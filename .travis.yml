@@ -9,21 +9,18 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-#            - george-edison55-trusty-backports
           packages:
             - g++-5
             - gcc-5
-            - cmake
-            - cmake-data
+            #- cmake
+            #- cmake-data
       env:
-        - CXX_COMPILER=g++-5
-        - C_COMPILER=gcc-5
+        - COMPILER=g++-5
 #    - compiler: clang
 #      addons:
 #        apt:
 #         sources:
 #            - ubuntu-toolchain-r-test
-#            - george-edison55-precise-backports
 #          packages:
 #            - cmake
 #            - cmake-data
@@ -36,8 +33,9 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$CXX_COMPILER -DCMAKE_C_COMPILER=$C_COMPILER ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
   - make
+  - cmake --version
 
 notifications:
   email: false
