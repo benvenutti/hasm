@@ -3,24 +3,42 @@
 #include "Assembler.h"
 #include "FileHandler.h"
 
+#include <boost/program_options.hpp>
+
 #include <fstream>
 #include <iomanip>
-#include <unistd.h>
 
 using Hasm::Assembler;
 using Hasm::AssemblerEngine;
 using Hasm::FileHandler;
 
 int AssemblerEngine::run(int argc, char** argv) {
-  if (argc == 1) {
-    printUsageMessage();
+  bool isVerbose;
+  bool exportSymbolTable;
 
-    return EXIT_FAILURE;
-  }
+  namespace po = boost::program_options;
 
-  bool isVerbose, exportSymbolTable;
+  po::options_description desc("usage");
+  desc.add_options()
+      (
+          "verbose,v",
+          po::value<bool>(&isVerbose)->default_value(false),
+          "verbose mode"
+      )
+      (
+          "symbol-table,s",
+          po::value<bool>(&exportSymbolTable)->implicit_value(false),
+          "export symbol table"
+      );
 
-  if (!getCmdFlags(argc, argv, isVerbose, exportSymbolTable)) {
+  po::variables_map vm;
+  po::store(po::command_line_parser(argc, argv).options(desc).run(), vm);
+  po::notify(vm);
+
+  if (vm.count("help")) {
+    std::cout << "Usage: options_description [options]\n";
+    std::cout << desc;
+
     return EXIT_FAILURE;
   }
 
@@ -79,44 +97,11 @@ int AssemblerEngine::run(int argc, char** argv) {
   return EXIT_SUCCESS;
 }
 
-void AssemblerEngine::printUsageMessage() const {
-  std::cerr << "usage: " << "hasm" << " [-vs] file.asm" << std::endl;
-  std::cerr << "  -v verbose" << std::endl;
-  std::cerr << "  -s export symbol table" << std::endl;
-}
-
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::string, int>& table) const {
   for (auto it = table.cbegin(); it != table.cend(); ++it) {
     out << "0x" << std::setfill('0') << std::setw(4) << std::setbase(16)
         << it->second << " " << it->first << std::endl;
   }
-}
-
-bool AssemblerEngine::getCmdFlags(
-    int argc,
-    char** argv,
-    bool& isVerbose,
-    bool& exportSymbolTable
-) const {
-  isVerbose = false;
-  exportSymbolTable = false;
-
-  char c;
-
-  while ((c = getopt(argc, argv, "vs")) != -1) {
-    switch (c) {
-      case 'v':
-        isVerbose = true;
-        break;
-      case 's':
-        exportSymbolTable = true;
-        break;
-      case '?':
-        return false;
-    }
-  }
-
-  return true;
 }
 
 bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
