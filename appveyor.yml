@@ -12,7 +12,7 @@ configuration:
 before_build:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DBoost_USE_STATIC_LIBS="ON" ..
 
 build_script:
   - cmake --build .
