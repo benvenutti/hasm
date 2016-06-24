@@ -9,6 +9,9 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(dialect "")
 endif()
 
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings} ${dialect}")
 
 set(SOURCE_FILES
@@ -23,3 +26,8 @@ set(SOURCE_FILES
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
 add_executable(hasm ${SOURCE_FILES})
+
+target_link_libraries(hasm
+        ${Boost_FILESYSTEM_LIBRARY}
+        ${Boost_SYSTEM_LIBRARY}
+        )

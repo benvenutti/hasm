@@ -1,6 +1,6 @@
 #include "FileHandler.h"
 
-#include <sys/stat.h>
+#include <boost/filesystem.hpp>
 
 using Hasm::FileHandler;
 
@@ -20,12 +20,11 @@ std::string FileHandler::changeExtension(const std::string& fileName, const std:
 }
 
 bool FileHandler::hasExtension(const std::string& fileName, const std::string& extension) {
-  return fileName.rfind(extension) != std::string::npos ? true : false;
+  return fileName.rfind(extension) != std::string::npos;
 }
 
 bool FileHandler::isFile(const std::string& fileName) {
-  struct stat buffer;
-  stat(fileName.c_str(), &buffer);
+  boost::filesystem::path path(fileName);
 
-  return S_ISREG(buffer.st_mode);
+  return boost::filesystem::is_regular_file(path);
 }
