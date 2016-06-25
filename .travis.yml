@@ -1,22 +1,25 @@
-sudo: required
-dist: trusty
 language: cpp
 
 matrix:
   include:
-    - compiler: gcc
+    - os: linux
+      sudo: required
+      dist: trusty
+      compiler: gcc
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
             - g++-5
-      env:
-        - COMPILER=g++-5
-    - compiler: clang
+      env: COMPILER=g++-5
+    - os: linux
+      sudo: required
+      dist: trusty
+      compiler: clang
       addons:
         apt:
-         sources:
+          sources:
             - ubuntu-toolchain-r-test
       env: COMPILER=clang++
 
