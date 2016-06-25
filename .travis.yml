@@ -33,15 +33,15 @@ matrix:
       compiler: clang
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update && brew install cmake; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ] && [ "$CC" = "gcc" ]; then export CC=gcc-4.8; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" -a "$CC" == "gcc" ]; then export CC=gcc-4.8; export CXX=g++-4.8; fi
 
 script:
   - mkdir build
   - cd build
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake ..; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
   - make
 
 notifications:
