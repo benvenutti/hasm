@@ -1,6 +1,7 @@
 #include "Assembler.h"
 
 #include "Coder.h"
+#include "Hasm.h"
 
 #include <bitset>
 #include <iomanip>
