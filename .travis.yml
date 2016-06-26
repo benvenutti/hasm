@@ -19,14 +19,14 @@ matrix:
           packages:
             - g++-4.8
             - gcc-4.8
-          coverity_scan:
-            project:
-              name: "benvenutti/hasmTest"
-              description: "Build submitted via Travis CI"
-            notification_email: diogo.a.benvenutti@gmail.com
-            build_command_prepend: "export CC=gcc-4.8 CXX=g++-4.8 && mkdir build_coverity && cd build_coverity && cmake .."
-            build_command: "make -j2"
-            branch_pattern: coverity_scan
+        coverity_scan:
+          project:
+            name: "benvenutti/hasmTest"
+            description: "Build submitted via Travis CI"
+          notification_email: diogo.a.benvenutti@gmail.com
+          build_command_prepend: "export CC=gcc-4.8 CXX=g++-4.8 && mkdir build_coverity && cd build_coverity && cmake .."
+          build_command: "make -j2"
+          branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
 
     - os: linux
