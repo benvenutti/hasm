@@ -61,7 +61,6 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
 
 script:
-  - cat /home/travis/build/benvenutti/hasmTest/buildCoverity/cov-int/scm_log.txt
   - mkdir build
   - cd build
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
