@@ -25,11 +25,11 @@ matrix:
       env: COMPILER=clang++
 
     - os: osx
-      osx_image: xcode8
+      #osx_image: xcode8
       compiler: gcc
 
     - os: osx
-      osx_image: xcode8
+      #osx_image: xcode8
       compiler: clang
 
 before_install:
