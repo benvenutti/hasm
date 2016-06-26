@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 project(hasm)
 
+message(STATUS "# current CMAKE_CXX_COMPILER_ID: " ${CMAKE_CXX_COMPILER_ID})
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"
         OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
     set(warnings "-Wall -Wextra -std=c++11")
