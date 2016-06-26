@@ -30,8 +30,8 @@ namespace Hasm {
       bool isLCommand() const;
 
       std::istream& input;
-      std::string command;
-      int lineNumber;
+      std::string command = "";
+      int lineNumber = 0;
   };
 }
 

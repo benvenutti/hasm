@@ -27,7 +27,7 @@ namespace Hasm {
       std::ostream& out;
       Parser parser;
       SymbolTable symbolTable;
-      int RAMaddress;
+      int RAMaddress = Hasm::INIT_RAM_ADDRESS;
       std::map<std::string, int> predefinedSymbols;
   };
 }

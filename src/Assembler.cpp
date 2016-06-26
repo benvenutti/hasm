@@ -1,6 +1,7 @@
 #include "Assembler.h"
 
 #include "Coder.h"
+#include "Hasm.h"
 
 #include <bitset>
 #include <iomanip>
@@ -9,10 +10,7 @@ using Hasm::Assembler;
 
 Assembler::Assembler(std::istream& in, std::ostream& out)
     : out(out),
-      parser(in),
-      symbolTable(),
-      RAMaddress(Hasm::INIT_RAM_ADDRESS),
-      predefinedSymbols() {
+      parser(in) {
   mapPredefinedSymbols();
 }
 
