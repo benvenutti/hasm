@@ -25,8 +25,8 @@ matrix:
             name: "benvenutti/hasmTest"
             description: "Build submitted via Travis CI"
           notification_email: diogo.a.benvenutti@gmail.com
-          build_command_prepend: "echo 11; sudo apt-get update -qq; sudo apt-get install -y libboost-all-dev; export CC=gcc-4.8 CXX=g++-4.8; mkdir build_coverity; cd build_coverity; cmake .."
-          build_command: "echo 33; && make -j 4"
+          build_command_prepend: "echo 111; sudo apt-get update -qq; sudo apt-get install -y libboost-all-dev; export CC=gcc-4.8 CXX=g++-4.8; mkdir build_coverity; cd build_coverity; echo 222; cmake .."
+          build_command: "echo 333; make -j 4"
           branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
 
