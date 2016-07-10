@@ -4,7 +4,7 @@ project(hasm)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(warnings "/W4 /WX")
     set(dialect "")
-else
+else ()
     set(warnings "-Wall -Wextra -std=c++11")
     set(dialect "-std=c++11")
 endif ()
