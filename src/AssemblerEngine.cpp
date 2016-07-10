@@ -12,7 +12,7 @@ using Hasm::Assembler;
 using Hasm::AssemblerEngine;
 using Hasm::FileHandler;
 
-int AssemblerEngine::run(int argc, char** argv) {
+bool AssemblerEngine::run(int argc, char** argv) const {
   bool isVerbose;
   bool exportSymbolTable;
 
@@ -39,13 +39,13 @@ int AssemblerEngine::run(int argc, char** argv) {
     std::cout << "Usage: options_description [options]\n";
     std::cout << desc;
 
-    return EXIT_FAILURE;
+    return false;
   }
 
   std::string inputName(argv[argc - 1]);
 
   if (!isAsmFile(inputName)) {
-    return EXIT_FAILURE;
+    return false;
   }
 
   std::ifstream inputFile(inputName);
@@ -53,7 +53,7 @@ int AssemblerEngine::run(int argc, char** argv) {
   if (!inputFile.good()) {
     std::cerr << "error: unable to open input stream" << std::endl;
 
-    return EXIT_FAILURE;
+    return false;
   }
 
   std::string outputName = FileHandler::changeExtension(inputName, ".hack");
@@ -62,7 +62,7 @@ int AssemblerEngine::run(int argc, char** argv) {
   if (!outputFile.good()) {
     std::cerr << "error: unable to open " << outputName << std::endl;
 
-    return EXIT_FAILURE;
+    return false;
   }
 
   Assembler hasm(inputFile, outputFile);
@@ -75,7 +75,7 @@ int AssemblerEngine::run(int argc, char** argv) {
     if (!symbolsOut.good()) {
       std::cerr << "error: unable to open output stream" << std::endl;
 
-      return EXIT_FAILURE;
+      return false;
     }
 
     outputSymbolTable(symbolsOut, hasm.symbols());
@@ -94,7 +94,7 @@ int AssemblerEngine::run(int argc, char** argv) {
     outputFile.close();
   }
 
-  return EXIT_SUCCESS;
+  return true;
 }
 
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::string, int>& table) const {
