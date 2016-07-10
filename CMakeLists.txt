@@ -1,23 +1,20 @@
 cmake_minimum_required(VERSION 2.8)
 project(hasm)
 
-message(STATUS "# current CMAKE_CXX_COMPILER_ID: " ${CMAKE_CXX_COMPILER_ID})
-
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"
-        OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
-    set(warnings "-Wall -Wextra -std=c++11")
-    set(dialect "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(warnings "/W4 /WX")
     set(dialect "")
+else
+    set(warnings "-Wall -Wextra -std=c++11")
+    set(dialect "-std=c++11")
 endif ()
 
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ${warnings}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${dialect} ${warnings}")
 
-set(SOURCE_FILES
+set(sourcefiles
         src/Assembler.cpp
         src/AssemblerEngine.cpp
         src/Coder.cpp
@@ -28,7 +25,7 @@ set(SOURCE_FILES
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
-add_executable(hasm ${SOURCE_FILES})
+add_executable(hasm ${sourcefiles})
 
 target_link_libraries(hasm
         ${Boost_FILESYSTEM_LIBRARY}
