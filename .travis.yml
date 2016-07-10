@@ -25,8 +25,8 @@ matrix:
             name: "benvenutti/hasmTest"
             description: "Build submitted via Travis CI"
           notification_email: diogo.a.benvenutti@gmail.com
-          build_command_prepend: "echo 111; sudo apt-get update -qq; sudo apt-get install -y libboost-all-dev; export CC=gcc-4.8 CXX=g++-4.8; mkdir build_coverity; cd build_coverity; echo 222; cmake .."
-          build_command: "make -j2"
+          build_command_prepend: "echo 111; sudo apt-get update -qq; sudo apt-get install -y libboost-all-dev; export CC=gcc-4.8 CXX=g++-4.8; mkdir build_coverity_dir; cd build_coverity_dir; echo 222; cmake ..; echo 333"
+          build_command: "make"
           branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
 
@@ -56,16 +56,16 @@ matrix:
       osx_image: xcode8
       compiler: clang
 
-before_install:
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
+#before_install:
+ # - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
+ # - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
 
-script:
-  - mkdir build
-  - cd build
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
-  - make
+#script:
+ # - mkdir build
+ # - cd build
+ # - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
+ # - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
+ # - make
 
 notifications:
   email: false
