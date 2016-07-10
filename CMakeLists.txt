@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 2.8)
 project(hasm)
 
 message(STATUS "# current CMAKE_CXX_COMPILER_ID: " ${CMAKE_CXX_COMPILER_ID})
