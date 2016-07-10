@@ -30,42 +30,48 @@ matrix:
           branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
 
-    - os: linux
-      sudo: required
-      dist: trusty
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env: COMPILER=g++-5
+#    - os: linux
+#      sudo: required
+#      dist: trusty
+#      compiler: gcc
+#      addons:
+#        apt:
+#          sources:
+#            - ubuntu-toolchain-r-test
+#          packages:
+#            - g++-5
+#      env: COMPILER=g++-5
 
-    - os: linux
-      sudo: required
-      dist: trusty
-      compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-      env: COMPILER=clang++
+#   - os: linux
+#     sudo: required
+#     dist: trusty
+#      compiler: clang
+#      addons:
+#        apt:
+#          sources:
+#            - ubuntu-toolchain-r-test
+#      env: COMPILER=clang++
 
-    - os: osx
-      osx_image: xcode8
-      compiler: clang
+#    - os: osx
+#      osx_image: xcode8
+#      compiler: clang
 
-#before_install:
- # - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
- # - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
+before_install:
+  - date -u
+  - uname -a
+#  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
+#  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
 
-#script:
- # - mkdir build
- # - cd build
- # - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
- # - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
- # - make
+script:
+#  - mkdir build
+#  - cd build
+#  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
+# - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
+#  - make
+  - echo 666
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
 
 notifications:
   email: false
