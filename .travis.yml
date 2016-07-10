@@ -1,4 +1,3 @@
-sudo: required
 language: cpp
 
 env:
@@ -9,7 +8,8 @@ env:
 
 matrix:
   include:
-    - compiler: gcc
+    - os: linux
+      compiler: gcc
       addons:
         apt:
           sources:
@@ -22,32 +22,47 @@ matrix:
             name: "benvenutti/hasmTest"
             description: "Build submitted via Travis CI"
           notification_email: diogo.a.benvenutti@gmail.com
-          build_command_prepend: "export CC=gcc-4.8 CXX=g++-4.8 && mkdir build_coverity && cd build_coverity && cmake .."
+          build_command_prepend: "export CC=gcc-4.8 CXX=g++-4.8 && mkdir build && cd build && cmake .."
           build_command: "make -j2"
           branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
 
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env: COMPILER=g++-5
+
+    - os: linux
+      compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+      env: COMPILER=clang++
+
+    - os: osx
+      osx_image: xcode8
+      compiler: clang
+
+sudo: required
 dist: trusty
 
 before_install:
-  - date -u
-  - uname -a
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libboost-all-dev
-#  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
-#  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
 
 script:
-#  - mkdir build
-#  - cd build
-#  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
-# - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
-#  - make
-  - echo 666
-#  - cat /home/travis/build/benvenutti/hasmTest/buildCoverity/cov-int/scm_log.txt
+  - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then exit 0; fi # skip build on coverity scan branch 
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
+  - make
 
 notifications:
   email: false
