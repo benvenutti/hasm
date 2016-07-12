@@ -13,36 +13,50 @@ using Hasm::AssemblerEngine;
 using Hasm::FileHandler;
 
 bool AssemblerEngine::run(int argc, char** argv) const {
-  bool isVerbose;
-  bool exportSymbolTable;
-
   namespace po = boost::program_options;
 
-  po::options_description desc("usage");
-  desc.add_options()
-      (
-          "verbose,v",
-          po::value<bool>(&isVerbose)->default_value(false),
-          "verbose mode"
-      )
-      (
-          "symbol-table,s",
-          po::value<bool>(&exportSymbolTable)->implicit_value(false),
-          "export symbol table"
-      );
+  bool isVerbose{false};
+  bool exportSymbolTable{false};
+  std::string inputName{""};
 
-  po::variables_map vm;
-  po::store(po::command_line_parser(argc, argv).options(desc).run(), vm);
-  po::notify(vm);
+  try {
+    po::options_description desc("Allowed options");
+    desc.add_options()
+        ("verbose,v", "verbose mode")
+        ("symbol-table,s", "export symbol table (to <input file>.sym)")
+        ("input-file,i", po::value<std::string>(&inputName), "input .asm file")
+        ("help,h", "print this help message");
 
-  if (vm.count("help")) {
-    std::cout << "Usage: options_description [options]\n";
-    std::cout << desc;
+    po::positional_options_description positionalDescription;
+    const int maxNumberOfInputFiles{1};
+    positionalDescription.add("input-file", maxNumberOfInputFiles);
+
+    po::variables_map vm;
+    po::command_line_parser cmdParser(argc, argv);
+    po::store(cmdParser.options(desc).positional(positionalDescription).run(), vm);
+    po::notify(vm);
+
+    if (vm.count("help")) {
+      std::cout << "Usage: hasm [options] <input file>.asm" << std::endl;
+      std::cout << desc;
+
+      return false;
+    }
+
+    if (vm.count("input-file") == 0) {
+      std::cerr << "hasm: no input file" << std::endl;
+
+      return false;
+    }
+
+    isVerbose = vm.count("verbose") ? true : false;
+    exportSymbolTable = vm.count("symbol-table") ? true : false;
+
+  } catch (std::exception& e) {
+    std::cerr << e.what() << std::endl;
 
     return false;
   }
-
-  std::string inputName(argv[argc - 1]);
 
   if (!isAsmFile(inputName)) {
     return false;
@@ -105,17 +119,16 @@ void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::s
 }
 
 bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
+  bool isAsmFile = true;
   if (!FileHandler::isFile(fileName)) {
     std::cerr << "error: input \"" << fileName << "\"is not a file" << std::endl;
-
-    return false;
+    isAsmFile = false;
   }
 
-  if (!FileHandler::hasExtension(fileName, ".asm")) {
+  if (isAsmFile && !FileHandler::hasExtension(fileName, ".asm")) {
     std::cerr << "error: input file must have .asm extension" << std::endl;
-
-    return false;
+    isAsmFile = false;
   }
 
-  return true;
+  return isAsmFile;
 }
