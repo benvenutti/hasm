@@ -50,5 +50,5 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char** argv) {
     isValid = false;
   }
 
-  return AssemblerEngineConfig{isVerbose, exportSymbolTable, isValid, inputName};
+  return AssemblerEngineConfig{isValid, isVerbose, exportSymbolTable, inputName};
 }
