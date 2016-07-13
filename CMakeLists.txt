@@ -14,7 +14,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${dialect} ${warnings}")
 
-set(sourcefiles
+set(SOURCE_FILES
         src/Assembler.cpp
         src/AssemblerEngine.cpp
         src/Coder.cpp
@@ -26,7 +26,7 @@ set(sourcefiles
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
-add_executable(hasm ${sourcefiles})
+add_executable(hasm ${SOURCE_FILES})
 
 target_link_libraries(hasm
         ${Boost_FILESYSTEM_LIBRARY}
