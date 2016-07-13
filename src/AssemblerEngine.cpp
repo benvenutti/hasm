@@ -5,7 +5,6 @@
 #include "CommandLineParser.h"
 #include "FileHandler.h"
 
-#include <boost/io/ios_state.hpp>
 #include <boost/program_options.hpp>
 
 #include <fstream>
@@ -76,14 +75,10 @@ bool AssemblerEngine::run(int argc, char** argv) const {
 }
 
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::string, int>& table) const {
-  boost::io::ios_flags_saver ifs(out);
-
   for (auto it = table.cbegin(); it != table.cend(); ++it) {
     out << "0x" << std::setfill('0') << std::setw(4) << std::setbase(16)
         << it->second << " " << it->first << std::endl;
   }
-
-  ifs.restore();
 }
 
 bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
