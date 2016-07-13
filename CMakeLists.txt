@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(hasm)
 
+message(STATUS "# current CMAKE_CXX_COMPILER_ID: " ${CMAKE_CXX_COMPILER_ID})
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"
         OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
     set(warnings "-Wall -Wextra -std=c++11")
@@ -22,8 +24,7 @@ set(SOURCE_FILES
         src/FileHandler.cpp
         src/Parser.cpp
         src/SymbolTable.cpp
-        src/main.cpp
-        src/CommandLineParser.cpp)
+        src/main.cpp)
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
 

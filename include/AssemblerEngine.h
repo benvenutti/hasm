@@ -8,7 +8,7 @@
 namespace Hasm {
   class AssemblerEngine {
     public:
-      bool run(int argc, char** argv) const;
+      int run(int argc, char** argv);
 
     private:
       bool isAsmFile(const std::string& fileName) const;
