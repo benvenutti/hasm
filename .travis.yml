@@ -22,7 +22,7 @@ matrix:
             name: "benvenutti/hasmTest"
             description: "Build submitted via Travis CI"
           notification_email: diogo.a.benvenutti@gmail.com
-          build_command_prepend: "mkdir build && cd build && cmake .."
+          build_command_prepend: "export CC=gcc-4.8 CXX=g++-4.8 && mkdir build && cd build && cmake .."
           build_command: "make -j2"
           branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
@@ -47,6 +47,10 @@ matrix:
 
     - os: osx
       osx_image: xcode8
+      compiler: gcc
+
+    - os: osx
+      osx_image: xcode8
       compiler: clang
 
 sudo: required
@@ -57,7 +61,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then exit 0; fi # skip build on coverity scan branch 
+  - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat /home/travis/build/benvenutti/hasmTest/build/cov-int/scm_log.txt && exit 0; fi
   - mkdir build
   - cd build
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
