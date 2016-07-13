@@ -47,10 +47,6 @@ matrix:
 
     - os: osx
       osx_image: xcode8
-      compiler: gcc
-
-    - os: osx
-      osx_image: xcode8
       compiler: clang
 
 sudo: required
@@ -61,7 +57,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat /home/travis/build/benvenutti/hasmTest/build/cov-int/scm_log.txt && exit 0; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then exit 0; fi # skip build on coverity scan branch 
   - mkdir build
   - cd build
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
