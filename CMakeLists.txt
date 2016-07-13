@@ -21,7 +21,8 @@ set(sourcefiles
         src/FileHandler.cpp
         src/Parser.cpp
         src/SymbolTable.cpp
-        src/main.cpp)
+        src/main.cpp
+        src/CommandLineParser.cpp)
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
 

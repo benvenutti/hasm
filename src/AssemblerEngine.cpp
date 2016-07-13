@@ -1,6 +1,8 @@
 #include "AssemblerEngine.h"
 
 #include "Assembler.h"
+#include "AssemblerEngineConfig.h"
+#include "CommandLineParser.h"
 #include "FileHandler.h"
 
 #include <boost/program_options.hpp>
@@ -13,56 +15,17 @@ using Hasm::AssemblerEngine;
 using Hasm::FileHandler;
 
 bool AssemblerEngine::run(int argc, char** argv) const {
-  namespace po = boost::program_options;
+  const AssemblerEngineConfig cfg = CommandLineParser::parse(argc, argv);
 
-  bool isVerbose{false};
-  bool exportSymbolTable{false};
-  std::string inputName{""};
-
-  try {
-    po::options_description desc("Allowed options");
-    desc.add_options()
-        ("verbose,v", "verbose mode")
-        ("symbol-table,s", "export symbol table (to <input file>.sym)")
-        ("input-file,i", po::value<std::string>(&inputName), "input .asm file")
-        ("help,h", "print this help message");
-
-    po::positional_options_description positionalDescription;
-    const int maxNumberOfInputFiles{1};
-    positionalDescription.add("input-file", maxNumberOfInputFiles);
-
-    po::variables_map vm;
-    po::command_line_parser cmdParser(argc, argv);
-    po::store(cmdParser.options(desc).positional(positionalDescription).run(), vm);
-    po::notify(vm);
-
-    if (vm.count("help")) {
-      std::cout << "Usage: hasm [options] <input file>.asm" << std::endl;
-      std::cout << desc;
-
-      return false;
-    }
-
-    if (vm.count("input-file") == 0) {
-      std::cerr << "hasm: no input file" << std::endl;
-
-      return false;
-    }
-
-    isVerbose = vm.count("verbose") ? true : false;
-    exportSymbolTable = vm.count("symbol-table") ? true : false;
-
-  } catch (std::exception& e) {
-    std::cerr << e.what() << std::endl;
-
+  if (!cfg.isValid) {
     return false;
   }
 
-  if (!isAsmFile(inputName)) {
+  if (!isAsmFile(cfg.inputName)) {
     return false;
   }
 
-  std::ifstream inputFile(inputName);
+  std::ifstream inputFile(cfg.inputName);
 
   if (!inputFile.good()) {
     std::cerr << "error: unable to open input stream" << std::endl;
@@ -70,7 +33,7 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     return false;
   }
 
-  std::string outputName = FileHandler::changeExtension(inputName, ".hack");
+  std::string outputName = FileHandler::changeExtension(cfg.inputName, ".hack");
   std::ofstream outputFile(outputName);
 
   if (!outputFile.good()) {
@@ -82,8 +45,8 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   Assembler hasm(inputFile, outputFile);
   hasm.assemble();
 
-  if (exportSymbolTable) {
-    std::string symbolsOutName = FileHandler::changeExtension(inputName, "-symbols");
+  if (cfg.exportSymbols) {
+    std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
     std::ofstream symbolsOut(symbolsOutName);
 
     if (!symbolsOut.good()) {
@@ -95,7 +58,7 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     outputSymbolTable(symbolsOut, hasm.symbols());
     symbolsOut.close();
 
-    if (isVerbose) {
+    if (cfg.isVerbose) {
       std::cout << "symbol table output: " << symbolsOutName << std::endl;
     }
   }
