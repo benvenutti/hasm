@@ -42,8 +42,8 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char** argv) {
       isValid = false;
     }
 
-    isVerbose = vm.count("verbose");
-    exportSymbolTable = vm.count("symbol-table");
+    isVerbose = vm.count("verbose") > 0;
+    exportSymbolTable = vm.count("symbol-table") > 0;
 
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
