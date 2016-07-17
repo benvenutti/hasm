@@ -11,7 +11,13 @@ endif ()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${dialect} ${warnings}")
 
-find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
+find_package(Boost COMPONENTS
+        system
+        filesystem
+        program_options
+        unit_test_framework
+        REQUIRED)
+
 include_directories(${Boost_INCLUDE_DIRS})
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
