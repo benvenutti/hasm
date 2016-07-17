@@ -24,8 +24,7 @@ BOOST_AUTO_TEST_SUITE(destination)
     BOOST_CHECK_EQUAL(Hasm::Coder::dest("DAM"), 0b111000u);
     BOOST_CHECK_EQUAL(Hasm::Coder::dest("DMA"), 0b111000u);
     BOOST_CHECK_EQUAL(Hasm::Coder::dest("MAD"), 0b111000u);
-    //BOOST_CHECK_EQUAL(Hasm::Coder::dest("MDA"), 0b111000u);
-    BOOST_CHECK_EQUAL(Hasm::Coder::dest("MDA"), 0b000u); // force fail
+    BOOST_CHECK_EQUAL(Hasm::Coder::dest("MDA"), 0b111000u);
   }
 
 BOOST_AUTO_TEST_SUITE_END()
