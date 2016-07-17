@@ -15,5 +15,5 @@ init:
 build_script:
   - cmd: md build
   - cmd: cd build
-  - cmd: cmake -G "Visual Studio 14 2015 Win64" ..
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DBoost_USE_STATIC_LIBS="ON" ..
   - cmd: cmake --build . --config Release
