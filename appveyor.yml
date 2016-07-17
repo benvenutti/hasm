@@ -1,7 +1,6 @@
 version: "{build}"
 
 environment:
-  MSVC_DEFAULT_OPTIONS: ON
   BOOST_ROOT: C:\Libraries\boost
   BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost\lib32-msvc-12.0
   BOOST_LIBRARYDIR_WIN64: C:\Libraries\boost\lib64-msvc-12.0
