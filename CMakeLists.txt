@@ -35,5 +35,4 @@ target_link_libraries(hasm
         ${Boost_SYSTEM_LIBRARY}
         ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
-enable_testing()
 add_subdirectory(test)
