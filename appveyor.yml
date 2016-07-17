@@ -1,10 +1,10 @@
 version: "{build}"
 
 environment:
-#  BOOST_ROOT: C:\Libraries\boost_1_59_0
-#  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost_1_59_0\lib32-msvc-14.0
-  BOOST_ROOT: C:\Libraries\boost
-  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost\lib32-msvc-12.0
+  BOOST_ROOT: C:\Libraries\boost_1_59_0
+  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost_1_59_0\lib32-msvc-12.0
+#  BOOST_ROOT: C:\Libraries\boost
+#  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost\lib32-msvc-12.0
 #  BOOST_ROOT: C:\Libraries\boost
 #  BOOST_LIBRARYDIR: C:\Libraries\boost\lib64-msvc-12.0
 #  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost\lib32-msvc-12.0
