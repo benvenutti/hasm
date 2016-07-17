@@ -2,9 +2,9 @@ language: cpp
 
 env:
   global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "Tn8DySUx8t4BNnxe8r+PxamjvA0L4WnCAuoxpXWAPrDut+fKVZ7Mzwl45yXMMFFlf8OKegIBBUk/UVW3AJigZ/Jlqs41lTpxuxjwP9jXICxiovw+0NI548wdsciHHEwj5hPtNrjgrdsqhVxNFID+1TUjZSwNx93ch4ArEExY+rok3ESZJYHxk74HGZ2o8W4exSYi1Sro2Ofvkr+G7aMC46O4D6nPYX8Jbd6nSJ5NT8LXJMdUPsHVj1N5ZLhoxcuk4/neI2zAOsYqdVMwKjwzNx/SAioTNNNu3O0z5b6b6tMJq5g7ptBdtFhAixvJ5Iyqf3W9PExueFPa0taROeQAJssY+sQg05+W7AYxTtbe9oOfgpNR+X7IzTQEaNCk9MaeNMySGpr4DOivj6hBfvkUeCXZXbTFyHk6Wj9zhxDlCyF+/b1prj8FbtQOlVguZ4ACtatjOCRbfMpG0X7xNW5wHi3nIiC0pXb7/yqBoP6qOXXGXrVNfWwf3arL1zVlqEBLkLfV6AkX1hxme8eUbiZ8/R4OQNEAUsZbOdn52VGBB7xeZZWdzL+eOz+hUpDyqH8lEmzUakQd0M8TphmvJqmhZeTMgSwJDP9Tq+tjYDBme6XieLzCEYSEVjhVmxwhKAzNI8S9uSzf0XZRax3bxqlNZq3lXnyYh1yWR20kv4aNdjY="
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    # via the "travis encrypt" command using the project repo's public key
+    - secure: "Tn8DySUx8t4BNnxe8r+PxamjvA0L4WnCAuoxpXWAPrDut+fKVZ7Mzwl45yXMMFFlf8OKegIBBUk/UVW3AJigZ/Jlqs41lTpxuxjwP9jXICxiovw+0NI548wdsciHHEwj5hPtNrjgrdsqhVxNFID+1TUjZSwNx93ch4ArEExY+rok3ESZJYHxk74HGZ2o8W4exSYi1Sro2Ofvkr+G7aMC46O4D6nPYX8Jbd6nSJ5NT8LXJMdUPsHVj1N5ZLhoxcuk4/neI2zAOsYqdVMwKjwzNx/SAioTNNNu3O0z5b6b6tMJq5g7ptBdtFhAixvJ5Iyqf3W9PExueFPa0taROeQAJssY+sQg05+W7AYxTtbe9oOfgpNR+X7IzTQEaNCk9MaeNMySGpr4DOivj6hBfvkUeCXZXbTFyHk6Wj9zhxDlCyF+/b1prj8FbtQOlVguZ4ACtatjOCRbfMpG0X7xNW5wHi3nIiC0pXb7/yqBoP6qOXXGXrVNfWwf3arL1zVlqEBLkLfV6AkX1hxme8eUbiZ8/R4OQNEAUsZbOdn52VGBB7xeZZWdzL+eOz+hUpDyqH8lEmzUakQd0M8TphmvJqmhZeTMgSwJDP9Tq+tjYDBme6XieLzCEYSEVjhVmxwhKAzNI8S9uSzf0XZRax3bxqlNZq3lXnyYh1yWR20kv4aNdjY="
 
 matrix:
   include:
@@ -57,6 +57,8 @@ sudo: required
 dist: trusty
 
 before_install:
+  - cmake --version
+  - uname -a
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
 
 script:
