@@ -1,10 +1,8 @@
-version: "{build}"
-
 os: Visual Studio 2015
 
 environment:
   BOOST_ROOT: C:\Libraries\boost_1_59_0
-  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost_1_59_0\lib64-msvc-14.0
+  BOOST_LIBRARYDIR: C:\Libraries\boost_1_59_0\lib64-msvc-14.0
 
 configuration:
   - Debug
@@ -14,12 +12,8 @@ init:
   - cmd: cmake --version
   - cmd: msbuild /version
 
-before_build:
+build_script:
   - cmd: md build
   - cmd: cd build
-#  - cmd: cmake -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_ROOT="%BOOST_ROOT%" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN32%" -DBoost_USE_STATIC_LIBS="ON" ..
-#  - cmd: if "%platform%"=="x64" cmake -G "Visual Studio 12 Win64" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_ROOT="%BOOST_ROOT%" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN64%" -DBoost_USE_STATIC_LIBS="ON" ..
-  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN32%" -DBoost_USE_STATIC_LIBS="ON" ..
-
-build_script:
-  - cmake --build .
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" ..
+  - cmd: cmake --build . --config Release
