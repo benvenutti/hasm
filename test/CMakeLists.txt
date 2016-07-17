@@ -1,5 +1,3 @@
-enable_testing()
-
 if (NOT Boost_USE_STATIC_LIBS)
     add_definitions(-DBOOST_TEST_DYN_LINK)
 endif ()
