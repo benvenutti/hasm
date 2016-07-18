@@ -23,6 +23,4 @@ build_script:
   - cmd: if "%platform%"=="Win32" cmake -G "Visual Studio 14 2015" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN32%" -DBoost_USE_STATIC_LIBS="ON" ..
   - cmd: if "%platform%"=="x64" cmake -G "Visual Studio 14 2015 Win64" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN64%" -DBoost_USE_STATIC_LIBS="ON" ..
   - cmd: cmake --build . --config Release
-
-test_script:
-  - cmd: ctest --output-on-failure
+  - cmd: ctest --output-on-failure -C Debug
