@@ -34,6 +34,16 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - g++-4.9
+      env: COMPILER=g++-4.9
+
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
             - g++-5
       env: COMPILER=g++-5
 
@@ -59,8 +69,9 @@ dist: trusty
 before_install:
   - cmake --version
   - uname -a
+  - lcov --version
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-5" ]; then pip install --user cpp-coveralls; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-4.9" ]; then sudo apt-get install python-pip && pip install --user cpp-coveralls; fi
 
 script:
   - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat /home/travis/build/benvenutti/hasmTest/build/cov-int/scm_log.txt && exit 0; fi
@@ -68,12 +79,12 @@ script:
   - cd build
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-5" ]; then cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-g -O0 --coverage" -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-4.9" ]; then cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-g -O0 --coverage" -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
   - make
   - make test
 
 after_success:
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-5" ]; then coveralls --exclude test --gcov-options '\-lp'; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-4.9" ]; then coveralls --exclude test --exclude '\usr\*' --gcov-options '\-lp'; fi
 
 notifications:
   email: false
