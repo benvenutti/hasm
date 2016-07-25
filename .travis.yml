@@ -69,9 +69,9 @@ dist: trusty
 before_install:
   - cmake --version
   - uname -a
-  - lcov --version
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-4.9" ]; then sudo apt-get install python-pip && pip install --user cpp-coveralls; fi
+  - lcov --version
 
 script:
   - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat /home/travis/build/benvenutti/hasmTest/build/cov-int/scm_log.txt && exit 0; fi
