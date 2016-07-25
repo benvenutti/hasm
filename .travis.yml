@@ -71,7 +71,6 @@ script:
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-5" ]; then cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-g -O0 -fprofile-arcs -ftest-coverage" -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
   - make
   - make test
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-5" ]; then make check; fi
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-5" ]; then coveralls --exclude test --gcov-options '\-lp' fi
