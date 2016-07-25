@@ -1,24 +1,28 @@
-version: "{build}"
+os: Visual Studio 2015
 
-environment:
-  MSVC_DEFAULT_OPTIONS: ON
-  BOOST_ROOT: C:\Libraries\boost
-  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost\lib32-msvc-12.0
-  BOOST_LIBRARYDIR_WIN64: C:\Libraries\boost\lib64-msvc-12.0
+platform:
+  - Win32
+  - x64
 
 configuration:
   - Debug
   - Release
 
+environment:
+  BOOST_ROOT: C:\Libraries\boost_1_60_0
+  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost_1_60_0\lib32-msvc-14.0
+  BOOST_LIBRARYDIR_WIN64: C:\Libraries\boost_1_60_0\lib64-msvc-14.0
+
 init:
   - cmd: cmake --version
   - cmd: msbuild /version
 
-before_build:
+build_script:
   - cmd: md build
   - cmd: cd build
-  - cmd: if "%platform%"=="Win32" cmake -G "Visual Studio 12" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_ROOT="%BOOST_ROOT%" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN32%" -DBoost_USE_STATIC_LIBS="ON" ..
-  - cmd: if "%platform%"=="x64" cmake -G "Visual Studio 12 Win64" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_ROOT="%BOOST_ROOT%" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN64%" -DBoost_USE_STATIC_LIBS="ON" ..
+  - cmd: if "%platform%"=="Win32" cmake -G "Visual Studio 14 2015" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN32%" -DBoost_USE_STATIC_LIBS="ON" ..
+  - cmd: if "%platform%"=="x64" cmake -G "Visual Studio 14 2015 Win64" -DBOOST_LIBRARYDIR="%BOOST_LIBRARYDIR_WIN64%" -DBoost_USE_STATIC_LIBS="ON" ..
+  - cmd: cmake --build . --config %configuration%
 
-build_script:
-  - cmake --build .
+test_script:
+  - cmd: ctest -C %configuration% -VV
