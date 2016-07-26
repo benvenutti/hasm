@@ -83,7 +83,7 @@ script:
   - make test
 
 after_success:
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-4.9" ]; then coveralls --exclude test --exclude '\usr\*' --gcov-options '\-lp'; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COMPILER" == "g++-4.9" ]; then coveralls --exclude CMakeFiles --gcov-options '\-lp'; fi
 
 notifications:
   email: false
