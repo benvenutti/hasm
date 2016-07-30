@@ -68,7 +68,7 @@ dist: trusty
 
 before_install:
   - source ci/travis-environment.sh
-  - sudo -E ci/travis-before-install.sh
+  - ci/travis-before-install.sh
 
 script:
   - ci/travis-script.sh
