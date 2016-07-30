@@ -2,9 +2,9 @@ language: cpp
 
 env:
   global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "Tn8DySUx8t4BNnxe8r+PxamjvA0L4WnCAuoxpXWAPrDut+fKVZ7Mzwl45yXMMFFlf8OKegIBBUk/UVW3AJigZ/Jlqs41lTpxuxjwP9jXICxiovw+0NI548wdsciHHEwj5hPtNrjgrdsqhVxNFID+1TUjZSwNx93ch4ArEExY+rok3ESZJYHxk74HGZ2o8W4exSYi1Sro2Ofvkr+G7aMC46O4D6nPYX8Jbd6nSJ5NT8LXJMdUPsHVj1N5ZLhoxcuk4/neI2zAOsYqdVMwKjwzNx/SAioTNNNu3O0z5b6b6tMJq5g7ptBdtFhAixvJ5Iyqf3W9PExueFPa0taROeQAJssY+sQg05+W7AYxTtbe9oOfgpNR+X7IzTQEaNCk9MaeNMySGpr4DOivj6hBfvkUeCXZXbTFyHk6Wj9zhxDlCyF+/b1prj8FbtQOlVguZ4ACtatjOCRbfMpG0X7xNW5wHi3nIiC0pXb7/yqBoP6qOXXGXrVNfWwf3arL1zVlqEBLkLfV6AkX1hxme8eUbiZ8/R4OQNEAUsZbOdn52VGBB7xeZZWdzL+eOz+hUpDyqH8lEmzUakQd0M8TphmvJqmhZeTMgSwJDP9Tq+tjYDBme6XieLzCEYSEVjhVmxwhKAzNI8S9uSzf0XZRax3bxqlNZq3lXnyYh1yWR20kv4aNdjY="
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    # via the "travis encrypt" command using the project repo's public key
+    - secure: "Tn8DySUx8t4BNnxe8r+PxamjvA0L4WnCAuoxpXWAPrDut+fKVZ7Mzwl45yXMMFFlf8OKegIBBUk/UVW3AJigZ/Jlqs41lTpxuxjwP9jXICxiovw+0NI548wdsciHHEwj5hPtNrjgrdsqhVxNFID+1TUjZSwNx93ch4ArEExY+rok3ESZJYHxk74HGZ2o8W4exSYi1Sro2Ofvkr+G7aMC46O4D6nPYX8Jbd6nSJ5NT8LXJMdUPsHVj1N5ZLhoxcuk4/neI2zAOsYqdVMwKjwzNx/SAioTNNNu3O0z5b6b6tMJq5g7ptBdtFhAixvJ5Iyqf3W9PExueFPa0taROeQAJssY+sQg05+W7AYxTtbe9oOfgpNR+X7IzTQEaNCk9MaeNMySGpr4DOivj6hBfvkUeCXZXbTFyHk6Wj9zhxDlCyF+/b1prj8FbtQOlVguZ4ACtatjOCRbfMpG0X7xNW5wHi3nIiC0pXb7/yqBoP6qOXXGXrVNfWwf3arL1zVlqEBLkLfV6AkX1hxme8eUbiZ8/R4OQNEAUsZbOdn52VGBB7xeZZWdzL+eOz+hUpDyqH8lEmzUakQd0M8TphmvJqmhZeTMgSwJDP9Tq+tjYDBme6XieLzCEYSEVjhVmxwhKAzNI8S9uSzf0XZRax3bxqlNZq3lXnyYh1yWR20kv4aNdjY="
 
 matrix:
   include:
@@ -26,6 +26,16 @@ matrix:
           build_command: "make -j2"
           branch_pattern: coverity_scan
       env: COMPILER=g++-4.8
+
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env: COMPILER=g++-4.9
 
     - os: linux
       compiler: gcc
@@ -57,16 +67,14 @@ sudo: required
 dist: trusty
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq && sudo apt-get install -y libboost-all-dev; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install cmake; fi
+  - source ci/travis-environment.sh
+  - ci/travis-before-install.sh
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat /home/travis/build/benvenutti/hasmTest/build/cov-int/scm_log.txt && exit 0; fi
-  - mkdir build
-  - cd build
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER ..; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake ..; fi
-  - make
+  - ci/travis-script.sh
+
+after_success:
+  - ci/travis-after-success.sh
 
 notifications:
   email: false
