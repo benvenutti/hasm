@@ -11,9 +11,7 @@
 #include <fstream>
 #include <iomanip>
 
-using Hasm::Assembler;
-using Hasm::AssemblerEngine;
-using Hasm::FileHandler;
+using namespace Hasm;
 
 bool AssemblerEngine::run(int argc, char** argv) const {
   const AssemblerEngineConfig cfg = CommandLineParser::parse(argc, argv);
@@ -46,25 +44,6 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   Assembler hasm(inputFile, outputFile);
   hasm.assemble();
 
-  /*
-  if (cfg.exportSymbols) {
-    std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
-    std::ofstream symbolsOut(symbolsOutName);
-
-    if (!symbolsOut.good()) {
-      std::cerr << "error: unable to open output stream" << std::endl;
-
-      return false;
-    }
-
-    outputSymbolTable(symbolsOut, hasm.symbols());
-    symbolsOut.close();
-
-    if (cfg.isVerbose) {
-      std::cout << "symbol table output: " << symbolsOutName << std::endl;
-    }
-  }
-   */
   if (cfg.exportSymbols) {
     bool ok = exportSymbolTable(cfg, hasm.getSymbolTable());
     if (!ok) {
