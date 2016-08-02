@@ -46,6 +46,7 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   Assembler hasm(inputFile, outputFile);
   hasm.assemble();
 
+  /*
   if (cfg.exportSymbols) {
     std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
     std::ofstream symbolsOut(symbolsOutName);
@@ -63,6 +64,13 @@ bool AssemblerEngine::run(int argc, char** argv) const {
       std::cout << "symbol table output: " << symbolsOutName << std::endl;
     }
   }
+   */
+  if (cfg.exportSymbols) {
+    bool ok = exportSymbolTable(cfg, hasm.getSymbolTable());
+    if (!ok) {
+      return false;
+    }
+  }
 
   if (inputFile.is_open()) {
     inputFile.close();
@@ -75,12 +83,33 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   return true;
 }
 
-void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::string, int>& table) const {
+bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const SymbolTable& table) const {
+  std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
+  std::ofstream symbolsOut(symbolsOutName);
+
+  if (!symbolsOut.good()) {
+    std::cerr << "error: unable to open output stream" << std::endl;
+
+    return false;
+  }
+
+  outputSymbolTable(symbolsOut, table);
+  symbolsOut.close();
+
+  if (cfg.isVerbose) {
+    std::cout << "symbol table output: " << symbolsOutName << std::endl;
+  }
+
+  return true;
+}
+
+void AssemblerEngine::outputSymbolTable(std::ostream& out, const SymbolTable& table) const {
   boost::io::ios_flags_saver ifs(out);
 
-  for (auto it = table.cbegin(); it != table.cend(); ++it) {
+  std::set<std::string> symbols = table.getSymbols();
+  for (auto s: symbols) {
     out << "0x" << std::setfill('0') << std::setw(4) << std::setbase(16)
-        << it->second << " " << it->first << std::endl;
+        << s << " " << table.getAddress(s).get() << std::endl;
   }
 
   ifs.restore();

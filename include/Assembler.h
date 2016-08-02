@@ -14,7 +14,7 @@ namespace Hasm {
       Assembler(std::istream& in, std::ostream& out);
 
       void assemble();
-      const std::map<std::string, int>& symbols() const;
+      const SymbolTable& getSymbolTable() const;
 
     private:
       void firstPass();

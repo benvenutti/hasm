@@ -7,6 +7,7 @@
 #include <iomanip>
 
 using Hasm::Assembler;
+using Hasm::SymbolTable;
 
 Assembler::Assembler(std::istream& in, std::ostream& out)
     : out(out),
@@ -20,8 +21,9 @@ void Assembler::assemble() {
   secondPass();
 }
 
-const std::map<std::string, int>& Assembler::symbols() const {
-  return symbolTable.getTable();
+const SymbolTable& Assembler::getSymbolTable() const
+{
+  return symbolTable;
 }
 
 void Assembler::firstPass() {
