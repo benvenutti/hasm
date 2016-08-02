@@ -22,3 +22,13 @@ boost::optional<int> SymbolTable::getAddress(const std::string& symbol) const {
 const std::map<std::string, int>& SymbolTable::getTable() const {
   return table;
 }
+
+std::set<std::string> SymbolTable::getSymbols() const
+{
+  std::set<std::string> symbols;
+  for (auto it: table) {
+    symbols.insert(it.first);
+  }
+
+  return symbols;
+}

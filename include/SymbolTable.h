@@ -2,6 +2,7 @@
 #define HASM_SYMBOLTABLE_H_
 
 #include <map>
+#include <set>
 #include <string>
 
 #include <boost/optional.hpp>
@@ -13,6 +14,7 @@ namespace Hasm {
       bool contains(const std::string& symbol) const;
       boost::optional<int> getAddress(const std::string& symbol) const;
       const std::map<std::string, int>& getTable() const;
+      std::set<std::string> getSymbols() const;
 
     private:
       std::map<std::string, int> table;
