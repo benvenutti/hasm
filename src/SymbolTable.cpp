@@ -19,10 +19,6 @@ boost::optional<int> SymbolTable::getAddress(const std::string& symbol) const {
   return boost::none;
 }
 
-const std::map<std::string, int>& SymbolTable::getTable() const {
-  return table;
-}
-
 std::set<std::string> SymbolTable::getSymbols() const
 {
   std::set<std::string> symbols;

@@ -13,7 +13,6 @@ namespace Hasm {
       void addEntry(const std::string& symbol, int address);
       bool contains(const std::string& symbol) const;
       boost::optional<int> getAddress(const std::string& symbol) const;
-      const std::map<std::string, int>& getTable() const;
       std::set<std::string> getSymbols() const;
 
     private:
