@@ -1,5 +1,6 @@
 #define BOOST_TEST_MODULE SymbolTable_test
 
+#include <boost/optional/optional_io.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "SymbolTable.h"
@@ -27,6 +28,7 @@ BOOST_FIXTURE_TEST_SUITE(entries, Fixture)
         BOOST_CHECK_EQUAL(symbolTable.getAddress("s1").get(), 0x1010);
         BOOST_CHECK_EQUAL(symbolTable.getAddress("s2").get(), 0x2020);
         BOOST_CHECK_EQUAL(symbolTable.getAddress("s3").get(), 0x3030);
+        BOOST_CHECK_EQUAL(symbolTable.getAddress("s4"), boost::none);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
