@@ -24,10 +24,9 @@ BOOST_FIXTURE_TEST_SUITE(entries, Fixture)
     }
 
     BOOST_AUTO_TEST_CASE(addresses) {
-        BOOST_CHECK_EQUAL(symbolTable.getAddress("s1"), 0x1010);
-        BOOST_CHECK_EQUAL(symbolTable.getAddress("s2"), 0x2020);
-        BOOST_CHECK_EQUAL(symbolTable.getAddress("s3"), 0x3030);
-        BOOST_CHECK_EQUAL(symbolTable.getAddress("s4"), -1);
+        BOOST_CHECK_EQUAL(symbolTable.getAddress("s1").get(), 0x1010);
+        BOOST_CHECK_EQUAL(symbolTable.getAddress("s2").get(), 0x2020);
+        BOOST_CHECK_EQUAL(symbolTable.getAddress("s3").get(), 0x3030);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

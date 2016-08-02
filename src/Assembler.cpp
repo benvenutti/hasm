@@ -58,7 +58,8 @@ void Assembler::assembleACommand() {
     value = stoi(parser.symbol());
   }
   else if (symbolTable.contains(symbol)) {
-    value = symbolTable.getAddress(symbol);
+    boost::optional<int> address = symbolTable.getAddress(symbol);
+    value = address.get();
   }
   else {
     symbolTable.addEntry(symbol, RAMaddress);

@@ -10,10 +10,13 @@ bool SymbolTable::contains(const std::string& symbol) const {
   return table.find(symbol) != table.end();
 }
 
-int SymbolTable::getAddress(const std::string& symbol) const {
+boost::optional<int> SymbolTable::getAddress(const std::string& symbol) const {
   auto it = table.find(symbol);
+  if (it != table.end()) {
+    return boost::optional<int>(it->second);
+  }
 
-  return it != table.end() ? it->second : -1;
+  return boost::none;
 }
 
 const std::map<std::string, int>& SymbolTable::getTable() const {
