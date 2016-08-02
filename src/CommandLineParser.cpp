@@ -6,7 +6,7 @@
 
 using Hasm::AssemblerEngineConfig;
 
-AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char** argv) {
+AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const* argv) {
   bool isVerbose{false};
   bool exportSymbolTable{false};
   bool isValid{true};
