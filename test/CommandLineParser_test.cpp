@@ -67,7 +67,43 @@ BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination2) {
   BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
 }
 
-BOOST_AUTO_TEST_CASE(invalid) {
+BOOST_AUTO_TEST_CASE(help) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "-h"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(missingInput1) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "-i"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(missingInput2) {
+  int argc = 1;
+  const char* argv[] = {"hasm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(invalidOption) {
   int argc = 3;
   const char* argv[] = {"hasm", "-x", "input.asm"};
 
@@ -143,7 +179,31 @@ BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination2) {
   BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
 }
 
-BOOST_AUTO_TEST_CASE(invalid) {
+BOOST_AUTO_TEST_CASE(help) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "--help"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(missingInput) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "--input-file"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(invalidOption) {
   int argc = 3;
   const char* argv[] = {"hasm", "--invalidOption", "input.asm"};
 
