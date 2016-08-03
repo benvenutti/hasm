@@ -6,6 +6,7 @@ using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
     : input(input) {
+  advance();
 }
 
 const std::string& Parser::getCommand() const {
