@@ -6,18 +6,10 @@
 using Hasm::FileHandler;
 
 std::string FileHandler::changeExtension(const std::string& fileName, const std::string& newExtension) {
-  std::string newName(fileName);
+  boost::filesystem::path path(fileName);
+  path.replace_extension(newExtension);
 
-  if (newName.rfind(".") != std::string::npos) {
-    newName.erase(newName.rfind("."));
-  }
-  else {
-    newName.append(".");
-  }
-
-  newName.append(newExtension);
-
-  return newName;
+  return path.string();
 }
 
 bool FileHandler::hasExtension(const std::string& fileName, const std::string& extension) {
