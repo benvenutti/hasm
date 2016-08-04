@@ -6,7 +6,7 @@
 
 namespace Hasm {
   namespace CommandLineParser {
-    AssemblerEngineConfig parse(int argc, char** argv);
+    AssemblerEngineConfig parse(int argc, char const* const* argv);
   };
 }
 

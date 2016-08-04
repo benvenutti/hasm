@@ -6,6 +6,7 @@ using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
     : input(input) {
+  advance();
 }
 
 const std::string& Parser::getCommand() const {
@@ -113,10 +114,11 @@ void Parser::reset() {
   input.seekg(0);
   command = std::string("");
   lineNumber = 0;
+  advance();
 }
 
 bool Parser::isValidCommand() const {
-  return isACommand() || isCCommand() || isLCommand();
+  return isACommand() || isLCommand() || isCCommand();
 }
 
 bool Parser::isACommand() const {

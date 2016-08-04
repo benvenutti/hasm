@@ -7,6 +7,7 @@
 #include <iomanip>
 
 using Hasm::Assembler;
+using Hasm::SymbolTable;
 
 Assembler::Assembler(std::istream& in, std::ostream& out)
     : out(out),
@@ -20,8 +21,9 @@ void Assembler::assemble() {
   secondPass();
 }
 
-const std::map<std::string, int>& Assembler::symbols() const {
-  return symbolTable.getTable();
+const SymbolTable& Assembler::getSymbolTable() const
+{
+  return symbolTable;
 }
 
 void Assembler::firstPass() {
@@ -58,7 +60,8 @@ void Assembler::assembleACommand() {
     value = stoi(parser.symbol());
   }
   else if (symbolTable.contains(symbol)) {
-    value = symbolTable.getAddress(symbol);
+    boost::optional<int> address = symbolTable.getAddress(symbol);
+    value = address.get();
   }
   else {
     symbolTable.addEntry(symbol, RAMaddress);
@@ -84,19 +87,17 @@ void Assembler::output(unsigned int value) {
 }
 
 void Assembler::mapPredefinedSymbols() {
-  predefinedSymbols.insert(std::pair<std::string, int>("SP", 0x00));
-  predefinedSymbols.insert(std::pair<std::string, int>("LCL", 0x01));
-  predefinedSymbols.insert(std::pair<std::string, int>("ARG", 0x02));
-  predefinedSymbols.insert(std::pair<std::string, int>("THIS", 0x03));
-  predefinedSymbols.insert(std::pair<std::string, int>("THAT", 0x04));
+  symbolTable.addEntry("SP", 0x00);
+  symbolTable.addEntry("LCL", 0x01);
+  symbolTable.addEntry("ARG", 0x02);
+  symbolTable.addEntry("THIS", 0x03);
+  symbolTable.addEntry("THAT", 0x04);
 
   for (int i = 0; i < 16; i++) {
     std::string reg("R" + std::to_string(i));
-    predefinedSymbols.insert(std::pair<std::string, int>(reg, i));
+    symbolTable.addEntry(reg, i);
   }
 
-  predefinedSymbols.insert(std::pair<std::string, int>("SCREEN", 0x4000));
-  predefinedSymbols.insert(std::pair<std::string, int>("KBD", 0x6000));
-
-  symbolTable.setTable(predefinedSymbols);
+  symbolTable.addEntry("SCREEN", 0x4000);
+  symbolTable.addEntry("KBD", 0x6000);
 }

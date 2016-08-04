@@ -11,9 +11,7 @@
 #include <fstream>
 #include <iomanip>
 
-using Hasm::Assembler;
-using Hasm::AssemblerEngine;
-using Hasm::FileHandler;
+using namespace Hasm;
 
 bool AssemblerEngine::run(int argc, char** argv) const {
   const AssemblerEngineConfig cfg = CommandLineParser::parse(argc, argv);
@@ -47,20 +45,9 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   hasm.assemble();
 
   if (cfg.exportSymbols) {
-    std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
-    std::ofstream symbolsOut(symbolsOutName);
-
-    if (!symbolsOut.good()) {
-      std::cerr << "error: unable to open output stream" << std::endl;
-
+    bool ok = exportSymbolTable(cfg, hasm.getSymbolTable());
+    if (!ok) {
       return false;
-    }
-
-    outputSymbolTable(symbolsOut, hasm.symbols());
-    symbolsOut.close();
-
-    if (cfg.isVerbose) {
-      std::cout << "symbol table output: " << symbolsOutName << std::endl;
     }
   }
 
@@ -75,28 +62,50 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   return true;
 }
 
-void AssemblerEngine::outputSymbolTable(std::ostream& out, const std::map<std::string, int>& table) const {
+bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const SymbolTable& table) const {
+  std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
+  std::ofstream symbolsOut(symbolsOutName);
+
+  if (!symbolsOut.good()) {
+    std::cerr << "error: unable to open output stream" << std::endl;
+
+    return false;
+  }
+
+  outputSymbolTable(symbolsOut, table);
+  symbolsOut.close();
+
+  if (cfg.isVerbose) {
+    std::cout << "symbol table output: " << symbolsOutName << std::endl;
+  }
+
+  return true;
+}
+
+void AssemblerEngine::outputSymbolTable(std::ostream& out, const SymbolTable& table) const {
   boost::io::ios_flags_saver ifs(out);
 
-  for (auto it = table.cbegin(); it != table.cend(); ++it) {
+  std::set<std::string> symbols = table.getSymbols();
+  for (auto s: symbols) {
     out << "0x" << std::setfill('0') << std::setw(4) << std::setbase(16)
-        << it->second << " " << it->first << std::endl;
+        << s << " " << table.getAddress(s).get() << std::endl;
   }
 
   ifs.restore();
 }
 
 bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
-  bool isAsmFile = true;
   if (!FileHandler::isFile(fileName)) {
     std::cerr << "error: input \"" << fileName << "\"is not a file" << std::endl;
-    isAsmFile = false;
+
+    return false;
   }
 
-  if (isAsmFile && !FileHandler::hasExtension(fileName, ".asm")) {
+  if (!FileHandler::hasExtension(fileName, ".asm")) {
     std::cerr << "error: input file must have .asm extension" << std::endl;
-    isAsmFile = false;
+
+    return false;
   }
 
-  return isAsmFile;
+  return true;
 }

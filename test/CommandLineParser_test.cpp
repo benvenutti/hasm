@@ -1,0 +1,218 @@
+#define BOOST_TEST_MODULE CommandLineParser_test
+
+#include <boost/test/unit_test.hpp>
+
+#include "AssemblerEngineConfig.h"
+#include "CommandLineParser.h"
+
+BOOST_AUTO_TEST_SUITE(parsingShorthands)
+
+BOOST_AUTO_TEST_CASE(fileName) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "-i", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(isVerbose) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "-v", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(exportSymbolTable) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "-s", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination1) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "-vs", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination2) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "-sv", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(help) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "-h"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(missingInput1) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "-i"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(missingInput2) {
+  int argc = 1;
+  const char* argv[] = {"hasm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(invalidOption) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "-x", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(parsingNonShorthands)
+
+BOOST_AUTO_TEST_CASE(fileName) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "--input-file", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(isVerbose) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "--verbose", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(exportSymbolTable) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "--symbol-table", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination1) {
+  int argc = 4;
+  const char* argv[] = {"hasm", "--verbose", "--symbol-table", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination2) {
+  int argc = 4;
+  const char* argv[] = {"hasm", "--symbol-table", "--verbose", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, true);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
+  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
+}
+
+BOOST_AUTO_TEST_CASE(help) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "--help"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(missingInput) {
+  int argc = 2;
+  const char* argv[] = {"hasm", "--input-file"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_CASE(invalidOption) {
+  int argc = 3;
+  const char* argv[] = {"hasm", "--invalidOption", "input.asm"};
+
+  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
+
+  BOOST_CHECK_EQUAL(cfg.isValid, false);
+  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
+  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
+  BOOST_CHECK_EQUAL(cfg.inputName, "");
+}
+
+BOOST_AUTO_TEST_SUITE_END()
