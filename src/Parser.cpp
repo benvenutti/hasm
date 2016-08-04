@@ -114,6 +114,7 @@ void Parser::reset() {
   input.seekg(0);
   command = std::string("");
   lineNumber = 0;
+  advance();
 }
 
 bool Parser::isValidCommand() const {
