@@ -117,7 +117,7 @@ void Parser::reset() {
 }
 
 bool Parser::isValidCommand() const {
-  return isACommand() || isCCommand() || isLCommand();
+  return isACommand() || isLCommand() || isCCommand();
 }
 
 bool Parser::isACommand() const {
