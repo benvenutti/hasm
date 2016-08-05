@@ -75,10 +75,6 @@ bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const 
   outputSymbolTable(symbolsOut, table);
   symbolsOut.close();
 
-  if (cfg.isVerbose) {
-    std::cout << "symbol table output: " << symbolsOutName << std::endl;
-  }
-
   return true;
 }
 

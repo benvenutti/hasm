@@ -7,7 +7,6 @@
 using Hasm::AssemblerEngineConfig;
 
 AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const* argv) {
-  bool isVerbose{false};
   bool exportSymbolTable{false};
   bool isValid{true};
   std::string inputName{""};
@@ -17,7 +16,6 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
 
     po::options_description desc("Allowed options");
     desc.add_options()
-        ("verbose,v", "verbose mode")
         ("symbol-table,s", "export symbol table (to <input file>.sym)")
         ("input-file,i", po::value<std::string>(&inputName), "input .asm file")
         ("help,h", "print this help message");
@@ -42,7 +40,6 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
       isValid = false;
     }
 
-    isVerbose = vm.count("verbose") > 0;
     exportSymbolTable = vm.count("symbol-table") > 0;
 
   } catch (std::exception& e) {
@@ -50,5 +47,5 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
     isValid = false;
   }
 
-  return AssemblerEngineConfig{isValid, isVerbose, exportSymbolTable, inputName};
+  return AssemblerEngineConfig{isValid, exportSymbolTable, inputName};
 }
