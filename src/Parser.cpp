@@ -92,7 +92,9 @@ std::string Parser::comp() const {
     return command.substr(command.find('=') + 1);
   }
 
-  return command.substr(command.find('=') + 1, command.find(';'));
+  std::string s = command.substr(command.find('=') + 1);
+
+  return s.substr(0, s.find(';'));
 }
 
 std::string Parser::jump() const {
