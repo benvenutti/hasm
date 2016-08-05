@@ -34,6 +34,7 @@ BOOST_AUTO_TEST_CASE(commands) {
   std::stringstream ss{asmProgram};
   Hasm::Parser parser{ss};
 
+  parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "@30");
   parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "D=A");
@@ -53,6 +54,7 @@ BOOST_AUTO_TEST_CASE(commandTypes) {
   std::stringstream ss{asmProgram};
   Hasm::Parser parser{ss};
 
+  parser.advance();
   BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::A_COMMAND);
   parser.advance();
   BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::C_COMMAND);
@@ -72,6 +74,7 @@ BOOST_AUTO_TEST_CASE(reset) {
   std::stringstream ss{asmProgram};
   Hasm::Parser parser{ss};
 
+  parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "@30");
   parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "D=A");
@@ -88,6 +91,7 @@ BOOST_AUTO_TEST_CASE(reset) {
 
   parser.reset();
 
+  parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "@30");
   parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "D=A");
@@ -107,6 +111,7 @@ BOOST_AUTO_TEST_CASE(commandInfo) {
   std::stringstream ss{asmProgram};
   Hasm::Parser parser{ss};
 
+  parser.advance();
   BOOST_CHECK_EQUAL(parser.getCommand(), "@30");
   BOOST_CHECK_EQUAL(parser.symbol(), "30");
   parser.advance();
