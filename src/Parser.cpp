@@ -12,10 +12,6 @@ const std::string& Parser::getCommand() const {
   return command;
 }
 
-int Parser::getLineNumber() const {
-  return lineNumber;
-}
-
 void removeSpaces(std::string& str) {
   str.erase(
       std::remove_if(
