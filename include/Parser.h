@@ -14,7 +14,6 @@ namespace Hasm {
       bool advance();
       const std::string& getCommand() const;
       HasmCommandType getCommandType() const;
-      int getLineNumber() const;
 
       std::string symbol() const;
       std::string dest() const;

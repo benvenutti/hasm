@@ -11,7 +11,7 @@ if [ "$IS_COVERAGE_BUILD" == 1 ]; then
 elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
   mkdir build && cd build
   cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
-elif - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
   mkdir build && cd build
   cmake ..
 fi

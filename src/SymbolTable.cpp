@@ -7,20 +7,24 @@ void SymbolTable::addEntry(const std::string& symbol, int address) {
 }
 
 bool SymbolTable::contains(const std::string& symbol) const {
-  return table.find(symbol) != table.end() ? true : false;
+  return table.find(symbol) != table.end();
 }
 
-int SymbolTable::getAddress(const std::string& symbol) const {
+boost::optional<int> SymbolTable::getAddress(const std::string& symbol) const {
   auto it = table.find(symbol);
+  if (it != table.end()) {
+    return boost::optional<int>(it->second);
+  }
 
-  return it != table.end() ? it->second : -1;
+  return boost::none;
 }
 
-void SymbolTable::setTable(const std::map<std::string, int>& newTable) {
-  table.clear();
-  table = newTable;
-}
+std::set<std::string> SymbolTable::getSymbols() const
+{
+  std::set<std::string> symbols;
+  for (auto it: table) {
+    symbols.insert(it.first);
+  }
 
-const std::map<std::string, int>& SymbolTable::getTable() const {
-  return table;
+  return symbols;
 }
