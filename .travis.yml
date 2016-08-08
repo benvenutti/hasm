@@ -58,16 +58,19 @@ matrix:
     - os: osx
       osx_image: xcode8
       compiler: gcc
+      env: COMPILER=gcc
 
     - os: osx
       osx_image: xcode8
       compiler: clang
+      env: COMPILER=clang
 
 sudo: required
 dist: trusty
 
 before_install:
   - source ci/travis-environment.sh
+  - ci/travis-system-info.sh
   - ci/travis-before-install.sh
 
 script:
