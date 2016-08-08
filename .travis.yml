@@ -19,7 +19,7 @@ matrix:
             - gcc-4.8
         coverity_scan:
           project:
-            name: "benvenutti/hasmTest"
+            name: "benvenutti/hasm"
             description: "Build submitted via Travis CI"
           notification_email: diogo.a.benvenutti@gmail.com
           build_command_prepend: "mkdir build && cd build && cmake .."
