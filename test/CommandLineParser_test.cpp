@@ -14,19 +14,6 @@ BOOST_AUTO_TEST_CASE(fileName) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
-  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
-  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
-}
-
-BOOST_AUTO_TEST_CASE(isVerbose) {
-  int argc = 3;
-  const char* argv[] = {"hasm", "-v", "input.asm"};
-
-  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
-
-  BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
 }
@@ -38,31 +25,6 @@ BOOST_AUTO_TEST_CASE(exportSymbolTable) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
-  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
-  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
-}
-
-BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination1) {
-  int argc = 3;
-  const char* argv[] = {"hasm", "-vs", "input.asm"};
-
-  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
-
-  BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
-  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
-  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
-}
-
-BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination2) {
-  int argc = 3;
-  const char* argv[] = {"hasm", "-sv", "input.asm"};
-
-  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
-
-  BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
   BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
 }
@@ -74,7 +36,6 @@ BOOST_AUTO_TEST_CASE(help) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }
@@ -86,7 +47,6 @@ BOOST_AUTO_TEST_CASE(missingInput1) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }
@@ -98,7 +58,6 @@ BOOST_AUTO_TEST_CASE(missingInput2) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }
@@ -110,7 +69,6 @@ BOOST_AUTO_TEST_CASE(invalidOption) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }
@@ -126,19 +84,6 @@ BOOST_AUTO_TEST_CASE(fileName) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
-  BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
-  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
-}
-
-BOOST_AUTO_TEST_CASE(isVerbose) {
-  int argc = 3;
-  const char* argv[] = {"hasm", "--verbose", "input.asm"};
-
-  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
-
-  BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
 }
@@ -150,31 +95,6 @@ BOOST_AUTO_TEST_CASE(exportSymbolTable) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
-  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
-  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
-}
-
-BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination1) {
-  int argc = 4;
-  const char* argv[] = {"hasm", "--verbose", "--symbol-table", "input.asm"};
-
-  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
-
-  BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
-  BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
-  BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
-}
-
-BOOST_AUTO_TEST_CASE(verboseExportSymbolTableCombination2) {
-  int argc = 4;
-  const char* argv[] = {"hasm", "--symbol-table", "--verbose", "input.asm"};
-
-  Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
-
-  BOOST_CHECK_EQUAL(cfg.isValid, true);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, true);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, true);
   BOOST_CHECK_EQUAL(cfg.inputName, "input.asm");
 }
@@ -186,7 +106,6 @@ BOOST_AUTO_TEST_CASE(help) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }
@@ -198,7 +117,6 @@ BOOST_AUTO_TEST_CASE(missingInput) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }
@@ -210,7 +128,6 @@ BOOST_AUTO_TEST_CASE(invalidOption) {
   Hasm::AssemblerEngineConfig cfg = Hasm::CommandLineParser::parse(argc, argv);
 
   BOOST_CHECK_EQUAL(cfg.isValid, false);
-  BOOST_CHECK_EQUAL(cfg.isVerbose, false);
   BOOST_CHECK_EQUAL(cfg.exportSymbols, false);
   BOOST_CHECK_EQUAL(cfg.inputName, "");
 }

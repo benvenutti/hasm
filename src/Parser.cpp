@@ -6,15 +6,10 @@ using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
     : input(input) {
-  advance();
 }
 
 const std::string& Parser::getCommand() const {
   return command;
-}
-
-int Parser::getLineNumber() const {
-  return lineNumber;
 }
 
 void removeSpaces(std::string& str) {
@@ -97,7 +92,9 @@ std::string Parser::comp() const {
     return command.substr(command.find('=') + 1);
   }
 
-  return command.substr(command.find('=') + 1, command.find(';'));
+  std::string s = command.substr(command.find('=') + 1);
+
+  return s.substr(0, s.find(';'));
 }
 
 std::string Parser::jump() const {
@@ -114,7 +111,6 @@ void Parser::reset() {
   input.seekg(0);
   command = std::string("");
   lineNumber = 0;
-  advance();
 }
 
 bool Parser::isValidCommand() const {
