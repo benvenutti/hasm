@@ -23,11 +23,10 @@ void removeSpaces(std::string& str) {
 }
 
 void removeComments(std::string& str) {
-  size_t pos = str.find("//");
+  std::size_t pos = str.find("//");
 
   if (pos != std::string::npos) {
     str.erase(pos, str.size());
-    str.find("//");
   }
 }
 
