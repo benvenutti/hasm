@@ -30,7 +30,7 @@ void Assembler::firstPass() {
   int lineCounter = 0;
 
   while (parser.advance()) {
-    if (parser.getCommandType() == Hasm::HasmCommandType::L_COMMAND) {
+    if (parser.getCommandType() == Hasm::CommandType::L_COMMAND) {
       symbolTable.addEntry(parser.symbol(), lineCounter);
     }
     else {
@@ -41,12 +41,12 @@ void Assembler::firstPass() {
 
 void Assembler::secondPass() {
   while (parser.advance()) {
-    Hasm::HasmCommandType cmdType = parser.getCommandType();
+    Hasm::CommandType cmdType = parser.getCommandType();
 
-    if (cmdType == Hasm::HasmCommandType::A_COMMAND) {
+    if (cmdType == Hasm::CommandType::A_COMMAND) {
       assembleACommand();
     }
-    else if (cmdType == Hasm::HasmCommandType::C_COMMAND) {
+    else if (cmdType == Hasm::CommandType::C_COMMAND) {
       assembleCCommand();
     }
   }
