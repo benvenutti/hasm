@@ -58,21 +58,21 @@ BOOST_AUTO_TEST_CASE(commandTypes) {
   Hasm::Parser parser{ss};
 
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::A_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::A_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::A_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::A_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::L_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::L_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::A_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::A_COMMAND);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::HasmCommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
 }
 
 BOOST_AUTO_TEST_CASE(reset) {
