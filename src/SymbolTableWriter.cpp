@@ -6,9 +6,9 @@
 
 #include "SymbolTable.h"
 
-using Hasm::SymbolTableWriter;
+using namespace Hasm;
 
-SymbolTableWriter::SymbolTableWriter(std::ostream &out, const SymbolTable &symbolTable)
+SymbolTableWriter::SymbolTableWriter(std::ostream& out, const SymbolTable& symbolTable)
   : out(out), symbolTable(symbolTable) {
 }
 

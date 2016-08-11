@@ -1,7 +1,7 @@
 #ifndef HASM_SYMBOLTABLEWRITER_H
 #define HASM_SYMBOLTABLEWRITER_H
 
-#include <iostream>
+#include <ostream>
 
 namespace Hasm {
   class SymbolTable;
