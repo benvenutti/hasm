@@ -3,12 +3,14 @@
 
 #include <string>
 
+#include "Hack.h"
+
 namespace Hasm {
   class Coder {
     public:
-      static unsigned int dest(const std::string& mnemonic);
-      static unsigned int comp(const std::string& mnemonic);
-      static unsigned int jump(const std::string& mnemonic);
+      static Hack::WORD dest(const std::string& mnemonic);
+      static Hack::WORD comp(const std::string& mnemonic);
+      static Hack::WORD jump(const std::string& mnemonic);
   };
 }
 
