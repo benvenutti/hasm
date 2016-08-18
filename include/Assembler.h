@@ -1,13 +1,13 @@
 #ifndef HASM_ASSEMBLER_H_
 #define HASM_ASSEMBLER_H_
 
-#include "Hack.h"
-#include "Parser.h"
-#include "SymbolTable.h"
-
 #include <iostream>
 #include <map>
 #include <string>
+
+#include "Hack.h"
+#include "Parser.h"
+#include "SymbolTable.h"
 
 namespace Hasm {
   class Assembler {

@@ -1,10 +1,10 @@
 #include "Assembler.h"
 
-#include "Coder.h"
-#include "Hasm.h"
-
 #include <bitset>
 #include <iomanip>
+
+#include "Coder.h"
+#include "Hasm.h"
 
 using Hasm::Assembler;
 using Hasm::SymbolTable;
