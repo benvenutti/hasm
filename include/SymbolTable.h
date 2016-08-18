@@ -7,16 +7,18 @@
 
 #include <boost/optional.hpp>
 
+#include "Hack.h"
+
 namespace Hasm {
   class SymbolTable {
     public:
-      void addEntry(const std::string& symbol, int address);
+      void addEntry(const std::string& symbol, Hack::WORD address);
       bool contains(const std::string& symbol) const;
-      boost::optional<int> getAddress(const std::string& symbol) const;
+      boost::optional<Hack::WORD> getAddress(const std::string& symbol) const;
       std::set<std::string> getSymbols() const;
 
     private:
-      std::map<std::string, int> table;
+      std::map<std::string, Hack::WORD> table;
   };
 }
 

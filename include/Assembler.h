@@ -1,12 +1,13 @@
 #ifndef HASM_ASSEMBLER_H_
 #define HASM_ASSEMBLER_H_
 
-#include "Parser.h"
-#include "SymbolTable.h"
-
 #include <iostream>
 #include <map>
 #include <string>
+
+#include "Hack.h"
+#include "Parser.h"
+#include "SymbolTable.h"
 
 namespace Hasm {
   class Assembler {
@@ -21,13 +22,13 @@ namespace Hasm {
       void secondPass();
       void assembleACommand();
       void assembleCCommand();
-      void output(unsigned int value);
+      void output(Hack::WORD word);
       void mapPredefinedSymbols();
 
       std::ostream& out;
       Parser parser;
       SymbolTable symbolTable;
-      int RAMaddress = Hasm::INIT_RAM_ADDRESS;
+      Hack::WORD RAMaddress = Hack::INIT_RAM_ADDRESS;
       std::map<std::string, int> predefinedSymbols;
   };
 }

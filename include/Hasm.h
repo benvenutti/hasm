@@ -8,8 +8,6 @@ namespace Hasm {
       L_COMMAND,
       ERROR
   };
-
-  const int INIT_RAM_ADDRESS = 16;
 }
 
 #endif
