@@ -87,17 +87,7 @@ void Assembler::output(Hack::WORD word) {
 }
 
 void Assembler::mapPredefinedSymbols() {
-  symbolTable.addEntry("SP", 0x00);
-  symbolTable.addEntry("LCL", 0x01);
-  symbolTable.addEntry("ARG", 0x02);
-  symbolTable.addEntry("THIS", 0x03);
-  symbolTable.addEntry("THAT", 0x04);
-
-  for (Hack::WORD i = 0; i < 16; i++) {
-    std::string reg("R" + std::to_string(i));
-    symbolTable.addEntry(reg, i);
+  for (const auto& it: Hack::PREDEFINED_SYMBOLS) {
+    symbolTable.addEntry(it.first, it.second);
   }
-
-  symbolTable.addEntry("SCREEN", 0x4000);
-  symbolTable.addEntry("KBD", 0x6000);
 }
