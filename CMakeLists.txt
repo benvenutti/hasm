@@ -16,6 +16,7 @@ find_package(Boost COMPONENTS
         filesystem
         program_options
         unit_test_framework
+        regex
         REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
