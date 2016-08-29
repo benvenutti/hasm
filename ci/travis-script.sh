@@ -17,4 +17,4 @@ elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
 fi
 
 make
-make test
+make test CTEST_OUTPUT_ON_FAILURE=TRUE
