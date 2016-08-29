@@ -29,6 +29,26 @@ namespace Hack {
         + Hack::Lex::DEST_D
         + ")"
     };
+
+    const std::string JUMPS{
+      "("
+        + Hack::Lex::JUMP_JGT
+        + "|"
+        + Hack::Lex::JUMP_JGE
+        + "|"
+        + Hack::Lex::JUMP_JLT
+        + "|"
+        + Hack::Lex::JUMP_JLE
+        + "|"
+        + Hack::Lex::JUMP_JEQ
+        + "|"
+        + Hack::Lex::JUMP_JNE
+        + "|"
+        + Hack::Lex::JUMP_JEQ
+        + "|"
+        + Hack::Lex::JUMP_JMP
+        + ")"
+    };
   }
 }
 
