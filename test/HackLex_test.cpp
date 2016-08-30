@@ -132,3 +132,229 @@ BOOST_AUTO_TEST_CASE(test_invalidJMP) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(computations)
+
+BOOST_AUTO_TEST_CASE(test_validZero) {
+  boost::regex comp{Hack::Lex::COMP_ZERO};
+  BOOST_CHECK(boost::regex_match("0", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidZero) {
+  boost::regex comp{Hack::Lex::COMP_ZERO};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("ab", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-1", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validOne) {
+  boost::regex comp{Hack::Lex::COMP_ONE};
+  BOOST_CHECK(boost::regex_match("1", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidOne) {
+  boost::regex comp{Hack::Lex::COMP_ONE};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("ab", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-1", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("0", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validMinusOne) {
+  boost::regex comp{Hack::Lex::COMP_MINUS_ONE};
+  BOOST_CHECK(boost::regex_match("-1", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidMinusOne) {
+  boost::regex comp{Hack::Lex::COMP_MINUS_ONE};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("ab", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("0", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validD) {
+  boost::regex comp{Hack::Lex::COMP_D};
+  BOOST_CHECK(boost::regex_match("D", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidD) {
+  boost::regex comp{Hack::Lex::COMP_D};
+  BOOST_CHECK_EQUAL(boost::regex_match("d", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("0", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validA) {
+  boost::regex comp{Hack::Lex::COMP_A};
+  BOOST_CHECK(boost::regex_match("A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidA) {
+  boost::regex comp{Hack::Lex::COMP_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("0", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validNotD) {
+  boost::regex comp{Hack::Lex::COMP_NOT_D};
+  BOOST_CHECK(boost::regex_match("!D", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidNotD) {
+  boost::regex comp{Hack::Lex::COMP_NOT_D};
+  BOOST_CHECK_EQUAL(boost::regex_match("!d", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("!", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validNotA) {
+  boost::regex comp{Hack::Lex::COMP_NOT_A};
+  BOOST_CHECK(boost::regex_match("!A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidNotA) {
+  boost::regex comp{Hack::Lex::COMP_NOT_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("!a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("!", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validMinueD) {
+  boost::regex comp{Hack::Lex::COMP_MINUS_D};
+  BOOST_CHECK(boost::regex_match("-D", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidMinusD) {
+  boost::regex comp{Hack::Lex::COMP_MINUS_D};
+  BOOST_CHECK_EQUAL(boost::regex_match("-d", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validMinusA) {
+  boost::regex comp{Hack::Lex::COMP_MINUS_A};
+  BOOST_CHECK(boost::regex_match("-A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidMinusA) {
+  boost::regex comp{Hack::Lex::COMP_MINUS_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("-a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validDPLusOne) {
+  boost::regex comp{Hack::Lex::COMP_D_PLUS_ONE};
+  BOOST_CHECK(boost::regex_match("D+1", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidDPlusOne) {
+  boost::regex comp{Hack::Lex::COMP_D_PLUS_ONE};
+  BOOST_CHECK_EQUAL(boost::regex_match("d+1", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D+", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+1", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validAPlusOne) {
+  boost::regex comp{Hack::Lex::COMP_A_PLUS_ONE};
+  BOOST_CHECK(boost::regex_match("A+1", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidAPlusOne) {
+  boost::regex comp{Hack::Lex::COMP_A_PLUS_ONE};
+  BOOST_CHECK_EQUAL(boost::regex_match("a+1", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("A+", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+1", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validDMinusOne) {
+  boost::regex comp{Hack::Lex::COMP_D_MINUS_ONE};
+  BOOST_CHECK(boost::regex_match("D-1", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidDMinusOne) {
+  boost::regex comp{Hack::Lex::COMP_D_MINUS_ONE};
+  BOOST_CHECK_EQUAL(boost::regex_match("d-1", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D-", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-1", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validAMinusOne) {
+  boost::regex comp{Hack::Lex::COMP_A_MINUS_ONE};
+  BOOST_CHECK(boost::regex_match("A-1", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidAMinusOne) {
+  boost::regex comp{Hack::Lex::COMP_A_MINUS_ONE};
+  BOOST_CHECK_EQUAL(boost::regex_match("a-1", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("A-", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-1", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validDPlusA) {
+  boost::regex comp{Hack::Lex::COMP_D_PLUS_A};
+  BOOST_CHECK(boost::regex_match("D+A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidDPlusA) {
+  boost::regex comp{Hack::Lex::COMP_D_PLUS_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("d+a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D+a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("d+A", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D+", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+A", comp), false);
+}
+BOOST_AUTO_TEST_CASE(test_validDMinusA) {
+  boost::regex comp{Hack::Lex::COMP_D_MINUS_A};
+  BOOST_CHECK(boost::regex_match("D-A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidDMinusA) {
+  boost::regex comp{Hack::Lex::COMP_D_MINUS_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("d-a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D-a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("d-A", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D-", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-A", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validAMinusD) {
+  boost::regex comp{Hack::Lex::COMP_A_MINUS_D};
+  BOOST_CHECK(boost::regex_match("A-D", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidAMinusD) {
+  boost::regex comp{Hack::Lex::COMP_A_MINUS_D};
+  BOOST_CHECK_EQUAL(boost::regex_match("a-d", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("A-d", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("a-D", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("A-", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("-D", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validDAndA) {
+  boost::regex comp{Hack::Lex::COMP_D_AND_A};
+  BOOST_CHECK(boost::regex_match("D&A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidDAndD) {
+  boost::regex comp{Hack::Lex::COMP_D_AND_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("d&a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D&a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("d&A", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D&", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("&A", comp), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validDOrA) {
+  boost::regex comp{Hack::Lex::COMP_D_OR_A};
+  BOOST_CHECK(boost::regex_match("D|A", comp));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidDOrA) {
+  boost::regex comp{Hack::Lex::COMP_D_OR_A};
+  BOOST_CHECK_EQUAL(boost::regex_match("d|a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D|a", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("d|A", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("D|", comp), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("|A", comp), false);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
