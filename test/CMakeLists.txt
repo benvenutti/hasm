@@ -12,7 +12,8 @@ foreach (test_source ${test_sources})
             ${Boost_FILESYSTEM_LIBRARY}
             ${Boost_SYSTEM_LIBRARY}
             ${Boost_PROGRAM_OPTIONS_LIBRARY}
-            ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+            ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+            ${Boost_REGEX_LIBRARY})
 
     set_target_properties(${test_name} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testBin)
