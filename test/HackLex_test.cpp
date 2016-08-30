@@ -5,6 +5,34 @@
 
 #include "HackLex.h"
 
+BOOST_AUTO_TEST_SUITE(symbols)
+
+BOOST_AUTO_TEST_CASE(test_validColon) {
+  boost::regex symbol{Hack::Lex::COLON};
+  BOOST_CHECK(boost::regex_match(";", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidColon) {
+  boost::regex symbol{Hack::Lex::COLON};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validEqual) {
+  boost::regex symbol{Hack::Lex::EQUAL};
+  BOOST_CHECK(boost::regex_match("=", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidEqual) {
+  boost::regex symbol{Hack::Lex::EQUAL};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(destinations)
 
 BOOST_AUTO_TEST_CASE(test_destinationA) {

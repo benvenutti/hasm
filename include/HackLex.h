@@ -5,6 +5,9 @@
 
 namespace Hack {
   namespace Lex {
+    const std::string COLON{"\\;"};
+    const std::string EQUAL{"\\="};
+
     const std::string DEST_A{"A"};
     const std::string DEST_M{"M"};
     const std::string DEST_D{"D"};
