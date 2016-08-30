@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "HackCommandParser.h"
+
 using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
@@ -121,8 +123,7 @@ bool Parser::isACommand() const {
 }
 
 bool Parser::isCCommand() const {
-  // TODO
-  return true;
+  return Hasm::HackCommandParser::isComputationCommand(command);
 }
 
 bool Parser::isLCommand() const {
