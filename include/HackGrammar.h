@@ -109,6 +109,18 @@ namespace Hack {
         + Hack::Lex::COMP_D_OR_M
         + ")"
     };
+
+    const std::string COMPUTATION_COMMAND{
+      "("
+        + DESTINATIONS
+        + Hack::Lex::EQUAL
+        + ")?"
+        + COMPUTATIONS
+        + "("
+        + Hack::Lex::COLON
+        + JUMPS
+        + ")?"
+    };
   }
 }
 
