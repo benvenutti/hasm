@@ -10,11 +10,11 @@ using namespace Hasm;
 BOOST_AUTO_TEST_SUITE(label)
 
 BOOST_AUTO_TEST_CASE(test_isLabelCommand_valid) {
-  BOOST_CHECK(HackCommandParser::isComputationCommand("(_id)"));
+  BOOST_CHECK(HackCommandParser::isLabelCommand("(_id)"));
 }
 
 BOOST_AUTO_TEST_CASE(test_isLabelCommand_invalid) {
-  BOOST_CHECK_EQUAL(HackCommandParser::isComputationCommand("(_id"), false);
+  BOOST_CHECK_EQUAL(HackCommandParser::isLabelCommand("(_id"), false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
