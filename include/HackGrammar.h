@@ -117,7 +117,7 @@ namespace Hack {
         + ")?"
         + COMPUTATIONS
         + "("
-        + Hack::Lex::COLON
+        + Hack::Lex::SEMICOLON
         + JUMPS
         + ")?"
     };
