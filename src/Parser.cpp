@@ -127,5 +127,5 @@ bool Parser::isCCommand() const {
 }
 
 bool Parser::isLCommand() const {
-  return (command.front() == '(') && (command.back() == ')') && (command.size() > 2);
+  return Hasm::HackCommandParser::isLabelCommand(command);
 }
