@@ -80,6 +80,32 @@ BOOST_AUTO_TEST_CASE(test_invalidEqual) {
   BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
 }
 
+BOOST_AUTO_TEST_CASE(test_validLeftParen) {
+  boost::regex symbol{Hack::Lex::LEFT_PAREN};
+  BOOST_CHECK(boost::regex_match("(", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidLeftParen) {
+  boost::regex symbol{Hack::Lex::EQUAL};
+  BOOST_CHECK_EQUAL(boost::regex_match(")", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("", symbol), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validRightParen) {
+  boost::regex symbol{Hack::Lex::RIGHT_PAREN};
+  BOOST_CHECK(boost::regex_match(")", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidRightParen) {
+  boost::regex symbol{Hack::Lex::RIGHT_PAREN};
+  BOOST_CHECK_EQUAL(boost::regex_match("(", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("", symbol), false);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(destinations)
