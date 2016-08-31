@@ -5,6 +5,8 @@
 
 namespace Hack {
   namespace Lex {
+    const std::string ID{"([[:alpha:]]|\\_|\\.|\\$|\\:)(\\w|\\.|\\$|\\:)*"};
+
     const std::string COLON{"\\;"};
     const std::string EQUAL{"\\="};
 
