@@ -5,15 +5,64 @@
 
 #include "HackLex.h"
 
+BOOST_AUTO_TEST_SUITE(constants)
+
+BOOST_AUTO_TEST_CASE(test_validId_startsWithLetter) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match("id", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_validId_startsWithUnderscore) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match("_id", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_validId_startsWithDot) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match(".id", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_validId_startsWithDollarSign) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match("$id", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_validId_startsWithColon) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match(":id", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidId_startsWithDigit) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK_EQUAL(boost::regex_match("2id", id), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validId_withLettersAndDigits) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match("ab12cd34", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_validId_withAllValidCharacters) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK(boost::regex_match("ab12_.$:cd34", id));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidId_withInvalidCharacter) {
+  boost::regex id{Hack::Lex::ID};
+  BOOST_CHECK_EQUAL(boost::regex_match("id@", id), false);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(symbols)
 
-BOOST_AUTO_TEST_CASE(test_validColon) {
-  boost::regex symbol{Hack::Lex::COLON};
+BOOST_AUTO_TEST_CASE(test_validSemicolon) {
+  boost::regex symbol{Hack::Lex::SEMICOLON};
   BOOST_CHECK(boost::regex_match(";", symbol));
 }
 
-BOOST_AUTO_TEST_CASE(test_invalidColon) {
-  boost::regex symbol{Hack::Lex::COLON};
+BOOST_AUTO_TEST_CASE(test_invalidSemicolon) {
+  boost::regex symbol{Hack::Lex::SEMICOLON};
   BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
   BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
   BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
@@ -29,6 +78,32 @@ BOOST_AUTO_TEST_CASE(test_invalidEqual) {
   BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
   BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
   BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validLeftParen) {
+  boost::regex symbol{Hack::Lex::LEFT_PAREN};
+  BOOST_CHECK(boost::regex_match("(", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidLeftParen) {
+  boost::regex symbol{Hack::Lex::EQUAL};
+  BOOST_CHECK_EQUAL(boost::regex_match(")", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("", symbol), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_validRightParen) {
+  boost::regex symbol{Hack::Lex::RIGHT_PAREN};
+  BOOST_CHECK(boost::regex_match(")", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidRightParen) {
+  boost::regex symbol{Hack::Lex::RIGHT_PAREN};
+  BOOST_CHECK_EQUAL(boost::regex_match("(", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("", symbol), false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

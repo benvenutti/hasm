@@ -7,6 +7,12 @@
 
 namespace Hack {
   namespace Grammar {
+    const std::string LABEL{
+      Hack::Lex::LEFT_PAREN
+        + Hack::Lex::ID
+        + Hack::Lex::RIGHT_PAREN
+    };
+
     const std::string DESTINATIONS{
       "("
         + Hack::Lex::DEST_A
@@ -117,7 +123,7 @@ namespace Hack {
         + ")?"
         + COMPUTATIONS
         + "("
-        + Hack::Lex::COLON
+        + Hack::Lex::SEMICOLON
         + JUMPS
         + ")?"
     };

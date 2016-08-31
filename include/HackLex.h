@@ -5,8 +5,12 @@
 
 namespace Hack {
   namespace Lex {
-    const std::string COLON{"\\;"};
+    const std::string ID{"([[:alpha:]]|\\_|\\.|\\$|\\:)(\\w|\\.|\\$|\\:)*"};
+
+    const std::string SEMICOLON{"\\;"};
     const std::string EQUAL{"\\="};
+    const std::string LEFT_PAREN{"\\("};
+    const std::string RIGHT_PAREN{"\\)"};
 
     const std::string DEST_A{"A"};
     const std::string DEST_M{"M"};
