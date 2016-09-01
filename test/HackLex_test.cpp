@@ -83,6 +83,18 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(symbols)
 
+BOOST_AUTO_TEST_CASE(test_validAt) {
+  boost::regex symbol{Hack::Lex::AT};
+  BOOST_CHECK(boost::regex_match("@", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidAt) {
+  boost::regex symbol{Hack::Lex::AT};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
+}
+
 BOOST_AUTO_TEST_CASE(test_validSemicolon) {
   boost::regex symbol{Hack::Lex::SEMICOLON};
   BOOST_CHECK(boost::regex_match(";", symbol));
