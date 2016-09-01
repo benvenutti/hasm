@@ -119,7 +119,7 @@ bool Parser::isValidCommand() const {
 }
 
 bool Parser::isACommand() const {
-  return (command.front() == '@') && (command.size() > 1);
+  return Hasm::HackCommandParser::isLoadCommand(command);
 }
 
 bool Parser::isCCommand() const {
