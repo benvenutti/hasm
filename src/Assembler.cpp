@@ -1,10 +1,10 @@
 #include "Assembler.h"
 
-#include "Coder.h"
-#include "Hasm.h"
-
 #include <bitset>
 #include <iomanip>
+
+#include "Coder.h"
+#include "Hasm.h"
 
 using Hasm::Assembler;
 using Hasm::SymbolTable;
@@ -27,10 +27,10 @@ const SymbolTable& Assembler::getSymbolTable() const
 }
 
 void Assembler::firstPass() {
-  int lineCounter = 0;
+  Hack::WORD lineCounter = 0;
 
   while (parser.advance()) {
-    if (parser.getCommandType() == Hasm::HasmCommandType::L_COMMAND) {
+    if (parser.getCommandType() == Hasm::CommandType::L_COMMAND) {
       symbolTable.addEntry(parser.symbol(), lineCounter);
     }
     else {
@@ -41,12 +41,12 @@ void Assembler::firstPass() {
 
 void Assembler::secondPass() {
   while (parser.advance()) {
-    Hasm::HasmCommandType cmdType = parser.getCommandType();
+    Hasm::CommandType cmdType = parser.getCommandType();
 
-    if (cmdType == Hasm::HasmCommandType::A_COMMAND) {
+    if (cmdType == Hasm::CommandType::A_COMMAND) {
       assembleACommand();
     }
-    else if (cmdType == Hasm::HasmCommandType::C_COMMAND) {
+    else if (cmdType == Hasm::CommandType::C_COMMAND) {
       assembleCCommand();
     }
   }
@@ -54,13 +54,13 @@ void Assembler::secondPass() {
 
 void Assembler::assembleACommand() {
   std::string symbol = parser.symbol();
-  unsigned int value;
+  Hack::WORD value;
 
   if (isdigit(symbol.front())) {
-    value = stoi(parser.symbol());
+    value = static_cast<Hack::WORD>(stoi(parser.symbol()));
   }
   else if (symbolTable.contains(symbol)) {
-    boost::optional<int> address = symbolTable.getAddress(symbol);
+    boost::optional<Hack::WORD> address = symbolTable.getAddress(symbol);
     value = address.get();
   }
   else {
@@ -72,7 +72,7 @@ void Assembler::assembleACommand() {
 }
 
 void Assembler::assembleCCommand() {
-  unsigned int cc = 0;
+  Hack::WORD cc = 0;
 
   cc = Coder::dest(parser.dest());
   cc |= Coder::comp(parser.comp());
@@ -82,22 +82,12 @@ void Assembler::assembleCCommand() {
   output(cc);
 }
 
-void Assembler::output(unsigned int value) {
-  out << std::bitset<16>(value).to_string() << std::endl;
+void Assembler::output(Hack::WORD word) {
+  out << std::bitset<16>(word).to_string() << std::endl;
 }
 
 void Assembler::mapPredefinedSymbols() {
-  symbolTable.addEntry("SP", 0x00);
-  symbolTable.addEntry("LCL", 0x01);
-  symbolTable.addEntry("ARG", 0x02);
-  symbolTable.addEntry("THIS", 0x03);
-  symbolTable.addEntry("THAT", 0x04);
-
-  for (int i = 0; i < 16; i++) {
-    std::string reg("R" + std::to_string(i));
-    symbolTable.addEntry(reg, i);
+  for (const auto& it: Hack::PREDEFINED_SYMBOLS) {
+    symbolTable.addEntry(it.first, it.second);
   }
-
-  symbolTable.addEntry("SCREEN", 0x4000);
-  symbolTable.addEntry("KBD", 0x6000);
 }

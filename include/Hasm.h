@@ -2,14 +2,12 @@
 #define HASM_HASM_H_
 
 namespace Hasm {
-  enum class HasmCommandType {
+  enum class CommandType {
       A_COMMAND,
       C_COMMAND,
       L_COMMAND,
       ERROR
   };
-
-  const int INIT_RAM_ADDRESS = 16;
 }
 
 #endif

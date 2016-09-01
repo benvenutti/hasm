@@ -1,15 +1,12 @@
 #include "AssemblerEngine.h"
 
+#include <fstream>
+
 #include "Assembler.h"
 #include "AssemblerEngineConfig.h"
 #include "CommandLineParser.h"
 #include "FileHandler.h"
-
-#include <boost/io/ios_state.hpp>
-#include <boost/program_options.hpp>
-
-#include <fstream>
-#include <iomanip>
+#include "SymbolTableWriter.h"
 
 using namespace Hasm;
 
@@ -79,15 +76,8 @@ bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const 
 }
 
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const SymbolTable& table) const {
-  boost::io::ios_flags_saver ifs(out);
-
-  std::set<std::string> symbols = table.getSymbols();
-  for (auto s: symbols) {
-    out << "0x" << std::setfill('0') << std::setw(4) << std::setbase(16)
-        << s << " " << table.getAddress(s).get() << std::endl;
-  }
-
-  ifs.restore();
+  SymbolTableWriter tableWriter(out, table);
+  tableWriter.write();
 }
 
 bool AssemblerEngine::isAsmFile(const std::string& fileName) const {

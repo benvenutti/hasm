@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "AssemblerEngine.h"
 
 int main(int argc, char** argv) {

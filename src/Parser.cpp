@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "HackCommandParser.h"
+
 using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
@@ -23,11 +25,10 @@ void removeSpaces(std::string& str) {
 }
 
 void removeComments(std::string& str) {
-  size_t pos = str.find("//");
+  std::size_t pos = str.find("//");
 
   if (pos != std::string::npos) {
     str.erase(pos, str.size());
-    str.find("//");
   }
 }
 
@@ -53,20 +54,20 @@ bool Parser::advance() {
   return false;
 }
 
-Hasm::HasmCommandType Parser::getCommandType() const {
+Hasm::CommandType Parser::getCommandType() const {
   if (command.front() == '@') {
-    return Hasm::HasmCommandType::A_COMMAND;
+    return Hasm::CommandType::A_COMMAND;
   }
 
   if (command.front() == '(') {
-    return Hasm::HasmCommandType::L_COMMAND;
+    return Hasm::CommandType::L_COMMAND;
   }
 
-  return Hasm::HasmCommandType::C_COMMAND;
+  return Hasm::CommandType::C_COMMAND;
 }
 
 std::string Parser::symbol() const {
-  if (getCommandType() == Hasm::HasmCommandType::A_COMMAND) {
+  if (getCommandType() == Hasm::CommandType::A_COMMAND) {
     return command.substr(1);
   }
 
@@ -118,14 +119,13 @@ bool Parser::isValidCommand() const {
 }
 
 bool Parser::isACommand() const {
-  return (command.front() == '@') && (command.size() > 1);
+  return Hasm::HackCommandParser::isLoadCommand(command);
 }
 
 bool Parser::isCCommand() const {
-  // TODO
-  return true;
+  return Hasm::HackCommandParser::isComputationCommand(command);
 }
 
 bool Parser::isLCommand() const {
-  return (command.front() == '(') && (command.back() == ')') && (command.size() > 2);
+  return Hasm::HackCommandParser::isLabelCommand(command);
 }
