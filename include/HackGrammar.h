@@ -13,6 +13,15 @@ namespace Hack {
         + Hack::Lex::RIGHT_PAREN
     };
 
+    const std::string LOAD{
+      Hack::Lex::AT
+        + "("
+        + Hack::Lex::INTEGER
+        + "|"
+        + Hack::Lex::ID
+        + ")"
+    };
+
     const std::string DESTINATIONS{
       "("
         + Hack::Lex::DEST_A
