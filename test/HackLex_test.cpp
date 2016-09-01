@@ -5,7 +5,7 @@
 
 #include "HackLex.h"
 
-BOOST_AUTO_TEST_SUITE(constants)
+BOOST_AUTO_TEST_SUITE(identifiers)
 
 BOOST_AUTO_TEST_CASE(test_validId_startsWithLetter) {
   boost::regex id{Hack::Lex::ID};
@@ -54,7 +54,46 @@ BOOST_AUTO_TEST_CASE(test_invalidId_withInvalidCharacter) {
 
 BOOST_AUTO_TEST_SUITE_END()
 
+BOOST_AUTO_TEST_SUITE(integers)
+
+BOOST_AUTO_TEST_CASE(test_validInteger) {
+  boost::regex integer{Hack::Lex::INTEGER};
+  BOOST_CHECK(boost::regex_match("0", integer));
+  BOOST_CHECK(boost::regex_match("9", integer));
+  BOOST_CHECK(boost::regex_match("10", integer));
+  BOOST_CHECK(boost::regex_match("111", integer));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidInteger_invalidDigits) {
+  boost::regex integer{Hack::Lex::INTEGER};
+  BOOST_CHECK_EQUAL(boost::regex_match("10A20", integer), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidInteger_signedNegative) {
+  boost::regex integer{Hack::Lex::INTEGER};
+  BOOST_CHECK_EQUAL(boost::regex_match("-1", integer), false);
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidInteger_signedPositive) {
+  boost::regex integer{Hack::Lex::INTEGER};
+  BOOST_CHECK_EQUAL(boost::regex_match("+1", integer), false);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(symbols)
+
+BOOST_AUTO_TEST_CASE(test_validAt) {
+  boost::regex symbol{Hack::Lex::AT};
+  BOOST_CHECK(boost::regex_match("@", symbol));
+}
+
+BOOST_AUTO_TEST_CASE(test_invalidAt) {
+  boost::regex symbol{Hack::Lex::AT};
+  BOOST_CHECK_EQUAL(boost::regex_match("a", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("1", symbol), false);
+  BOOST_CHECK_EQUAL(boost::regex_match("+", symbol), false);
+}
 
 BOOST_AUTO_TEST_CASE(test_validSemicolon) {
   boost::regex symbol{Hack::Lex::SEMICOLON};
