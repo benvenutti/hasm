@@ -84,3 +84,19 @@ BOOST_AUTO_TEST_CASE(test_isComputationCommand_validDestValidCompInvalidJump) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(load)
+
+BOOST_AUTO_TEST_CASE(test_isLoadCommand_valid) {
+  BOOST_CHECK(HackCommandParser::isLoadCommand("@10"));
+  BOOST_CHECK(HackCommandParser::isLoadCommand("@symbol"));
+}
+
+BOOST_AUTO_TEST_CASE(test_isLoadCommand_invalid) {
+  BOOST_CHECK_EQUAL(HackCommandParser::isLoadCommand("@"), false);
+  BOOST_CHECK_EQUAL(HackCommandParser::isLoadCommand("@+1"), false);
+  BOOST_CHECK_EQUAL(HackCommandParser::isLoadCommand("10"), false);
+  BOOST_CHECK_EQUAL(HackCommandParser::isLoadCommand("id"), false);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
