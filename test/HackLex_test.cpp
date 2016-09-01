@@ -66,17 +66,17 @@ BOOST_AUTO_TEST_CASE(test_validInteger) {
 
 BOOST_AUTO_TEST_CASE(test_invalidInteger_invalidDigits) {
   boost::regex integer{Hack::Lex::INTEGER};
-  BOOST_CHECK_EQUAL(boost::regex_match("10A20", integer));
+  BOOST_CHECK_EQUAL(boost::regex_match("10A20", integer), false);
 }
 
 BOOST_AUTO_TEST_CASE(test_invalidInteger_signedNegative) {
   boost::regex integer{Hack::Lex::INTEGER};
-  BOOST_CHECK_EQUAL(boost::regex_match("-1", integer));
+  BOOST_CHECK_EQUAL(boost::regex_match("-1", integer), false);
 }
 
-BOOST_AUTO_TEST_CASE(test_invalidInteger_signedNegative) {
+BOOST_AUTO_TEST_CASE(test_invalidInteger_signedPositive) {
   boost::regex integer{Hack::Lex::INTEGER};
-  BOOST_CHECK_EQUAL(boost::regex_match("+1", integer));
+  BOOST_CHECK_EQUAL(boost::regex_match("+1", integer), false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
