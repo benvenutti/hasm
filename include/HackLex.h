@@ -6,6 +6,7 @@
 namespace Hack {
   namespace Lex {
     const std::string ID{"([[:alpha:]]|\\_|\\.|\\$|\\:)(\\w|\\.|\\$|\\:)*"};
+    const std::string INTEGER{"\\d+"};
 
     const std::string SEMICOLON{"\\;"};
     const std::string EQUAL{"\\="};
