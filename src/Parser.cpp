@@ -10,6 +10,10 @@ Parser::Parser(std::istream& input)
     : input(input) {
 }
 
+Parser::Status Parser::getStatus() const {
+  return status;
+}
+
 const std::string& Parser::getCommand() const {
   return command;
 }
@@ -55,15 +59,18 @@ bool Parser::advance() {
     if (!line.empty()) {
       command = line;
       if (isValidCommand()) {
-        return true;
+        status = Status::VALID_COMMAND;
       }
       else {
+        status = Status::INVALID_COMMAND;
         std::cerr << "error at line " << lineNumber << std::endl;
-
-        break;
       }
+
+      return true;
     }
   }
+
+  status = Status::END_OF_FILE;
 
   return false;
 }
@@ -125,6 +132,7 @@ void Parser::reset() {
   input.seekg(0);
   command = std::string("");
   lineNumber = 0;
+  status = Status::START_OF_FILE;
 }
 
 bool Parser::isValidCommand() const {

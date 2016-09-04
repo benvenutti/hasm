@@ -9,9 +9,17 @@
 namespace Hasm {
   class Parser {
     public:
+      enum class Status {
+        START_OF_FILE,
+        VALID_COMMAND,
+        INVALID_COMMAND,
+        END_OF_FILE
+      };
+
       explicit Parser(std::istream& input);
 
       bool advance();
+      Status getStatus() const;
       const std::string& getCommand() const;
       CommandType getCommandType() const;
 
@@ -37,6 +45,7 @@ namespace Hasm {
       std::istream& input;
       std::string command = "";
       int lineNumber = 0;
+      Status status = Status::START_OF_FILE;
   };
 }
 
