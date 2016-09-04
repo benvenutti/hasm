@@ -51,20 +51,33 @@ bool Parser::readNextLine(std::string &str) {
   return false;
 }
 
+void Parser::update(const std::string& newCommand) {
+  setCommand(newCommand);
+  updateStatus();
+  checkErrors();
+}
+
+void Parser::setCommand(const std::string &newCommand) {
+  command = newCommand;
+}
+
+void Parser::updateStatus() {
+  status = isValidCommand() ? Status::VALID_COMMAND : Status::INVALID_COMMAND;
+}
+
+void Parser::checkErrors() {
+  if (status == Status::INVALID_COMMAND) {
+    std::cerr << "error at line " << lineNumber << std::endl;
+  }
+}
+
 bool Parser::advance() {
   std::string line;
   while (readNextLine(line)) {
     trim(line);
 
     if (!line.empty()) {
-      command = line;
-      if (isValidCommand()) {
-        status = Status::VALID_COMMAND;
-      }
-      else {
-        status = Status::INVALID_COMMAND;
-        std::cerr << "error at line " << lineNumber << std::endl;
-      }
+      update(line);
 
       return true;
     }

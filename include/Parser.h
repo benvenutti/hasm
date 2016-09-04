@@ -33,6 +33,11 @@ namespace Hasm {
     private:
       bool readNextLine(std::string& str);
 
+      void update(const std::string& newCommand);
+      void setCommand(const std::string& newCommand);
+      void updateStatus();
+      void checkErrors();
+
       void trim(std::string& str) const;
       void removeComments(std::string& str) const;
       void removeSpaces(std::string& str) const;
