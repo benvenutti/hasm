@@ -69,15 +69,14 @@ bool Parser::advance() {
 }
 
 Hasm::CommandType Parser::getCommandType() const {
-  if (command.front() == '@') {
-    return Hasm::CommandType::A_COMMAND;
+  switch (command.front()) {
+    case '@':
+      return Hasm::CommandType::A_COMMAND;
+    case '(':
+      return Hasm::CommandType::L_COMMAND;
+    default:
+      return Hasm::CommandType::C_COMMAND;
   }
-
-  if (command.front() == '(') {
-    return Hasm::CommandType::L_COMMAND;
-  }
-
-  return Hasm::CommandType::C_COMMAND;
 }
 
 std::string Parser::symbol() const {
