@@ -23,6 +23,8 @@ namespace Hasm {
       void reset();
 
     private:
+      bool readNextLine(std::string& str);
+
       void trim(std::string& str) const;
       void removeComments(std::string& str) const;
       void removeSpaces(std::string& str) const;

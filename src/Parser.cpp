@@ -37,10 +37,19 @@ void Parser::removeComments(std::string& str) const {
   }
 }
 
+bool Parser::readNextLine(std::string &str) {
+  if (getline(input, str)) {
+    lineNumber++;
+
+    return true;
+  }
+
+  return false;
+}
+
 bool Parser::advance() {
   std::string line;
-  while (getline(input, line)) {
-    lineNumber++;
+  while (readNextLine(line)) {
     trim(line);
 
     if (!line.empty()) {
