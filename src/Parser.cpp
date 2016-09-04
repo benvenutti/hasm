@@ -14,7 +14,12 @@ const std::string& Parser::getCommand() const {
   return command;
 }
 
-void removeSpaces(std::string& str) {
+void Parser::trim(std::string& str) const {
+  removeComments(str);
+  removeSpaces(str);
+}
+
+void Parser::removeSpaces(std::string& str) const {
   str.erase(
       std::remove_if(
           str.begin(),
@@ -24,7 +29,7 @@ void removeSpaces(std::string& str) {
   );
 }
 
-void removeComments(std::string& str) {
+void Parser::removeComments(std::string& str) const {
   std::size_t pos = str.find("//");
 
   if (pos != std::string::npos) {
@@ -33,13 +38,13 @@ void removeComments(std::string& str) {
 }
 
 bool Parser::advance() {
-  while (getline(input, command)) {
+  std::string line;
+  while (getline(input, line)) {
     lineNumber++;
+    trim(line);
 
-    removeSpaces(command);
-    removeComments(command);
-
-    if (!command.empty()) {
+    if (!line.empty()) {
+      command = line;
       if (isValidCommand()) {
         return true;
       }
