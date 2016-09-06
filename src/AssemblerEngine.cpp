@@ -39,13 +39,10 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   }
 
   Assembler hasm(inputFile, outputFile);
-  hasm.assemble();
+  bool isOk = hasm.assemble();
 
   if (cfg.exportSymbols) {
-    bool ok = exportSymbolTable(cfg, hasm.getSymbolTable());
-    if (!ok) {
-      return false;
-    }
+    isOk = exportSymbolTable(cfg, hasm.getSymbolTable());
   }
 
   if (inputFile.is_open()) {
@@ -56,7 +53,7 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     outputFile.close();
   }
 
-  return true;
+  return isOk;
 }
 
 bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const SymbolTable& table) const {
