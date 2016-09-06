@@ -72,14 +72,14 @@ void Parser::checkErrors() {
 }
 
 bool Parser::advance() {
-  std::string line;
+  std::string line{""};
   while (readNextLine(line)) {
     trim(line);
 
     if (!line.empty()) {
       update(line);
 
-      return true;
+      return status == Status::VALID_COMMAND;
     }
   }
 

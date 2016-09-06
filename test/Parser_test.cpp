@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_CASE(getStatus_invalid) {
   std::stringstream ss{cmd};
   Hasm::Parser parser{ss};
 
-  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.advance(), false);
   BOOST_CHECK(parser.getStatus() == Hasm::Parser::Status::INVALID_COMMAND);
 }
 
