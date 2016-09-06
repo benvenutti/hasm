@@ -67,7 +67,8 @@ void Parser::updateStatus() {
 
 void Parser::checkErrors() {
   if (status == Status::INVALID_COMMAND) {
-    std::cerr << "error at line " << lineNumber << std::endl;
+    std::cerr << "invalid command at line " << lineNumber
+              << ": \"" << command << "\"" << std::endl;
   }
 }
 
