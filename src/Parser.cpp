@@ -10,11 +10,20 @@ Parser::Parser(std::istream& input)
     : input(input) {
 }
 
+Parser::Status Parser::getStatus() const {
+  return status;
+}
+
 const std::string& Parser::getCommand() const {
   return command;
 }
 
-void removeSpaces(std::string& str) {
+void Parser::trim(std::string& str) const {
+  removeComments(str);
+  removeSpaces(str);
+}
+
+void Parser::removeSpaces(std::string& str) const {
   str.erase(
       std::remove_if(
           str.begin(),
@@ -24,7 +33,7 @@ void removeSpaces(std::string& str) {
   );
 }
 
-void removeComments(std::string& str) {
+void Parser::removeComments(std::string& str) const {
   std::size_t pos = str.find("//");
 
   if (pos != std::string::npos) {
@@ -32,38 +41,63 @@ void removeComments(std::string& str) {
   }
 }
 
-bool Parser::advance() {
-  while (getline(input, command)) {
+bool Parser::readNextLine(std::string &str) {
+  if (getline(input, str)) {
     lineNumber++;
 
-    removeSpaces(command);
-    removeComments(command);
-
-    if (!command.empty()) {
-      if (isValidCommand()) {
-        return true;
-      }
-      else {
-        std::cerr << "error at line " << lineNumber << std::endl;
-
-        break;
-      }
-    }
+    return true;
   }
 
   return false;
 }
 
+void Parser::update(const std::string& newCommand) {
+  setCommand(newCommand);
+  updateStatus();
+  checkErrors();
+}
+
+void Parser::setCommand(const std::string &newCommand) {
+  command = newCommand;
+}
+
+void Parser::updateStatus() {
+  status = isValidCommand() ? Status::VALID_COMMAND : Status::INVALID_COMMAND;
+}
+
+void Parser::checkErrors() {
+  if (status == Status::INVALID_COMMAND) {
+    std::cerr << "invalid command at line " << lineNumber
+              << ": \"" << command << "\"" << std::endl;
+  }
+}
+
+bool Parser::advance() {
+  std::string line{""};
+  while (readNextLine(line)) {
+    trim(line);
+
+    if (!line.empty()) {
+      update(line);
+
+      return status == Status::VALID_COMMAND;
+    }
+  }
+
+  status = Status::END_OF_FILE;
+
+  return false;
+}
+
 Hasm::CommandType Parser::getCommandType() const {
-  if (command.front() == '@') {
-    return Hasm::CommandType::A_COMMAND;
+  switch (command.front()) {
+    case '@':
+      return Hasm::CommandType::A_COMMAND;
+    case '(':
+      return Hasm::CommandType::L_COMMAND;
+    default:
+      return Hasm::CommandType::C_COMMAND;
   }
-
-  if (command.front() == '(') {
-    return Hasm::CommandType::L_COMMAND;
-  }
-
-  return Hasm::CommandType::C_COMMAND;
 }
 
 std::string Parser::symbol() const {
@@ -112,6 +146,7 @@ void Parser::reset() {
   input.seekg(0);
   command = std::string("");
   lineNumber = 0;
+  status = Status::START_OF_FILE;
 }
 
 bool Parser::isValidCommand() const {

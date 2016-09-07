@@ -15,10 +15,15 @@ Assembler::Assembler(std::istream& in, std::ostream& out)
   mapPredefinedSymbols();
 }
 
-void Assembler::assemble() {
-  firstPass();
-  parser.reset();
-  secondPass();
+bool Assembler::assemble() {
+  if (firstPass()) {
+    parser.reset();
+    secondPass();
+
+    return true;
+  }
+
+  return false;
 }
 
 const SymbolTable& Assembler::getSymbolTable() const
@@ -26,7 +31,7 @@ const SymbolTable& Assembler::getSymbolTable() const
   return symbolTable;
 }
 
-void Assembler::firstPass() {
+bool Assembler::firstPass() {
   Hack::WORD lineCounter = 0;
 
   while (parser.advance()) {
@@ -37,6 +42,8 @@ void Assembler::firstPass() {
       lineCounter++;
     }
   }
+
+  return parser.getStatus() == Parser::Status::END_OF_FILE;
 }
 
 void Assembler::secondPass() {

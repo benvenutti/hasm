@@ -162,3 +162,42 @@ BOOST_AUTO_TEST_CASE(commandInfo) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(status)
+
+BOOST_AUTO_TEST_CASE(getStatus_startOfFile) {
+  const std::string cmd{""};
+  std::stringstream ss{cmd};
+  Hasm::Parser parser{ss};
+
+  BOOST_CHECK(parser.getStatus() == Hasm::Parser::Status::START_OF_FILE);
+}
+
+BOOST_AUTO_TEST_CASE(getStatus_valid) {
+  const std::string cmd{"@1"};
+  std::stringstream ss{cmd};
+  Hasm::Parser parser{ss};
+
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK(parser.getStatus() == Hasm::Parser::Status::VALID_COMMAND);
+}
+
+BOOST_AUTO_TEST_CASE(getStatus_invalid) {
+  const std::string cmd{"+a"};
+  std::stringstream ss{cmd};
+  Hasm::Parser parser{ss};
+
+  BOOST_CHECK_EQUAL(parser.advance(), false);
+  BOOST_CHECK(parser.getStatus() == Hasm::Parser::Status::INVALID_COMMAND);
+}
+
+BOOST_AUTO_TEST_CASE(getStatus_endOfFile) {
+  const std::string cmd{""};
+  std::stringstream ss{cmd};
+  Hasm::Parser parser{ss};
+
+  BOOST_CHECK_EQUAL(parser.advance(), false);
+  BOOST_CHECK(parser.getStatus() == Hasm::Parser::Status::END_OF_FILE);
+}
+
+BOOST_AUTO_TEST_SUITE_END()

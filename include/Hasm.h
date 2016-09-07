@@ -5,8 +5,7 @@ namespace Hasm {
   enum class CommandType {
       A_COMMAND,
       C_COMMAND,
-      L_COMMAND,
-      ERROR
+      L_COMMAND
   };
 }
 

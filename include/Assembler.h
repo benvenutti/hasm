@@ -14,11 +14,11 @@ namespace Hasm {
     public:
       Assembler(std::istream& in, std::ostream& out);
 
-      void assemble();
+      bool assemble();
       const SymbolTable& getSymbolTable() const;
 
     private:
-      void firstPass();
+      bool firstPass();
       void secondPass();
       void assembleACommand();
       void assembleCCommand();
