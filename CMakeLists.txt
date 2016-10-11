@@ -19,23 +19,7 @@ find_package(Boost COMPONENTS
         regex
         REQUIRED)
 
-include_directories(${Boost_INCLUDE_DIRS})
-
-include_directories("${CMAKE_SOURCE_DIR}/include")
-
-file(GLOB source_files "${CMAKE_SOURCE_DIR}/src/*.cpp")
-set(sources ${source_files})
-list(REMOVE_ITEM sources ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-
-add_library(hasm_objects OBJECT ${sources})
-add_executable(hasm $<TARGET_OBJECTS:hasm_objects>
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-
-target_link_libraries(hasm
-        ${Boost_FILESYSTEM_LIBRARY}
-        ${Boost_SYSTEM_LIBRARY}
-        ${Boost_PROGRAM_OPTIONS_LIBRARY}
-        ${Boost_REGEX_LIBRARY})
+add_subdirectory(src)
 
 enable_testing()
 add_subdirectory(test)
