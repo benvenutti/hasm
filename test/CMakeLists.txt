@@ -4,7 +4,7 @@ endif ()
 
 file(GLOB test_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include)
 
 foreach (test_source ${test_sources})
     get_filename_component(test_name ${test_source} NAME_WE)
