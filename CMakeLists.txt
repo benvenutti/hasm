@@ -11,6 +11,16 @@ endif ()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${dialect} ${warnings}")
 
+set(HASM_VERSION_MAJOR 0)
+set(HASM_VERSION_MINOR 2)
+set(HASM_VERSION_PATCH 0)
+
+configure_file(
+        "${PROJECT_SOURCE_DIR}/include/HasmConfig.h.in"
+        "${PROJECT_BINARY_DIR}/include/HasmConfig.h")
+
+include_directories("${PROJECT_BINARY_DIR}/include")
+
 find_package(Boost COMPONENTS
         system
         filesystem

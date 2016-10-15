@@ -4,6 +4,8 @@
 
 #include <boost/program_options.hpp>
 
+#include "HasmConfig.h"
+
 using Hasm::AssemblerEngineConfig;
 
 AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const* argv) {
@@ -18,7 +20,8 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
     desc.add_options()
         ("symbol-table,s", "export symbol table (to <input file>.sym)")
         ("input-file,i", po::value<std::string>(&inputName), "input .asm file")
-        ("help,h", "print this help message");
+        ("help,h", "print this help message")
+        ("version,v", "print version number");
 
     po::positional_options_description positionalDescription;
     const int maxNumberOfInputFiles{1};
@@ -35,13 +38,20 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
       isValid = false;
     }
 
-    if (vm.count("input-file") == 0) {
-      std::cerr << "hasm: no input file" << std::endl;
+    if (vm.count("version")) {
+      std::cout << "hasm "
+                << Hasm::Config::VERSION_MAJOR << "."
+                << Hasm::Config::VERSION_MINOR << "."
+                << Hasm::Config::VERSION_PATCH << std::endl;
       isValid = false;
     }
 
     exportSymbolTable = vm.count("symbol-table") > 0;
 
+    if (isValid && vm.count("input-file") == 0) {
+      std::cerr << "hasm: no input file" << std::endl;
+      isValid = false;
+    }
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
     isValid = false;
