@@ -12,6 +12,9 @@
 namespace Hasm {
   class SymbolTable {
     public:
+      SymbolTable() = default;
+      SymbolTable(const std::map<std::string, Hack::WORD>& symbols);
+
       void addEntry(const std::string& symbol, Hack::WORD address);
       bool contains(const std::string& symbol) const;
       boost::optional<Hack::WORD> getAddress(const std::string& symbol) const;

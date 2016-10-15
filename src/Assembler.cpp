@@ -11,9 +11,7 @@ using Hasm::SymbolTable;
 
 Assembler::Assembler(std::istream& in, std::ostream& out)
     : out(out),
-      parser(in) {
-  mapPredefinedSymbols();
-}
+      parser(in) {}
 
 bool Assembler::assemble() {
   if (firstPass()) {
@@ -89,12 +87,6 @@ void Assembler::assembleCCommand() {
   output(cc);
 }
 
-void Assembler::output(Hack::WORD word) {
+void Assembler::output(const Hack::WORD word) {
   out << std::bitset<16>(word).to_string() << std::endl;
-}
-
-void Assembler::mapPredefinedSymbols() {
-  for (const auto& it: Hack::PREDEFINED_SYMBOLS) {
-    symbolTable.addEntry(it.first, it.second);
-  }
 }
