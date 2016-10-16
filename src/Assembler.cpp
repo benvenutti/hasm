@@ -14,14 +14,7 @@ Assembler::Assembler(std::istream& in, std::ostream& out)
       parser(in) {}
 
 bool Assembler::assemble() {
-  if (firstPass()) {
-    parser.reset();
-    secondPass();
-
-    return true;
-  }
-
-  return false;
+  return firstPass() && parser.reset() && secondPass();
 }
 
 const SymbolTable& Assembler::getSymbolTable() const
@@ -44,39 +37,44 @@ bool Assembler::firstPass() {
   return parser.getStatus() == Parser::Status::END_OF_FILE;
 }
 
-void Assembler::secondPass() {
-  while (parser.advance()) {
-    Hasm::CommandType cmdType = parser.getCommandType();
+bool Assembler::secondPass() {
+  bool ok = true;
 
-    if (cmdType == Hasm::CommandType::A_COMMAND) {
-      assembleACommand();
-    }
-    else if (cmdType == Hasm::CommandType::C_COMMAND) {
-      assembleCCommand();
-    }
+  while (ok && parser.advance()) {
+    const auto commandType = parser.getCommandType();
+    ok = assembleCommand(commandType);
+  }
+
+  return ok;
+}
+
+bool Assembler::assembleCommand(const Hasm::CommandType commandType) {
+  switch (commandType) {
+    case Hasm::CommandType::A_COMMAND:
+      return assembleACommand();
+    case Hasm::CommandType::C_COMMAND:
+      return assembleCCommand();
+    default:
+      return true;
   }
 }
 
-void Assembler::assembleACommand() {
-  std::string symbol = parser.symbol();
-  Hack::WORD value;
+bool Assembler::assembleACommand() {
+  const auto symbol = parser.symbol();
+  const auto value = computeValue(symbol);
+  const auto isValid = isValidValue(value);
 
-  if (isdigit(symbol.front())) {
-    value = static_cast<Hack::WORD>(stoi(parser.symbol()));
-  }
-  else if (symbolTable.contains(symbol)) {
-    boost::optional<Hack::WORD> address = symbolTable.getAddress(symbol);
-    value = address.get();
-  }
-  else {
-    symbolTable.addEntry(symbol, RAMaddress);
-    value = RAMaddress++;
+  if (isValid) {
+    output(value);
+  } else {
+    std::cerr << "invalid command at line " << parser.getCurrentLineNumber()
+              << ": \"" << parser.getCommand() << "\"" << std::endl;
   }
 
-  output(value);
+  return isValid;
 }
 
-void Assembler::assembleCCommand() {
+bool Assembler::assembleCCommand() {
   Hack::WORD cc = 0;
 
   cc = Coder::dest(parser.dest());
@@ -85,6 +83,27 @@ void Assembler::assembleCCommand() {
   cc |= 0b1110000000000000;
 
   output(cc);
+
+  return true;
+}
+
+Hack::WORD Assembler::computeValue(const std::string& symbol) {
+  if (std::isdigit(symbol.front())) {
+    return static_cast<Hack::WORD>(std::stoi(parser.symbol()));
+  }
+  else if (symbolTable.contains(symbol)) {
+    return symbolTable.getAddress(symbol).get();
+  }
+  else {
+    const auto value = RAMaddress++;
+    symbolTable.addEntry(symbol, value);
+
+    return value;
+  }
+}
+
+bool Assembler::isValidValue(const Hack::WORD value) const {
+  return value <= Hasm::MAX_LOADABLE_VALUE;
 }
 
 void Assembler::output(const Hack::WORD word) {

@@ -17,9 +17,12 @@ namespace Hasm {
 
     private:
       bool firstPass();
-      void secondPass();
-      void assembleACommand();
-      void assembleCCommand();
+      bool secondPass();
+      bool assembleCommand(const Hasm::CommandType commandType);
+      bool assembleACommand();
+      bool assembleCCommand();
+      Hack::WORD computeValue(const std::string& symbol);
+      bool isValidValue(const Hack::WORD value) const;
       void output(const Hack::WORD word);
 
       std::ostream& out;

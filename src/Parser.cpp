@@ -100,6 +100,10 @@ Hasm::CommandType Parser::getCommandType() const {
   }
 }
 
+int Parser::getCurrentLineNumber() const {
+  return lineNumber;
+}
+
 std::string Parser::symbol() const {
   if (getCommandType() == Hasm::CommandType::A_COMMAND) {
     return command.substr(1);
@@ -141,12 +145,14 @@ std::string Parser::jump() const {
   return "";
 }
 
-void Parser::reset() {
-  input.clear();
-  input.seekg(0);
+bool Parser::reset() {
   command = std::string("");
   lineNumber = 0;
   status = Status::START_OF_FILE;
+  input.clear();
+  input.seekg(std::streampos(0));
+
+  return input.good();
 }
 
 bool Parser::isValidCommand() const {

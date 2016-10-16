@@ -22,13 +22,14 @@ namespace Hasm {
       Status getStatus() const;
       const std::string& getCommand() const;
       CommandType getCommandType() const;
+      int getCurrentLineNumber() const;
 
       std::string symbol() const;
       std::string dest() const;
       std::string comp() const;
       std::string jump() const;
 
-      void reset();
+      bool reset();
 
     private:
       bool readNextLine(std::string& str);
