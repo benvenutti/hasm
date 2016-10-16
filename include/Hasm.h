@@ -13,7 +13,7 @@ namespace Hasm {
   };
 
   // max value for unsigned 15 bit number
-  const Hack::WORD MAX_LOADABLE_VALUE{std::numeric_limits<Hack::WORD>::max() >> 1};
+  const Hack::WORD MAX_LOADABLE_VALUE = std::numeric_limits<Hack::WORD>::max() >> 1;
 }
 
 #endif

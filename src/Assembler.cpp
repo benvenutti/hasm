@@ -88,7 +88,7 @@ bool Assembler::assembleCCommand() {
 }
 
 Hack::WORD Assembler::computeValue(const std::string& symbol) {
-  if (std::isdigit(symbol.front())) {
+  if (isdigit(symbol.front())) {
     return static_cast<Hack::WORD>(std::stoi(parser.symbol()));
   }
   else if (symbolTable.contains(symbol)) {
