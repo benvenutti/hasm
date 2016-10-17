@@ -2,13 +2,13 @@
 
 #include <algorithm>
 
+#include "ErrorMessage.h"
 #include "HackCommandParser.h"
 
 using Hasm::Parser;
 
 Parser::Parser(std::istream& input)
-    : input(input) {
-}
+    : input(input) {}
 
 Parser::Status Parser::getStatus() const {
   return status;
@@ -25,16 +25,16 @@ void Parser::trim(std::string& str) const {
 
 void Parser::removeSpaces(std::string& str) const {
   str.erase(
-      std::remove_if(
-          str.begin(),
-          str.end(),
-          [](char c) { return (c == '\r' || c == '\t' || c == ' ' || c == '\n'); }
-      ), str.end()
+    std::remove_if(
+      str.begin(),
+      str.end(),
+      [](char c) { return std::isspace(c); }
+    ), str.end()
   );
 }
 
 void Parser::removeComments(std::string& str) const {
-  std::size_t pos = str.find("//");
+  const auto pos = str.find("//");
 
   if (pos != std::string::npos) {
     str.erase(pos, str.size());
@@ -67,8 +67,7 @@ void Parser::updateStatus() {
 
 void Parser::checkErrors() {
   if (status == Status::INVALID_COMMAND) {
-    std::cerr << "invalid command at line " << lineNumber
-              << ": \"" << command << "\"" << std::endl;
+    std::cerr << Hasm::ErrorMessage::invalidCommand(command, lineNumber) << std::endl;
   }
 }
 

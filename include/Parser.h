@@ -19,6 +19,7 @@ namespace Hasm {
       explicit Parser(std::istream& input);
 
       bool advance();
+
       Status getStatus() const;
       const std::string& getCommand() const;
       CommandType getCommandType() const;

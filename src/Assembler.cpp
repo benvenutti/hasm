@@ -4,6 +4,7 @@
 #include <iomanip>
 
 #include "Coder.h"
+#include "ErrorMessage.h"
 #include "Hasm.h"
 
 using Hasm::Assembler;
@@ -67,8 +68,9 @@ bool Assembler::assembleACommand() {
   if (isValid) {
     output(value);
   } else {
-    std::cerr << "invalid command at line " << parser.getCurrentLineNumber()
-              << ": \"" << parser.getCommand() << "\"" << std::endl;
+    const auto cmd = parser.getCommand();
+    const auto lineNumber = parser.getCurrentLineNumber();
+    std::cerr << Hasm::ErrorMessage::invalidLoadValue(cmd, lineNumber) << std::endl;
   }
 
   return isValid;
