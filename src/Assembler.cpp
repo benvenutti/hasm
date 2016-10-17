@@ -28,7 +28,7 @@ bool Assembler::firstPass() {
   Hack::WORD lineCounter = 0;
 
   while (parser.advance()) {
-    if (parser.getCommandType() == Hasm::CommandType::L_COMMAND) {
+    if (parser.getCommandType() == Hasm::CommandType::LABEL) {
       symbolTable.addEntry(parser.symbol(), lineCounter);
     }
     else {
@@ -52,9 +52,9 @@ bool Assembler::secondPass() {
 
 bool Assembler::assembleCommand(const Hasm::CommandType commandType) {
   switch (commandType) {
-    case Hasm::CommandType::A_COMMAND:
+    case Hasm::CommandType::ADDRESSING:
       return assembleACommand();
-    case Hasm::CommandType::C_COMMAND:
+    case Hasm::CommandType::COMPUTATION:
       return assembleCCommand();
     default:
       return true;

@@ -7,9 +7,9 @@
 
 namespace Hasm {
   enum class CommandType {
-      A_COMMAND,
-      C_COMMAND,
-      L_COMMAND,
+      ADDRESSING,  /// A-Command
+      COMPUTATION, /// C-Command
+      LABEL,       /// L-Command
       INVALID
   };
 

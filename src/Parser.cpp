@@ -98,7 +98,7 @@ bool Parser::advance() {
 }
 
 std::string Parser::symbol() const {
-  if (getCommandType() == Hasm::CommandType::A_COMMAND) {
+  if (getCommandType() == Hasm::CommandType::ADDRESSING) {
     return command.substr(1);
   }
 
@@ -153,13 +153,13 @@ bool Parser::isValidCommand() const {
   bool isValid = true;
 
   if (isACommand()) {
-    commandType = Hasm::CommandType::A_COMMAND;
+    commandType = Hasm::CommandType::ADDRESSING;
   }
   else if (isLCommand()) {
-    commandType = Hasm::CommandType::L_COMMAND;
+    commandType = Hasm::CommandType::LABEL;
   }
   else if (isCCommand()) {
-    commandType = Hasm::CommandType::C_COMMAND;
+    commandType = Hasm::CommandType::COMPUTATION;
   }
   else {
     commandType = Hasm::CommandType::INVALID;
