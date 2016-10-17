@@ -9,7 +9,8 @@ namespace Hasm {
   enum class CommandType {
       A_COMMAND,
       C_COMMAND,
-      L_COMMAND
+      L_COMMAND,
+      INVALID
   };
 
   // max value for unsigned 15 bit number

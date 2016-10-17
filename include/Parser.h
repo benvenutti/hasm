@@ -51,6 +51,7 @@ namespace Hasm {
 
       std::istream& input;
       std::string command = "";
+      mutable CommandType commandType = CommandType::INVALID;
       int lineNumber = 0;
       Status status = Status::START_OF_FILE;
   };
