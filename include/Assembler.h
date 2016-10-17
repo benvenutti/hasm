@@ -2,8 +2,6 @@
 #define HASM_ASSEMBLER_H_
 
 #include <iostream>
-#include <map>
-#include <string>
 
 #include "Hack.h"
 #include "Parser.h"
@@ -19,17 +17,18 @@ namespace Hasm {
 
     private:
       bool firstPass();
-      void secondPass();
-      void assembleACommand();
-      void assembleCCommand();
-      void output(Hack::WORD word);
-      void mapPredefinedSymbols();
+      bool secondPass();
+      bool assembleCommand(const Hasm::CommandType commandType);
+      bool assembleACommand();
+      bool assembleCCommand();
+      Hack::WORD computeValue(const std::string& symbol);
+      bool isValidValue(const Hack::WORD value) const;
+      void output(const Hack::WORD word);
 
       std::ostream& out;
       Parser parser;
-      SymbolTable symbolTable;
-      Hack::WORD RAMaddress = Hack::INIT_RAM_ADDRESS;
-      std::map<std::string, int> predefinedSymbols;
+      SymbolTable symbolTable{Hack::PREDEFINED_SYMBOLS};
+      Hack::WORD RAMaddress{Hack::INIT_RAM_ADDRESS};
   };
 }
 

@@ -58,21 +58,43 @@ BOOST_AUTO_TEST_CASE(commandTypes) {
   Hasm::Parser parser{ss};
 
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::A_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::ADDRESSING);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::COMPUTATION);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::A_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::ADDRESSING);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::COMPUTATION);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::COMPUTATION);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::L_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::LABEL);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::A_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::ADDRESSING);
   BOOST_CHECK(parser.advance());
-  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::C_COMMAND);
+  BOOST_CHECK(parser.getCommandType() == Hasm::CommandType::COMPUTATION);
+}
+
+BOOST_AUTO_TEST_CASE(lineNumber) {
+  std::stringstream ss{asmProgram};
+  Hasm::Parser parser{ss};
+
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 1);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 2);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 3);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 4);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 5);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 6);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 8);
+  BOOST_CHECK(parser.advance());
+  BOOST_CHECK_EQUAL(parser.getCurrentLineNumber(), 9);
 }
 
 BOOST_AUTO_TEST_CASE(reset) {

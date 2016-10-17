@@ -2,8 +2,11 @@
 
 using Hasm::SymbolTable;
 
+SymbolTable::SymbolTable(const std::map<std::string, Hack::WORD>& symbols)
+  : table(symbols) {}
+
 void SymbolTable::addEntry(const std::string& symbol, Hack::WORD address) {
-  table.insert(std::make_pair(symbol, address));
+  table.emplace(symbol, address);
 }
 
 bool SymbolTable::contains(const std::string& symbol) const {
@@ -11,7 +14,7 @@ bool SymbolTable::contains(const std::string& symbol) const {
 }
 
 boost::optional<Hack::WORD> SymbolTable::getAddress(const std::string& symbol) const {
-  auto it = table.find(symbol);
+  const auto it = table.find(symbol);
   if (it != table.end()) {
     return boost::optional<Hack::WORD>(it->second);
   }
@@ -22,7 +25,7 @@ boost::optional<Hack::WORD> SymbolTable::getAddress(const std::string& symbol) c
 std::set<std::string> SymbolTable::getSymbols() const
 {
   std::set<std::string> symbols;
-  for (auto it: table) {
+  for (const auto& it: table) {
     symbols.insert(it.first);
   }
 
