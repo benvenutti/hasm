@@ -1,6 +1,7 @@
 #include "Parser.h"
 
 #include <algorithm>
+#include <cctype>
 
 #include "ErrorMessage.h"
 #include "HackCommandParser.h"

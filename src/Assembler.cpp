@@ -1,6 +1,7 @@
 #include "Assembler.h"
 
 #include <bitset>
+#include <cctype>
 #include <iomanip>
 
 #include "Coder.h"
@@ -90,7 +91,7 @@ bool Assembler::assembleCCommand() {
 }
 
 Hack::WORD Assembler::computeValue(const std::string& symbol) {
-  if (isdigit(symbol.front())) {
+  if (std::isdigit(symbol.front())) {
     return static_cast<Hack::WORD>(std::stoi(parser.symbol()));
   }
   else if (symbolTable.contains(symbol)) {
