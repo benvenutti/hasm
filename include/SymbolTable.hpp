@@ -1,5 +1,5 @@
-#ifndef HASM_SYMBOLTABLE_H_
-#define HASM_SYMBOLTABLE_H_
+#ifndef HASM_SYMBOLTABLE_HPP
+#define HASM_SYMBOLTABLE_HPP
 
 #include <map>
 #include <set>

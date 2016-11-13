@@ -5,7 +5,7 @@
 
 #include "Hack.hpp"
 #include "Parser.h"
-#include "SymbolTable.h"
+#include "SymbolTable.hpp"
 
 namespace Hasm {
   class Assembler {

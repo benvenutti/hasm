@@ -2,7 +2,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "SymbolTable.h"
+#include "SymbolTable.hpp"
 
 struct Fixture {
   Fixture() {

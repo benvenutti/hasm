@@ -4,7 +4,7 @@
 
 #include <boost/io/ios_state.hpp>
 
-#include "SymbolTable.h"
+#include "SymbolTable.hpp"
 
 using namespace Hasm;
 
