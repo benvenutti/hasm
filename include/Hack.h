@@ -5,13 +5,13 @@
 #include <map>
 #include <string>
 
-namespace Hack
-{
-  using WORD = uint16_t;
+namespace Hack {
 
-  const WORD INIT_RAM_ADDRESS = 16;
+using WORD = uint16_t;
 
-  const std::map<std::string, Hack::WORD> PREDEFINED_SYMBOLS = {
+const WORD INIT_RAM_ADDRESS{16};
+
+const std::map<std::string, Hack::WORD> PREDEFINED_SYMBOLS{
     {"SP", 0x00},
     {"LCL", 0x01},
     {"ARG", 0x02},
@@ -35,7 +35,8 @@ namespace Hack
     {"R15", 0x15},
     {"SCREEN", 0x4000},
     {"KBD", 0x6000}
-  };
-}
+};
+
+} // namespace Hack
 
 #endif
