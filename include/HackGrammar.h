@@ -1,142 +1,144 @@
-#ifndef HASM_HACKGRAMMAR_H
-#define HASM_HACKGRAMMAR_H
+#ifndef HASM_HACKGRAMMAR_HPP
+#define HASM_HACKGRAMMAR_HPP
 
 #include <string>
 
 #include "HackLex.hpp"
 
 namespace Hack {
-  namespace Grammar {
-    const std::string LABEL{
-      Hack::Lex::LEFT_PAREN
-        + Hack::Lex::ID
-        + Hack::Lex::RIGHT_PAREN
-    };
+namespace Grammar {
 
-    const std::string LOAD{
-      Hack::Lex::AT
+const std::string LABEL{
+    Lex::LEFT_PAREN
+        + Lex::ID
+        + Lex::RIGHT_PAREN
+};
+
+const std::string LOAD{
+    Lex::AT
         + "("
-        + Hack::Lex::INTEGER
+        + Lex::INTEGER
         + "|"
-        + Hack::Lex::ID
+        + Lex::ID
         + ")"
-    };
+};
 
-    const std::string DESTINATIONS{
-      "("
-        + Hack::Lex::DEST_A
+const std::string DESTINATIONS{
+    "("
+        + Lex::DEST_A
         + "|"
-        + Hack::Lex::DEST_M
+        + Lex::DEST_M
         + "|"
-        + Hack::Lex::DEST_D
+        + Lex::DEST_D
         + "|"
-        + Hack::Lex::DEST_A
-        + Hack::Lex::DEST_M
+        + Lex::DEST_A
+        + Lex::DEST_M
         + "|"
-        + Hack::Lex::DEST_A
-        + Hack::Lex::DEST_D
+        + Lex::DEST_A
+        + Lex::DEST_D
         + "|"
-        + Hack::Lex::DEST_M
-        + Hack::Lex::DEST_D
+        + Lex::DEST_M
+        + Lex::DEST_D
         + "|"
-        + Hack::Lex::DEST_A
-        + Hack::Lex::DEST_M
-        + Hack::Lex::DEST_D
+        + Lex::DEST_A
+        + Lex::DEST_M
+        + Lex::DEST_D
         + ")"
-    };
+};
 
-    const std::string JUMPS{
-      "("
-        + Hack::Lex::JUMP_JGT
+const std::string JUMPS{
+    "("
+        + Lex::JUMP_JGT
         + "|"
-        + Hack::Lex::JUMP_JGE
+        + Lex::JUMP_JGE
         + "|"
-        + Hack::Lex::JUMP_JLT
+        + Lex::JUMP_JLT
         + "|"
-        + Hack::Lex::JUMP_JLE
+        + Lex::JUMP_JLE
         + "|"
-        + Hack::Lex::JUMP_JEQ
+        + Lex::JUMP_JEQ
         + "|"
-        + Hack::Lex::JUMP_JNE
+        + Lex::JUMP_JNE
         + "|"
-        + Hack::Lex::JUMP_JEQ
+        + Lex::JUMP_JEQ
         + "|"
-        + Hack::Lex::JUMP_JMP
+        + Lex::JUMP_JMP
         + ")"
-    };
+};
 
-    const std::string COMPUTATIONS{
-      "("
-        + Hack::Lex::COMP_ZERO
+const std::string COMPUTATIONS{
+    "("
+        + Lex::COMP_ZERO
         + "|"
-        + Hack::Lex::COMP_ONE
+        + Lex::COMP_ONE
         + "|"
-        + Hack::Lex::COMP_MINUS_ONE
+        + Lex::COMP_MINUS_ONE
         + "|"
-        + Hack::Lex::COMP_D
+        + Lex::COMP_D
         + "|"
-        + Hack::Lex::COMP_A
+        + Lex::COMP_A
         + "|"
-        + Hack::Lex::COMP_NOT_D
+        + Lex::COMP_NOT_D
         + "|"
-        + Hack::Lex::COMP_NOT_A
+        + Lex::COMP_NOT_A
         + "|"
-        + Hack::Lex::COMP_MINUS_D
+        + Lex::COMP_MINUS_D
         + "|"
-        + Hack::Lex::COMP_MINUS_A
+        + Lex::COMP_MINUS_A
         + "|"
-        + Hack::Lex::COMP_D_PLUS_ONE
+        + Lex::COMP_D_PLUS_ONE
         + "|"
-        + Hack::Lex::COMP_A_PLUS_ONE
+        + Lex::COMP_A_PLUS_ONE
         + "|"
-        + Hack::Lex::COMP_D_MINUS_ONE
+        + Lex::COMP_D_MINUS_ONE
         + "|"
-        + Hack::Lex::COMP_A_MINUS_ONE
+        + Lex::COMP_A_MINUS_ONE
         + "|"
-        + Hack::Lex::COMP_D_PLUS_A
+        + Lex::COMP_D_PLUS_A
         + "|"
-        + Hack::Lex::COMP_D_MINUS_A
+        + Lex::COMP_D_MINUS_A
         + "|"
-        + Hack::Lex::COMP_A_MINUS_D
+        + Lex::COMP_A_MINUS_D
         + "|"
-        + Hack::Lex::COMP_D_AND_A
+        + Lex::COMP_D_AND_A
         + "|"
-        + Hack::Lex::COMP_D_OR_A
+        + Lex::COMP_D_OR_A
         + "|"
-        + Hack::Lex::COMP_M
+        + Lex::COMP_M
         + "|"
-        + Hack::Lex::COMP_NOT_M
+        + Lex::COMP_NOT_M
         + "|"
-        + Hack::Lex::COMP_MINUS_M
+        + Lex::COMP_MINUS_M
         + "|"
-        + Hack::Lex::COMP_M_PLUS_ONE
+        + Lex::COMP_M_PLUS_ONE
         + "|"
-        + Hack::Lex::COMP_M_MINUS_ONE
+        + Lex::COMP_M_MINUS_ONE
         + "|"
-        + Hack::Lex::COMP_D_PLUS_M
+        + Lex::COMP_D_PLUS_M
         + "|"
-        + Hack::Lex::COMP_D_MINUS_M
+        + Lex::COMP_D_MINUS_M
         + "|"
-        + Hack::Lex::COMP_M_MINUS_D
+        + Lex::COMP_M_MINUS_D
         + "|"
-        + Hack::Lex::COMP_D_AND_M
+        + Lex::COMP_D_AND_M
         + "|"
-        + Hack::Lex::COMP_D_OR_M
+        + Lex::COMP_D_OR_M
         + ")"
-    };
+};
 
-    const std::string COMPUTATION_COMMAND{
-      "("
+const std::string COMPUTATION_COMMAND{
+    "("
         + DESTINATIONS
-        + Hack::Lex::EQUAL
+        + Lex::EQUAL
         + ")?"
         + COMPUTATIONS
         + "("
-        + Hack::Lex::SEMICOLON
+        + Lex::SEMICOLON
         + JUMPS
         + ")?"
-    };
-  }
-}
+};
+
+} // namespace Grammar
+} // namespace Hack
 
 #endif
