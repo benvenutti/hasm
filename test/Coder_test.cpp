@@ -2,7 +2,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "Coder.h"
+#include "Coder.hpp"
 
 BOOST_AUTO_TEST_SUITE(destination)
 

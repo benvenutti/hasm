@@ -1,5 +1,5 @@
-#ifndef HASM_CODER_H_
-#define HASM_CODER_H_
+#ifndef HASM_CODER_HPP
+#define HASM_CODER_HPP
 
 #include <string>
 

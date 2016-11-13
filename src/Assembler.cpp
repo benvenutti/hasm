@@ -4,7 +4,7 @@
 #include <cctype>
 #include <iomanip>
 
-#include "Coder.h"
+#include "Coder.hpp"
 #include "ErrorMessage.h"
 #include "Hasm.h"
 
