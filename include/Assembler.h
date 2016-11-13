@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "Hack.hpp"
-#include "Parser.h"
+#include "Parser.hpp"
 #include "SymbolTable.hpp"
 
 namespace Hasm {
