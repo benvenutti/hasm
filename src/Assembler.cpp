@@ -5,7 +5,7 @@
 #include <iomanip>
 
 #include "Coder.hpp"
-#include "ErrorMessage.h"
+#include "ErrorMessage.hpp"
 #include "Hasm.h"
 
 using Hasm::Assembler;

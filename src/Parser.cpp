@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cctype>
 
-#include "ErrorMessage.h"
+#include "ErrorMessage.hpp"
 #include "HackCommandParser.h"
 
 using Hasm::Parser;

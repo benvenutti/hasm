@@ -1,4 +1,4 @@
-#include "ErrorMessage.h"
+#include "ErrorMessage.hpp"
 
 #include <sstream>
 

@@ -1,5 +1,5 @@
-#ifndef HASM_ERRORMESSAGE_H_
-#define HASM_ERRORMESSAGE_H_
+#ifndef HASM_ERRORMESSAGE_HPP
+#define HASM_ERRORMESSAGE_HPP
 
 #include <string>
 
