@@ -3,7 +3,7 @@
 namespace Hasm {
 
 SymbolTable::SymbolTable(const std::map<std::string, Hack::WORD>& symbols)
-    : table(symbols) {}
+    : table{symbols} {}
 
 void SymbolTable::addEntry(const std::string& symbol, const Hack::WORD address) {
   table.emplace(symbol, address);
