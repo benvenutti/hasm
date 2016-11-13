@@ -9,7 +9,7 @@
 namespace Hasm {
 
 SymbolTableWriter::SymbolTableWriter(std::ostream& out, const SymbolTable& symbolTable)
-    : out(out), symbolTable{symbolTable} {}
+    : out(out), symbolTable(symbolTable) {}
 
 void SymbolTableWriter::write() {
   boost::io::ios_flags_saver ifs{out};

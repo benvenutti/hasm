@@ -4,7 +4,7 @@
 
 #include <boost/program_options.hpp>
 
-#include "AssemblerEngineConfig.h"
+#include "AssemblerEngineConfig.hpp"
 #include "HasmConfig.h"
 
 namespace Hasm {

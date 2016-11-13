@@ -3,7 +3,7 @@
 #include <fstream>
 
 #include "Assembler.h"
-#include "AssemblerEngineConfig.h"
+#include "AssemblerEngineConfig.hpp"
 #include "CommandLineParser.hpp"
 #include "FileHandler.hpp"
 #include "SymbolTableWriter.hpp"
