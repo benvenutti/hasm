@@ -1,5 +1,5 @@
-#ifndef HASM_FILEHANDLER_H_
-#define HASM_FILEHANDLER_H_
+#ifndef HASM_FILEHANDLER_HPP
+#define HASM_FILEHANDLER_HPP
 
 #include <string>
 

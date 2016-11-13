@@ -5,7 +5,7 @@
 #include "Assembler.h"
 #include "AssemblerEngineConfig.h"
 #include "CommandLineParser.h"
-#include "FileHandler.h"
+#include "FileHandler.hpp"
 #include "SymbolTableWriter.h"
 
 using namespace Hasm;

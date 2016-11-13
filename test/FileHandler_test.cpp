@@ -5,7 +5,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "FileHandler.h"
+#include "FileHandler.hpp"
 
 struct FixtureFileName {
   FixtureFileName() {}
