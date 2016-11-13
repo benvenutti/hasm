@@ -4,11 +4,12 @@
 
 #include <boost/program_options.hpp>
 
+#include "AssemblerEngineConfig.h"
 #include "HasmConfig.h"
 
-using Hasm::AssemblerEngineConfig;
+namespace Hasm {
 
-AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const* argv) {
+AssemblerEngineConfig CommandLineParser::parse(int argc, char const* const* argv) {
   bool exportSymbolTable{false};
   bool isValid{true};
   std::string inputName{""};
@@ -16,19 +17,19 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
   try {
     namespace po = boost::program_options;
 
-    po::options_description desc("Allowed options");
+    po::options_description desc{"Allowed options"};
     desc.add_options()
         ("symbol-table,s", "export symbol table (to <input file>.sym)")
         ("input-file,i", po::value<std::string>(&inputName), "input .asm file")
         ("help,h", "print this help message")
         ("version,v", "print version number");
 
-    po::positional_options_description positionalDescription;
+    po::positional_options_description positionalDescription{};
     const int maxNumberOfInputFiles{1};
     positionalDescription.add("input-file", maxNumberOfInputFiles);
 
-    po::variables_map vm;
-    po::command_line_parser cmdParser(argc, argv);
+    po::variables_map vm{};
+    po::command_line_parser cmdParser{argc, argv};
     po::store(cmdParser.options(desc).positional(positionalDescription).run(), vm);
     po::notify(vm);
 
@@ -40,9 +41,9 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
 
     if (vm.count("version")) {
       std::cout << "hasm "
-                << Hasm::Config::VERSION_MAJOR << "."
-                << Hasm::Config::VERSION_MINOR << "."
-                << Hasm::Config::VERSION_PATCH << std::endl;
+                << Config::VERSION_MAJOR << "."
+                << Config::VERSION_MINOR << "."
+                << Config::VERSION_PATCH << std::endl;
       isValid = false;
     }
 
@@ -59,3 +60,5 @@ AssemblerEngineConfig Hasm::CommandLineParser::parse(int argc, char const* const
 
   return AssemblerEngineConfig{isValid, exportSymbolTable, inputName};
 }
+
+} // namespace Hasm
