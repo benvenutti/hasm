@@ -3,7 +3,7 @@
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "HackCommandParser.h"
+#include "HackCommandParser.hpp"
 
 using namespace Hasm;
 

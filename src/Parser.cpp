@@ -4,7 +4,7 @@
 #include <cctype>
 
 #include "ErrorMessage.hpp"
-#include "HackCommandParser.h"
+#include "HackCommandParser.hpp"
 
 using Hasm::Parser;
 
