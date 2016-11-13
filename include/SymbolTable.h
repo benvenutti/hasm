@@ -7,7 +7,7 @@
 
 #include <boost/optional.hpp>
 
-#include "Hack.h"
+#include "Hack.hpp"
 
 namespace Hasm {
   class SymbolTable {

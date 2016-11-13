@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "Hack.h"
+#include "Hack.hpp"
 #include "Parser.h"
 #include "SymbolTable.h"
 

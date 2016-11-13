@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "Hack.h"
+#include "Hack.hpp"
 
 namespace Hasm {
 namespace Coder {

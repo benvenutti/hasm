@@ -3,7 +3,7 @@
 
 #include <limits>
 
-#include "Hack.h"
+#include "Hack.hpp"
 
 namespace Hasm {
   enum class CommandType {
