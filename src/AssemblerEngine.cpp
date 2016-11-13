@@ -4,7 +4,7 @@
 
 #include "Assembler.h"
 #include "AssemblerEngineConfig.h"
-#include "CommandLineParser.h"
+#include "CommandLineParser.hpp"
 #include "FileHandler.hpp"
 #include "SymbolTableWriter.hpp"
 
