@@ -6,7 +6,7 @@
 
 #include "Coder.hpp"
 #include "ErrorMessage.hpp"
-#include "Hasm.h"
+#include "Hasm.hpp"
 
 using Hasm::Assembler;
 using Hasm::SymbolTable;

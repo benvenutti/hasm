@@ -2,7 +2,7 @@
 #define HASM_COMMANDLINEPARSER_H_
 
 #include "AssemblerEngineConfig.h"
-#include "Hasm.h"
+#include "Hasm.hpp"
 
 namespace Hasm {
   namespace CommandLineParser {

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "Hasm.h"
+#include "Hasm.hpp"
 
 namespace Hasm {
   class Parser {
