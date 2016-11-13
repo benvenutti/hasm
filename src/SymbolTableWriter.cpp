@@ -1,4 +1,4 @@
-#include "SymbolTableWriter.h"
+#include "SymbolTableWriter.hpp"
 
 #include <iomanip>
 
