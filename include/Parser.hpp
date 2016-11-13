@@ -1,7 +1,7 @@
 #ifndef HASM_PARSER_HPP
 #define HASM_PARSER_HPP
 
-#include <iostream>
+#include <istream>
 #include <string>
 
 #include "Hasm.hpp"
@@ -17,7 +17,7 @@ class Parser {
         END_OF_FILE
     };
 
-    explicit Parser(std::istream& input);
+    explicit Parser(std::istream& in);
 
     bool advance();
 

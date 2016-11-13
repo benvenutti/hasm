@@ -2,14 +2,15 @@
 
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 
 #include "ErrorMessage.hpp"
 #include "HackCommandParser.hpp"
 
 namespace Hasm {
 
-Parser::Parser(std::istream& input)
-    : input{input} {}
+Parser::Parser(std::istream& in)
+    : input(in) {}
 
 Parser::Status Parser::getStatus() const {
   return status;
