@@ -6,12 +6,13 @@
 #include "Hack.h"
 
 namespace Hasm {
-  class Coder {
-    public:
-      static Hack::WORD dest(const std::string& mnemonic);
-      static Hack::WORD comp(const std::string& mnemonic);
-      static Hack::WORD jump(const std::string& mnemonic);
-  };
-}
+namespace Coder {
+
+Hack::WORD dest(const std::string& mnemonic);
+Hack::WORD comp(const std::string& mnemonic);
+Hack::WORD jump(const std::string& mnemonic);
+
+} // namespace Coder
+} // namespace Hasm
 
 #endif

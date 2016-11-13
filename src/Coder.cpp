@@ -2,10 +2,10 @@
 
 #include <algorithm>
 
-using Hasm::Coder;
+namespace Hasm {
 
 Hack::WORD Coder::dest(const std::string& mnemonic) {
-  Hack::WORD dest = 0;
+  Hack::WORD dest{0};
 
   if (mnemonic.find('M') != std::string::npos) dest |= 0b001;
   if (mnemonic.find('D') != std::string::npos) dest |= 0b010;
@@ -15,8 +15,8 @@ Hack::WORD Coder::dest(const std::string& mnemonic) {
 }
 
 Hack::WORD Coder::comp(const std::string& mnemonic) {
-  std::string m(mnemonic);
-  Hack::WORD mask = 0;
+  std::string m{mnemonic};
+  Hack::WORD mask{0};
 
   if (m.find('M') != std::string::npos) {
     mask = 64; // 0b1000000
@@ -61,3 +61,5 @@ Hack::WORD Coder::jump(const std::string& mnemonic) {
 
   return 0;
 }
+
+} // namespace Hasm
