@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "HackLex.h"
+#include "HackLex.hpp"
 
 namespace Hack {
   namespace Grammar {

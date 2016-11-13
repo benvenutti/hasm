@@ -1,5 +1,5 @@
-#ifndef HASM_HACKLEX_H
-#define HASM_HACKLEX_H
+#ifndef HASM_HACKLEX_HPP
+#define HASM_HACKLEX_HPP
 
 #include <string>
 

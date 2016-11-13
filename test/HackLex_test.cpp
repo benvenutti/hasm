@@ -3,7 +3,7 @@
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "HackLex.h"
+#include "HackLex.hpp"
 
 BOOST_AUTO_TEST_SUITE(identifiers)
 
