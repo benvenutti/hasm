@@ -2,7 +2,7 @@
 
 #include <boost/regex.hpp>
 
-#include "HackGrammar.h"
+#include "HackGrammar.hpp"
 
 namespace {
   const boost::regex labelCmdRegex{Hack::Grammar::LABEL};

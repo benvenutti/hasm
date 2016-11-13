@@ -3,7 +3,7 @@
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "HackGrammar.h"
+#include "HackGrammar.hpp"
 
 struct FixtureLabel {
   const boost::regex label{Hack::Grammar::LABEL};
