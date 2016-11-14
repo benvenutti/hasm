@@ -1,6 +1,6 @@
 #include <cstdlib>
 
-#include "AssemblerEngine.h"
+#include "AssemblerEngine.hpp"
 
 int main(int argc, char** argv) {
   Hasm::AssemblerEngine assembler;
