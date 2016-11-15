@@ -59,7 +59,7 @@ bool AssemblerEngine::exportSymbolTable(
     const AssemblerEngineConfig& cfg,
     const SymbolTable& table
 ) const {
-  const std::string symbolsOutName{FileHandler::changeExtension(cfg.inputName, "-symbols")};
+  const std::string symbolsOutName{FileHandler::changeExtension(cfg.inputName, "sym")};
   std::ofstream symbolsOut{symbolsOutName};
 
   if (!symbolsOut.good()) {
