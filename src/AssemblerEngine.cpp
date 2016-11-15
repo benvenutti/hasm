@@ -11,18 +11,16 @@
 
 namespace Hasm {
 
-bool AssemblerEngine::run(int argc, char** argv) const {
-  const AssemblerEngineConfig cfg{CommandLineParser::parse(argc, argv)};
-
-  if (!cfg.isValid) {
+bool AssemblerEngine::run(const AssemblerEngineConfig& config) const {
+  if (!config.isValid) {
     return false;
   }
 
-  if (!isAsmFile(cfg.inputName)) {
+  if (!isAsmFile(config.inputName)) {
     return false;
   }
 
-  std::ifstream inputFile{cfg.inputName};
+  std::ifstream inputFile{config.inputName};
 
   if (!inputFile.good()) {
     std::cerr << "error: unable to open input stream" << std::endl;
@@ -30,7 +28,7 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     return false;
   }
 
-  const std::string outputName{FileHandler::changeExtension(cfg.inputName, ".hack")};
+  const std::string outputName{FileHandler::changeExtension(config.inputName, ".hack")};
   std::ofstream outputFile{outputName};
 
   if (!outputFile.good()) {
@@ -42,8 +40,8 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   Assembler hasm{inputFile, outputFile};
   bool isOk{hasm.assemble()};
 
-  if (cfg.exportSymbols) {
-    isOk = exportSymbolTable(cfg, hasm.getSymbolTable());
+  if (config.exportSymbols) {
+    isOk = exportSymbolTable(config, hasm.getSymbolTable());
   }
 
   if (inputFile.is_open()) {
