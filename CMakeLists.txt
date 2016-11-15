@@ -16,8 +16,8 @@ set(HASM_VERSION_MINOR 2)
 set(HASM_VERSION_PATCH 0)
 
 configure_file(
-        "${PROJECT_SOURCE_DIR}/include/HasmConfig.h.in"
-        "${PROJECT_BINARY_DIR}/include/HasmConfig.h")
+        "${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in"
+        "${PROJECT_BINARY_DIR}/include/HasmConfig.hpp")
 
 include_directories("${PROJECT_BINARY_DIR}/include")
 

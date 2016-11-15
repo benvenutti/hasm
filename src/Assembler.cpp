@@ -1,37 +1,32 @@
-#include "Assembler.h"
+#include "Assembler.hpp"
 
 #include <bitset>
 #include <cctype>
 #include <iomanip>
 
-#include "Coder.h"
-#include "ErrorMessage.h"
-#include "Hasm.h"
+#include "Coder.hpp"
+#include "ErrorMessage.hpp"
 
-using Hasm::Assembler;
-using Hasm::SymbolTable;
+namespace Hasm {
 
 Assembler::Assembler(std::istream& in, std::ostream& out)
-    : out(out),
-      parser(in) {}
+    : out(out), parser(in) {}
 
 bool Assembler::assemble() {
   return firstPass() && parser.reset() && secondPass();
 }
 
-const SymbolTable& Assembler::getSymbolTable() const
-{
+const SymbolTable& Assembler::getSymbolTable() const {
   return symbolTable;
 }
 
 bool Assembler::firstPass() {
-  Hack::WORD lineCounter = 0;
+  Hack::WORD lineCounter{0};
 
   while (parser.advance()) {
-    if (parser.getCommandType() == Hasm::CommandType::LABEL) {
+    if (parser.getCommandType() == CommandType::LABEL) {
       symbolTable.addEntry(parser.symbol(), lineCounter);
-    }
-    else {
+    } else {
       lineCounter++;
     }
   }
@@ -40,7 +35,7 @@ bool Assembler::firstPass() {
 }
 
 bool Assembler::secondPass() {
-  bool ok = true;
+  bool ok{true};
 
   while (ok && parser.advance()) {
     const auto commandType = parser.getCommandType();
@@ -50,11 +45,11 @@ bool Assembler::secondPass() {
   return ok;
 }
 
-bool Assembler::assembleCommand(const Hasm::CommandType commandType) {
+bool Assembler::assembleCommand(const CommandType commandType) {
   switch (commandType) {
-    case Hasm::CommandType::ADDRESSING:
+    case CommandType::ADDRESSING:
       return assembleACommand();
-    case Hasm::CommandType::COMPUTATION:
+    case CommandType::COMPUTATION:
       return assembleCCommand();
     default:
       return true;
@@ -71,19 +66,19 @@ bool Assembler::assembleACommand() {
   } else {
     const auto cmd = parser.getCommand();
     const auto lineNumber = parser.getCurrentLineNumber();
-    std::cerr << Hasm::ErrorMessage::invalidLoadValue(cmd, lineNumber) << std::endl;
+    std::cerr << ErrorMessage::invalidLoadValue(cmd, lineNumber) << std::endl;
   }
 
   return isValid;
 }
 
 bool Assembler::assembleCCommand() {
-  Hack::WORD cc = 0;
+  Hack::WORD cc{0};
 
-  cc = Coder::dest(parser.dest());
-  cc |= Coder::comp(parser.comp());
-  cc |= Coder::jump(parser.jump());
-  cc |= 0b1110000000000000;
+  cc = Coder::dest(parser.dest())
+      | Coder::comp(parser.comp())
+      | Coder::jump(parser.jump())
+      | static_cast<Hack::WORD>(0b1110000000000000);
 
   output(cc);
 
@@ -93,11 +88,9 @@ bool Assembler::assembleCCommand() {
 Hack::WORD Assembler::computeValue(const std::string& symbol) {
   if (std::isdigit(symbol.front())) {
     return static_cast<Hack::WORD>(std::stoi(parser.symbol()));
-  }
-  else if (symbolTable.contains(symbol)) {
+  } else if (symbolTable.contains(symbol)) {
     return symbolTable.getAddress(symbol).get();
-  }
-  else {
+  } else {
     const auto value = RAMaddress++;
     symbolTable.addEntry(symbol, value);
 
@@ -106,9 +99,11 @@ Hack::WORD Assembler::computeValue(const std::string& symbol) {
 }
 
 bool Assembler::isValidValue(const Hack::WORD value) const {
-  return value <= Hasm::MAX_LOADABLE_VALUE;
+  return value <= MAX_LOADABLE_VALUE;
 }
 
 void Assembler::output(const Hack::WORD word) {
   out << std::bitset<16>(word).to_string() << std::endl;
 }
+
+} // namespace Hasm

@@ -5,7 +5,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "Parser.h"
+#include "Parser.hpp"
 
 struct Fixture {
   Fixture() {

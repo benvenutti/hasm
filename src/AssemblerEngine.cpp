@@ -1,17 +1,18 @@
-#include "AssemblerEngine.h"
+#include "AssemblerEngine.hpp"
 
 #include <fstream>
+#include <iostream>
 
-#include "Assembler.h"
-#include "AssemblerEngineConfig.h"
-#include "CommandLineParser.h"
-#include "FileHandler.h"
-#include "SymbolTableWriter.h"
+#include "Assembler.hpp"
+#include "AssemblerEngineConfig.hpp"
+#include "CommandLineParser.hpp"
+#include "FileHandler.hpp"
+#include "SymbolTableWriter.hpp"
 
-using namespace Hasm;
+namespace Hasm {
 
 bool AssemblerEngine::run(int argc, char** argv) const {
-  const AssemblerEngineConfig cfg = CommandLineParser::parse(argc, argv);
+  const AssemblerEngineConfig cfg{CommandLineParser::parse(argc, argv)};
 
   if (!cfg.isValid) {
     return false;
@@ -21,7 +22,7 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     return false;
   }
 
-  std::ifstream inputFile(cfg.inputName);
+  std::ifstream inputFile{cfg.inputName};
 
   if (!inputFile.good()) {
     std::cerr << "error: unable to open input stream" << std::endl;
@@ -29,8 +30,8 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     return false;
   }
 
-  std::string outputName = FileHandler::changeExtension(cfg.inputName, ".hack");
-  std::ofstream outputFile(outputName);
+  const std::string outputName{FileHandler::changeExtension(cfg.inputName, ".hack")};
+  std::ofstream outputFile{outputName};
 
   if (!outputFile.good()) {
     std::cerr << "error: unable to open " << outputName << std::endl;
@@ -38,8 +39,8 @@ bool AssemblerEngine::run(int argc, char** argv) const {
     return false;
   }
 
-  Assembler hasm(inputFile, outputFile);
-  bool isOk = hasm.assemble();
+  Assembler hasm{inputFile, outputFile};
+  bool isOk{hasm.assemble()};
 
   if (cfg.exportSymbols) {
     isOk = exportSymbolTable(cfg, hasm.getSymbolTable());
@@ -56,9 +57,12 @@ bool AssemblerEngine::run(int argc, char** argv) const {
   return isOk;
 }
 
-bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const SymbolTable& table) const {
-  std::string symbolsOutName = FileHandler::changeExtension(cfg.inputName, "-symbols");
-  std::ofstream symbolsOut(symbolsOutName);
+bool AssemblerEngine::exportSymbolTable(
+    const AssemblerEngineConfig& cfg,
+    const SymbolTable& table
+) const {
+  const std::string symbolsOutName{FileHandler::changeExtension(cfg.inputName, "-symbols")};
+  std::ofstream symbolsOut{symbolsOutName};
 
   if (!symbolsOut.good()) {
     std::cerr << "error: unable to open output stream" << std::endl;
@@ -73,7 +77,7 @@ bool AssemblerEngine::exportSymbolTable(const AssemblerEngineConfig& cfg, const 
 }
 
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const SymbolTable& table) const {
-  SymbolTableWriter tableWriter(out, table);
+  SymbolTableWriter tableWriter{out, table};
   tableWriter.write();
 }
 
@@ -92,3 +96,5 @@ bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
 
   return true;
 }
+
+} // namespace Hasm

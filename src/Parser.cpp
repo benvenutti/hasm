@@ -1,15 +1,16 @@
-#include "Parser.h"
+#include "Parser.hpp"
 
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 
-#include "ErrorMessage.h"
-#include "HackCommandParser.h"
+#include "ErrorMessage.hpp"
+#include "HackCommandParser.hpp"
 
-using Hasm::Parser;
+namespace Hasm {
 
-Parser::Parser(std::istream& input)
-    : input(input) {}
+Parser::Parser(std::istream& in)
+    : input(in) {}
 
 Parser::Status Parser::getStatus() const {
   return status;
@@ -19,7 +20,7 @@ const std::string& Parser::getCommand() const {
   return command;
 }
 
-Hasm::CommandType Parser::getCommandType() const {
+CommandType Parser::getCommandType() const {
   return commandType;
 }
 
@@ -34,30 +35,30 @@ void Parser::trim(std::string& str) const {
 
 void Parser::removeSpaces(std::string& str) const {
   str.erase(
-    std::remove_if(
-      str.begin(),
-      str.end(),
-      [](char c) { return std::isspace(c); }
-    ), str.end()
+      std::remove_if(
+          str.begin(),
+          str.end(),
+          [](char c) { return std::isspace(c); }
+      ), str.end()
   );
 }
 
 void Parser::removeComments(std::string& str) const {
   const auto pos = str.find("//");
-
   if (pos != std::string::npos) {
     str.erase(pos, str.size());
   }
 }
 
-bool Parser::readNextLine(std::string &str) {
+bool Parser::readNextLine(std::string& str) {
+  bool hasRead{false};
+
   if (getline(input, str)) {
     lineNumber++;
-
-    return true;
+    hasRead = true;
   }
 
-  return false;
+  return hasRead;
 }
 
 void Parser::update(const std::string& newCommand) {
@@ -66,7 +67,7 @@ void Parser::update(const std::string& newCommand) {
   checkErrors();
 }
 
-void Parser::setCommand(const std::string &newCommand) {
+void Parser::setCommand(const std::string& newCommand) {
   command = newCommand;
 }
 
@@ -76,7 +77,7 @@ void Parser::updateStatus() {
 
 void Parser::checkErrors() {
   if (status == Status::INVALID_COMMAND) {
-    std::cerr << Hasm::ErrorMessage::invalidCommand(command, lineNumber) << std::endl;
+    std::cerr << ErrorMessage::invalidCommand(command, lineNumber) << std::endl;
   }
 }
 
@@ -98,7 +99,7 @@ bool Parser::advance() {
 }
 
 std::string Parser::symbol() const {
-  if (getCommandType() == Hasm::CommandType::ADDRESSING) {
+  if (getCommandType() == CommandType::ADDRESSING) {
     return command.substr(1);
   }
 
@@ -124,7 +125,7 @@ std::string Parser::comp() const {
     return command.substr(command.find('=') + 1);
   }
 
-  std::string s = command.substr(command.find('=') + 1);
+  std::string s{command.substr(command.find('=') + 1)};
 
   return s.substr(0, s.find(';'));
 }
@@ -139,30 +140,27 @@ std::string Parser::jump() const {
 }
 
 bool Parser::reset() {
-  command = std::string("");
+  command = std::string{""};
   lineNumber = 0;
   status = Status::START_OF_FILE;
   commandType = CommandType::INVALID;
   input.clear();
-  input.seekg(std::streampos(0));
+  input.seekg(std::streampos{0});
 
   return input.good();
 }
 
 bool Parser::isValidCommand() const {
-  bool isValid = true;
+  bool isValid{true};
 
   if (isACommand()) {
-    commandType = Hasm::CommandType::ADDRESSING;
-  }
-  else if (isLCommand()) {
-    commandType = Hasm::CommandType::LABEL;
-  }
-  else if (isCCommand()) {
-    commandType = Hasm::CommandType::COMPUTATION;
-  }
-  else {
-    commandType = Hasm::CommandType::INVALID;
+    commandType = CommandType::ADDRESSING;
+  } else if (isLCommand()) {
+    commandType = CommandType::LABEL;
+  } else if (isCCommand()) {
+    commandType = CommandType::COMPUTATION;
+  } else {
+    commandType = CommandType::INVALID;
     isValid = false;
   }
 
@@ -170,13 +168,15 @@ bool Parser::isValidCommand() const {
 }
 
 bool Parser::isACommand() const {
-  return Hasm::HackCommandParser::isLoadCommand(command);
+  return HackCommandParser::isLoadCommand(command);
 }
 
 bool Parser::isCCommand() const {
-  return Hasm::HackCommandParser::isComputationCommand(command);
+  return HackCommandParser::isComputationCommand(command);
 }
 
 bool Parser::isLCommand() const {
-  return Hasm::HackCommandParser::isLabelCommand(command);
+  return HackCommandParser::isLabelCommand(command);
 }
+
+} // namespace Hasm

@@ -4,7 +4,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "Assembler.h"
+#include "Assembler.hpp"
 
 struct FixtureAddProgram {
   FixtureAddProgram() {
