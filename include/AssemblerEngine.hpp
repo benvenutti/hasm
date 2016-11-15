@@ -11,7 +11,9 @@ class SymbolTable;
 
 class AssemblerEngine {
   public:
-    bool run(int argc, char** argv) const;
+    AssemblerEngine() = default;
+
+    bool run(const AssemblerEngineConfig& config) const;
 
   private:
     bool isAsmFile(const std::string& fileName) const;
