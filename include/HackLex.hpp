@@ -3,6 +3,7 @@
 
 #include <string>
 
+namespace Hasm {
 namespace Hack {
 namespace Lex {
 
@@ -58,5 +59,6 @@ const std::string COMP_D_OR_M{"D\\|M"};
 
 } // namespace Lex
 } // namespace Hack
+} // namespace Hasm
 
 #endif

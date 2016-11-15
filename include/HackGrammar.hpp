@@ -5,6 +5,7 @@
 
 #include "HackLex.hpp"
 
+namespace Hasm {
 namespace Hack {
 namespace Grammar {
 
@@ -140,5 +141,6 @@ const std::string COMPUTATION_COMMAND{
 
 } // namespace Grammar
 } // namespace Hack
+} // namespace Hasm
 
 #endif

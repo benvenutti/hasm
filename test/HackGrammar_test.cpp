@@ -6,7 +6,7 @@
 #include "HackGrammar.hpp"
 
 struct FixtureLabel {
-  const boost::regex label{Hack::Grammar::LABEL};
+  const boost::regex label{Hasm::Hack::Grammar::LABEL};
 };
 
 BOOST_FIXTURE_TEST_SUITE(label, FixtureLabel)
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(test_invalidLabel_missingRightParen) {
 BOOST_AUTO_TEST_SUITE_END()
 
 struct FixtureLoad {
-  const boost::regex load{Hack::Grammar::LOAD};
+  const boost::regex load{Hasm::Hack::Grammar::LOAD};
 };
 
 BOOST_FIXTURE_TEST_SUITE(load, FixtureLoad)
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(test_invalidLoad_missingValue) {
 BOOST_AUTO_TEST_SUITE_END()
 
 struct FixtureDestinations {
-  const boost::regex dest{Hack::Grammar::DESTINATIONS};
+  const boost::regex dest{Hasm::Hack::Grammar::DESTINATIONS};
 };
 
 BOOST_FIXTURE_TEST_SUITE(destinations, FixtureDestinations)
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE(test_invalidDestination) {
 BOOST_AUTO_TEST_SUITE_END()
 
 struct FixtureJumps {
-  const boost::regex jump{Hack::Grammar::JUMPS};
+  const boost::regex jump{Hasm::Hack::Grammar::JUMPS};
 };
 
 BOOST_FIXTURE_TEST_SUITE(jumps, FixtureJumps)
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(test_invalidJump) {
 BOOST_AUTO_TEST_SUITE_END()
 
 struct FixtureComputations {
-  const boost::regex comp{Hack::Grammar::COMPUTATIONS};
+  const boost::regex comp{Hasm::Hack::Grammar::COMPUTATIONS};
 };
 
 BOOST_FIXTURE_TEST_SUITE(computations, FixtureComputations)
