@@ -16,8 +16,8 @@ void SymbolTableWriter::write() {
   
   std::set<std::string> symbols{symbolTable.getSymbols()};
   for (const auto& s: symbols) {
-    out << "0x" << std::setfill('0') << std::setw(4) << std::setbase(16)
-        << s << " " << symbolTable.getAddress(s).get() << '\n';
+    out << "0x" << std::setfill('0') << std::setw(4) << std::hex
+        << symbolTable.getAddress(s).get() << " " << s << '\n';
   }
 
   out.flush();
