@@ -49,7 +49,7 @@ This file can then be loaded into any Hack-compliance machine and it will correc
 
 #### Example 2: exporting the symbol table
 
-If we feel the need to take a look at the symbol table generated during the assembling process, we can add the flag *--symbol-table* (or the shorthand *-s*) to the command line as so:
+If we feel the need to take a look at the symbol table generated during the assembling process, we can add the flag *&#8209;&#8209;symbol&#8209;table* (or the shorthand *&#8209;s*) to the command line as so:
 
 ```sh
 $ ./hasm -s pong.asm
@@ -65,14 +65,13 @@ This will generate (alongside with the assembled *pong.hack*) a text file called
 0x072d LOOP_ball.bounce
 0x028e LOOP_ball.setdestination
 0x17f6 LOOP_keyboard.readline
-
 ```
 
-The *.sym* exported table will list the addresses of user defined symbols (like *END_GT* and *LOOP_ball.bounce* in the  example above), as well as predefined symbols, like *KBD* and *LCL*.
+The *.sym* exported table will list the addresses of user defined symbols (like *END_GT* and *LOOP_ball.bounce* in the  example above), as well as *Hack* predefined symbols, like *KBD* and *LCL*, for instance.
 
 #### Example 3: getting help
 
-Running **hasm** in the command line with the argument *--help* (or the shorthand *-h*) will print the usage message:
+Running **hasm** in the command line with the argument *&#8209;&#8209;help* (or the shorthand *&#8209;h*) will print the usage message:
 
 ```
 $ ./hasm --help
