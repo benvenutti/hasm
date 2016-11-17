@@ -10,10 +10,8 @@ Staying true to the chapter's goal, the assembler is implemented without the hel
 
 **hasm** goes a bit further than the assembler described in the book, offering the extra functionalities:
 
- 1. code analysis (lexical, syntactic and *a tiny bit of semantic*) with error messages;
- 3. ability to export the symbol table to a file.
-
-
+1. code analysis (lexical, syntactic and *a tiny bit of semantic*) with error messages;
+2. ability to export the symbol table to a file.
 
 ## Examples
 
