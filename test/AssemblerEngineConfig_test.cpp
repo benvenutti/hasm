@@ -2,7 +2,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "AssemblerEngineConfig.h"
+#include "AssemblerEngineConfig.hpp"
 
 BOOST_AUTO_TEST_SUITE(constructor)
 

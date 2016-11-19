@@ -1,0 +1,14 @@
+#ifndef HASM_HASMCONFIG_HPP
+#define HASM_HASMCONFIG_HPP
+
+namespace Hasm {
+namespace Config {
+
+const int VERSION_MAJOR{${HASM_VERSION_MAJOR}};
+const int VERSION_MINOR{${HASM_VERSION_MINOR}};
+const int VERSION_PATCH{${HASM_VERSION_PATCH}};
+
+} // namespace Config
+} // namespace Hasm
+
+#endif

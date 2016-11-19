@@ -1,30 +1,34 @@
-#include "SymbolTable.h"
+#include "SymbolTable.hpp"
 
-using Hasm::SymbolTable;
+namespace Hasm {
 
-void SymbolTable::addEntry(const std::string& symbol, int address) {
-  table.insert(std::pair<std::string, int>(symbol, address));
+SymbolTable::SymbolTable(const std::map<std::string, Hack::WORD>& symbols)
+    : table{symbols} {}
+
+void SymbolTable::addEntry(const std::string& symbol, const Hack::WORD address) {
+  table.emplace(symbol, address);
 }
 
 bool SymbolTable::contains(const std::string& symbol) const {
   return table.find(symbol) != table.end();
 }
 
-boost::optional<int> SymbolTable::getAddress(const std::string& symbol) const {
-  auto it = table.find(symbol);
+boost::optional<Hack::WORD> SymbolTable::getAddress(const std::string& symbol) const {
+  const auto it = table.find(symbol);
   if (it != table.end()) {
-    return boost::optional<int>(it->second);
+    return boost::optional<Hack::WORD>(it->second);
   }
 
   return boost::none;
 }
 
-std::set<std::string> SymbolTable::getSymbols() const
-{
-  std::set<std::string> symbols;
-  for (auto it: table) {
+std::set<std::string> SymbolTable::getSymbols() const {
+  std::set<std::string> symbols{};
+  for (const auto& it: table) {
     symbols.insert(it.first);
   }
 
   return symbols;
 }
+
+} // namespace Hasm

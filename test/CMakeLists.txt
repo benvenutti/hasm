@@ -4,14 +4,14 @@ endif ()
 
 file(GLOB test_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
+include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include)
+
 foreach (test_source ${test_sources})
     get_filename_component(test_name ${test_source} NAME_WE)
-    add_executable(${test_name} $<TARGET_OBJECTS:hasm_objects> ${test_source})
+    add_executable(${test_name} ${test_source})
 
     target_link_libraries(${test_name}
-            ${Boost_FILESYSTEM_LIBRARY}
-            ${Boost_SYSTEM_LIBRARY}
-            ${Boost_PROGRAM_OPTIONS_LIBRARY}
+            hasm
             ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
     set_target_properties(${test_name} PROPERTIES

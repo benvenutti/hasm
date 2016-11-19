@@ -1,103 +1,109 @@
-#include "Assembler.h"
-
-#include "Coder.h"
-#include "Hasm.h"
+#include "Assembler.hpp"
 
 #include <bitset>
+#include <cctype>
 #include <iomanip>
 
-using Hasm::Assembler;
-using Hasm::SymbolTable;
+#include "Coder.hpp"
+#include "ErrorMessage.hpp"
+
+namespace Hasm {
 
 Assembler::Assembler(std::istream& in, std::ostream& out)
-    : out(out),
-      parser(in) {
-  mapPredefinedSymbols();
+    : out(out), parser(in) {}
+
+bool Assembler::assemble() {
+  return firstPass() && parser.reset() && secondPass();
 }
 
-void Assembler::assemble() {
-  firstPass();
-  parser.reset();
-  secondPass();
-}
-
-const SymbolTable& Assembler::getSymbolTable() const
-{
+const SymbolTable& Assembler::getSymbolTable() const {
   return symbolTable;
 }
 
-void Assembler::firstPass() {
-  int lineCounter = 0;
+bool Assembler::firstPass() {
+  Hack::WORD lineCounter{0};
 
   while (parser.advance()) {
-    if (parser.getCommandType() == Hasm::HasmCommandType::L_COMMAND) {
+    if (parser.getCommandType() == CommandType::LABEL) {
       symbolTable.addEntry(parser.symbol(), lineCounter);
-    }
-    else {
+    } else {
       lineCounter++;
     }
   }
+
+  return parser.getStatus() == Parser::Status::END_OF_FILE;
 }
 
-void Assembler::secondPass() {
-  while (parser.advance()) {
-    Hasm::HasmCommandType cmdType = parser.getCommandType();
+bool Assembler::secondPass() {
+  bool ok{true};
 
-    if (cmdType == Hasm::HasmCommandType::A_COMMAND) {
-      assembleACommand();
-    }
-    else if (cmdType == Hasm::HasmCommandType::C_COMMAND) {
-      assembleCCommand();
-    }
+  while (ok && parser.advance()) {
+    const auto commandType = parser.getCommandType();
+    ok = assembleCommand(commandType);
+  }
+
+  return ok;
+}
+
+bool Assembler::assembleCommand(const CommandType commandType) {
+  switch (commandType) {
+    case CommandType::ADDRESSING:
+      return assembleACommand();
+    case CommandType::COMPUTATION:
+      return assembleCCommand();
+    default:
+      return true;
   }
 }
 
-void Assembler::assembleACommand() {
-  std::string symbol = parser.symbol();
-  unsigned int value;
+bool Assembler::assembleACommand() {
+  const auto symbol = parser.symbol();
+  const auto value = computeValue(symbol);
+  const auto isValid = isValidValue(value);
 
-  if (isdigit(symbol.front())) {
-    value = stoi(parser.symbol());
-  }
-  else if (symbolTable.contains(symbol)) {
-    boost::optional<int> address = symbolTable.getAddress(symbol);
-    value = address.get();
-  }
-  else {
-    symbolTable.addEntry(symbol, RAMaddress);
-    value = RAMaddress++;
+  if (isValid) {
+    output(value);
+  } else {
+    const auto cmd = parser.getCommand();
+    const auto lineNumber = parser.getCurrentLineNumber();
+    std::cerr << ErrorMessage::invalidLoadValue(cmd, lineNumber) << std::endl;
   }
 
-  output(value);
+  return isValid;
 }
 
-void Assembler::assembleCCommand() {
-  unsigned int cc = 0;
+bool Assembler::assembleCCommand() {
+  Hack::WORD cc{0};
 
-  cc = Coder::dest(parser.dest());
-  cc |= Coder::comp(parser.comp());
-  cc |= Coder::jump(parser.jump());
-  cc |= 0b1110000000000000;
+  cc = Coder::dest(parser.dest())
+      | Coder::comp(parser.comp())
+      | Coder::jump(parser.jump())
+      | static_cast<Hack::WORD>(0b1110000000000000);
 
   output(cc);
+
+  return true;
 }
 
-void Assembler::output(unsigned int value) {
-  out << std::bitset<16>(value).to_string() << std::endl;
-}
+Hack::WORD Assembler::computeValue(const std::string& symbol) {
+  if (std::isdigit(symbol.front())) {
+    return static_cast<Hack::WORD>(std::stoi(parser.symbol()));
+  } else if (symbolTable.contains(symbol)) {
+    return symbolTable.getAddress(symbol).get();
+  } else {
+    const auto value = RAMaddress++;
+    symbolTable.addEntry(symbol, value);
 
-void Assembler::mapPredefinedSymbols() {
-  symbolTable.addEntry("SP", 0x00);
-  symbolTable.addEntry("LCL", 0x01);
-  symbolTable.addEntry("ARG", 0x02);
-  symbolTable.addEntry("THIS", 0x03);
-  symbolTable.addEntry("THAT", 0x04);
-
-  for (int i = 0; i < 16; i++) {
-    std::string reg("R" + std::to_string(i));
-    symbolTable.addEntry(reg, i);
+    return value;
   }
-
-  symbolTable.addEntry("SCREEN", 0x4000);
-  symbolTable.addEntry("KBD", 0x6000);
 }
+
+bool Assembler::isValidValue(const Hack::WORD value) const {
+  return value <= MAX_LOADABLE_VALUE;
+}
+
+void Assembler::output(const Hack::WORD word) {
+  out << std::bitset<16>(word).to_string() << std::endl;
+}
+
+} // namespace Hasm

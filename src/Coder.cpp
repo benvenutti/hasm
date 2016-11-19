@@ -1,11 +1,11 @@
-#include "Coder.h"
+#include "Coder.hpp"
 
 #include <algorithm>
 
-using Hasm::Coder;
+namespace Hasm {
 
-unsigned int Coder::dest(const std::string& mnemonic) {
-  unsigned int dest = 0;
+Hack::WORD Coder::dest(const std::string& mnemonic) {
+  Hack::WORD dest{0};
 
   if (mnemonic.find('M') != std::string::npos) dest |= 0b001;
   if (mnemonic.find('D') != std::string::npos) dest |= 0b010;
@@ -14,16 +14,16 @@ unsigned int Coder::dest(const std::string& mnemonic) {
   return dest << 3;
 }
 
-unsigned int Coder::comp(const std::string& mnemonic) {
-  std::string m(mnemonic);
-  unsigned int mask = 0;
+Hack::WORD Coder::comp(const std::string& mnemonic) {
+  std::string m{mnemonic};
+  Hack::WORD mask{0};
 
   if (m.find('M') != std::string::npos) {
     mask = 64; // 0b1000000
     std::replace(m.begin(), m.end(), 'M', 'A');
   }
 
-  unsigned int comp;
+  Hack::WORD comp;
 
   if (m == "0") comp = 0b101010;
   else if (m == "1") comp = 0b111111;
@@ -45,10 +45,12 @@ unsigned int Coder::comp(const std::string& mnemonic) {
   else if (m == "D&A") comp = 0b000000;
   else comp = 0b010101;
 
-  return (comp |= mask) << 6;
+  comp |= mask;
+
+  return comp << 6;
 }
 
-unsigned int Coder::jump(const std::string& mnemonic) {
+Hack::WORD Coder::jump(const std::string& mnemonic) {
   if (mnemonic == "JGT") return 0b001;
   if (mnemonic == "JEQ") return 0b010;
   if (mnemonic == "JGE") return 0b011;
@@ -59,3 +61,5 @@ unsigned int Coder::jump(const std::string& mnemonic) {
 
   return 0;
 }
+
+} // namespace Hasm
