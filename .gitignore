@@ -29,5 +29,4 @@
 *.app
 
 # CLion IDE
-**/.idea/workspace.xml
-**/.idea/tasks.xml
+**/.idea
