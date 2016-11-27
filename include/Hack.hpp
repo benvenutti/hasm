@@ -2,8 +2,8 @@
 #define HACK_HPP
 
 #include <cstdint>
-#include <map>
 #include <string>
+#include <unordered_map>
 
 namespace Hasm {
 namespace Hack {
@@ -12,7 +12,7 @@ using WORD = uint16_t;
 
 const WORD INIT_RAM_ADDRESS{16};
 
-const std::map<std::string, WORD> PREDEFINED_SYMBOLS{
+const std::unordered_map<std::string, WORD> PREDEFINED_SYMBOLS{
     {"SP", 0x00},
     {"LCL", 0x01},
     {"ARG", 0x02},

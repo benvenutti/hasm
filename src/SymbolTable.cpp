@@ -2,7 +2,7 @@
 
 namespace Hasm {
 
-SymbolTable::SymbolTable(const std::map<std::string, Hack::WORD>& symbols)
+SymbolTable::SymbolTable(const std::unordered_map<std::string, Hack::WORD>& symbols)
     : table{symbols} {}
 
 void SymbolTable::addEntry(const std::string& symbol, const Hack::WORD address) {
