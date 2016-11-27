@@ -1,5 +1,5 @@
-#ifndef HACK_HPP
-#define HACK_HPP
+#ifndef HASM_HACK_HPP
+#define HASM_HACK_HPP
 
 #include <cstdint>
 #include <string>
@@ -13,27 +13,27 @@ using WORD = uint16_t;
 const WORD INIT_RAM_ADDRESS{16};
 
 const std::unordered_map<std::string, WORD> PREDEFINED_SYMBOLS{
-    {"SP", 0x00},
-    {"LCL", 0x01},
-    {"ARG", 0x02},
-    {"THIS", 0x03},
-    {"THAT", 0x04},
-    {"R0", 0x00},
-    {"R1", 0x01},
-    {"R2", 0x02},
-    {"R3", 0x03},
-    {"R4", 0x04},
-    {"R5", 0x05},
-    {"R6", 0x06},
-    {"R7", 0x07},
-    {"R8", 0x08},
-    {"R9", 0x09},
-    {"R10", 0x10},
-    {"R11", 0x11},
-    {"R12", 0x12},
-    {"R13", 0x13},
-    {"R14", 0x14},
-    {"R15", 0x15},
+    {"SP", 0x0},
+    {"LCL", 0x1},
+    {"ARG", 0x2},
+    {"THIS", 0x3},
+    {"THAT", 0x4},
+    {"R0", 0x0},
+    {"R1", 0x1},
+    {"R2", 0x2},
+    {"R3", 0x3},
+    {"R4", 0x4},
+    {"R5", 0x5},
+    {"R6", 0x6},
+    {"R7", 0x7},
+    {"R8", 0x8},
+    {"R9", 0x9},
+    {"R10", 0xA},
+    {"R11", 0xB},
+    {"R12", 0xC},
+    {"R13", 0xD},
+    {"R14", 0xE},
+    {"R15", 0xF},
     {"SCREEN", 0x4000},
     {"KBD", 0x6000}
 };
