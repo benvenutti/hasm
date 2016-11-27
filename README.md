@@ -58,13 +58,13 @@ $ ./hasm -s pong.asm
 This will generate (alongside with the assembled *pong.hack*) a text file called *pong.sym* that might look like this:
 
 ```
+0x0001 LCL
 0x0023 END_GT
 0x0033 END_LT
-0x6000 KBD
-0x0001 LCL
-0x072d LOOP_ball.bounce
 0x028e LOOP_ball.setdestination
+0x072d LOOP_ball.bounce
 0x17f6 LOOP_keyboard.readline
+0x6000 KBD
 ```
 
 The *.sym* exported table will list the addresses of user defined symbols (like *END_GT* and *LOOP_ball.bounce* in the  example above), as well as *Hack* predefined symbols, like *KBD* and *LCL*, for instance.
