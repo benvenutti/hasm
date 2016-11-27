@@ -30,3 +30,6 @@
 
 # CLion IDE
 **/.idea
+
+# build folder
+**/build
