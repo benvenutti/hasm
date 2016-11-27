@@ -8,16 +8,19 @@
 
 namespace Hasm {
 
-SymbolTableWriter::SymbolTableWriter(std::ostream& out, const SymbolTable& symbolTable)
-    : out(out), symbolTable(symbolTable) {}
-
-void SymbolTableWriter::write() {
-  boost::io::ios_flags_saver ifs{out};
-  
+SymbolTableWriter::SymbolTableWriter(const SymbolTable& symbolTable) {
   std::set<std::string> symbols{symbolTable.getSymbols()};
   for (const auto& s: symbols) {
+    symbolMap.emplace(symbolTable.getAddress(s).get(), s);
+  }
+}
+
+void SymbolTableWriter::write(std::ostream& out) {
+  boost::io::ios_flags_saver ifs{out};
+
+  for (const auto& it: symbolMap) {
     out << "0x" << std::setfill('0') << std::setw(4) << std::hex
-        << symbolTable.getAddress(s).get() << " " << s << '\n';
+        << it.first << " " << it.second << '\n';
   }
 
   out.flush();

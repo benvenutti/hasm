@@ -75,8 +75,8 @@ bool AssemblerEngine::exportSymbolTable(
 }
 
 void AssemblerEngine::outputSymbolTable(std::ostream& out, const SymbolTable& table) const {
-  SymbolTableWriter tableWriter{out, table};
-  tableWriter.write();
+  SymbolTableWriter tableWriter{table};
+  tableWriter.write(out);
 }
 
 bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
