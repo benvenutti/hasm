@@ -64,12 +64,16 @@ bool Assembler::assembleACommand() {
   if (isValid) {
     output(value);
   } else {
-    const auto cmd = parser.getCommand();
-    const auto lineNumber = parser.getCurrentLineNumber();
-    std::cerr << ErrorMessage::invalidLoadValue(cmd, lineNumber) << std::endl;
+    displayInvalidACommandMessage();
   }
 
   return isValid;
+}
+
+void Assembler::displayInvalidACommandMessage() {
+  const auto cmd = parser.getCommand();
+  const auto lineNumber = parser.getCurrentLineNumber();
+  std::cerr << ErrorMessage::invalidLoadValue(cmd, lineNumber) << std::endl;
 }
 
 bool Assembler::assembleCCommand() {
@@ -86,16 +90,18 @@ bool Assembler::assembleCCommand() {
 }
 
 Hack::WORD Assembler::computeValue(const std::string& symbol) {
-  if (std::isdigit(symbol.front())) {
-    return static_cast<Hack::WORD>(std::stoi(parser.symbol()));
-  } else if (symbolTable.contains(symbol)) {
-    return symbolTable.getAddress(symbol).get();
-  } else {
-    const auto value = RAMaddress++;
-    symbolTable.addEntry(symbol, value);
+  Hack::WORD value{0u};
 
-    return value;
+  if (std::isdigit(symbol.front()) != 0) {
+    value = static_cast<Hack::WORD>(std::stoi(parser.symbol()));
+  } else if (symbolTable.contains(symbol)) {
+    value = symbolTable.getAddress(symbol).get();
+  } else {
+    value = ramAddress++;
+    symbolTable.addEntry(symbol, value);
   }
+
+  return value;
 }
 
 bool Assembler::isValidValue(const Hack::WORD value) const {
