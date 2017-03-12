@@ -2,21 +2,25 @@
 
 namespace Hasm {
 
-SymbolTable::SymbolTable(const std::unordered_map<std::string, Hack::WORD>& symbols)
-    : table{symbols} {}
+SymbolTable::SymbolTable(std::unordered_map<std::string, Hack::WORD> symbols)
+    : table{std::move(symbols)} {}
 
 void SymbolTable::addEntry(const std::string& symbol, const Hack::WORD address) {
   table.emplace(symbol, address);
 }
 
 bool SymbolTable::contains(const std::string& symbol) const {
-  return table.find(symbol) != table.end();
+  const auto hasSymbol = table.find(symbol) != table.end();
+
+  return hasSymbol;
 }
 
 boost::optional<Hack::WORD> SymbolTable::getAddress(const std::string& symbol) const {
   const auto it = table.find(symbol);
   if (it != table.end()) {
-    return boost::optional<Hack::WORD>(it->second);
+    const auto address = boost::optional<Hack::WORD>(it->second);
+
+    return address;
   }
 
   return boost::none;
