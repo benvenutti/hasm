@@ -28,6 +28,9 @@
 *.out
 *.app
 
+# Build
+**/build
+
 # CLion IDE
 **/.idea
 
