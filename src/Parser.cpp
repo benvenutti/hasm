@@ -10,7 +10,7 @@
 namespace Hasm {
 
 Parser::Parser(std::istream& in)
-    : input(in) {}
+    : input(in) { }
 
 Parser::Status Parser::getStatus() const {
   return status;

@@ -12,7 +12,7 @@ const boost::regex labelCmdRegex{Hack::Grammar::LABEL};
 const boost::regex compCmdRegex{Hack::Grammar::COMPUTATION_COMMAND};
 const boost::regex loadCmdRegex{Hack::Grammar::LOAD};
 
-} // unnamed namespace
+} // namespace
 
 bool HackCommandParser::isComputationCommand(const std::string& cmd) {
   return boost::regex_match(cmd, compCmdRegex);

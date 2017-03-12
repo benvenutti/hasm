@@ -26,11 +26,12 @@ class Assembler {
     Hack::WORD computeValue(const std::string& symbol);
     bool isValidValue(const Hack::WORD value) const;
     void output(const Hack::WORD word);
+    void displayInvalidACommandMessage();
 
     std::ostream& out;
     Parser parser;
     SymbolTable symbolTable{Hack::PREDEFINED_SYMBOLS};
-    Hack::WORD RAMaddress{Hack::INIT_RAM_ADDRESS};
+    Hack::WORD ramAddress{Hack::INIT_RAM_ADDRESS};
 };
 
 } // namespace Hasm
