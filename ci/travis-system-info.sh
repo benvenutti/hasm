@@ -2,4 +2,4 @@
 
 cmake --version
 uname -a
-# $COMPILER --version
+$COMPILER --version
