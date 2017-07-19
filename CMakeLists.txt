@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.2)
-project(hasm)
+cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+project(hasm LANGUAGES CXX)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(warnings "/W4 /WX")
@@ -22,12 +22,12 @@ configure_file(
 include_directories("${PROJECT_BINARY_DIR}/include")
 
 find_package(Boost COMPONENTS
-        system
-        filesystem
-        program_options
-        unit_test_framework
-        regex
-        REQUIRED)
+    filesystem
+    program_options
+    regex
+    system
+    unit_test_framework
+    REQUIRED)
 
 add_subdirectory(src)
 

@@ -11,8 +11,8 @@ foreach (test_source ${test_sources})
     add_executable(${test_name} ${test_source})
 
     target_link_libraries(${test_name}
-            hasm
-            ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+        hasm
+        Boost::unit_test_framework)
 
     set_target_properties(${test_name} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testBin)
