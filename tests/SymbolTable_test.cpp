@@ -1,11 +1,9 @@
-#define BOOST_TEST_MODULE SymbolTable_test
-
 #include <boost/test/unit_test.hpp>
 
 #include "SymbolTable.hpp"
 
-struct Fixture {
-  Fixture() {
+struct FixtureSymbolTable {
+  FixtureSymbolTable() {
     symbolTable.addEntry("s1", 0x1010);
     symbolTable.addEntry("s2", 0x2020);
     symbolTable.addEntry("s3", 0x3030);
@@ -14,7 +12,7 @@ struct Fixture {
   Hasm::SymbolTable symbolTable;
 };
 
-BOOST_FIXTURE_TEST_SUITE(entries, Fixture)
+BOOST_FIXTURE_TEST_SUITE(entries, FixtureSymbolTable)
 
 BOOST_AUTO_TEST_CASE(contains) {
   BOOST_CHECK_EQUAL(symbolTable.contains("s1"), true);

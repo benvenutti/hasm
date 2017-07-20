@@ -1,5 +1,3 @@
-#define BOOST_TEST_MODULE FileHandler_test
-
 #include <fstream>
 
 #include <boost/filesystem.hpp>

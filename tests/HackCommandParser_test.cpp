@@ -1,5 +1,3 @@
-#define BOOST_TEST_MODULE HackCommandParser_test
-
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
 

@@ -101,8 +101,9 @@ dist: trusty
 
 before_install:
   - source ci/travis-environment.sh
-  - ci/travis-system-info.sh
   - ci/travis-before-install.sh
+  - source ci/travis-update-cmake.sh
+  - ci/travis-system-info.sh
 
 script:
   - ci/travis-script.sh

@@ -1,5 +1,3 @@
-#define BOOST_TEST_MODULE AssemblerEngineConfig_test
-
 #include <boost/test/unit_test.hpp>
 
 #include "AssemblerEngineConfig.hpp"
