@@ -1,5 +1,3 @@
-#define BOOST_TEST_MODULE Coder_test
-
 #include <boost/test/unit_test.hpp>
 
 #include "Coder.hpp"

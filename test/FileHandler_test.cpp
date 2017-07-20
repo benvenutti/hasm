@@ -1,6 +1,4 @@
-#define BOOST_TEST_MODULE FileHandler_test
-
-#include <fstream>
+#include <boost/test/unit_test.hpp>
 
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>

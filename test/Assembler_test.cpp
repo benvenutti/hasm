@@ -1,5 +1,3 @@
-#define BOOST_TEST_MODULE Assembler_test
-
 #include <sstream>
 
 #include <boost/test/unit_test.hpp>

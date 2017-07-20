@@ -1,5 +1,3 @@
-#define BOOST_TEST_MODULE Parser_test
-
 #include <sstream>
 #include <vector>
 

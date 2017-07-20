@@ -1,9 +1,9 @@
-#define BOOST_TEST_MODULE HackLex_test
-
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "HackLex.hpp"
+
+namespace {
 
 struct FixtureIdentifier {
   const boost::regex id{Hasm::Hack::Lex::ID};
@@ -351,4 +351,5 @@ BOOST_AUTO_TEST_CASE(test_invalidJMP) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-// 363
+
+}

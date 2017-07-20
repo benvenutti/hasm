@@ -1,23 +1,29 @@
 if (NOT Boost_USE_STATIC_LIBS)
     add_definitions(-DBOOST_TEST_DYN_LINK)
-endif ()
+endif()
 
-file(GLOB test_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+set(test_sources_files
+	AssemblerEngineConfig_test.cpp
+	Assembler_test.cpp
+	BoostTest_config.cpp
+	Coder_test.cpp
+	CommandLineParser_test.cpp
+	FileHandler_test.cpp
+	HackCommandParser_test.cpp
+	HackGrammar_computation_test.cpp
+	HackGrammar_destination_test.cpp
+	HackGrammar_jump_test.cpp
+	HackGrammar_label_test.cpp
+	HackGrammar_load_test.cpp
+	HackLex_test.cpp
+	Parser_test.cpp
+	SymbolTable_test.cpp)
 
-include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include)
+add_executable(test_suite ${test_sources_files})
+set_target_properties(test_suite PROPERTIES CXX_STANDARD 14)
 
-foreach (test_source ${test_sources})
-    get_filename_component(test_name ${test_source} NAME_WE)
-    add_executable(${test_name} ${test_source})
+target_link_libraries(test_suite
+    hack_assembler
+    Boost::unit_test_framework)
 
-    target_link_libraries(${test_name}
-        hasm
-        Boost::unit_test_framework)
-
-    set_target_properties(${test_name} PROPERTIES
-            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testBin)
-
-    add_test(NAME ${test_name}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testBin
-            COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testBin/${test_name})
-endforeach (test_source)
+add_test(NAME HasmTestSuite COMMAND test_suite)
