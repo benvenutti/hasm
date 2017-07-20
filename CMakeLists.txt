@@ -81,4 +81,4 @@ target_link_libraries(hasm hack_assembler)
 # unit tests
 
 enable_testing(true)
-add_subdirectory(test)
+add_subdirectory(tests)
