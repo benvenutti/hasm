@@ -1,4 +1,4 @@
-# hasm [![Build Status](https://travis-ci.org/benvenutti/hasm.svg?branch=development)](https://travis-ci.org/benvenutti/hasm) [![Build status](https://ci.appveyor.com/api/projects/status/xvvgrlygu5hofm75?svg=true)](https://ci.appveyor.com/project/benvenutti/hasmtest) <a href="https://scan.coverity.com/projects/benvenutti-hasm"><img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/9220/badge.svg"/></a> [![Coverage Status](https://coveralls.io/repos/github/benvenutti/hasm/badge.svg?branch=development)](https://coveralls.io/github/benvenutti/hasm?branch=development)
+# hasm [![Build Status](https://travis-ci.org/benvenutti/hasm.svg?branch=development)](https://travis-ci.org/benvenutti/hasm) [![Build status](https://ci.appveyor.com/api/projects/status/xvvgrlygu5hofm75?svg=true)](https://ci.appveyor.com/project/benvenutti/hasmtest) <a href="https://scan.coverity.com/projects/benvenutti-hasm"><img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/9220/badge.svg"/></a> [![Coverage Status](https://coveralls.io/repos/github/benvenutti/hasm/badge.svg?branch=development)](https://coveralls.io/github/benvenutti/hasm?branch=development) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **hasm** stands for *Hack* Assembler, an assembler for the *Hack Platform*. This project is based on the sixth chapter of the book "The Elements of Computing System: Building a Modern Computer from First Principles", by Nisan and Schocken, where the platform is fully described. For more information, see [nand2tetris](http://www.nand2tetris.org/).
 
@@ -89,16 +89,8 @@ The assembler is written in C++11 and uses [CMake](https://cmake.org/) to manage
 
 The following list enumerates the dependencies' minimum requirements:
 
-* cmake 3.2
+* cmake 3.6
 * libboost 1.54.0
-
-### Supported compilers
-
-The following compilers are known to work for **hasm**:
-
-* GCC 4.8 - 6.0
-* Clang 3.5
-* Microsoft Visual C++ 2014 Build Tools 14.0.25420.1
 
 ### Cross-platform
 
@@ -135,5 +127,5 @@ hasm/build$ make test
 Running tests...
 Test project hasm/build
 ...
-100% tests passed, 0 tests failed out of 10
+100% tests passed, 0 tests failed out of 1
 ```
