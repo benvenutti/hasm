@@ -89,16 +89,8 @@ The assembler is written in C++11 and uses [CMake](https://cmake.org/) to manage
 
 The following list enumerates the dependencies' minimum requirements:
 
-* cmake 3.2
+* cmake 3.6
 * libboost 1.54.0
-
-### Supported compilers
-
-The following compilers are known to work for **hasm**:
-
-* GCC 4.8 - 6.0
-* Clang 3.5
-* Microsoft Visual C++ 2014 Build Tools 14.0.25420.1
 
 ### Cross-platform
 
@@ -135,5 +127,5 @@ hasm/build$ make test
 Running tests...
 Test project hasm/build
 ...
-100% tests passed, 0 tests failed out of 10
+100% tests passed, 0 tests failed out of 1
 ```
