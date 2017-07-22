@@ -20,18 +20,18 @@ class Assembler {
   private:
     bool firstPass();
     bool secondPass();
-    bool assembleCommand(const CommandType commandType);
+    bool assembleCommand(CommandType commandType);
     bool assembleACommand();
     bool assembleCCommand();
     Hack::WORD computeValue(const std::string& symbol);
-    bool isValidValue(const Hack::WORD value) const;
-    void output(const Hack::WORD word);
+    bool isValidValue(Hack::WORD value) const;
+    void output(Hack::WORD word);
     void displayInvalidACommandMessage();
 
-    std::ostream& out;
-    Parser parser;
-    SymbolTable symbolTable{Hack::PREDEFINED_SYMBOLS};
-    Hack::WORD ramAddress{Hack::INIT_RAM_ADDRESS};
+    std::ostream& m_out;
+    Parser m_parser;
+    SymbolTable m_symbolTable{Hack::PREDEFINED_SYMBOLS};
+    Hack::WORD m_ramAddress{Hack::INIT_RAM_ADDRESS};
 };
 
 } // namespace Hasm
