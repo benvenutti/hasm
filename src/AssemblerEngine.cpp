@@ -12,15 +12,15 @@
 namespace Hasm {
 
 bool AssemblerEngine::run(const AssemblerEngineConfig& config) const {
-  if (!config.isValid) {
+  if (!config.isValid()) {
     return false;
   }
 
-  if (!isAsmFile(config.inputName)) {
+  if (!isAsmFile(config.inputName())) {
     return false;
   }
 
-  std::ifstream inputFile{config.inputName};
+  std::ifstream inputFile{config.inputName()};
 
   if (!inputFile.good()) {
     std::cerr << "error: unable to open input stream" << std::endl;
@@ -28,7 +28,7 @@ bool AssemblerEngine::run(const AssemblerEngineConfig& config) const {
     return false;
   }
 
-  const std::string outputName{FileHandler::changeExtension(config.inputName, ".hack")};
+  const std::string outputName{FileHandler::changeExtension(config.inputName(), ".hack")};
   std::ofstream outputFile{outputName};
 
   if (!outputFile.good()) {
@@ -40,7 +40,7 @@ bool AssemblerEngine::run(const AssemblerEngineConfig& config) const {
   Assembler hasm{inputFile, outputFile};
   bool isOk{hasm.assemble()};
 
-  if (config.exportSymbols) {
+  if (config.exportSymbols()) {
     isOk = exportSymbolTable(config, hasm.getSymbolTable());
   }
 
@@ -59,7 +59,7 @@ bool AssemblerEngine::exportSymbolTable(
     const AssemblerEngineConfig& cfg,
     const SymbolTable& table
 ) const {
-  const std::string symbolsOutName{FileHandler::changeExtension(cfg.inputName, "sym")};
+  const std::string symbolsOutName{FileHandler::changeExtension(cfg.inputName(), "sym")};
   std::ofstream symbolsOut{symbolsOutName};
 
   if (!symbolsOut.good()) {

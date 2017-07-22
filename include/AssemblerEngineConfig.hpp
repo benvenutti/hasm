@@ -2,6 +2,7 @@
 #define HASM_ASSEMBLERENGINECONFIG_HPP
 
 #include <string>
+#include <utility>
 
 namespace Hasm {
 
@@ -12,11 +13,26 @@ class AssemblerEngineConfig {
         const bool exportSymbols,
         const std::string inputName
     )
-        : isValid{isValid}, exportSymbols{exportSymbols}, inputName{inputName} {}
+    : m_isValid{isValid}, 
+      m_exportSymbols{exportSymbols}, 
+      m_inputName{std::move(inputName)} { }
+    
+    bool isValid() const noexcept {
+      return m_isValid;
+    }
 
-    const bool isValid;
-    const bool exportSymbols;
-    const std::string inputName;
+    bool exportSymbols() const noexcept {
+      return m_exportSymbols;
+    }
+
+    const std::string& inputName() const {
+      return m_inputName;
+    }
+
+  private:
+    const bool m_isValid;
+    const bool m_exportSymbols;
+    const std::string m_inputName;
 };
 
 } // namespace Hasm
