@@ -9,7 +9,7 @@
 namespace Hasm {
 
 SymbolTableWriter::SymbolTableWriter(const SymbolTable& symbolTable) {
-  std::set<std::string> symbols{symbolTable.getSymbols()};
+  const auto symbols = symbolTable.getSymbols();
   for (const auto& s: symbols) {
     symbolMap.emplace(symbolTable.getAddress(s).get(), s);
   }
