@@ -64,7 +64,7 @@ add_library(hack_assembler
     ${hack_assembler_source_files} 
     ${hack_assembler_header_files})
 
-set_target_properties(hack_assembler PROPERTIES CXX_STANDARD 11)
+set_target_properties(hack_assembler PROPERTIES CXX_STANDARD 14)
 
 target_link_libraries(hack_assembler
     Boost::filesystem
@@ -75,7 +75,7 @@ target_link_libraries(hack_assembler
 # hasm executable
 
 add_executable(hasm src/main.cpp)
-set_target_properties(hasm PROPERTIES CXX_STANDARD 11)
+set_target_properties(hasm PROPERTIES CXX_STANDARD 14)
 target_link_libraries(hasm hack_assembler)
 
 # unit tests
