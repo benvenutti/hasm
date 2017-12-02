@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <boost/test/unit_test.hpp>
 
 #include "SymbolTable.hpp"
@@ -29,12 +31,12 @@ BOOST_AUTO_TEST_CASE(addresses) {
 }
 
 BOOST_AUTO_TEST_CASE(getSymbols) {
-  std::set<std::string> symbols = symbolTable.getSymbols();
+  const auto symbols = symbolTable.getSymbols();
 
-  BOOST_CHECK_EQUAL(symbols.count("s1"), 1u);
-  BOOST_CHECK_EQUAL(symbols.count("s2"), 1u);
-  BOOST_CHECK_EQUAL(symbols.count("s3"), 1u);
-  BOOST_CHECK_EQUAL(symbols.count("s4"), 0u);
+  BOOST_CHECK_EQUAL(std::count(symbols.begin(), symbols.end(), "s1"), 1u);
+  BOOST_CHECK_EQUAL(std::count(symbols.begin(), symbols.end(), "s2"), 1u);
+  BOOST_CHECK_EQUAL(std::count(symbols.begin(), symbols.end(), "s3"), 1u);
+  BOOST_CHECK_EQUAL(std::count(symbols.begin(), symbols.end(), "s4"), 0u);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
