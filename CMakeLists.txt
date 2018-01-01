@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
-project(hasm LANGUAGES CXX)
+project(hasm VERSION 0.2.0 LANGUAGES CXX)
 
 find_package(Boost COMPONENTS 
     filesystem
@@ -17,10 +17,6 @@ else()
     -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wcast-qual -Wunused
     -Woverloaded-virtual -pedantic)
 endif()
-
-set(HASM_VERSION_MAJOR 0)
-set(HASM_VERSION_MINOR 2)
-set(HASM_VERSION_PATCH 0)
 
 configure_file(
     ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
