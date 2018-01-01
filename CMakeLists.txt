@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 project(hasm VERSION 0.2.0 LANGUAGES CXX)
 
+# build settings:
+
+set(CMAKE_CXX_STANDARD 14)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
+endif()
+
+set(CMAKE_DEBUG_POSTFIX -d)
+set(CMAKE_CXX_FLAGS_DEBUG -g)
+set(CMAKE_CXX_FLAGS_RELEASE -O2)
+
+option(BUILD_TESTS "Build unit tests" ON)
+
+# 3rd-party dependencies:
+
 find_package(Boost
   COMPONENTS
     filesystem
@@ -8,6 +24,8 @@ find_package(Boost
     regex
     system
     unit_test_framework REQUIRED)
+
+# compiler definitions:
 
 if(MSVC)
   add_definitions(/W4 /w14545 /w34242 /w34254 /w34287 /w44263 /w44265 /w44296
@@ -19,11 +37,7 @@ else()
     -Woverloaded-virtual -pedantic)
 endif()
 
-configure_file(
-    ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
-    ${PROJECT_BINARY_DIR}/include/HasmConfig.hpp)
-
-# hack_assembler library
+# hack_assembler library:
 
 set(hack_assembler_source_files
     src/Assembler.cpp
@@ -54,11 +68,13 @@ set(hack_assembler_header_files
     include/SymbolTable.hpp
     include/SymbolTableWriter.hpp)
 
+configure_file(
+  ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
+  ${PROJECT_BINARY_DIR}/include/HasmConfig.hpp)
+
 add_library(hack_assembler 
     ${hack_assembler_source_files} 
     ${hack_assembler_header_files})
-
-set_target_properties(hack_assembler PROPERTIES CXX_STANDARD 14)
 
 target_include_directories(hack_assembler
   PUBLIC
@@ -72,16 +88,17 @@ target_link_libraries(hack_assembler
     Boost::regex
     Boost::system)
 
-# hasm executable
+# hasm executable:
 
 add_executable(hasm src/main.cpp)
-set_target_properties(hasm PROPERTIES CXX_STANDARD 14)
 
 target_link_libraries(hasm
   PRIVATE
     hack_assembler)
 
-# unit tests
+# unit tests:
 
-enable_testing(true)
-add_subdirectory(tests)
+if(BUILD_TESTS)
+  enable_testing(true)
+  add_subdirectory(tests)
+endif(BUILD_TESTS)
