@@ -10,7 +10,13 @@ if [ "$IS_COVERAGE_BUILD" == 1 ]; then
   cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="$flags" -DCMAKE_CXX_COMPILER=$COMPILER .
 elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
   mkdir build && cd build
-  cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
+
+  if [ "$COMPILER" == "clang++" ]; then
+    cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_FLAGS="-stdlib=libc++" ..
+  else
+    cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
+  fi
+
 elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
   mkdir build && cd build
   cmake ..
