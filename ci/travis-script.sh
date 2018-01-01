@@ -11,7 +11,7 @@ if [ "$IS_COVERAGE_BUILD" == 1 ]; then
 elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
   mkdir build && cd build
 
-  if [ "$COMPILER" == "clang++" ]; then
+  if [ "$COMPILER" == "clang++-3.6" ]; then
     cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_FLAGS="-stdlib=libc++" ..
   else
     cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
