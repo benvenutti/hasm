@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 project(hasm VERSION 0.2.0 LANGUAGES CXX)
 
-find_package(Boost COMPONENTS 
+find_package(Boost
+  COMPONENTS
     filesystem
     program_options
     regex
@@ -21,9 +22,6 @@ endif()
 configure_file(
     ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
     ${PROJECT_BINARY_DIR}/include/HasmConfig.hpp)
-
-include_directories(${PROJECT_BINARY_DIR}/include)
-include_directories(include)
 
 # hack_assembler library
 
@@ -62,7 +60,13 @@ add_library(hack_assembler
 
 set_target_properties(hack_assembler PROPERTIES CXX_STANDARD 14)
 
+target_include_directories(hack_assembler
+  PUBLIC
+    include
+    ${PROJECT_BINARY_DIR}/include)
+
 target_link_libraries(hack_assembler
+  PRIVATE
     Boost::filesystem
     Boost::program_options
     Boost::regex
@@ -72,7 +76,10 @@ target_link_libraries(hack_assembler
 
 add_executable(hasm src/main.cpp)
 set_target_properties(hasm PROPERTIES CXX_STANDARD 14)
-target_link_libraries(hasm hack_assembler)
+
+target_link_libraries(hasm
+  PRIVATE
+    hack_assembler)
 
 # unit tests
 
