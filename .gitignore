@@ -36,3 +36,6 @@
 
 # build folder
 **/build
+
+# temporary user files
+**/CMakeLists.txt.user
