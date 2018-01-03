@@ -85,12 +85,13 @@ Allowed options:
 
 ## Building **hasm** from source
 
-The assembler is written in C++11 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/).
+The assembler is written in C++14 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/).
 
-The following list enumerates the dependencies' minimum requirements:
+The following list enumerates the tools and dependencies' minimum requirements:
 
+* c++14 compiler
 * cmake 3.6
-* libboost 1.54.0
+* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system* and *unit_test_framework*)
 
 ### Cross-platform
 
@@ -98,14 +99,16 @@ One of the goals of **hasm** is to be a cross-platform project. The following ta
 
 | Compiler        | Operating System             | Version String |
 |-----------------|------------------------------|----------------|
-| GCC 4.8.5       | Ubuntu 14.04.3 LTS           | g++-4.8 (Ubuntu 4.8.5-2ubuntu1~14.04.1) 4.8.5 |
-| GCC 4.9.3       | Ubuntu 14.04.3 LTS           | g++-4.9 (Ubuntu 4.9.3-8ubuntu2~14.04) 4.9.3 |
-| GCC 5.3.0       | Ubuntu 14.04.3 LTS           | g++-5 (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 20151204 |
-| GCC 6.1.1       | Ubuntu 14.04.3 LTS           | g++-6 (Ubuntu 6.1.1-3ubuntu11~14.04.1) 6.1.1 20160511 |
-| Clang 3.5.0     | Ubuntu 14.04.3 LTS           | clang version 3.5.0 (tags/RELEASE_350/final) |
+| GCC 4.8.5       | Ubuntu 14.04.5 LTS           | g++-4.8 (Ubuntu 4.8.5-2ubuntu1~14.04.1) 4.8.5 |
+| GCC 4.9.3       | Ubuntu 14.04.5 LTS           | g++-4.9 (Ubuntu 4.9.3-8ubuntu2~14.04) 4.9.3 |
+| GCC 5.3.0       | Ubuntu 14.04.5 LTS           | g++-5 (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 20151204 |
+| GCC 6.1.1       | Ubuntu 14.04.5 LTS           | g++-6 (Ubuntu 6.1.1-3ubuntu11~14.04.1) 6.1.1 20160511 |
+| Clang 3.7.1     | Ubuntu 14.04.5 LTS           | clang version 3.7.1-svn253571-1~exp1 (branches/release_37) |
+| Clang 5.0.0     | Ubuntu 14.04.5 LTS           | clang version 5.0.0 (tags/RELEASE_500/final) |
 | Clang Xcode 7.3.1 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 7.3.0 (clang-703.0.31) |
-| Clang Xcode 8.0 beta 4 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 8.0.0 (clang-800.0.35) |
-| Visual Studio 14 2015 | Windows Server 2012 R2 (x64)          | Microsoft (R) Build Engine version 14.0.25420.1 |
+| Clang Xcode 8.0 beta 4 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 8.0.0 (clang-800.0.38) |
+| Visual Studio 14 2015 | Windows Server 2012 R2 (x86)          | Microsoft (R) Build Engine version 14.0.25420.1 |
+| Visual Studio 14 2015 Win64 | Windows Server 2012 R2 (x64)          | Microsoft (R) Build Engine version 14.0.25420.1 |
 
 ### Compiling
 
