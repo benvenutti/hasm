@@ -9,8 +9,6 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
 endif()
 
-set(CMAKE_DEBUG_POSTFIX -d)
-set(CMAKE_CXX_FLAGS_DEBUG -g)
 set(CMAKE_CXX_FLAGS_RELEASE -O2)
 
 option(BUILD_TESTS "Build unit tests" ON)
