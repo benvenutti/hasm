@@ -112,13 +112,13 @@ One of the goals of **hasm** is to be a cross-platform project. The following ta
 
 ### Compiling
 
-Run the classic **cmake + make** on the source directory. It is recommend to run **cmake** from out of source, that is, usually from a *build* directory inside the source directory.
+Run the classic **cmake + make** on the source directory. It is recommend to run **cmake** from out of source, that is, usually from a *build* directory inside the source directory. Here is an example on Linux:
 
 ```shh
 hasm$ mkdir build
 hasm$ cd build
 hasm/build$ cmake ..
-hasm/build$ make
+hasm/build$ cmake --build .
 ```
 
 ### Running tests
@@ -126,7 +126,7 @@ hasm/build$ make
 To run the available tests, you need to execute the *test* target using **make test**, like this:
 
 ```shh
-hasm/build$ make test
+hasm/build$ ctest
 Running tests...
 Test project hasm/build
 ...
