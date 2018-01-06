@@ -71,16 +71,6 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-          packages:
-            - clang++-3.6
-      env: COMPILER=clang++-3.6
-
-    - os: linux
-      compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.7
           packages:
             - clang++-3.7
@@ -102,7 +92,6 @@ dist: trusty
 before_install:
   - source ci/travis-environment.sh
   - ci/travis-before-install.sh
-  - source ci/travis-update-cmake.sh
   - ci/travis-system-info.sh
 
 script:
