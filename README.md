@@ -123,7 +123,7 @@ hasm/build$ cmake --build .
 
 ### Running tests
 
-To run the available tests, you need to execute the *test* target using **make test**, like this:
+To run the available test suite, first make sure the configuration option *BUILD_TESTS* was properly set (its default value is *ON*) . After a successful build, you need to execute the *test* target using **ctest** from CMake, like this:
 
 ```shh
 hasm/build$ ctest
