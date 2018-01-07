@@ -16,5 +16,5 @@ elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
   cmake ..
 fi
 
-make
-make test CTEST_OUTPUT_ON_FAILURE=TRUE
+cmake --build .
+ctest -VV

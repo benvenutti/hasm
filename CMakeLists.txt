@@ -11,8 +11,6 @@ endif()
 
 set(CMAKE_CXX_FLAGS_RELEASE -O2)
 
-option(BUILD_TESTS "Build unit tests" ON)
-
 # 3rd-party dependencies:
 
 find_package(Boost
@@ -96,7 +94,9 @@ target_link_libraries(hasm
 
 # unit tests:
 
-if(BUILD_TESTS)
-  enable_testing(true)
+enable_testing()
+include(CTest)
+
+if(BUILD_TESTING)
   add_subdirectory(tests)
-endif(BUILD_TESTS)
+endif()
