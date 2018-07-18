@@ -17,7 +17,6 @@ find_package(Boost
   COMPONENTS
     filesystem
     program_options
-    regex
     system
     unit_test_framework REQUIRED)
 
@@ -81,7 +80,6 @@ target_link_libraries(hack_assembler
   PRIVATE
     Boost::filesystem
     Boost::program_options
-    Boost::regex
     Boost::system)
 
 # hasm executable:

@@ -1,4 +1,3 @@
-#include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "HackCommandParser.hpp"
