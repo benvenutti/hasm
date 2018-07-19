@@ -54,7 +54,7 @@ private:
 
     std::istream&       input;
     std::string         command{ "" };
-    mutable CommandType commandType{ CommandType::INVALID };
+    mutable CommandType commandType{ CommandType::invalid };
     int                 lineNumber{ 0 };
     Status              status{ Status::START_OF_FILE };
 };

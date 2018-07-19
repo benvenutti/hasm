@@ -53,21 +53,21 @@ BOOST_AUTO_TEST_CASE( commandTypes )
     Hasm::Parser      parser{ ss };
 
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::ADDRESSING );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::addressing );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::COMPUTATION );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::computation );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::ADDRESSING );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::addressing );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::COMPUTATION );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::computation );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::COMPUTATION );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::computation );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::LABEL );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::label );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::ADDRESSING );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::addressing );
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::COMPUTATION );
+    BOOST_CHECK( parser.getCommandType() == Hasm::CommandType::computation );
 }
 
 BOOST_AUTO_TEST_CASE( lineNumber )

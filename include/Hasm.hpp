@@ -9,13 +9,13 @@ namespace Hasm
 
 enum class CommandType
 {
-    ADDRESSING,  /// A-Command
-    COMPUTATION, /// C-Command
-    LABEL,       /// L-Command
-    INVALID
+    addressing,  /// A-Command
+    computation, /// C-Command
+    label,       /// L-Command
+    invalid
 };
 
 // max value for unsigned 15 bit number
-const Hack::WORD MAX_LOADABLE_VALUE = std::numeric_limits<Hack::WORD>::max() >> 1;
+const Hack::WORD max_loadable_value = std::numeric_limits<Hack::WORD>::max() >> 1;
 
 } // namespace Hasm
