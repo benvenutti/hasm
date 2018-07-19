@@ -9,90 +9,102 @@
 #include "FileHandler.hpp"
 #include "SymbolTableWriter.hpp"
 
-namespace Hasm {
+namespace Hasm
+{
 
-bool AssemblerEngine::run(const AssemblerEngineConfig& config) const {
-  if (!config.isValid()) {
-    return false;
-  }
+bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
+{
+    if ( !config.isValid() )
+    {
+        return false;
+    }
 
-  if (!isAsmFile(config.inputName())) {
-    return false;
-  }
+    if ( !isAsmFile( config.inputName() ) )
+    {
+        return false;
+    }
 
-  std::ifstream inputFile{config.inputName()};
+    std::ifstream inputFile{ config.inputName() };
 
-  if (!inputFile.good()) {
-    std::cerr << "error: unable to open input stream" << std::endl;
+    if ( !inputFile.good() )
+    {
+        std::cerr << "error: unable to open input stream" << std::endl;
 
-    return false;
-  }
+        return false;
+    }
 
-  const std::string outputName{FileHandler::changeExtension(config.inputName(), ".hack")};
-  std::ofstream outputFile{outputName};
+    const std::string outputName{ FileHandler::changeExtension( config.inputName(), ".hack" ) };
+    std::ofstream     outputFile{ outputName };
 
-  if (!outputFile.good()) {
-    std::cerr << "error: unable to open " << outputName << std::endl;
+    if ( !outputFile.good() )
+    {
+        std::cerr << "error: unable to open " << outputName << std::endl;
 
-    return false;
-  }
+        return false;
+    }
 
-  Assembler hasm{inputFile, outputFile};
-  bool isOk{hasm.assemble()};
+    Assembler hasm{ inputFile, outputFile };
+    bool      isOk{ hasm.assemble() };
 
-  if (config.exportSymbols()) {
-    isOk = exportSymbolTable(config, hasm.getSymbolTable());
-  }
+    if ( config.exportSymbols() )
+    {
+        isOk = exportSymbolTable( config, hasm.getSymbolTable() );
+    }
 
-  if (inputFile.is_open()) {
-    inputFile.close();
-  }
+    if ( inputFile.is_open() )
+    {
+        inputFile.close();
+    }
 
-  if (outputFile.is_open()) {
-    outputFile.close();
-  }
+    if ( outputFile.is_open() )
+    {
+        outputFile.close();
+    }
 
-  return isOk;
+    return isOk;
 }
 
-bool AssemblerEngine::exportSymbolTable(
-    const AssemblerEngineConfig& cfg,
-    const SymbolTable& table
-) const {
-  const std::string symbolsOutName{FileHandler::changeExtension(cfg.inputName(), "sym")};
-  std::ofstream symbolsOut{symbolsOutName};
+bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const
+{
+    const std::string symbolsOutName{ FileHandler::changeExtension( cfg.inputName(), "sym" ) };
+    std::ofstream     symbolsOut{ symbolsOutName };
 
-  if (!symbolsOut.good()) {
-    std::cerr << "error: unable to open output stream" << std::endl;
+    if ( !symbolsOut.good() )
+    {
+        std::cerr << "error: unable to open output stream" << std::endl;
 
-    return false;
-  }
+        return false;
+    }
 
-  outputSymbolTable(symbolsOut, table);
-  symbolsOut.close();
+    outputSymbolTable( symbolsOut, table );
+    symbolsOut.close();
 
-  return true;
+    return true;
 }
 
-void AssemblerEngine::outputSymbolTable(std::ostream& out, const SymbolTable& table) const {
-  SymbolTableWriter tableWriter{table};
-  tableWriter.write(out);
+void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& table ) const
+{
+    SymbolTableWriter tableWriter{ table };
+    tableWriter.write( out );
 }
 
-bool AssemblerEngine::isAsmFile(const std::string& fileName) const {
-  if (!FileHandler::isFile(fileName)) {
-    std::cerr << "error: input \"" << fileName << "\"is not a file" << std::endl;
+bool AssemblerEngine::isAsmFile( const std::string& fileName ) const
+{
+    if ( !FileHandler::isFile( fileName ) )
+    {
+        std::cerr << "error: input \"" << fileName << "\"is not a file" << std::endl;
 
-    return false;
-  }
+        return false;
+    }
 
-  if (!FileHandler::hasExtension(fileName, ".asm")) {
-    std::cerr << "error: input file must have .asm extension" << std::endl;
+    if ( !FileHandler::hasExtension( fileName, ".asm" ) )
+    {
+        std::cerr << "error: input file must have .asm extension" << std::endl;
 
-    return false;
-  }
+        return false;
+    }
 
-  return true;
+    return true;
 }
 
 } // namespace Hasm

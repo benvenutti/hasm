@@ -5,9 +5,11 @@
 
 #include "Hack.hpp"
 
-namespace Hasm {
+namespace Hasm
+{
 
-enum class CommandType {
+enum class CommandType
+{
     ADDRESSING,  /// A-Command
     COMPUTATION, /// C-Command
     LABEL,       /// L-Command
