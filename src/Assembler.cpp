@@ -1,11 +1,11 @@
 #include "Assembler.hpp"
 
+#include "Coder.hpp"
+#include "ErrorMessage.hpp"
+
 #include <bitset>
 #include <cctype>
 #include <iomanip>
-
-#include "Coder.hpp"
-#include "ErrorMessage.hpp"
 
 namespace Hasm
 {

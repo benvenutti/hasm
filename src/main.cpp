@@ -1,8 +1,8 @@
-#include <cstdlib>
-
 #include "AssemblerEngine.hpp"
 #include "AssemblerEngineConfig.hpp"
 #include "CommandLineParser.hpp"
+
+#include <cstdlib>
 
 int main( int argc, char** argv )
 {

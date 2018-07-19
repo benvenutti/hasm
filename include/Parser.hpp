@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Hasm.hpp"
+
 #include <istream>
 #include <string>
-
-#include "Hasm.hpp"
 
 namespace Hasm
 {

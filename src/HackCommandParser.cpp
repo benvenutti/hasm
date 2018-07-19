@@ -1,8 +1,8 @@
 #include "HackCommandParser.hpp"
 
-#include <boost/regex.hpp>
-
 #include "HackGrammar.hpp"
+
+#include <boost/regex.hpp>
 
 namespace Hasm
 {

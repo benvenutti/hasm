@@ -1,9 +1,9 @@
-#include <sstream>
-#include <vector>
+#include "Parser.hpp"
 
 #include <boost/test/unit_test.hpp>
 
-#include "Parser.hpp"
+#include <sstream>
+#include <vector>
 
 struct Fixture
 {

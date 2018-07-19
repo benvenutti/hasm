@@ -1,7 +1,8 @@
-#include <boost/test/unit_test.hpp>
+#include "CommandLineParser.hpp"
 
 #include "AssemblerEngineConfig.hpp"
-#include "CommandLineParser.hpp"
+
+#include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_SUITE( parsingShorthands )
 

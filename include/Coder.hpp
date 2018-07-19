@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-
 #include "Hack.hpp"
+
+#include <string>
 
 namespace Hasm
 {

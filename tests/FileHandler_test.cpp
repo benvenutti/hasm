@@ -1,9 +1,9 @@
 #include <fstream>
 
+#include "FileHandler.hpp"
+
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
-
-#include "FileHandler.hpp"
 
 struct FixtureFileName
 {

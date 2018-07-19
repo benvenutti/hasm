@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Hack.hpp"
+
 #include <map>
 #include <ostream>
-
-#include "Hack.hpp"
 
 namespace Hasm
 {

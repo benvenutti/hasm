@@ -1,12 +1,12 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-#include <vector>
+#include "Hack.hpp"
 
 #include <boost/optional.hpp>
 
-#include "Hack.hpp"
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace Hasm
 {

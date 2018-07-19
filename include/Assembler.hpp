@@ -1,11 +1,11 @@
 #pragma once
 
-#include <iostream>
-
 #include "Hack.hpp"
 #include "Hasm.hpp"
 #include "Parser.hpp"
 #include "SymbolTable.hpp"
+
+#include <iostream>
 
 namespace Hasm
 {
