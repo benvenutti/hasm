@@ -1,13 +1,15 @@
 #ifndef HASM_COMMANDLINEPARSER_HPP
 #define HASM_COMMANDLINEPARSER_HPP
 
-namespace Hasm {
+namespace Hasm
+{
 
 class AssemblerEngineConfig;
 
-namespace CommandLineParser {
+namespace CommandLineParser
+{
 
-AssemblerEngineConfig parse(int argc, char const* const* argv);
+AssemblerEngineConfig parse( int argc, char const* const* argv );
 
 } // namespace CommandLineParser
 } // namespace Hasm

@@ -6,17 +6,19 @@
 
 #include "Hack.hpp"
 
-namespace Hasm {
+namespace Hasm
+{
 
 class SymbolTable;
 
-class SymbolTableWriter {
-  public:
-    SymbolTableWriter(const SymbolTable& symbolTable);
+class SymbolTableWriter
+{
+public:
+    SymbolTableWriter( const SymbolTable& symbolTable );
 
-    void write(std::ostream& out);
+    void write( std::ostream& out );
 
-  private:
+private:
     std::multimap<Hack::WORD, std::string> symbolMap;
 };
 

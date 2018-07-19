@@ -5,9 +5,14 @@
 
 #include "HackLex.hpp"
 
-namespace Hasm {
-namespace Hack {
-namespace Grammar {
+namespace Hasm
+{
+namespace Hack
+{
+namespace Grammar
+{
+
+// clang-format off
 
 const std::string LABEL{
     Lex::LEFT_PAREN
@@ -194,6 +199,8 @@ const std::string COMPUTATION_COMMAND{
         + JUMPS
         + ")?"
 };
+
+// clang-format on
 
 } // namespace Grammar
 } // namespace Hack
