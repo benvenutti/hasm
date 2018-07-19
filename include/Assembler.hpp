@@ -31,8 +31,8 @@ private:
 
     std::ostream& m_out;
     Parser        m_parser;
-    SymbolTable   m_symbolTable{ Hack::PREDEFINED_SYMBOLS };
-    Hack::WORD    m_ramAddress{ Hack::INIT_RAM_ADDRESS };
+    SymbolTable   m_symbolTable{ Hack::predefined_symbols };
+    Hack::WORD    m_ramAddress{ Hack::init_ram_address };
 };
 
 } // namespace Hasm
