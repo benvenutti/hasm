@@ -28,3 +28,18 @@ target_link_libraries(test_suite
     Boost::unit_test_framework)
 
 add_test(NAME HasmTestSuite COMMAND test_suite)
+
+# catch2 tests:
+
+set(catch_source_files
+    catch.setup.cpp)
+
+add_executable(catch_test_suite ${catch_source_files})
+set_target_properties(catch_test_suite PROPERTIES CXX_STANDARD 14)
+
+target_link_libraries(catch_test_suite
+  PRIVATE
+    hack_assembler
+    catch2)
+
+add_test(NAME HasmTestSuiteCatch COMMAND catch_test_suite)

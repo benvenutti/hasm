@@ -21,6 +21,9 @@ find_package(Boost
     system
     unit_test_framework REQUIRED)
 
+add_library(catch2 INTERFACE)
+target_include_directories(catch2 INTERFACE libs/Catch2/single_include)
+
 # compiler definitions:
 
 if(MSVC)
