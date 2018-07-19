@@ -1,5 +1,4 @@
-#ifndef HASM_HACKLEX_HPP
-#define HASM_HACKLEX_HPP
+#pragma once
 
 #include <string>
 
@@ -42,5 +41,3 @@ const std::string JUMP_JMP{ "JMP" };
 } // namespace Lex
 } // namespace Hack
 } // namespace Hasm
-
-#endif

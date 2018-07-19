@@ -1,10 +1,9 @@
-#ifndef HASM_SYMBOLTABLEWRITER_HPP
-#define HASM_SYMBOLTABLEWRITER_HPP
+#pragma once
+
+#include "Hack.hpp"
 
 #include <map>
 #include <ostream>
-
-#include "Hack.hpp"
 
 namespace Hasm
 {
@@ -19,9 +18,7 @@ public:
     void write( std::ostream& out );
 
 private:
-    std::multimap<Hack::WORD, std::string> symbolMap;
+    std::multimap<Hack::word, std::string> symbolMap;
 };
 
 } // namespace Hasm
-
-#endif

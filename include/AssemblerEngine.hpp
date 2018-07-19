@@ -1,5 +1,4 @@
-#ifndef HASM_ASSEMBLERENGINE_HPP
-#define HASM_ASSEMBLERENGINE_HPP
+#pragma once
 
 #include <ostream>
 #include <string>
@@ -24,5 +23,3 @@ private:
 };
 
 } // namespace Hasm
-
-#endif

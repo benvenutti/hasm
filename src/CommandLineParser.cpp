@@ -1,11 +1,11 @@
 #include "CommandLineParser.hpp"
 
-#include <iostream>
+#include "AssemblerEngineConfig.hpp"
+#include "HasmConfig.hpp"
 
 #include <boost/program_options.hpp>
 
-#include "AssemblerEngineConfig.hpp"
-#include "HasmConfig.hpp"
+#include <iostream>
 
 namespace Hasm
 {

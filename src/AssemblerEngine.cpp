@@ -1,13 +1,13 @@
 #include "AssemblerEngine.hpp"
 
-#include <fstream>
-#include <iostream>
-
 #include "Assembler.hpp"
 #include "AssemblerEngineConfig.hpp"
 #include "CommandLineParser.hpp"
 #include "FileHandler.hpp"
 #include "SymbolTableWriter.hpp"
+
+#include <fstream>
+#include <iostream>
 
 namespace Hasm
 {

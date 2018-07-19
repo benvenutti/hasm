@@ -1,10 +1,10 @@
 #include "SymbolTableWriter.hpp"
 
-#include <iomanip>
+#include "SymbolTable.hpp"
 
 #include <boost/io/ios_state.hpp>
 
-#include "SymbolTable.hpp"
+#include <iomanip>
 
 namespace Hasm
 {

@@ -1,12 +1,11 @@
-#ifndef HASM_ASSEMBLER_HPP
-#define HASM_ASSEMBLER_HPP
-
-#include <iostream>
+#pragma once
 
 #include "Hack.hpp"
 #include "Hasm.hpp"
 #include "Parser.hpp"
 #include "SymbolTable.hpp"
+
+#include <iostream>
 
 namespace Hasm
 {
@@ -25,17 +24,15 @@ private:
     bool       assembleCommand( CommandType commandType );
     bool       assembleACommand();
     bool       assembleCCommand();
-    Hack::WORD computeValue( const std::string& symbol );
-    bool       isValidValue( Hack::WORD value ) const;
-    void       output( Hack::WORD word );
+    Hack::word computeValue( const std::string& symbol );
+    bool       isValidValue( Hack::word value ) const;
+    void       output( Hack::word word );
     void       displayInvalidACommandMessage();
 
     std::ostream& m_out;
     Parser        m_parser;
-    SymbolTable   m_symbolTable{ Hack::PREDEFINED_SYMBOLS };
-    Hack::WORD    m_ramAddress{ Hack::INIT_RAM_ADDRESS };
+    SymbolTable   m_symbolTable{ Hack::predefined_symbols };
+    Hack::word    m_ramAddress{ Hack::init_ram_address };
 };
 
 } // namespace Hasm
-
-#endif

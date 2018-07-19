@@ -1,5 +1,4 @@
-#ifndef HASM_ERRORMESSAGE_HPP
-#define HASM_ERRORMESSAGE_HPP
+#pragma once
 
 #include <string>
 
@@ -13,5 +12,3 @@ std::string invalidLoadValue( const std::string& cmd, const int lineNumber );
 
 } // namespace ErrorMessage
 } // namespace Hasm
-
-#endif

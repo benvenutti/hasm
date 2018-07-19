@@ -1,8 +1,8 @@
-#include <sstream>
+#include "Assembler.hpp"
 
 #include <boost/test/unit_test.hpp>
 
-#include "Assembler.hpp"
+#include <sstream>
 
 struct FixtureAddProgram
 {

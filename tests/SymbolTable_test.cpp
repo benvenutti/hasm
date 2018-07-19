@@ -1,8 +1,8 @@
-#include <algorithm>
+#include "SymbolTable.hpp"
 
 #include <boost/test/unit_test.hpp>
 
-#include "SymbolTable.hpp"
+#include <algorithm>
 
 struct FixtureSymbolTable
 {

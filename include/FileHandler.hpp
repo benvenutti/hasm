@@ -1,5 +1,4 @@
-#ifndef HASM_FILEHANDLER_HPP
-#define HASM_FILEHANDLER_HPP
+#pragma once
 
 #include <string>
 
@@ -14,5 +13,3 @@ bool        isFile( const std::string& file );
 
 } // namespace FileHandler
 } // namespace Hasm
-
-#endif

@@ -1,7 +1,7 @@
+#include "HackGrammar.hpp"
+
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
-
-#include "HackGrammar.hpp"
 
 struct FixtureJumps
 {

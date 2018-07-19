@@ -1,5 +1,4 @@
-#ifndef HASM_HACKCOMMANDPARSER_HPP
-#define HASM_HACKCOMMANDPARSER_HPP
+#pragma once
 
 #include <string>
 
@@ -14,5 +13,3 @@ bool isLoadCommand( const std::string& cmd );
 
 } // namespace HackCommandParser
 } // namespace Hasm
-
-#endif

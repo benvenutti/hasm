@@ -82,12 +82,12 @@ void Parser::setCommand( const std::string& newCommand )
 
 void Parser::updateStatus()
 {
-    status = isValidCommand() ? Status::VALID_COMMAND : Status::INVALID_COMMAND;
+    status = isValidCommand() ? Status::valid_command : Status::invalid_command;
 }
 
 void Parser::checkErrors()
 {
-    if ( status == Status::INVALID_COMMAND )
+    if ( status == Status::invalid_command )
     {
         std::cerr << ErrorMessage::invalidCommand( command, lineNumber ) << std::endl;
     }
@@ -104,18 +104,18 @@ bool Parser::advance()
         {
             update( line );
 
-            return status == Status::VALID_COMMAND;
+            return status == Status::valid_command;
         }
     }
 
-    status = Status::END_OF_FILE;
+    status = Status::end_of_file;
 
     return false;
 }
 
 std::string Parser::symbol() const
 {
-    if ( getCommandType() == CommandType::ADDRESSING )
+    if ( getCommandType() == CommandType::addressing )
     {
         return command.substr( 1 );
     }
@@ -167,8 +167,8 @@ bool Parser::reset()
 {
     command     = std::string{ "" };
     lineNumber  = 0;
-    status      = Status::START_OF_FILE;
-    commandType = CommandType::INVALID;
+    status      = Status::start_of_file;
+    commandType = CommandType::invalid;
     input.clear();
     input.seekg( std::streampos{ 0 } );
 
@@ -181,19 +181,19 @@ bool Parser::isValidCommand() const
 
     if ( isACommand() )
     {
-        commandType = CommandType::ADDRESSING;
+        commandType = CommandType::addressing;
     }
     else if ( isLCommand() )
     {
-        commandType = CommandType::LABEL;
+        commandType = CommandType::label;
     }
     else if ( isCCommand() )
     {
-        commandType = CommandType::COMPUTATION;
+        commandType = CommandType::computation;
     }
     else
     {
-        commandType = CommandType::INVALID;
+        commandType = CommandType::invalid;
         isValid     = false;
     }
 

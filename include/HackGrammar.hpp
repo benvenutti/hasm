@@ -1,9 +1,8 @@
-#ifndef HASM_HACKGRAMMAR_HPP
-#define HASM_HACKGRAMMAR_HPP
-
-#include <string>
+#pragma once
 
 #include "HackLex.hpp"
+
+#include <string>
 
 namespace Hasm
 {
@@ -205,5 +204,3 @@ const std::string COMPUTATION_COMMAND{
 } // namespace Grammar
 } // namespace Hack
 } // namespace Hasm
-
-#endif

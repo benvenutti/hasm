@@ -1,7 +1,7 @@
+#include "HackLex.hpp"
+
 #include <boost/regex.hpp>
 #include <boost/test/unit_test.hpp>
-
-#include "HackLex.hpp"
 
 namespace
 {
