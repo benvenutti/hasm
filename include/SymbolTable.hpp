@@ -15,15 +15,15 @@ class SymbolTable
 {
 public:
     SymbolTable() = default;
-    explicit SymbolTable( std::unordered_map<std::string, Hack::WORD> symbols );
+    explicit SymbolTable( std::unordered_map<std::string, Hack::word> symbols );
 
-    void                        addEntry( const std::string& symbol, const Hack::WORD address );
+    void                        addEntry( const std::string& symbol, const Hack::word address );
     bool                        contains( const std::string& symbol ) const;
-    boost::optional<Hack::WORD> getAddress( const std::string& symbol ) const;
+    boost::optional<Hack::word> getAddress( const std::string& symbol ) const;
     std::vector<std::string>    getSymbols() const;
 
 private:
-    std::unordered_map<std::string, Hack::WORD> m_table;
+    std::unordered_map<std::string, Hack::word> m_table;
 };
 
 } // namespace Hasm

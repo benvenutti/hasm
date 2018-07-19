@@ -24,15 +24,15 @@ private:
     bool       assembleCommand( CommandType commandType );
     bool       assembleACommand();
     bool       assembleCCommand();
-    Hack::WORD computeValue( const std::string& symbol );
-    bool       isValidValue( Hack::WORD value ) const;
-    void       output( Hack::WORD word );
+    Hack::word computeValue( const std::string& symbol );
+    bool       isValidValue( Hack::word value ) const;
+    void       output( Hack::word word );
     void       displayInvalidACommandMessage();
 
     std::ostream& m_out;
     Parser        m_parser;
     SymbolTable   m_symbolTable{ Hack::predefined_symbols };
-    Hack::WORD    m_ramAddress{ Hack::init_ram_address };
+    Hack::word    m_ramAddress{ Hack::init_ram_address };
 };
 
 } // namespace Hasm

@@ -5,9 +5,9 @@
 namespace Hasm
 {
 
-Hack::WORD Coder::dest( const std::string& mnemonic )
+Hack::word Coder::dest( const std::string& mnemonic )
 {
-    Hack::WORD dest{ 0 };
+    Hack::word dest{ 0 };
 
     if ( mnemonic.find( 'M' ) != std::string::npos )
         dest |= 0b001;
@@ -16,13 +16,13 @@ Hack::WORD Coder::dest( const std::string& mnemonic )
     if ( mnemonic.find( 'A' ) != std::string::npos )
         dest |= 0b100;
 
-    return static_cast<Hack::WORD>( dest << 3 );
+    return static_cast<Hack::word>( dest << 3 );
 }
 
-Hack::WORD Coder::comp( const std::string& mnemonic )
+Hack::word Coder::comp( const std::string& mnemonic )
 {
     std::string m{ mnemonic };
-    Hack::WORD  mask{ 0 };
+    Hack::word  mask{ 0 };
 
     if ( m.find( 'M' ) != std::string::npos )
     {
@@ -30,7 +30,7 @@ Hack::WORD Coder::comp( const std::string& mnemonic )
         std::replace( m.begin(), m.end(), 'M', 'A' );
     }
 
-    Hack::WORD comp;
+    Hack::word comp;
 
     if ( m == "0" )
         comp = 0b101010;
@@ -73,10 +73,10 @@ Hack::WORD Coder::comp( const std::string& mnemonic )
 
     comp |= mask;
 
-    return static_cast<Hack::WORD>( comp << 6 );
+    return static_cast<Hack::word>( comp << 6 );
 }
 
-Hack::WORD Coder::jump( const std::string& mnemonic )
+Hack::word Coder::jump( const std::string& mnemonic )
 {
     if ( mnemonic == "JGT" )
         return 0b001;
@@ -93,7 +93,7 @@ Hack::WORD Coder::jump( const std::string& mnemonic )
     if ( mnemonic == "JMP" )
         return 0b111;
 
-    return static_cast<Hack::WORD>( 0 );
+    return static_cast<Hack::word>( 0 );
 }
 
 } // namespace Hasm

@@ -16,6 +16,6 @@ enum class CommandType
 };
 
 // max value for unsigned 15 bit number
-const Hack::WORD max_loadable_value = std::numeric_limits<Hack::WORD>::max() >> 1;
+const Hack::word max_loadable_value = std::numeric_limits<Hack::word>::max() >> 1;
 
 } // namespace Hasm

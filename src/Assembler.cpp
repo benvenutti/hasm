@@ -28,7 +28,7 @@ const SymbolTable& Assembler::getSymbolTable() const
 
 bool Assembler::firstPass()
 {
-    Hack::WORD lineCounter{ 0 };
+    Hack::word lineCounter{ 0 };
 
     while ( m_parser.advance() )
     {
@@ -98,23 +98,23 @@ void Assembler::displayInvalidACommandMessage()
 
 bool Assembler::assembleCCommand()
 {
-    Hack::WORD cc{ 0 };
+    Hack::word cc{ 0 };
 
     cc = Coder::dest( m_parser.dest() ) | Coder::comp( m_parser.comp() ) | Coder::jump( m_parser.jump() )
-         | static_cast<Hack::WORD>( 0b1110000000000000 );
+         | static_cast<Hack::word>( 0b1110000000000000 );
 
     output( cc );
 
     return true;
 }
 
-Hack::WORD Assembler::computeValue( const std::string& symbol )
+Hack::word Assembler::computeValue( const std::string& symbol )
 {
-    Hack::WORD value{ 0u };
+    Hack::word value{ 0u };
 
     if ( std::isdigit( symbol.front() ) != 0 )
     {
-        value = static_cast<Hack::WORD>( std::stoi( m_parser.symbol() ) );
+        value = static_cast<Hack::word>( std::stoi( m_parser.symbol() ) );
     }
     else if ( m_symbolTable.contains( symbol ) )
     {
@@ -129,12 +129,12 @@ Hack::WORD Assembler::computeValue( const std::string& symbol )
     return value;
 }
 
-bool Assembler::isValidValue( const Hack::WORD value ) const
+bool Assembler::isValidValue( const Hack::word value ) const
 {
     return value <= max_loadable_value;
 }
 
-void Assembler::output( const Hack::WORD word )
+void Assembler::output( const Hack::word word )
 {
     m_out << std::bitset<16>( word ).to_string() << std::endl;
 }
