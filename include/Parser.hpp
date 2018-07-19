@@ -13,10 +13,10 @@ class Parser
 public:
     enum class Status
     {
-        START_OF_FILE,
-        VALID_COMMAND,
-        INVALID_COMMAND,
-        END_OF_FILE
+        start_of_file,
+        valid_command,
+        invalid_command,
+        end_of_file
     };
 
     explicit Parser( std::istream& in );
@@ -56,7 +56,7 @@ private:
     std::string         command{ "" };
     mutable CommandType commandType{ CommandType::invalid };
     int                 lineNumber{ 0 };
-    Status              status{ Status::START_OF_FILE };
+    Status              status{ Status::start_of_file };
 };
 
 } // namespace Hasm

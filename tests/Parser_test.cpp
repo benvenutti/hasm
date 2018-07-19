@@ -191,7 +191,7 @@ BOOST_AUTO_TEST_CASE( getStatus_startOfFile )
     std::stringstream ss{ cmd };
     Hasm::Parser      parser{ ss };
 
-    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::START_OF_FILE );
+    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::start_of_file );
 }
 
 BOOST_AUTO_TEST_CASE( getStatus_valid )
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE( getStatus_valid )
     Hasm::Parser      parser{ ss };
 
     BOOST_CHECK( parser.advance() );
-    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::VALID_COMMAND );
+    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::valid_command );
 }
 
 BOOST_AUTO_TEST_CASE( getStatus_invalid )
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_CASE( getStatus_invalid )
     Hasm::Parser      parser{ ss };
 
     BOOST_CHECK_EQUAL( parser.advance(), false );
-    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::INVALID_COMMAND );
+    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::invalid_command );
 }
 
 BOOST_AUTO_TEST_CASE( getStatus_endOfFile )
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE( getStatus_endOfFile )
     Hasm::Parser      parser{ ss };
 
     BOOST_CHECK_EQUAL( parser.advance(), false );
-    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::END_OF_FILE );
+    BOOST_CHECK( parser.getStatus() == Hasm::Parser::Status::end_of_file );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

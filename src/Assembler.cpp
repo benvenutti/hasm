@@ -42,7 +42,7 @@ bool Assembler::firstPass()
         }
     }
 
-    return m_parser.getStatus() == Parser::Status::END_OF_FILE;
+    return m_parser.getStatus() == Parser::Status::end_of_file;
 }
 
 bool Assembler::secondPass()
