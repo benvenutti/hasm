@@ -1,5 +1,4 @@
-#ifndef HASM_SYMBOLTABLEWRITER_HPP
-#define HASM_SYMBOLTABLEWRITER_HPP
+#pragma once
 
 #include <map>
 #include <ostream>
@@ -23,5 +22,3 @@ private:
 };
 
 } // namespace Hasm
-
-#endif

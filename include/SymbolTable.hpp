@@ -1,5 +1,4 @@
-#ifndef HASM_SYMBOLTABLE_HPP
-#define HASM_SYMBOLTABLE_HPP
+#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -28,5 +27,3 @@ private:
 };
 
 } // namespace Hasm
-
-#endif

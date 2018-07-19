@@ -1,5 +1,4 @@
-#ifndef HASM_PARSER_HPP
-#define HASM_PARSER_HPP
+#pragma once
 
 #include <istream>
 #include <string>
@@ -61,5 +60,3 @@ private:
 };
 
 } // namespace Hasm
-
-#endif

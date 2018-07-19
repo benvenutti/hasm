@@ -1,5 +1,4 @@
-#ifndef HASM_HACK_HPP
-#define HASM_HACK_HPP
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -23,5 +22,3 @@ const std::unordered_map<std::string, WORD> PREDEFINED_SYMBOLS{
 
 } // namespace Hack
 } // namespace Hasm
-
-#endif

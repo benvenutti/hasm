@@ -1,5 +1,4 @@
-#ifndef HASM_HASM_HPP
-#define HASM_HASM_HPP
+#pragma once
 
 #include <limits>
 
@@ -20,5 +19,3 @@ enum class CommandType
 const Hack::WORD MAX_LOADABLE_VALUE = std::numeric_limits<Hack::WORD>::max() >> 1;
 
 } // namespace Hasm
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef HASM_HACKGRAMMAR_HPP
-#define HASM_HACKGRAMMAR_HPP
+#pragma once
 
 #include <string>
 
@@ -205,5 +204,3 @@ const std::string COMPUTATION_COMMAND{
 } // namespace Grammar
 } // namespace Hack
 } // namespace Hasm
-
-#endif

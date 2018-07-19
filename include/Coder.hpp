@@ -1,5 +1,4 @@
-#ifndef HASM_CODER_HPP
-#define HASM_CODER_HPP
+#pragma once
 
 #include <string>
 
@@ -16,5 +15,3 @@ Hack::WORD jump( const std::string& mnemonic );
 
 } // namespace Coder
 } // namespace Hasm
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef HASM_ASSEMBLERENGINECONFIG_HPP
-#define HASM_ASSEMBLERENGINECONFIG_HPP
+#pragma once
 
 #include <string>
 #include <utility>
@@ -39,5 +38,3 @@ private:
 };
 
 } // namespace Hasm
-
-#endif
