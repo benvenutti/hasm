@@ -32,7 +32,8 @@ add_test(NAME HasmTestSuite COMMAND test_suite)
 # catch2 tests:
 
 set(catch_source_files
-    catch.setup.cpp)
+    catch.setup.cpp
+    SymbolTable.test.cpp)
 
 add_executable(catch_test_suite ${catch_source_files})
 set_target_properties(catch_test_suite PROPERTIES CXX_STANDARD 14)
