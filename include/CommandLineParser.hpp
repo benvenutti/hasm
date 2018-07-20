@@ -1,10 +1,9 @@
 #pragma once
 
+#include "AssemblerEngineConfig.hpp"
+
 namespace Hasm
 {
-
-class AssemblerEngineConfig;
-
 namespace CommandLineParser
 {
 

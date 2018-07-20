@@ -36,6 +36,7 @@ set(catch_source_files
     AssemblerEngineConfig.test.cpp
     catch.setup.cpp
     Coder.test.cpp
+    CommandLineParser.test.cpp
     Parser.test.cpp
     SymbolTable.test.cpp)
 
