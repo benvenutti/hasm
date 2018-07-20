@@ -81,6 +81,8 @@ target_include_directories(hack_assembler
     ${PROJECT_BINARY_DIR}/include)
 
 target_link_libraries(hack_assembler
+  PUBLIC
+    Boost::boost
   PRIVATE
     Boost::filesystem
     Boost::program_options
