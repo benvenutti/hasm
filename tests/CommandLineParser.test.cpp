@@ -15,7 +15,7 @@ const auto check_empty_config = []( const auto& cfg ) {
 
 } // anonymous namespace
 
-SCENARIO( "parse flag for filename", "[AssemblerEngineConfig]" )
+SCENARIO( "parse flag for filename", "[CommandLineParser]" )
 {
     const auto check = []( const auto& cfg ) {
         REQUIRE( cfg.isValid() );
@@ -30,7 +30,7 @@ SCENARIO( "parse flag for filename", "[AssemblerEngineConfig]" )
     check( Hasm::CommandLineParser::parse( args.size(), args.data() ) );
 }
 
-SCENARIO( "parse flag for symbol table", "[AssemblerEngineConfig]" )
+SCENARIO( "parse flag for symbol table", "[CommandLineParser]" )
 {
     const auto check = []( const auto& cfg ) {
         REQUIRE( cfg.isValid() );
@@ -45,7 +45,7 @@ SCENARIO( "parse flag for symbol table", "[AssemblerEngineConfig]" )
     check( Hasm::CommandLineParser::parse( args.size(), args.data() ) );
 }
 
-SCENARIO( "parse flag for help", "[AssemblerEngineConfig]" )
+SCENARIO( "parse flag for help", "[CommandLineParser]" )
 {
     constexpr std::array<const char*, 2> argsShorthand{ { "hasm", "-h" } };
     check_empty_config( Hasm::CommandLineParser::parse( argsShorthand.size(), argsShorthand.data() ) );
@@ -54,7 +54,7 @@ SCENARIO( "parse flag for help", "[AssemblerEngineConfig]" )
     check_empty_config( Hasm::CommandLineParser::parse( args.size(), args.data() ) );
 }
 
-SCENARIO( "parse flag for version", "[AssemblerEngineConfig]" )
+SCENARIO( "parse flag for version", "[CommandLineParser]" )
 {
     constexpr std::array<const char*, 2> argsShorthand{ { "hasm", "-v" } };
     check_empty_config( Hasm::CommandLineParser::parse( argsShorthand.size(), argsShorthand.data() ) );
@@ -63,7 +63,7 @@ SCENARIO( "parse flag for version", "[AssemblerEngineConfig]" )
     check_empty_config( Hasm::CommandLineParser::parse( args.size(), args.data() ) );
 }
 
-SCENARIO( "parse flag for invalid flag", "[AssemblerEngineConfig]" )
+SCENARIO( "parse flag for invalid flag", "[CommandLineParser]" )
 {
     constexpr std::array<const char*, 2> argsShorthand{ { "hasm", "-x" } };
     check_empty_config( Hasm::CommandLineParser::parse( argsShorthand.size(), argsShorthand.data() ) );
@@ -72,7 +72,7 @@ SCENARIO( "parse flag for invalid flag", "[AssemblerEngineConfig]" )
     check_empty_config( Hasm::CommandLineParser::parse( args.size(), args.data() ) );
 }
 
-SCENARIO( "missing input files", "[AssemblerEngineConfig]" )
+SCENARIO( "missing input files", "[CommandLineParser]" )
 {
     {
         constexpr std::array<const char*, 1> args{ { "hasm" } };
