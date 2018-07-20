@@ -37,6 +37,7 @@ set(catch_source_files
     catch.setup.cpp
     Coder.test.cpp
     CommandLineParser.test.cpp
+    FileHandler.test.cpp
     Parser.test.cpp
     SymbolTable.test.cpp)
 
