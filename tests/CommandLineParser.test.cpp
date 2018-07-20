@@ -7,7 +7,7 @@
 namespace
 {
 
-const auto check_empty_config = []( const auto& cfg ) {
+const auto check_empty_config = []( const Hasm::AssemblerEngineConfig& cfg ) {
     REQUIRE_FALSE( cfg.isValid() );
     REQUIRE_FALSE( cfg.exportSymbols() );
     REQUIRE( cfg.inputName().empty() );
