@@ -22,7 +22,7 @@ struct FixtureSymbolTable
 
 } // anonymous namespace
 
-SCENARIO_METHOD( FixtureSymbolTable, "contains symbol", "[symbol_table]" )
+SCENARIO_METHOD( FixtureSymbolTable, "contains symbol", "[SymbolTable]" )
 {
     REQUIRE( symbolTable.contains( "s1" ) );
     REQUIRE( symbolTable.contains( "s2" ) );
@@ -30,7 +30,7 @@ SCENARIO_METHOD( FixtureSymbolTable, "contains symbol", "[symbol_table]" )
     REQUIRE_FALSE( symbolTable.contains( "s4" ) );
 }
 
-SCENARIO_METHOD( FixtureSymbolTable, "symbol refers address", "[symbol_table]" )
+SCENARIO_METHOD( FixtureSymbolTable, "symbol refers address", "[SymbolTable]" )
 {
     REQUIRE( symbolTable.getAddress( "s1" ).get() == 0x1010 );
     REQUIRE( symbolTable.getAddress( "s2" ).get() == 0x2020 );
@@ -38,7 +38,7 @@ SCENARIO_METHOD( FixtureSymbolTable, "symbol refers address", "[symbol_table]" )
     REQUIRE( symbolTable.getAddress( "s4" ) == boost::none );
 }
 
-SCENARIO_METHOD( FixtureSymbolTable, "all symbols", "[symbol_table]" )
+SCENARIO_METHOD( FixtureSymbolTable, "all symbols", "[SymbolTable]" )
 {
     const auto symbols = symbolTable.getSymbols();
 

@@ -83,7 +83,7 @@ struct FixtureRectProgram
 
 } // namespace
 
-SCENARIO_METHOD( FixtureAddProgram, "assemble program without labels", "[assembler]" )
+SCENARIO_METHOD( FixtureAddProgram, "assemble program without labels", "[Assembler]" )
 {
     std::stringstream binResult;
 
@@ -93,7 +93,7 @@ SCENARIO_METHOD( FixtureAddProgram, "assemble program without labels", "[assembl
     REQUIRE( binResult.str() == binCode.str() );
 }
 
-SCENARIO_METHOD( FixtureRectProgram, "assemble program with labels", "[assembler]" )
+SCENARIO_METHOD( FixtureRectProgram, "assemble program with labels", "[Assembler]" )
 {
     std::stringstream binResult;
 

@@ -24,7 +24,7 @@ struct Fixture
 
 } // anonymous namespace
 
-SCENARIO_METHOD( Fixture, "commands", "[parser]" )
+SCENARIO_METHOD( Fixture, "commands", "[Parser]" )
 {
     Hasm::Parser parser{ asmProgram };
 
@@ -46,7 +46,7 @@ SCENARIO_METHOD( Fixture, "commands", "[parser]" )
     REQUIRE( parser.getCommand() == "0;JMP" );
 }
 
-SCENARIO_METHOD( Fixture, "commands types", "[parser]" )
+SCENARIO_METHOD( Fixture, "commands types", "[Parser]" )
 {
     Hasm::Parser parser{ asmProgram };
 
@@ -68,7 +68,7 @@ SCENARIO_METHOD( Fixture, "commands types", "[parser]" )
     REQUIRE( parser.getCommandType() == Hasm::CommandType::computation );
 }
 
-SCENARIO_METHOD( Fixture, "line number", "[parser]" )
+SCENARIO_METHOD( Fixture, "line number", "[Parser]" )
 {
     Hasm::Parser parser{ asmProgram };
 
@@ -90,7 +90,7 @@ SCENARIO_METHOD( Fixture, "line number", "[parser]" )
     REQUIRE( parser.getCurrentLineNumber() == 9 );
 }
 
-SCENARIO_METHOD( Fixture, "reset", "[parser]" )
+SCENARIO_METHOD( Fixture, "reset", "[Parser]" )
 {
     Hasm::Parser parser{ asmProgram };
 
@@ -116,7 +116,7 @@ SCENARIO_METHOD( Fixture, "reset", "[parser]" )
     }
 }
 
-SCENARIO_METHOD( Fixture, "command full info", "[parser]" )
+SCENARIO_METHOD( Fixture, "command full info", "[Parser]" )
 {
     Hasm::Parser parser{ asmProgram };
 
@@ -161,7 +161,7 @@ SCENARIO_METHOD( Fixture, "command full info", "[parser]" )
     REQUIRE( parser.jump() == "JMP" );
 }
 
-SCENARIO_METHOD( Fixture, "status", "[parser]" )
+SCENARIO_METHOD( Fixture, "status", "[Parser]" )
 {
     {
         std::stringstream ss{ "" };

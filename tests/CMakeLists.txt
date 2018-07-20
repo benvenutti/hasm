@@ -33,6 +33,7 @@ add_test(NAME HasmTestSuite COMMAND test_suite)
 
 set(catch_source_files
     Assembler.test.cpp
+    AssemblerEngineConfig.test.cpp
     catch.setup.cpp
     Parser.test.cpp
     SymbolTable.test.cpp)
