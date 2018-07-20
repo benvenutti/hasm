@@ -11,21 +11,15 @@ namespace
 
 struct Fixture
 {
-    // clang-format off
-
-    std::stringstream asmProgram{
-        "@30 \n"
-        "D=A \n"
-        "@1010 \n"
-        "M=D+1 \n"
-        "AMD=!A;JGT \n"
-        "(LABEL_LOOP) \n"
-        "// line comment \n"
-        "@LABEL_LOOP \n"
-        "0;JMP \n"
-    };
-
-    // clang-format on
+    std::stringstream asmProgram{ "@30 \n"
+                                  "D=A \n"
+                                  "@1010 \n"
+                                  "M=D+1 \n"
+                                  "AMD=!A;JGT \n"
+                                  "(LABEL_LOOP) \n"
+                                  "// line comment \n"
+                                  "@LABEL_LOOP \n"
+                                  "0;JMP \n" };
 };
 
 } // anonymous namespace
