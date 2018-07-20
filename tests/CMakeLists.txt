@@ -33,6 +33,7 @@ add_test(NAME HasmTestSuite COMMAND test_suite)
 
 set(catch_source_files
     catch.setup.cpp
+    Parser.test.cpp
     SymbolTable.test.cpp)
 
 add_executable(catch_test_suite ${catch_source_files})
