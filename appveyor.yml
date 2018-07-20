@@ -17,6 +17,9 @@ init:
   - cmd: cmake --version
   - cmd: msbuild /version
 
+install:
+  - git submodule update --init --recursive
+
 before_build:
   - cmd: md build
   - cmd: cd build
