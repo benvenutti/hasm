@@ -19,7 +19,7 @@ find_package(Boost
     program_options
     regex
     system
-    unit_test_framework REQUIRED)
+    REQUIRED)
 
 add_library(catch2 INTERFACE)
 target_include_directories(catch2 INTERFACE libs/Catch2/single_include)
