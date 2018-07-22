@@ -1,6 +1,5 @@
 #include "CommandLineParser.hpp"
 
-#include "AssemblerEngineConfig.hpp"
 #include "HasmConfig.hpp"
 
 #include <boost/program_options.hpp>
