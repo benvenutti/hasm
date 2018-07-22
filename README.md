@@ -91,7 +91,16 @@ The following list enumerates the tools and dependencies' minimum requirements:
 
 * c++14 compiler
 * cmake 3.6
-* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system* and *unit_test_framework*)
+* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system*)
+* [catch2](https://github.com/catchorg/Catch2) (this is a submodule of the project)
+
+### Cloning
+
+Make sure to clone the repository with its submodules. One way to do this is as follows:
+
+```shh
+git clone --recurse-submodules https://github.com/benvenutti/hasm.git
+```
 
 ### Cross-platform
 
@@ -126,9 +135,12 @@ hasm/build$ cmake --build .
 To run the available test suite, first make sure the configuration option *BUILD_TESTING* was properly set (its default value is *ON*) . After a successful build, you need to execute the *test* target using **ctest** from CMake, like this:
 
 ```shh
-hasm/build$ ctest
 Running tests...
-Test project hasm/build
-...
+Test project /Users/diogo.benvenutti/draft/hasm/build
+    Start 1: HasmTestSuite
+1/1 Test #1: HasmTestSuite ....................   Passed    0.01 sec
+
 100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec
 ```
