@@ -38,7 +38,9 @@ set(catch_source_files
     Coder.test.cpp
     CommandLineParser.test.cpp
     FileHandler.test.cpp
-    HackCommandParser.test.cpp
+    HackCommandParser.computation.test.cpp
+    HackCommandParser.label.test.cpp
+    HackCommandParser.load.test.cpp
     Parser.test.cpp
     SymbolTable.test.cpp)
 
