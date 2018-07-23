@@ -1,18 +1,17 @@
-#ifndef HASM_CODER_HPP
-#define HASM_CODER_HPP
-
-#include <string>
+#pragma once
 
 #include "Hack.hpp"
 
-namespace Hasm {
-namespace Coder {
+#include <string>
 
-Hack::WORD dest(const std::string& mnemonic);
-Hack::WORD comp(const std::string& mnemonic);
-Hack::WORD jump(const std::string& mnemonic);
+namespace Hasm
+{
+namespace Coder
+{
+
+Hack::word dest( const std::string& mnemonic );
+Hack::word comp( const std::string& mnemonic );
+Hack::word jump( const std::string& mnemonic );
 
 } // namespace Coder
 } // namespace Hasm
-
-#endif

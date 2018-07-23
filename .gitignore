@@ -28,5 +28,14 @@
 *.out
 *.app
 
+# Build
+**/build
+
 # CLion IDE
 **/.idea
+
+# build folder
+**/build
+
+# temporary user files
+**/CMakeLists.txt.user

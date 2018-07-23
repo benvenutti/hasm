@@ -1,29 +1,34 @@
 #include "HackCommandParser.hpp"
 
-#include <boost/regex.hpp>
-
 #include "HackGrammar.hpp"
 
-namespace Hasm {
+#include <boost/regex.hpp>
 
-namespace {
+namespace Hasm
+{
 
-const boost::regex labelCmdRegex{Hack::Grammar::LABEL};
-const boost::regex compCmdRegex{Hack::Grammar::COMPUTATION_COMMAND};
-const boost::regex loadCmdRegex{Hack::Grammar::LOAD};
+namespace
+{
 
-} // unnamed namespace
+const boost::regex labelCmdRegex{ Hack::Grammar::LABEL };
+const boost::regex compCmdRegex{ Hack::Grammar::COMPUTATION_COMMAND };
+const boost::regex loadCmdRegex{ Hack::Grammar::LOAD };
 
-bool HackCommandParser::isComputationCommand(const std::string& cmd) {
-  return boost::regex_match(cmd, compCmdRegex);
+} // namespace
+
+bool HackCommandParser::isComputationCommand( const std::string& cmd )
+{
+    return boost::regex_match( cmd, compCmdRegex );
 }
 
-bool HackCommandParser::isLabelCommand(const std::string& cmd) {
-  return boost::regex_match(cmd, labelCmdRegex);
+bool HackCommandParser::isLabelCommand( const std::string& cmd )
+{
+    return boost::regex_match( cmd, labelCmdRegex );
 }
 
-bool HackCommandParser::isLoadCommand(const std::string& cmd) {
-  return boost::regex_match(cmd, loadCmdRegex);
+bool HackCommandParser::isLoadCommand( const std::string& cmd )
+{
+    return boost::regex_match( cmd, loadCmdRegex );
 }
 
 } // namespace Hasm

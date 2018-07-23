@@ -1,4 +1,4 @@
-# hasm [![Build Status](https://travis-ci.org/benvenutti/hasm.svg?branch=master)](https://travis-ci.org/benvenutti/hasm) [![Build status](https://ci.appveyor.com/api/projects/status/xvvgrlygu5hofm75?svg=true)](https://ci.appveyor.com/project/benvenutti/hasmtest) <a href="https://scan.coverity.com/projects/benvenutti-hasm"><img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/9220/badge.svg"/></a> [![Coverage Status](https://coveralls.io/repos/github/benvenutti/hasm/badge.svg?branch=master)](https://coveralls.io/github/benvenutti/hasm?branch=master)
+# hasm [![Build Status](https://travis-ci.org/benvenutti/hasm.svg?branch=master)](https://travis-ci.org/benvenutti/hasm) [![Build status](https://ci.appveyor.com/api/projects/status/xvvgrlygu5hofm75?svg=true)](https://ci.appveyor.com/project/benvenutti/hasmtest) <a href="https://scan.coverity.com/projects/benvenutti-hasm"><img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/9220/badge.svg"/></a> [![Coverage Status](https://coveralls.io/repos/github/benvenutti/hasm/badge.svg?branch=master)](https://coveralls.io/github/benvenutti/hasm?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CDash](https://img.shields.io/badge/dashboard-cdash-blue.svg)](https://my.cdash.org/index.php?project=hasm)
 
 **hasm** stands for *Hack* Assembler, an assembler for the *Hack Platform*. This project is based on the sixth chapter of the book "The Elements of Computing System: Building a Modern Computer from First Principles", by Nisan and Schocken, where the platform is fully described. For more information, see [nand2tetris](http://www.nand2tetris.org/).
 
@@ -58,13 +58,13 @@ $ ./hasm -s pong.asm
 This will generate (alongside with the assembled *pong.hack*) a text file called *pong.sym* that might look like this:
 
 ```
+0x0001 LCL
 0x0023 END_GT
 0x0033 END_LT
-0x6000 KBD
-0x0001 LCL
-0x072d LOOP_ball.bounce
 0x028e LOOP_ball.setdestination
+0x072d LOOP_ball.bounce
 0x17f6 LOOP_keyboard.readline
+0x6000 KBD
 ```
 
 The *.sym* exported table will list the addresses of user defined symbols (like *END_GT* and *LOOP_ball.bounce* in the  example above), as well as *Hack* predefined symbols, like *KBD* and *LCL*, for instance.
@@ -85,20 +85,22 @@ Allowed options:
 
 ## Building **hasm** from source
 
-The assembler is written in C++11 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/).
+The assembler is written in C++14 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/) and [Catch2](https://github.com/catchorg/Catch2).
 
-The following list enumerates the dependencies' minimum requirements:
+The following list enumerates the tools and dependencies' minimum requirements:
 
-* cmake 3.2
-* libboost 1.54.0
+* c++14 compiler
+* cmake 3.6
+* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system*)
+* Catch2 (this is a submodule of the project)
 
-### Supported compilers
+### Cloning
 
-The following compilers are known to work for **hasm**:
+Make sure to clone the repository with its submodules. One way to do this is as follows:
 
-* GCC 4.8 - 6.0
-* Clang 3.5
-* Microsoft Visual C++ 2014 Build Tools 14.0.25420.1
+```shh
+git clone --recurse-submodules https://github.com/benvenutti/hasm.git
+```
 
 ### Cross-platform
 
@@ -106,34 +108,39 @@ One of the goals of **hasm** is to be a cross-platform project. The following ta
 
 | Compiler        | Operating System             | Version String |
 |-----------------|------------------------------|----------------|
-| GCC 4.8.5       | Ubuntu 14.04.3 LTS           | g++-4.8 (Ubuntu 4.8.5-2ubuntu1~14.04.1) 4.8.5 |
-| GCC 4.9.3       | Ubuntu 14.04.3 LTS           | g++-4.9 (Ubuntu 4.9.3-8ubuntu2~14.04) 4.9.3 |
-| GCC 5.3.0       | Ubuntu 14.04.3 LTS           | g++-5 (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 20151204 |
-| GCC 6.1.1       | Ubuntu 14.04.3 LTS           | g++-6 (Ubuntu 6.1.1-3ubuntu11~14.04.1) 6.1.1 20160511 |
-| Clang 3.5.0     | Ubuntu 14.04.3 LTS           | clang version 3.5.0 (tags/RELEASE_350/final) |
+| GCC 4.8.5       | Ubuntu 14.04.5 LTS           | g++-4.8 (Ubuntu 4.8.5-2ubuntu1~14.04.1) 4.8.5 |
+| GCC 4.9.3       | Ubuntu 14.04.5 LTS           | g++-4.9 (Ubuntu 4.9.3-8ubuntu2~14.04) 4.9.3 |
+| GCC 5.3.0       | Ubuntu 14.04.5 LTS           | g++-5 (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 20151204 |
+| GCC 6.1.1       | Ubuntu 14.04.5 LTS           | g++-6 (Ubuntu 6.1.1-3ubuntu11~14.04.1) 6.1.1 20160511 |
+| Clang 3.7.1     | Ubuntu 14.04.5 LTS           | clang version 3.7.1-svn253571-1~exp1 (branches/release_37) |
+| Clang 5.0.0     | Ubuntu 14.04.5 LTS           | clang version 5.0.0 (tags/RELEASE_500/final) |
 | Clang Xcode 7.3.1 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 7.3.0 (clang-703.0.31) |
-| Clang Xcode 8.0 beta 4 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 8.0.0 (clang-800.0.35) |
-| Visual Studio 14 2015 | Windows Server 2012 R2 (x64)          | Microsoft (R) Build Engine version 14.0.25420.1 |
+| Clang Xcode 8.0 beta 4 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 8.0.0 (clang-800.0.38) |
+| Visual Studio 14 2015 | Windows Server 2012 R2 (x86)          | Microsoft (R) Build Engine version 14.0.25420.1 |
+| Visual Studio 14 2015 Win64 | Windows Server 2012 R2 (x64)          | Microsoft (R) Build Engine version 14.0.25420.1 |
 
 ### Compiling
 
-Run the classic **cmake + make** on the source directory. It is recommend to run **cmake** from out of source, that is, usually from a *build* directory inside the source directory.
+Run the classic **cmake + make** on the source directory. It is recommend to run **cmake** from out of source, that is, usually from a *build* directory inside the source directory. Here is an example on Linux:
 
 ```shh
 hasm$ mkdir build
 hasm$ cd build
 hasm/build$ cmake ..
-hasm/build$ make
+hasm/build$ cmake --build .
 ```
 
 ### Running tests
 
-To run the available tests, you need to execute the *test* target using **make test**, like this:
+To run the available test suite, first make sure the configuration option *BUILD_TESTING* was properly set (its default value is *ON*) . After a successful build, you need to execute the *test* target using **ctest** from CMake, like this:
 
 ```shh
-hasm/build$ make test
 Running tests...
-Test project hasm/build
-...
-100% tests passed, 0 tests failed out of 10
+Test project /Users/diogo.benvenutti/draft/hasm/build
+    Start 1: HasmTestSuite
+1/1 Test #1: HasmTestSuite ....................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec
 ```

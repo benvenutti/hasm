@@ -1,34 +1,45 @@
 #include "SymbolTable.hpp"
 
-namespace Hasm {
+namespace Hasm
+{
 
-SymbolTable::SymbolTable(const std::map<std::string, Hack::WORD>& symbols)
-    : table{symbols} {}
-
-void SymbolTable::addEntry(const std::string& symbol, const Hack::WORD address) {
-  table.emplace(symbol, address);
+SymbolTable::SymbolTable( std::unordered_map<std::string, Hack::word> symbols )
+: m_table{ std::move( symbols ) }
+{
 }
 
-bool SymbolTable::contains(const std::string& symbol) const {
-  return table.find(symbol) != table.end();
+void SymbolTable::addEntry( const std::string& symbol, const Hack::word address )
+{
+    m_table.emplace( symbol, address );
 }
 
-boost::optional<Hack::WORD> SymbolTable::getAddress(const std::string& symbol) const {
-  const auto it = table.find(symbol);
-  if (it != table.end()) {
-    return boost::optional<Hack::WORD>(it->second);
-  }
-
-  return boost::none;
+bool SymbolTable::contains( const std::string& symbol ) const
+{
+    return m_table.find( symbol ) != m_table.end();
 }
 
-std::set<std::string> SymbolTable::getSymbols() const {
-  std::set<std::string> symbols{};
-  for (const auto& it: table) {
-    symbols.insert(it.first);
-  }
+boost::optional<Hack::word> SymbolTable::getAddress( const std::string& symbol ) const
+{
+    const auto it = m_table.find( symbol );
+    if ( it != m_table.end() )
+    {
+        return boost::optional<Hack::word>( it->second );
+    }
 
-  return symbols;
+    return boost::none;
+}
+
+std::vector<std::string> SymbolTable::getSymbols() const
+{
+    std::vector<std::string> symbols;
+    symbols.reserve( m_table.size() );
+
+    for ( const auto& it : m_table )
+    {
+        symbols.emplace_back( it.first );
+    }
+
+    return symbols;
 }
 
 } // namespace Hasm

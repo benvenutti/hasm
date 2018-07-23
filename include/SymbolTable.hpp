@@ -1,30 +1,29 @@
-#ifndef HASM_SYMBOLTABLE_HPP
-#define HASM_SYMBOLTABLE_HPP
-
-#include <map>
-#include <set>
-#include <string>
-
-#include <boost/optional.hpp>
+#pragma once
 
 #include "Hack.hpp"
 
-namespace Hasm {
+#include <boost/optional.hpp>
 
-class SymbolTable {
-  public:
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+namespace Hasm
+{
+
+class SymbolTable
+{
+public:
     SymbolTable() = default;
-    SymbolTable(const std::map<std::string, Hack::WORD>& symbols);
+    explicit SymbolTable( std::unordered_map<std::string, Hack::word> symbols );
 
-    void addEntry(const std::string& symbol, const Hack::WORD address);
-    bool contains(const std::string& symbol) const;
-    boost::optional<Hack::WORD> getAddress(const std::string& symbol) const;
-    std::set<std::string> getSymbols() const;
+    void                        addEntry( const std::string& symbol, const Hack::word address );
+    bool                        contains( const std::string& symbol ) const;
+    boost::optional<Hack::word> getAddress( const std::string& symbol ) const;
+    std::vector<std::string>    getSymbols() const;
 
-  private:
-    std::map<std::string, Hack::WORD> table;
+private:
+    std::unordered_map<std::string, Hack::word> m_table;
 };
 
 } // namespace Hasm
-
-#endif

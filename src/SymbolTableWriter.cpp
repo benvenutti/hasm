@@ -1,27 +1,34 @@
 #include "SymbolTableWriter.hpp"
 
-#include <iomanip>
+#include "SymbolTable.hpp"
 
 #include <boost/io/ios_state.hpp>
 
-#include "SymbolTable.hpp"
+#include <iomanip>
 
-namespace Hasm {
+namespace Hasm
+{
 
-SymbolTableWriter::SymbolTableWriter(std::ostream& out, const SymbolTable& symbolTable)
-    : out(out), symbolTable(symbolTable) {}
+SymbolTableWriter::SymbolTableWriter( const SymbolTable& symbolTable )
+{
+    const auto symbols = symbolTable.getSymbols();
+    for ( const auto& s : symbols )
+    {
+        symbolMap.emplace( symbolTable.getAddress( s ).get(), s );
+    }
+}
 
-void SymbolTableWriter::write() {
-  boost::io::ios_flags_saver ifs{out};
-  
-  std::set<std::string> symbols{symbolTable.getSymbols()};
-  for (const auto& s: symbols) {
-    out << "0x" << std::setfill('0') << std::setw(4) << std::hex
-        << symbolTable.getAddress(s).get() << " " << s << '\n';
-  }
+void SymbolTableWriter::write( std::ostream& out )
+{
+    boost::io::ios_flags_saver ifs{ out };
 
-  out.flush();
-  ifs.restore();
+    for ( const auto& it : symbolMap )
+    {
+        out << "0x" << std::setfill( '0' ) << std::setw( 4 ) << std::hex << it.first << " " << it.second << '\n';
+    }
+
+    out.flush();
+    ifs.restore();
 }
 
 } // namespace Hasm

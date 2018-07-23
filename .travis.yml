@@ -65,6 +65,17 @@ matrix:
             - ubuntu-toolchain-r-test
       env: COMPILER=clang++
 
+    - os: linux
+      compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang++-3.7
+      env: COMPILER=clang++-3.7
+
     - os: osx
       osx_image: xcode7.3
       compiler: clang
@@ -80,8 +91,8 @@ dist: trusty
 
 before_install:
   - source ci/travis-environment.sh
-  - ci/travis-system-info.sh
   - ci/travis-before-install.sh
+  - ci/travis-system-info.sh
 
 script:
   - ci/travis-script.sh

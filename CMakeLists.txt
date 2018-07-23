@@ -1,35 +1,107 @@
-cmake_minimum_required(VERSION 3.2)
-project(hasm)
+cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+project(hasm VERSION 0.2.1 LANGUAGES CXX)
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(warnings "/W4 /WX")
-    set(dialect "")
-else ()
-    set(warnings "-Wall -Wextra")
-    set(dialect "-std=c++11")
-endif ()
+# build settings:
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${dialect} ${warnings}")
+set(CMAKE_CXX_STANDARD 14)
 
-set(HASM_VERSION_MAJOR 0)
-set(HASM_VERSION_MINOR 2)
-set(HASM_VERSION_PATCH 0)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
+endif()
+
+set(CMAKE_CXX_FLAGS_RELEASE -O2)
+
+# 3rd-party dependencies:
+
+find_package(Boost
+  COMPONENTS
+    filesystem
+    program_options
+    regex
+    system
+    REQUIRED)
+
+add_library(catch2 INTERFACE)
+target_include_directories(catch2 INTERFACE libs/Catch2/single_include)
+
+# compiler definitions:
+
+if(MSVC)
+  add_compile_options(/W4 /w14545 /w34242 /w34254 /w34287 /w44263 /w44265 
+    /w44296 /w44311 /w44826 /we4289 /w14546 /w14547 /w14549 /w14555 /w14619 
+    /w14905 /w14906 /w14928)
+else()
+  add_compile_options(-Wall -Wextra -Wconversion -Wsign-conversion -Wshadow
+    -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wcast-qual -Wunused
+    -Woverloaded-virtual -pedantic)
+endif()
+
+# hack_assembler library:
+
+set(hack_assembler_source_files
+  src/Assembler.cpp
+  src/AssemblerEngine.cpp
+  src/Coder.cpp
+  src/CommandLineParser.cpp
+  src/ErrorMessage.cpp
+  src/FileHandler.cpp
+  src/HackCommandParser.cpp
+  src/Parser.cpp
+  src/SymbolTable.cpp
+  src/SymbolTableWriter.cpp)
+
+set(hack_assembler_header_files
+  include/Assembler.hpp
+  include/AssemblerEngine.hpp
+  include/AssemblerEngineConfig.hpp
+  include/Coder.hpp
+  include/CommandLineParser.hpp
+  include/ErrorMessage.hpp
+  include/FileHandler.hpp
+  include/Hack.hpp
+  include/HackCommandParser.hpp
+  include/HackGrammar.hpp
+  include/HackLex.hpp
+  include/Hasm.hpp
+  include/Parser.hpp
+  include/SymbolTable.hpp
+  include/SymbolTableWriter.hpp)
 
 configure_file(
-        "${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in"
-        "${PROJECT_BINARY_DIR}/include/HasmConfig.hpp")
+  ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
+  ${PROJECT_BINARY_DIR}/include/HasmConfig.hpp)
 
-include_directories("${PROJECT_BINARY_DIR}/include")
+add_library(hack_assembler 
+  ${hack_assembler_source_files} 
+  ${hack_assembler_header_files})
 
-find_package(Boost COMPONENTS
-        system
-        filesystem
-        program_options
-        unit_test_framework
-        regex
-        REQUIRED)
+target_include_directories(hack_assembler
+  PUBLIC
+    include
+    ${PROJECT_BINARY_DIR}/include)
 
-add_subdirectory(src)
+target_link_libraries(hack_assembler
+  PUBLIC
+    Boost::boost
+  PRIVATE
+    Boost::filesystem
+    Boost::program_options
+    Boost::regex
+    Boost::system)
+
+# hasm executable:
+
+add_executable(hasm src/main.cpp)
+
+target_link_libraries(hasm
+  PRIVATE
+    hack_assembler)
+
+# unit tests:
 
 enable_testing()
-add_subdirectory(test)
+include(CTest)
+
+if(BUILD_TESTING)
+  add_subdirectory(tests)
+endif()
