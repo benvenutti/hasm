@@ -12,19 +12,14 @@
 namespace Hasm
 {
 
-bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
+bool AssemblerEngine::run( const EngineConfig& config ) const
 {
-    if ( !config.isValid() )
+    if ( !isAsmFile( config.source ) )
     {
         return false;
     }
 
-    if ( !isAsmFile( config.inputName() ) )
-    {
-        return false;
-    }
-
-    std::ifstream inputFile{ config.inputName() };
+    std::ifstream inputFile{ config.source };
 
     if ( !inputFile.good() )
     {
@@ -33,7 +28,7 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
         return false;
     }
 
-    const std::string outputName{ FileHandler::changeExtension( config.inputName(), ".hack" ) };
+    const std::string outputName{ FileHandler::changeExtension( config.source, ".hack" ) };
     std::ofstream     outputFile{ outputName };
 
     if ( !outputFile.good() )
@@ -46,9 +41,9 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
     Assembler hasm{ inputFile, outputFile };
     bool      isOk{ hasm.assemble() };
 
-    if ( config.exportSymbols() )
+    if ( config.exportSymbols )
     {
-        isOk = exportSymbolTable( config, hasm.getSymbolTable() );
+        isOk = exportSymbolTable( config.source, hasm.getSymbolTable() );
     }
 
     if ( inputFile.is_open() )
@@ -64,9 +59,9 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
     return isOk;
 }
 
-bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const
+bool AssemblerEngine::exportSymbolTable( const std::string& fileName, const SymbolTable& table ) const
 {
-    const std::string symbolsOutName{ FileHandler::changeExtension( cfg.inputName(), "sym" ) };
+    const std::string symbolsOutName{ FileHandler::changeExtension( fileName, "sym" ) };
     std::ofstream     symbolsOut{ symbolsOutName };
 
     if ( !symbolsOut.good() )

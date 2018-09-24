@@ -9,19 +9,19 @@
 namespace Hasm
 {
 
-AssemblerEngineConfig CommandLineParser::parse( int argc, char const* const* argv )
+boost::optional<EngineConfig> CommandLineParser::parse( int argc, char const* const* argv )
 {
-    std::string inputName{ "" };
-    bool        symtable{ false };
-    bool        showVersion{ false };
-    bool        showHelp{ false };
+    EngineConfig cfg;
+    bool         showVersion{ false };
+    bool         showHelp{ false };
 
-    auto cli = clara::Arg( inputName, "source" ) //
-               | clara::Opt( symtable )["-s"]["--symbol-table"]( "export symbol table (to <infile>.sym)" )
-               | clara::Opt( showVersion )["-v"]["--version"]( "print version number" ) //
-               | clara::Help( showHelp );
+    auto cli = clara::Help( showHelp )             //
+               | clara::Arg( cfg.source, "souce" ) //
+               | clara::Opt( cfg.exportSymbols )["-s"]["--symbol-table"]( "export symbol table (to <infile>.sym)" )
+               | clara::Opt( showVersion )["-v"]["--version"]( "print version number" );
 
-    auto result = cli.parse( clara::Args( argc, argv ) );
+    const auto result = cli.parse( clara::Args( argc, argv ) );
+
     if ( !result )
     {
         std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
@@ -31,16 +31,16 @@ AssemblerEngineConfig CommandLineParser::parse( int argc, char const* const* arg
     {
         std::cout << cli << std::endl;
     }
-
-    if ( showVersion )
+    else if ( showVersion )
     {
         std::cout << "hasm " << Config::VERSION_MAJOR << "." << Config::VERSION_MINOR << "." << Config::VERSION_PATCH
                   << std::endl;
     }
 
-    const bool isValid = !showHelp && !showVersion && result && !inputName.empty();
+    if ( !showHelp && !showVersion && result && !cfg.source.empty() )
+        return cfg;
 
-    return AssemblerEngineConfig{ isValid, symtable, inputName };
+    return boost::none;
 }
 
 } // namespace Hasm

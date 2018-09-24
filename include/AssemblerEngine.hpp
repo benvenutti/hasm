@@ -6,7 +6,7 @@
 namespace Hasm
 {
 
-class AssemblerEngineConfig;
+class EngineConfig;
 class SymbolTable;
 
 class AssemblerEngine
@@ -14,11 +14,11 @@ class AssemblerEngine
 public:
     AssemblerEngine() = default;
 
-    bool run( const AssemblerEngineConfig& config ) const;
+    bool run( const EngineConfig& config ) const;
 
 private:
     bool isAsmFile( const std::string& fileName ) const;
-    bool exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const;
+    bool exportSymbolTable( const std::string& fileName, const SymbolTable& table ) const;
     void outputSymbolTable( std::ostream& out, const SymbolTable& table ) const;
 };
 
