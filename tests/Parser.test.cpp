@@ -1,8 +1,8 @@
 #include "Parser.hpp"
 
-#include <catch2/catch.hpp>
-
+#include <boost/core/ignore_unused.hpp>
 #include <boost/range/irange.hpp>
+#include <catch2/catch.hpp>
 
 #include <sstream>
 
@@ -96,6 +96,8 @@ SCENARIO_METHOD( Fixture, "reset", "[Parser]" )
 
     for ( auto i : boost::irange( 0, 2 ) )
     {
+        boost::ignore_unused( i );
+
         REQUIRE( parser.advance() );
         REQUIRE( parser.getCommand() == "@30" );
         REQUIRE( parser.advance() );
