@@ -8,7 +8,7 @@ set( CXX_STANDARD_REQUIRED ON )
 set( CXX_EXTENSIONS OFF )
 
 if( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE )
+  set( CMAKE_BUILD_TYPE Release FORCE )
 endif()
 
 set( CMAKE_CXX_FLAGS_RELEASE -O2 )
