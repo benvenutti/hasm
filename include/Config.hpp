@@ -5,8 +5,9 @@
 namespace Hasm
 {
 
-struct Config
+class Config
 {
+public:
     std::string source        = "";
     bool        exportSymbols = false;
 };
