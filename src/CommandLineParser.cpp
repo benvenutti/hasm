@@ -15,8 +15,8 @@ boost::optional<Config> CommandLineParser::parse( int argc, char const* const* a
     bool   showVersion{ false };
     bool   showHelp{ false };
 
-    auto cli = clara::Help( showHelp )             //
-               | clara::Arg( cfg.source, "souce" ) //
+    auto cli = clara::Help( showHelp )              //
+               | clara::Arg( cfg.source, "source" ) //
                | clara::Opt( cfg.exportSymbols )["-s"]["--symbol-table"]( "export symbol table (to <source>.sym)" )
                | clara::Opt( showVersion )["-v"]["--version"]( "print version number" );
 
@@ -25,22 +25,29 @@ boost::optional<Config> CommandLineParser::parse( int argc, char const* const* a
     if ( !result )
     {
         std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
+        return boost::none;
     }
 
     if ( showHelp )
     {
         std::cout << Version::string << '\n';
         std::cout << cli << std::endl;
+        return boost::none;
     }
-    else if ( showVersion )
+
+    if ( showVersion )
     {
         std::cout << Version::string << std::endl;
+        return boost::none;
     }
 
-    if ( !showHelp && !showVersion && result && !cfg.source.empty() )
-        return cfg;
+    if ( cfg.source.empty() )
+    {
+        std::cerr << "hasm: no source file" << std::endl;
+        return boost::none;
+    }
 
-    return boost::none;
+    return cfg;
 }
 
 } // namespace Hasm
