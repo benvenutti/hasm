@@ -4,6 +4,8 @@ project(hasm VERSION 0.2.0 LANGUAGES CXX)
 # build settings:
 
 set(CMAKE_CXX_STANDARD 14)
+set(CXX_STANDARD_REQUIRED ON)
+set(CXX_EXTENSIONS OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
