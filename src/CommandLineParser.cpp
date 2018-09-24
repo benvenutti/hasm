@@ -17,7 +17,7 @@ boost::optional<EngineConfig> CommandLineParser::parse( int argc, char const* co
 
     auto cli = clara::Help( showHelp )             //
                | clara::Arg( cfg.source, "souce" ) //
-               | clara::Opt( cfg.exportSymbols )["-s"]["--symbol-table"]( "export symbol table (to <infile>.sym)" )
+               | clara::Opt( cfg.exportSymbols )["-s"]["--symbol-table"]( "export symbol table (to <source>.sym)" )
                | clara::Opt( showVersion )["-v"]["--version"]( "print version number" );
 
     const auto result = cli.parse( clara::Args( argc, argv ) );

@@ -7,8 +7,8 @@ namespace Hasm
 
 struct EngineConfig
 {
-    std::string source;
-    bool        exportSymbols;
+    std::string source        = "";
+    bool        exportSymbols = false;
 };
 
 } // namespace Hasm
