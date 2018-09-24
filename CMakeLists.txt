@@ -18,13 +18,15 @@ set( CMAKE_CXX_FLAGS_RELEASE -O2 )
 find_package( Boost
   COMPONENTS
     filesystem
-    program_options
     regex
     system
     REQUIRED )
 
 add_library( catch2 INTERFACE )
 target_include_directories( catch2 INTERFACE libs/Catch2/single_include )
+
+add_library( clara INTERFACE )
+target_include_directories( clara INTERFACE libs/Clara/single_include )
 
 # compiler definitions:
 
@@ -87,9 +89,9 @@ target_link_libraries( hack_assembler
     Boost::boost
   PRIVATE
     Boost::filesystem
-    Boost::program_options
     Boost::regex
-    Boost::system )
+    Boost::system
+    clara )
 
 # hasm executable:
 

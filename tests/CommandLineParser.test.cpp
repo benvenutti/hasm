@@ -23,10 +23,7 @@ SCENARIO( "parse flag for filename", "[CommandLineParser]" )
         REQUIRE( cfg.inputName() == std::string{ "input.asm" } );
     };
 
-    constexpr std::array<const char*, 3> argsShorthand{ { "hasm", "-i", "input.asm" } };
-    check( Hasm::CommandLineParser::parse( argsShorthand.size(), argsShorthand.data() ) );
-
-    constexpr std::array<const char*, 3> args{ { "hasm", "--input-file", "input.asm" } };
+    constexpr std::array<const char*, 2> args{ { "hasm", "input.asm" } };
     check( Hasm::CommandLineParser::parse( args.size(), args.data() ) );
 }
 
