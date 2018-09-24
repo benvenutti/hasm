@@ -5,7 +5,7 @@
 namespace Hasm
 {
 
-struct EngineConfig
+struct Config
 {
     std::string source        = "";
     bool        exportSymbols = false;

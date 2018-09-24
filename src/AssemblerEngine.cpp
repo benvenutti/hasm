@@ -1,8 +1,8 @@
 #include "AssemblerEngine.hpp"
 
 #include "Assembler.hpp"
-#include "AssemblerEngineConfig.hpp"
 #include "CommandLineParser.hpp"
+#include "Config.hpp"
 #include "FileHandler.hpp"
 #include "SymbolTableWriter.hpp"
 
@@ -12,7 +12,7 @@
 namespace Hasm
 {
 
-bool AssemblerEngine::run( const EngineConfig& config ) const
+bool AssemblerEngine::run( const Config& config ) const
 {
     if ( !isAsmFile( config.source ) )
     {

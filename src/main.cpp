@@ -1,5 +1,4 @@
 #include "AssemblerEngine.hpp"
-#include "AssemblerEngineConfig.hpp"
 #include "CommandLineParser.hpp"
 
 #include <cstdlib>

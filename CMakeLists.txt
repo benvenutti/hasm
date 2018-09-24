@@ -57,9 +57,9 @@ set( hack_assembler_source_files
 set( hack_assembler_header_files
   include/Assembler.hpp
   include/AssemblerEngine.hpp
-  include/AssemblerEngineConfig.hpp
   include/Coder.hpp
   include/CommandLineParser.hpp
+  include/Config.hpp
   include/ErrorMessage.hpp
   include/FileHandler.hpp
   include/Hack.hpp

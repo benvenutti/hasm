@@ -6,7 +6,7 @@
 namespace Hasm
 {
 
-class EngineConfig;
+class Config;
 class SymbolTable;
 
 class AssemblerEngine
@@ -14,7 +14,7 @@ class AssemblerEngine
 public:
     AssemblerEngine() = default;
 
-    bool run( const EngineConfig& config ) const;
+    bool run( const Config& config ) const;
 
 private:
     bool isAsmFile( const std::string& fileName ) const;

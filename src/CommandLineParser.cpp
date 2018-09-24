@@ -9,11 +9,11 @@
 namespace Hasm
 {
 
-boost::optional<EngineConfig> CommandLineParser::parse( int argc, char const* const* argv )
+boost::optional<Config> CommandLineParser::parse( int argc, char const* const* argv )
 {
-    EngineConfig cfg;
-    bool         showVersion{ false };
-    bool         showHelp{ false };
+    Config cfg;
+    bool   showVersion{ false };
+    bool   showHelp{ false };
 
     auto cli = clara::Help( showHelp )             //
                | clara::Arg( cfg.source, "souce" ) //
