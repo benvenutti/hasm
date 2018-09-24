@@ -24,7 +24,7 @@ SCENARIO( "missing source file name", "[CommandLineParser]" )
 
 SCENARIO( "parse flag for symbol table", "[CommandLineParser]" )
 {
-    const auto check = []( const auto& cfg ) {
+    const auto check = []( const boost::optional<Hasm::Config>& cfg ) {
         REQUIRE( cfg.is_initialized() );
         REQUIRE( cfg.get().exportSymbols );
         REQUIRE( cfg.get().source == std::string{ "input.asm" } );
