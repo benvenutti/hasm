@@ -1,6 +1,6 @@
 #include "CommandLineParser.hpp"
 
-#include "HasmConfig.hpp"
+#include "Version.hpp"
 
 #include <clara.hpp>
 
@@ -29,12 +29,12 @@ boost::optional<EngineConfig> CommandLineParser::parse( int argc, char const* co
 
     if ( showHelp )
     {
+        std::cout << Version::string << '\n';
         std::cout << cli << std::endl;
     }
     else if ( showVersion )
     {
-        std::cout << "hasm " << Config::VERSION_MAJOR << "." << Config::VERSION_MINOR << "." << Config::VERSION_PATCH
-                  << std::endl;
+        std::cout << Version::string << std::endl;
     }
 
     if ( !showHelp && !showVersion && result && !cfg.source.empty() )

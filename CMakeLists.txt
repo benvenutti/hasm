@@ -72,8 +72,8 @@ set( hack_assembler_header_files
   include/SymbolTableWriter.hpp )
 
 configure_file(
-  ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
-  ${PROJECT_BINARY_DIR}/include/HasmConfig.hpp )
+  ${PROJECT_SOURCE_DIR}/include/Version.hpp.in
+  ${PROJECT_BINARY_DIR}/include/Version.hpp )
 
 add_library( hack_assembler 
   ${hack_assembler_source_files} 
