@@ -18,13 +18,15 @@ set( CMAKE_CXX_FLAGS_RELEASE -O2 )
 find_package( Boost
   COMPONENTS
     filesystem
-    program_options
     regex
     system
     REQUIRED )
 
 add_library( catch2 INTERFACE )
 target_include_directories( catch2 INTERFACE libs/Catch2/single_include )
+
+add_library( clara INTERFACE )
+target_include_directories( clara INTERFACE libs/Clara/single_include )
 
 # compiler definitions:
 
@@ -55,9 +57,9 @@ set( hack_assembler_source_files
 set( hack_assembler_header_files
   include/Assembler.hpp
   include/AssemblerEngine.hpp
-  include/AssemblerEngineConfig.hpp
   include/Coder.hpp
   include/CommandLineParser.hpp
+  include/Config.hpp
   include/ErrorMessage.hpp
   include/FileHandler.hpp
   include/Hack.hpp
@@ -70,8 +72,8 @@ set( hack_assembler_header_files
   include/SymbolTableWriter.hpp )
 
 configure_file(
-  ${PROJECT_SOURCE_DIR}/include/HasmConfig.hpp.in
-  ${PROJECT_BINARY_DIR}/include/HasmConfig.hpp )
+  ${PROJECT_SOURCE_DIR}/include/Version.hpp.in
+  ${PROJECT_BINARY_DIR}/include/Version.hpp )
 
 add_library( hack_assembler 
   ${hack_assembler_source_files} 
@@ -87,9 +89,9 @@ target_link_libraries( hack_assembler
     Boost::boost
   PRIVATE
     Boost::filesystem
-    Boost::program_options
     Boost::regex
-    Boost::system )
+    Boost::system
+    clara )
 
 # hasm executable:
 

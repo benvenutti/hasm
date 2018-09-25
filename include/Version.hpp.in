@@ -1,0 +1,15 @@
+#pragma once
+
+namespace Hasm
+{
+namespace Version
+{
+
+constexpr int major = ${hasm_VERSION_MAJOR};
+constexpr int minor = ${hasm_VERSION_MINOR};
+constexpr int patch = ${hasm_VERSION_PATCH};
+
+constexpr auto string = "hasm ${hasm_VERSION_MAJOR}.${hasm_VERSION_MINOR}.${hasm_VERSION_PATCH}";
+
+} // namespace Version
+} // namespace Hasm

@@ -1,9 +1,7 @@
 #include "SymbolTable.hpp"
 
-#include <catch2/catch.hpp>
-
-#include <boost/optional/optional_io.hpp>
 #include <boost/range/algorithm.hpp>
+#include <catch2/catch.hpp>
 
 namespace
 {
@@ -35,7 +33,7 @@ SCENARIO_METHOD( FixtureSymbolTable, "symbol refers address", "[SymbolTable]" )
     REQUIRE( symbolTable.getAddress( "s1" ).get() == 0x1010 );
     REQUIRE( symbolTable.getAddress( "s2" ).get() == 0x2020 );
     REQUIRE( symbolTable.getAddress( "s3" ).get() == 0x3030 );
-    REQUIRE( symbolTable.getAddress( "s4" ) == boost::none );
+    REQUIRE_FALSE( symbolTable.getAddress( "s4" ).is_initialized() );
 }
 
 SCENARIO_METHOD( FixtureSymbolTable, "all symbols", "[SymbolTable]" )

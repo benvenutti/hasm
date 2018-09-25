@@ -2,7 +2,6 @@
 
 set( source_files
     Assembler.test.cpp
-    AssemblerEngineConfig.test.cpp
     catch.setup.cpp
     Coder.test.cpp
     CommandLineParser.test.cpp
