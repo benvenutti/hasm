@@ -1,17 +1,17 @@
 language: cpp
+sudo: false
 
 matrix:
   include:
     - os: linux
       addons: { apt: {
-        packages: [g++-6, boost1.67],
-        sources: [ubuntu-toolchain-r-test, sourceline: 'ppa:mhier/libboost-latest'] } }
+        packages: [g++-6, libboost1.55-all-dev],
+        sources: [ubuntu-toolchain-r-test, boost-latest] } }
       env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release
 
 before_install:
   - eval "${MATRIX_EVAL}"
 
-script:
 script:
   - mkdir build && cd build
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
