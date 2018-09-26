@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -v
+pwd
+ls
 
 if [ "$BUILD_TYPE" == "Coverage" ]; then
   gcovtool="--gcov $(which ${GCOV})"
