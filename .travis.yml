@@ -37,7 +37,7 @@ script:
   - ctest -VV .
 
 after_success:
-  - coveralls --gcov ${GCOV} --exclude tests --exclude libs --root .. --build-root . --gcov-options '\-lp'
+  - coveralls --gcov $(GCOV) --exclude tests --exclude libs --root .. --build-root . --gcov-options '\-lp'
 
 notifications:
   email: false
