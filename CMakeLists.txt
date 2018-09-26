@@ -3,15 +3,24 @@ project( hasm VERSION 0.2.1 LANGUAGES CXX )
 
 # build settings:
 
-set( CMAKE_CXX_STANDARD 14 )
-set( CXX_STANDARD_REQUIRED ON )
-set( CXX_EXTENSIONS OFF )
-
 if( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Release FORCE )
 endif()
 
+if( CMAKE_BUILD_TYPE MATCHES Coverage )
+  add_compile_options( -g -O0 --coverage )
+  set( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lgcov --coverage" )
+  set( CMAKE_BUILD_TYPE Debug FORCE )
+endif()
+
+set( CMAKE_CXX_STANDARD 14 )
+set( CXX_STANDARD_REQUIRED ON )
+set( CXX_EXTENSIONS OFF )
 set( CMAKE_CXX_FLAGS_RELEASE -O2 )
+
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
+set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
 # 3rd-party dependencies:
 
