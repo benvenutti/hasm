@@ -7,5 +7,5 @@ if [ "$BUILD_TYPE" == "Coverage" ]; then
   excludes="--exclude tests --exclude libs"
   rootdirs="--root .. --build-root ."
   gcovopts="--gcov-options '\-lp'"
-  coveralls $(gcovtool) $(excludes) $(rootdirs) $(gcovopts)
+  coveralls ${gcovtool} ${excludes} ${rootdirs} ${gcovopts}
 fi
