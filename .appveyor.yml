@@ -1,5 +1,5 @@
 platform:
-  - x86
+  - Win32
   - x64
 
 configuration:
@@ -19,7 +19,7 @@ init:
   - cmake --version
   - msbuild /version
 
-  - if [%platform%]==[x86] ( set "ARCHITECTURE=32" ) else ( set "ARCHITECTURE=64" )
+  - if [%platform%]==[x64] ( set "ARCHITECTURE=64" ) else ( set "ARCHITECTURE=32" )
   - if [%platform%]==[x64] ( set "CMAKE_GENERATOR_SUFFIX= Win64" )
 
   - set "GENERATOR_NAME=%CMAKE_GENERATOR%%CMAKE_GENERATOR_SUFFIX%"
