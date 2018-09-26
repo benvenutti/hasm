@@ -3,77 +3,20 @@ language: cpp
 matrix:
   include:
     - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
-
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env: COMPILER=g++-5
-
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env: COMPILER=g++-6
-
-    - os: linux
-      compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-      env: COMPILER=clang++
-
-    - os: linux
-      compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
-          packages:
-            - clang++-3.7
-      env: COMPILER=clang++-3.7
-
-    - os: osx
-      osx_image: xcode7.3
-      compiler: clang
-      env: COMPILER=clang
-
-    - os: osx
-      osx_image: xcode8
-      compiler: clang
-      env: COMPILER=clang
-
-sudo: required
-dist: trusty
+      addons: { apt: {
+        packages: [g++-6, libboost],
+        sources: [ubuntu-toolchain-r-test, sourceline: 'ppa:mhier/libboost-latest'] } }
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release
 
 before_install:
-  - source ci/travis-environment.sh
-  - ci/travis-before-install.sh
-  - ci/travis-system-info.sh
+  - eval "${MATRIX_EVAL}"
 
 script:
-  - ci/travis-script.sh
-
-after_success:
-  - ci/travis-after-success.sh
+script:
+  - mkdir build && cd build
+  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+  - cmake --build . -- VERBOSE=1 --no-print-directory -j2
+  - ctest -VV .
 
 notifications:
   email: false
