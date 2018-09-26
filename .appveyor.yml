@@ -1,5 +1,3 @@
-os: Visual Studio 2015
-
 platform:
 #  - Win32
   - x64
@@ -30,13 +28,10 @@ init:
       $env:LIB_ARCHITECTURE="lib$($env:ARCHITECTURE)"
       $env:WINDOWS_ARCHITECTURE="win$($env:ARCHITECTURE)"
 
-  - cmake --version
-  - msbuild /version
-  - $env:BOOST_ROOT="C:/Libraries/boost_$($env:BOOST_FILENAME_VERSION)"
-  - $env:BOOST_INCLUDEDIR="$($env:BOOST_ROOT)"
-  - $env:BOOST_LIBRARYDIR="$($env:BOOST_ROOT)/$($env:LIB_ARCHITECTURE)-msvc-$($env:VISUAL_STUDIO_VERSION)"
-  - $env:BOOST_ARCHIVE="boost_$($env:BOOST_FILENAME_VERSION)-bin-msvc-$($env:VISUAL_STUDIO_VERSION)-$($env:ARCHITECTURE).7z"
-
+  - ps: $env:BOOST_ROOT="C:/Libraries/boost_$($env:BOOST_FILENAME_VERSION)"
+  - ps: $env:BOOST_INCLUDEDIR="$($env:BOOST_ROOT)"
+  - ps: $env:BOOST_LIBRARYDIR="$($env:BOOST_ROOT)/$($env:LIB_ARCHITECTURE)-msvc-$($env:VISUAL_STUDIO_VERSION)"
+  - ps: $env:BOOST_ARCHIVE="boost_$($env:BOOST_FILENAME_VERSION)-bin-msvc-$($env:VISUAL_STUDIO_VERSION)-$($env:ARCHITECTURE).7z"
 
 install:
   - git submodule update --init --recursive
@@ -44,7 +39,7 @@ install:
 before_build:
   - md build
   - cd build
-  - cmake -G "$($env:CMAKE_GENERATOR)$($env:CMAKE_GENERATOR_SUFFIX)" -DCMAKE_INSTALL_PREFIX=lib -DCMAKE_BUILD_TYPE=$env:CONFIGURATION ..
+  - ps: cmake -G "$($env:CMAKE_GENERATOR)$($env:CMAKE_GENERATOR_SUFFIX)" -DCMAKE_INSTALL_PREFIX=lib -DCMAKE_BUILD_TYPE=$env:CONFIGURATION ..
 
 build:
   project: build/hasm.sln
