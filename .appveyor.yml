@@ -14,23 +14,23 @@ environment:
   BOOST_LIBRARYDIR_WIN64: C:\Libraries\boost_1_60_0\lib64-msvc-14.0
 
 init:
-  - cmd: cmake --version
-  - cmd: msbuild /version
+  - cmake --version
+  - msbuild /version
 
 install:
   - git submodule update --init --recursive
 
 before_build:
-  - cmd: md build
-  - cmd: cd build
-  - cmd: if "%platform%"=="Win32" set GENERATOR_NAME=Visual Studio 14 2015
-  - cmd: if "%platform%"=="x64"   set GENERATOR_NAME=Visual Studio 14 2015 Win64
-  - cmd: if "%platform%"=="Win32" set BOOST_PATH=%BOOST_LIBRARYDIR_WIN32%
-  - cmd: if "%platform%"=="x64"   set BOOST_PATH=%BOOST_LIBRARYDIR_WIN64%
-  - cmd: cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_LIBRARYDIR="%BOOST_PATH%" -DBoost_USE_STATIC_LIBS="ON" ..
+  - md build
+  - cd build
+  - if "%platform%"=="Win32" set GENERATOR_NAME=Visual Studio 14 2015
+  - if "%platform%"=="x64"   set GENERATOR_NAME=Visual Studio 14 2015 Win64
+  - if "%platform%"=="Win32" set BOOST_PATH=%BOOST_LIBRARYDIR_WIN32%
+  - if "%platform%"=="x64"   set BOOST_PATH=%BOOST_LIBRARYDIR_WIN64%
+  - cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_LIBRARYDIR="%BOOST_PATH%" -DBoost_USE_STATIC_LIBS="ON" ..
 
 build_script:
-  - cmd: cmake --build . --config %configuration%
+  - cmake --build . --config %configuration%
 
 test_script:
-  - cmd: ctest -C %configuration% -VV
+  - ctest -C %configuration% -VV
