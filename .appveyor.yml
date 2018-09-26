@@ -9,13 +9,34 @@ configuration:
   - Release
 
 environment:
-  BOOST_ROOT: C:\Libraries\boost_1_60_0
-  BOOST_LIBRARYDIR_WIN32: C:\Libraries\boost_1_60_0\lib32-msvc-14.0
-  BOOST_LIBRARYDIR_WIN64: C:\Libraries\boost_1_60_0\lib64-msvc-14.0
+  BOOST_FILENAME_VERSION: 1_64_0
+  BOOST_VERSION: 1.64.0
+
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      CMAKE_GENERATOR: Visual Studio 15 2017
+      VISUAL_STUDIO_INTERNAL_VERSION: 141
+      VISUAL_STUDIO_VERSION: 14.1
 
 init:
+  - ps: |
+      # Determine the platform and create associate environment variables
+      If ($env:Platform -Match "x86") {
+        $env:ARCHITECTURE="32"
+      } Else {
+        $env:ARCHITECTURE="64"
+        $env:CMAKE_GENERATOR_SUFFIX=" Win64"
+      }
+      $env:LIB_ARCHITECTURE="lib$($env:ARCHITECTURE)"
+      $env:WINDOWS_ARCHITECTURE="win$($env:ARCHITECTURE)"
+
   - cmake --version
   - msbuild /version
+  - $env:BOOST_ROOT="C:/Libraries/boost_$($env:BOOST_FILENAME_VERSION)"
+  - $env:BOOST_INCLUDEDIR="$($env:BOOST_ROOT)"
+  - $env:BOOST_LIBRARYDIR="$($env:BOOST_ROOT)/$($env:LIB_ARCHITECTURE)-msvc-$($env:VISUAL_STUDIO_VERSION)"
+  - $env:BOOST_ARCHIVE="boost_$($env:BOOST_FILENAME_VERSION)-bin-msvc-$($env:VISUAL_STUDIO_VERSION)-$($env:ARCHITECTURE).7z"
+
 
 install:
   - git submodule update --init --recursive
@@ -23,11 +44,7 @@ install:
 before_build:
   - md build
   - cd build
-  - if "%platform%"=="Win32" set GENERATOR_NAME=Visual Studio 14 2015
-  - if "%platform%"=="x64"   set GENERATOR_NAME=Visual Studio 14 2015 Win64
-  - if "%platform%"=="Win32" set BOOST_PATH=%BOOST_LIBRARYDIR_WIN32%
-  - if "%platform%"=="x64"   set BOOST_PATH=%BOOST_LIBRARYDIR_WIN64%
-  - cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_ROOT="%BOOST_ROOT%" -DBOOST_LIBRARYDIR="%BOOST_PATH%" -DBoost_USE_STATIC_LIBS="ON" ..
+  - cmake -G "$($env:CMAKE_GENERATOR)$($env:CMAKE_GENERATOR_SUFFIX)" -DCMAKE_INSTALL_PREFIX=lib -DCMAKE_BUILD_TYPE=$env:CONFIGURATION ..
 
 build:
   project: build/hasm.sln
