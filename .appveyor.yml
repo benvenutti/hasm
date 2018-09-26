@@ -39,7 +39,7 @@ install:
 before_build:
   - md build
   - cd build
-  - ps: cmake -G "$($env:CMAKE_GENERATOR)$($env:CMAKE_GENERATOR_SUFFIX)" -DCMAKE_INSTALL_PREFIX=lib -DCMAKE_BUILD_TYPE=$env:CONFIGURATION ..
+  - ps: cmake -G "$($env:CMAKE_GENERATOR)$($env:CMAKE_GENERATOR_SUFFIX)" -DCMAKE_INSTALL_PREFIX=lib -DCMAKE_BUILD_TYPE=$env:CONFIGURATION -DBOOST_ROOT=$env:BOOST_ROOT ..
 
 build:
   project: build/hasm.sln
