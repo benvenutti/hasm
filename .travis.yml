@@ -4,7 +4,7 @@ matrix:
   include:
     - os: linux
       addons: { apt: {
-        packages: [g++-6, libboost],
+        packages: [g++-6, boost1.67],
         sources: [ubuntu-toolchain-r-test, sourceline: 'ppa:mhier/libboost-latest'] } }
       env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release
 
