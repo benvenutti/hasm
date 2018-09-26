@@ -1,15 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 
-if [ "$IS_COVERAGE_BUILD" == 1 ]; then
-  flags="-g -O0 --coverage"
-  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="$flags" -DCMAKE_CXX_COMPILER=$COMPILER .
-elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
-  mkdir build && cd build
-  cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
-elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
-  mkdir build && cd build
-  cmake ..
-fi
+set -v
 
-cmake --build .
-ctest -VV
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+cat compile_commands.json
+cmake --build . -- -j2
+ctest -VV .

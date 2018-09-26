@@ -1,5 +1,11 @@
-#!/bin/bash -x
+#!/bin/bash
 
-if [ "$IS_COVERAGE_BUILD" == 1 ]; then
-  coveralls --exclude libs --gcov-options '\-lp'
+set -v
+
+if [ "$BUILD_TYPE" == "Coverage" ]; then
+  gcovtool="--gcov $(which ${GCOV})"
+  excludes="--exclude tests --exclude libs"
+  rootdirs="--root .. --build-root ."
+  gcovopts="--gcov-options '\-lp'"
+  coveralls $(gcovtool) $(excludes) $(rootdirs) $(gcovopts)
 fi
