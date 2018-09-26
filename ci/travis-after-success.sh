@@ -7,7 +7,7 @@ if [ "$BUILD_TYPE" == "Coverage" ]; then
   pwd
   ls
   gcovtool="--gcov $(which ${GCOV})"
-  excludes="-e tests -e libs -e build/include -e build/CMakeFiles"
-  rootdirs="--root . --build-root build"
-  coveralls ${gcovtool} ${excludes} ${rootdirs} --gcov-options '\-lp'
+  excludes="-e tests -e libs" # -e build/include -e build/CMakeFiles"
+  #rootdirs="--root . --build-root build"
+  coveralls ${gcovtool} ${excludes} --gcov-options '\-lp'
 fi
