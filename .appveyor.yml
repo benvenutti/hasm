@@ -1,37 +1,40 @@
 platform:
-#  - Win32
   - x64
 
 configuration:
-#  - Debug
   - Release
 
 environment:
-  BOOST_FILENAME_VERSION: 1_64_0
-  BOOST_VERSION: 1.64.0
+  BOOST_FILENAME_VERSION: 1_60_0
+  BOOST_VERSION: 1.60.0
 
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      CMAKE_GENERATOR: Visual Studio 15 2017
-      VISUAL_STUDIO_INTERNAL_VERSION: 141
-      VISUAL_STUDIO_VERSION: 14.1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CMAKE_GENERATOR: Visual Studio 14 2015
+      VISUAL_STUDIO_INTERNAL_VERSION: 140
+      VISUAL_STUDIO_VERSION: 14.0
 
 init:
-  - ps: |
-      # Determine the platform and create associate environment variables
-      If ($env:Platform -Match "x86") {
-        $env:ARCHITECTURE="32"
-      } Else {
-        $env:ARCHITECTURE="64"
-        $env:CMAKE_GENERATOR_SUFFIX=" Win64"
-      }
-      $env:LIB_ARCHITECTURE="lib$($env:ARCHITECTURE)"
-      $env:WINDOWS_ARCHITECTURE="win$($env:ARCHITECTURE)"
+  - cmake --version
+  - msbuild /version
 
-  - ps: $env:BOOST_ROOT="C:/Libraries/boost_$($env:BOOST_FILENAME_VERSION)"
-  - ps: $env:BOOST_INCLUDEDIR="$($env:BOOST_ROOT)"
-  - ps: $env:BOOST_LIBRARYDIR="$($env:BOOST_ROOT)/$($env:LIB_ARCHITECTURE)-msvc-$($env:VISUAL_STUDIO_VERSION)"
-  - ps: $env:BOOST_ARCHIVE="boost_$($env:BOOST_FILENAME_VERSION)-bin-msvc-$($env:VISUAL_STUDIO_VERSION)-$($env:ARCHITECTURE).7z"
+  - if [%platform%]==[x86] ( set "ARCHITECTURE=32" ) else ( set "ARCHITECTURE=64" )
+  - if [%platform%]==[x64] ( set "CMAKE_GENERATOR_SUFFIX= Win64" )
+
+  - set "GENERATOR_NAME=%CMAKE_GENERATOR%%CMAKE_GENERATOR_SUFFIX%"
+  - set "LIB_ARCHITECTURE=lib%ARCHITECTURE%"
+  - set "BOOST_ROOT=C:\Libraries\boost_%BOOST_FILENAME_VERSION%"
+  - set "BOOST_INCLUDEDIR=%BOOST_ROOT%"
+  - set "BOOST_LIBRARYDIR=%BOOST_ROOT%/%LIB_ARCHITECTURE%-msvc-%VISUAL_STUDIO_VERSION%"
+
+  # print outs for debugging/logging
+  - echo ARCHITECTURE=%ARCHITECTURE%
+  - echo CMAKE_GENERATOR_SUFFIX=%CMAKE_GENERATOR_SUFFIX%
+  - echo GENERATOR_NAME=%GENERATOR_NAME%
+  - echo LIB_ARCHITECTURE=%LIB_ARCHITECTURE%
+  - echo BOOST_ROOT=%BOOST_ROOT%
+  - echo BOOST_INCLUDEDIR=%BOOST_INCLUDEDIR%
+  - echo BOOST_LIBRARYDIR=%BOOST_LIBRARYDIR%
 
 install:
   - git submodule update --init --recursive
@@ -39,7 +42,7 @@ install:
 before_build:
   - md build
   - cd build
-  - ps: cmake -G "$($env:CMAKE_GENERATOR)$($env:CMAKE_GENERATOR_SUFFIX)" -DCMAKE_INSTALL_PREFIX=lib -DCMAKE_BUILD_TYPE=$env:CONFIGURATION -DBOOST_ROOT=$env:BOOST_ROOT ..
+  - cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBoost_USE_STATIC_LIBS=ON -DBOOST_LIBRARYDIR=%BOOST_LIBRARYDIR% ..
 
 build:
   project: build/hasm.sln
