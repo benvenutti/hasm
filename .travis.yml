@@ -2,30 +2,42 @@ language: cpp
 
 matrix:
   include:
-    - os: osx
-      osx_image: xcode10
-      env: BUILD_TYPE=Release
+#    - os: osx
+#      osx_image: xcode10
+#      env: BUILD_TYPE=Release
+
+#    - os: linux
+#      addons: { apt: {
+#        packages: [g++-6, libboost1.55-all-dev],
+#        sources: [ubuntu-toolchain-r-test, boost-latest] } }
+#      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release
 
     - os: linux
       addons: { apt: {
         packages: [g++-6, libboost1.55-all-dev],
         sources: [ubuntu-toolchain-r-test, boost-latest] } }
-      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Coverage GCOV=gcov-6
 
-    - os: linux
-      addons: { apt: {
-        packages: [clang-6.0, libstdc++-6-dev, libboost1.55-all-dev],
-        sources: [llvm-toolchain-trusty-6.0, ubuntu-toolchain-r-test, boost-latest] } }
-      env: MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0" BUILD_TYPE=Release
+#    - os: linux
+#      addons: { apt: {
+#        packages: [clang-6.0, libstdc++-6-dev, libboost1.55-all-dev],
+#        sources: [llvm-toolchain-trusty-6.0, ubuntu-toolchain-r-test, boost-latest] } }
+#      env: MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0" BUILD_TYPE=Release
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - pip install cpp-coveralls --user $(whoami)
 
 script:
-  - mkdir build && cd build
-  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
-  - cmake --build . -- VERBOSE=1 --no-print-directory -j2
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DDCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+  - cat compile_commands.json
+  - cmake --build . -- -j2
   - ctest -VV .
+
+after_success:
+  - coveralls --gcov ${GCOV} --exclude tests --exclude libs --root .. --build-root . --gcov-options '\-lp'
 
 notifications:
   email: false
