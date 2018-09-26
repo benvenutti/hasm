@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -v
 
 # To verify the collected data, first capture the data (the dollar
 # symbol '$' here identifies a shell command):
