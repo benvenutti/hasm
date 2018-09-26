@@ -28,12 +28,11 @@ before_build:
   - if "%platform%"=="Win32" set BOOST_PATH=%BOOST_LIBRARYDIR_WIN32%
   - if "%platform%"=="x64"   set BOOST_PATH=%BOOST_LIBRARYDIR_WIN64%
   - cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBOOST_LIBRARYDIR="%BOOST_PATH%" -DBoost_USE_STATIC_LIBS="ON" ..
+  - dir
 
 build:
+  project: build/hasm.sln
   verbosity: quiet
 
-build_script:
-  - cmake --build . --config %configuration%
-
 test_script:
-  - ctest -C %configuration% -VV
+  - ctest -C %configuration% -VV .
