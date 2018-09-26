@@ -1,3 +1,6 @@
+codecov:
+  branch: development
+
 ignore:
   - "/usr/.*"
   - "tests/.*"
