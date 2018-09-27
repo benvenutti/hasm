@@ -51,7 +51,7 @@ build:
   parallel: true
   verbosity: quiet
 
-build_script:
+after_build:
   - dir
 
 test_script:
