@@ -21,22 +21,13 @@ init:
 
   - if [%platform%]==[x64] ( set "ARCHITECTURE=64" ) else ( set "ARCHITECTURE=32" )
   - if [%platform%]==[x64] ( set "CMAKE_GENERATOR_SUFFIX= Win64" )
-
   - set "GENERATOR_NAME=%CMAKE_GENERATOR%%CMAKE_GENERATOR_SUFFIX%"
   - set "LIB_ARCHITECTURE=lib%ARCHITECTURE%"
   - set "BOOST_ROOT=C:\Libraries\boost_%BOOST_FILENAME_VERSION%"
   - set "BOOST_INCLUDEDIR=%BOOST_ROOT%"
   - set "BOOST_LIBRARYDIR=%BOOST_ROOT%\%LIB_ARCHITECTURE%-msvc-%VISUAL_STUDIO_VERSION%"
 
-  # print outs for debugging/logging
-  - echo ARCHITECTURE=%ARCHITECTURE%
-  - echo CMAKE_GENERATOR_SUFFIX=%CMAKE_GENERATOR_SUFFIX%
-  - echo GENERATOR_NAME=%GENERATOR_NAME%
-  - echo LIB_ARCHITECTURE=%LIB_ARCHITECTURE%
-  - echo BOOST_ROOT=%BOOST_ROOT%
-  - echo BOOST_INCLUDEDIR=%BOOST_INCLUDEDIR%
-  - echo BOOST_LIBRARYDIR=%BOOST_LIBRARYDIR%
-  - dir C:\Libraries\
+  - call ci\appveyor-echo-environment.bat
 
 install:
   - git submodule update --init --recursive
@@ -50,9 +41,6 @@ build:
   project: build/hasm.sln
   parallel: true
   verbosity: quiet
-
-after_build:
-  - dir
 
 test_script:
   - ctest -C %configuration% -VV .
