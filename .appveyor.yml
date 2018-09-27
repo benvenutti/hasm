@@ -27,10 +27,9 @@ init:
   - set "BOOST_INCLUDEDIR=%BOOST_ROOT%"
   - set "BOOST_LIBRARYDIR=%BOOST_ROOT%\%LIB_ARCHITECTURE%-msvc-%VISUAL_STUDIO_VERSION%"
 
-  - call ci\appveyor-echo-environment.bat
-
 install:
   - git submodule update --init --recursive
+  - call ci\appveyor-echo-environment.bat
 
 before_build:
   - md build
