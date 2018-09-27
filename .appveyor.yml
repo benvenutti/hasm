@@ -44,8 +44,12 @@ install:
 before_build:
   - md build
   - cd build
-  - cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBoost_USE_STATIC_LIBS=ON -DBOOST_LIBRARYDIR=%BOOST_LIBRARYDIR% -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+  - cmake -G "%GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DBoost_USE_STATIC_LIBS=ON -DBOOST_LIBRARYDIR=%BOOST_LIBRARYDIR% ..
+
+  - echo "======================================================================"
+  - cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=%configuration% -DBoost_USE_STATIC_LIBS=ON -DBOOST_LIBRARYDIR=%BOOST_LIBRARYDIR% -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
   - type compile_commands.json
+  - echo "======================================================================"
 
 build:
   project: build/hasm.sln
