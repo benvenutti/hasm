@@ -1,13 +1,17 @@
-#ifndef HASM_HACKGRAMMAR_HPP
-#define HASM_HACKGRAMMAR_HPP
-
-#include <string>
+#pragma once
 
 #include "HackLex.hpp"
 
-namespace Hasm {
-namespace Hack {
-namespace Grammar {
+#include <string>
+
+namespace Hasm
+{
+namespace Hack
+{
+namespace Grammar
+{
+
+// clang-format off
 
 const std::string LABEL{
     Lex::LEFT_PAREN
@@ -195,8 +199,8 @@ const std::string COMPUTATION_COMMAND{
         + ")?"
 };
 
+// clang-format on
+
 } // namespace Grammar
 } // namespace Hack
 } // namespace Hasm
-
-#endif

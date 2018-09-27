@@ -1,12 +1,14 @@
-#include <cstdlib>
-
 #include "AssemblerEngine.hpp"
-#include "AssemblerEngineConfig.hpp"
 #include "CommandLineParser.hpp"
 
-int main(int argc, char** argv) {
-  const Hasm::AssemblerEngineConfig config{Hasm::CommandLineParser::parse(argc, argv)};
-  const Hasm::AssemblerEngine assembler{};
+#include <cstdlib>
 
-  return assembler.run(config) ? EXIT_SUCCESS : EXIT_FAILURE;
+int main( int argc, char** argv )
+{
+    if ( const auto cfg = Hasm::CommandLineParser::parse( argc, argv ) )
+    {
+        return Hasm::AssemblerEngine{}.run( *cfg ) ? EXIT_SUCCESS : EXIT_FAILURE;
+    }
+
+    return EXIT_FAILURE;
 }

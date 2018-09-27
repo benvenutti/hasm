@@ -1,104 +1,37 @@
 language: cpp
 
-env:
-  global:
-    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-    # via the "travis encrypt" command using the project repo's public key
-    - secure: "Tn8DySUx8t4BNnxe8r+PxamjvA0L4WnCAuoxpXWAPrDut+fKVZ7Mzwl45yXMMFFlf8OKegIBBUk/UVW3AJigZ/Jlqs41lTpxuxjwP9jXICxiovw+0NI548wdsciHHEwj5hPtNrjgrdsqhVxNFID+1TUjZSwNx93ch4ArEExY+rok3ESZJYHxk74HGZ2o8W4exSYi1Sro2Ofvkr+G7aMC46O4D6nPYX8Jbd6nSJ5NT8LXJMdUPsHVj1N5ZLhoxcuk4/neI2zAOsYqdVMwKjwzNx/SAioTNNNu3O0z5b6b6tMJq5g7ptBdtFhAixvJ5Iyqf3W9PExueFPa0taROeQAJssY+sQg05+W7AYxTtbe9oOfgpNR+X7IzTQEaNCk9MaeNMySGpr4DOivj6hBfvkUeCXZXbTFyHk6Wj9zhxDlCyF+/b1prj8FbtQOlVguZ4ACtatjOCRbfMpG0X7xNW5wHi3nIiC0pXb7/yqBoP6qOXXGXrVNfWwf3arL1zVlqEBLkLfV6AkX1hxme8eUbiZ8/R4OQNEAUsZbOdn52VGBB7xeZZWdzL+eOz+hUpDyqH8lEmzUakQd0M8TphmvJqmhZeTMgSwJDP9Tq+tjYDBme6XieLzCEYSEVjhVmxwhKAzNI8S9uSzf0XZRax3bxqlNZq3lXnyYh1yWR20kv4aNdjY="
-
 matrix:
   include:
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.8
-            - gcc-4.8
-        coverity_scan:
-          project:
-            name: "benvenutti/hasm"
-            description: "Build submitted via Travis CI"
-          notification_email: diogo.a.benvenutti@gmail.com
-          build_command_prepend: "mkdir build && cd build && cmake .."
-          build_command: "make -j2"
-          branch_pattern: coverity_scan
-      env: COMPILER=g++-4.8
-
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
-
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env: COMPILER=g++-5
-
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env: COMPILER=g++-6
-
-    - os: linux
-      compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-      env: COMPILER=clang++
-
-    - os: linux
-      compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
-          packages:
-            - clang++-3.7
-      env: COMPILER=clang++-3.7
-
     - os: osx
-      osx_image: xcode7.3
-      compiler: clang
-      env: COMPILER=clang
+      osx_image: xcode10
+      env: BUILD_TYPE=Release
 
-    - os: osx
-      osx_image: xcode8
-      compiler: clang
-      env: COMPILER=clang
+    - os: linux
+      addons: { apt: {
+        packages: [g++-6, libboost1.55-all-dev],
+        sources: [ubuntu-toolchain-r-test, boost-latest] } }
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release
 
-sudo: required
-dist: trusty
+    - os: linux
+      addons: { apt: {
+        packages: [g++-6, libboost1.55-all-dev, lcov],
+        sources: [ubuntu-toolchain-r-test, boost-latest] } }
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Coverage GCOV=gcov-6
+
+    - os: linux
+      addons: { apt: {
+        packages: [clang-6.0, libstdc++-6-dev, libboost1.55-all-dev],
+        sources: [llvm-toolchain-trusty-6.0, ubuntu-toolchain-r-test, boost-latest] } }
+      env: MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0" BUILD_TYPE=Release
 
 before_install:
-  - source ci/travis-environment.sh
-  - ci/travis-before-install.sh
-  - ci/travis-system-info.sh
+  - eval "${MATRIX_EVAL}"
 
 script:
-  - ci/travis-script.sh
+  - ci/travis-build.sh
 
 after_success:
-  - ci/travis-after-success.sh
+  - ci/travis-coverage.sh
 
 notifications:
   email: false

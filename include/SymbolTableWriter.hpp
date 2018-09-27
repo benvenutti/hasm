@@ -1,25 +1,24 @@
-#ifndef HASM_SYMBOLTABLEWRITER_HPP
-#define HASM_SYMBOLTABLEWRITER_HPP
+#pragma once
+
+#include "Hack.hpp"
 
 #include <map>
 #include <ostream>
 
-#include "Hack.hpp"
-
-namespace Hasm {
+namespace Hasm
+{
 
 class SymbolTable;
 
-class SymbolTableWriter {
-  public:
-    SymbolTableWriter(const SymbolTable& symbolTable);
+class SymbolTableWriter
+{
+public:
+    SymbolTableWriter( const SymbolTable& symbolTable );
 
-    void write(std::ostream& out);
+    void write( std::ostream& out );
 
-  private:
-    std::multimap<Hack::WORD, std::string> symbolMap;
+private:
+    std::multimap<Hack::word, std::string> symbolMap;
 };
 
 } // namespace Hasm
-
-#endif

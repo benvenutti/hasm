@@ -1,4 +1,4 @@
-# hasm [![Build Status](https://travis-ci.org/benvenutti/hasm.svg?branch=development)](https://travis-ci.org/benvenutti/hasm) [![Build status](https://ci.appveyor.com/api/projects/status/xvvgrlygu5hofm75?svg=true)](https://ci.appveyor.com/project/benvenutti/hasmtest) <a href="https://scan.coverity.com/projects/benvenutti-hasm"><img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/9220/badge.svg"/></a> [![Coverage Status](https://coveralls.io/repos/github/benvenutti/hasm/badge.svg?branch=development)](https://coveralls.io/github/benvenutti/hasm?branch=development) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CDash](https://img.shields.io/badge/dashboard-cdash-blue.svg)](https://my.cdash.org/index.php?project=hasm)
+# hasm [![Build Status](https://travis-ci.org/benvenutti/hasm.svg?branch=development)](https://travis-ci.org/benvenutti/hasm) [![Build status](https://ci.appveyor.com/api/projects/status/xvvgrlygu5hofm75?svg=true)](https://ci.appveyor.com/project/benvenutti/hasmtest) [![codecov](https://codecov.io/gh/benvenutti/hasm/branch/development/graph/badge.svg)](https://codecov.io/gh/benvenutti/hasm) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CDash](https://img.shields.io/badge/dashboard-cdash-blue.svg)](https://my.cdash.org/index.php?project=hasm)
 
 **hasm** stands for *Hack* Assembler, an assembler for the *Hack Platform*. This project is based on the sixth chapter of the book "The Elements of Computing System: Building a Modern Computer from First Principles", by Nisan and Schocken, where the platform is fully described. For more information, see [nand2tetris](http://www.nand2tetris.org/).
 
@@ -85,13 +85,22 @@ Allowed options:
 
 ## Building **hasm** from source
 
-The assembler is written in C++14 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/).
+The assembler is written in C++14 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/) and [Catch2](https://github.com/catchorg/Catch2).
 
 The following list enumerates the tools and dependencies' minimum requirements:
 
 * c++14 compiler
 * cmake 3.6
-* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system* and *unit_test_framework*)
+* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system*)
+* Catch2 (this is a submodule of the project)
+
+### Cloning
+
+Make sure to clone the repository with its submodules. One way to do this is as follows:
+
+```shh
+git clone --recurse-submodules https://github.com/benvenutti/hasm.git
+```
 
 ### Cross-platform
 
@@ -126,9 +135,12 @@ hasm/build$ cmake --build .
 To run the available test suite, first make sure the configuration option *BUILD_TESTING* was properly set (its default value is *ON*) . After a successful build, you need to execute the *test* target using **ctest** from CMake, like this:
 
 ```shh
-hasm/build$ ctest
 Running tests...
-Test project hasm/build
-...
+Test project /Users/diogo.benvenutti/draft/hasm/build
+    Start 1: HasmTestSuite
+1/1 Test #1: HasmTestSuite ....................   Passed    0.01 sec
+
 100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec
 ```

@@ -1,15 +1,15 @@
-#ifndef HASM_COMMANDLINEPARSER_HPP
-#define HASM_COMMANDLINEPARSER_HPP
+#pragma once
 
-namespace Hasm {
+#include "Config.hpp"
 
-class AssemblerEngineConfig;
+#include <boost/optional.hpp>
 
-namespace CommandLineParser {
+namespace Hasm
+{
+namespace CommandLineParser
+{
 
-AssemblerEngineConfig parse(int argc, char const* const* argv);
+boost::optional<Config> parse( int argc, char const* const* argv );
 
 } // namespace CommandLineParser
 } // namespace Hasm
-
-#endif
