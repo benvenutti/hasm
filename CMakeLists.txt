@@ -33,7 +33,6 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 find_package( Boost
   COMPONENTS
     filesystem
-    regex
     system
     REQUIRED )
 
@@ -104,7 +103,6 @@ target_link_libraries( hack_assembler
     Boost::boost
   PRIVATE
     Boost::filesystem
-    Boost::regex
     Boost::system
     clara )
 
