@@ -23,7 +23,7 @@ const std::vector<Source> sources{ { "Add.asm", "Add.hack" },   //
 
 } // namespace detail
 
-SCENARIO( "Add", "[Assembler]" )
+SCENARIO( "assemble programs", "[Assembler]" )
 {
     for ( const auto& src : detail::sources )
     {
