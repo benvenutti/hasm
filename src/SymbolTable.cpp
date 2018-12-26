@@ -1,6 +1,6 @@
 #include "SymbolTable.hpp"
 
-#include <boost/range/adaptors.hpp>
+#include <boost/range/adaptor/map.hpp>
 
 namespace Hasm
 {
@@ -29,17 +29,7 @@ boost::optional<Hack::word> SymbolTable::getAddress( const std::string& symbol )
 
 std::vector<std::string> SymbolTable::getSymbols() const
 {
-    std::vector<std::string> symbols;
-    symbols.reserve( m_table.size() );
-
-    for ( const auto& it : m_table )
-    {
-        symbols.emplace_back( it.first );
-    }
-
-    return symbols;
-
-    //return boost::copy_range<std::vector<std::string>>( boost::adaptors::keys( m_table ) );
+    return boost::copy_range<std::vector<std::string>>( boost::adaptors::keys( m_table ) );
 }
 
 } // namespace Hasm
