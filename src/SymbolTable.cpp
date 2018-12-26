@@ -1,6 +1,6 @@
 #include "SymbolTable.hpp"
 
-//#include <boost/range/adaptors.hpp>
+#include <boost/range/adaptors.hpp>
 
 namespace Hasm
 {
