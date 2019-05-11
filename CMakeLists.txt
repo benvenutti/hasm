@@ -12,9 +12,9 @@ project( hasm VERSION 0.2.1 LANGUAGES CXX )
 
 # policies:
 
-#if ( POLICY CMP0074 )
-#  cmake_policy( SET CMP0074 NEW )
-#endif()
+if ( POLICY CMP0074 )
+  cmake_policy( SET CMP0074 NEW )
+endif()
 
 # build settings:
 
