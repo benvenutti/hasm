@@ -48,10 +48,10 @@ find_package( Boost
     REQUIRED )
 
 add_library( catch2 INTERFACE )
-target_include_directories( catch2 INTERFACE libs/Catch2/single_include )
+target_include_directories( catch2 SYSTEM INTERFACE libs/Catch2/single_include )
 
 add_library( clara INTERFACE )
-target_include_directories( clara INTERFACE libs/Clara/single_include )
+target_include_directories( clara SYSTEM INTERFACE libs/Clara/single_include )
 
 # compiler definitions:
 
