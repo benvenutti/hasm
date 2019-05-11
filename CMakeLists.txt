@@ -12,6 +12,8 @@ endif()
 cmake_minimum_required( VERSION 3.8 FATAL_ERROR )
 project( hasm VERSION 0.2.1 LANGUAGES CXX )
 
+option( HASM_TESTS "Build hasm test suite" ON )
+
 # ---------------------------------------------------------------------------------------
 # policies:
 
@@ -167,7 +169,7 @@ target_link_libraries( hasm
 # ---------------------------------------------------------------------------------------
 # unit tests:
 
-if( BUILD_TESTING )
+if( HASM_TESTS )
   enable_testing()
   include( CTest )
   add_subdirectory( tests )
