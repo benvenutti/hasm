@@ -24,12 +24,15 @@ endif()
 # ---------------------------------------------------------------------------------------
 # build types:
 
-get_property( isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG )
-if( isMultiConfig )
-  if( NOT "Coverage" IN_LIST CMAKE_CONFIGURATION_TYPES )
-    list( APPEND CMAKE_CONFIGURATION_TYPES Coverage )
+if( NOT CMAKE_BUILD_TYPE )
+  set( CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE )
+endif()
+
+if( CMAKE_BUILD_TYPE MATCHES "Coverage" )
+  if( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
+    message( FATAL_ERROR "Coverage is not for valid compiler ${CMAKE_CXX_COMPILER_ID}" )
   endif()
-else()
+
   set( allowableBuildTypes Debug Release RelWithDebInfo MinSizeRel Coverage )
   set_property( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "${allowableBuildTypes}" )
 endif()
@@ -40,16 +43,6 @@ endif()
 set( CMAKE_CXX_STANDARD 14 )
 set( CXX_STANDARD_REQUIRED ON )
 set( CXX_EXTENSIONS OFF )
-
-if( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE )
-elseif( NOT CMAKE_BUILD_TYPE IN_LIST allowableBuildTypes )
-  message( FATAL_ERROR "Invalid build type: ${CMAKE_BUILD_TYPE}" )
-endif()
-
-if( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" AND CMAKE_BUILD_TYPE MATCHES "Coverage" )
-  message( FATAL_ERROR "Coverage is not for valid compiler ${CMAKE_CXX_COMPILER_ID}" )
-endif()
 
 set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
