@@ -3,7 +3,7 @@
 
 if( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
   message( FATAL_ERROR "Prevented in-tree build. Please create a build"
-      " directory outside of the source code and call cmake from there")
+      " directory outside of the source code and call cmake from there" )
 endif()
 
 # ---------------------------------------------------------------------------------------
@@ -12,7 +12,15 @@ endif()
 cmake_minimum_required( VERSION 3.8 FATAL_ERROR )
 project( hasm VERSION 0.2.1 LANGUAGES CXX )
 
-option( HASM_TESTS "Build hasm test suite" ON )
+option( HASM_TESTS "Build hasm tests" ON )
+
+set( CMAKE_CXX_STANDARD 14 )
+set( CXX_STANDARD_REQUIRED ON )
+set( CXX_EXTENSIONS OFF )
+
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
+set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
 # ---------------------------------------------------------------------------------------
 # policies:
@@ -22,7 +30,7 @@ if ( POLICY CMP0074 )
 endif()
 
 # ---------------------------------------------------------------------------------------
-# build types:
+# build type:
 
 if( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE )
@@ -33,20 +41,9 @@ if( CMAKE_BUILD_TYPE MATCHES "Coverage" )
     message( FATAL_ERROR "Coverage is not for valid compiler ${CMAKE_CXX_COMPILER_ID}" )
   endif()
 
-  set( allowableBuildTypes Debug Release RelWithDebInfo MinSizeRel Coverage )
-  set_property( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "${allowableBuildTypes}" )
+  set_property( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug Release RelWithDebInfo MinSizeRel Coverage" )
 endif()
-
-# ---------------------------------------------------------------------------------------
-# build settings:
-
-set( CMAKE_CXX_STANDARD 14 )
-set( CXX_STANDARD_REQUIRED ON )
-set( CXX_EXTENSIONS OFF )
-
-set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
-set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
-set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
 # ---------------------------------------------------------------------------------------
 # compiler definitions:
@@ -160,7 +157,7 @@ target_link_libraries( hasm
     hack_assembler )
 
 # ---------------------------------------------------------------------------------------
-# unit tests:
+# tests:
 
 if( HASM_TESTS )
   enable_testing()
