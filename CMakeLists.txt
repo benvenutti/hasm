@@ -30,6 +30,8 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
 # 3rd-party dependencies:
 
+set( Boost_USE_STATIC_LIBS ON )
+
 find_package( Boost
   COMPONENTS
     filesystem
@@ -104,6 +106,7 @@ target_link_libraries( hack_assembler
   PRIVATE
     Boost::filesystem
     Boost::system
+    Boost::disable_autolinking
     clara )
 
 # hasm executable:
