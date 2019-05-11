@@ -1,3 +1,12 @@
+# in-tree build guard:
+
+if( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
+  message( FATAL_ERROR "Prevented in-tree build. Please create a build"
+      " directory outside of the source code and call cmake from there")
+endif()
+
+# project:
+
 cmake_minimum_required( VERSION 3.8 FATAL_ERROR )
 project( hasm VERSION 0.2.1 LANGUAGES CXX )
 
