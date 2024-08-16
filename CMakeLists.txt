@@ -14,7 +14,6 @@ set(CMAKE_CXX_FLAGS_RELEASE -O2)
 find_package(Boost 1.83
   COMPONENTS
     program_options
-    regex
     REQUIRED)
 
 include(FetchContent)
@@ -85,12 +84,12 @@ target_include_directories(hack_assembler
     include
     ${PROJECT_BINARY_DIR}/include)
 
-target_link_libraries(hack_assembler
-  PUBLIC
-    Boost::boost
+target_link_libraries(
+  hack_assembler    
   PRIVATE
+    Boost::boost
     Boost::program_options
-    Boost::regex)
+)
 
 # hasm executable:
 

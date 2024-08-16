@@ -18,9 +18,11 @@ add_executable(test_suite ${source_files})
 
 target_compile_features(test_suite PUBLIC cxx_std_17)
 
-target_link_libraries(test_suite
+target_link_libraries(
+  test_suite
   PRIVATE
     hack_assembler
+    Boost::boost
     Catch2::Catch2WithMain)
 
 add_test(NAME HasmTestSuite COMMAND test_suite)
