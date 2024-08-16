@@ -1,20 +1,16 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
-project(hasm VERSION 0.2.1 LANGUAGES CXX)
 
-# build settings:
+project(
+  hasm
+  DESCRIPTION  "hasm is an assembler for the nand2tetris hack platform"
+  HOMEPAGE_URL https://github.com/benvenutti/hasm
+  VERSION      0.2.1
+  LANGUAGES    CXX
+)
 
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
-endif()
+# 3rd party dependencies:
 
-set(CMAKE_CXX_FLAGS_RELEASE -O2)
-
-# 3rd-party dependencies:
-
-find_package(Boost 1.83
-  COMPONENTS
-    program_options
-    REQUIRED)
+find_package(Boost 1.83 REQUIRED COMPONENTS program_options)
 
 include(FetchContent)
 
@@ -26,16 +22,30 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-# compiler definitions:
+# build settings:
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
+endif()
+
+set(CXX_STANDARD_REQUIRED ON)
+set(CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS_RELEASE -O3)
+
+# compiler's warning messages:
 
 if(MSVC)
-  add_compile_options(/W4 /w14545 /w34242 /w34254 /w34287 /w44263 /w44265 
+  add_compile_options(
+    /W4 /w14545 /w34242 /w34254 /w34287 /w44263 /w44265 
     /w44296 /w44311 /w44826 /we4289 /w14546 /w14547 /w14549 /w14555 /w14619 
-    /w14905 /w14906 /w14928)
+    /w14905 /w14906 /w14928
+  )
 else()
-  add_compile_options(-Wall -Wextra -Wconversion -Wsign-conversion -Wshadow
+  add_compile_options(
+    -Wall -Wextra -Wconversion -Wsign-conversion -Wshadow
     -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wcast-qual -Wunused
-    -Woverloaded-virtual -pedantic)
+    -Woverloaded-virtual -pedantic
+  )
 endif()
 
 # subdirectories:
