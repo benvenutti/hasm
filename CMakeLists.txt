@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 project(hasm VERSION 0.2.1 LANGUAGES CXX)
 
 # build settings:
@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS_RELEASE -O2)
 
 # 3rd-party dependencies:
 
-find_package(Boost 1.78
+find_package(Boost 1.83
   COMPONENTS
     filesystem
     program_options
