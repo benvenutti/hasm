@@ -15,7 +15,8 @@ set(source_files
 # executable:
 
 add_executable(test_suite ${source_files})
-set_target_properties(test_suite PROPERTIES CXX_STANDARD 14)
+
+target_compile_features(test_suite PUBLIC cxx_std_17)
 
 target_link_libraries(test_suite
   PRIVATE

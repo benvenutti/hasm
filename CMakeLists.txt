@@ -3,8 +3,6 @@ project(hasm VERSION 0.2.1 LANGUAGES CXX)
 
 # build settings:
 
-set(CMAKE_CXX_STANDARD 14)
-
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
 endif()
@@ -82,6 +80,8 @@ add_library(hack_assembler
   ${hack_assembler_source_files} 
   ${hack_assembler_header_files})
 
+target_compile_features(hack_assembler PUBLIC cxx_std_17)
+
 target_include_directories(hack_assembler
   PUBLIC
     include
@@ -99,6 +99,8 @@ target_link_libraries(hack_assembler
 # hasm executable:
 
 add_executable(hasm src/main.cpp)
+
+target_compile_features(hasm PUBLIC cxx_std_17)
 
 target_link_libraries(hasm
   PRIVATE
