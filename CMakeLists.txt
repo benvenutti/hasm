@@ -1,9 +1,7 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 project(hasm VERSION 0.2.1 LANGUAGES CXX)
 
 # build settings:
-
-set(CMAKE_CXX_STANDARD 14)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
@@ -13,12 +11,10 @@ set(CMAKE_CXX_FLAGS_RELEASE -O2)
 
 # 3rd-party dependencies:
 
-find_package(Boost 1.78
+find_package(Boost 1.83
   COMPONENTS
-    filesystem
     program_options
     regex
-    system
     REQUIRED)
 
 include(FetchContent)
@@ -82,6 +78,8 @@ add_library(hack_assembler
   ${hack_assembler_source_files} 
   ${hack_assembler_header_files})
 
+target_compile_features(hack_assembler PUBLIC cxx_std_17)
+
 target_include_directories(hack_assembler
   PUBLIC
     include
@@ -91,14 +89,14 @@ target_link_libraries(hack_assembler
   PUBLIC
     Boost::boost
   PRIVATE
-    Boost::filesystem
     Boost::program_options
-    Boost::regex
-    Boost::system)
+    Boost::regex)
 
 # hasm executable:
 
 add_executable(hasm src/main.cpp)
+
+target_compile_features(hasm PUBLIC cxx_std_17)
 
 target_link_libraries(hasm
   PRIVATE

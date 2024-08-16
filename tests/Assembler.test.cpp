@@ -105,11 +105,11 @@ SCENARIO_METHOD( FixtureRectProgram, "assemble program with labels", "[Assembler
     const auto& symbolTable = assembler.getSymbolTable();
 
     REQUIRE( symbolTable.contains( "counter" ) );
-    REQUIRE( symbolTable.getAddress( "counter" ).get() == 16 );
+    REQUIRE( symbolTable.getAddress( "counter" ).value() == 16 );
     REQUIRE( symbolTable.contains( "address" ) );
-    REQUIRE( symbolTable.getAddress( "address" ).get() == 17 );
+    REQUIRE( symbolTable.getAddress( "address" ).value() == 17 );
     REQUIRE( symbolTable.contains( "LOOP" ) );
-    REQUIRE( symbolTable.getAddress( "LOOP" ).get() == 10 );
+    REQUIRE( symbolTable.getAddress( "LOOP" ).value() == 10 );
     REQUIRE( symbolTable.contains( "INFINITE_LOOP" ) );
-    REQUIRE( symbolTable.getAddress( "INFINITE_LOOP" ).get() == 23 );
+    REQUIRE( symbolTable.getAddress( "INFINITE_LOOP" ).value() == 23 );
 }

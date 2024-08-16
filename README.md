@@ -89,10 +89,10 @@ The assembler is written in C++14 and uses [CMake](https://cmake.org/) to manage
 
 The following list enumerates the tools and dependencies' minimum requirements:
 
-* c++14 compiler
-* cmake 3.6
-* libboost 1.54.0 (components: *filesystem*, *program_options*, *regex*, *system*)
-* Catch2 (this is a submodule of the project)
+* c++17 compiler
+* cmake 3.25
+* libboost 1.78.0 (components: *program_options*, *regex*)
+* Catch2 (this dependency is managed by the main CMake script)
 
 ### Cloning
 
