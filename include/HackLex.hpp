@@ -9,18 +9,18 @@ namespace Hack
 namespace Lex
 {
 
-const std::string ID{ "([[:alpha:]]|\\_|\\.|\\$|\\:)(\\w|\\.|\\$|\\:)*" };
+const std::string ID{ "([[:alpha:]]|_|\\.|\\$|:)(\\w|\\.|\\$|:)*" };
 const std::string INTEGER{ "\\d+" };
 
-const std::string AT{ "\\@" };
-const std::string SEMICOLON{ "\\;" };
-const std::string EQUAL{ "\\=" };
+const std::string AT{ "@" };
+const std::string SEMICOLON{ ";" };
+const std::string EQUAL{ "=" };
 const std::string LEFT_PAREN{ "\\(" };
 const std::string RIGHT_PAREN{ "\\)" };
 const std::string PLUS{ "\\+" };
 const std::string MINUS{ "\\-" };
 const std::string NOT{ "\\!" };
-const std::string AND{ "\\&" };
+const std::string AND{ "&" };
 const std::string OR{ "\\|" };
 
 const std::string ZERO{ "0" };
