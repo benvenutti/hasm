@@ -1,6 +1,6 @@
 #include "FileHandler.hpp"
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 SCENARIO( "change extension", "[FileHandler]" )
 {
