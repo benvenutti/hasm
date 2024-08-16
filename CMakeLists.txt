@@ -21,8 +21,15 @@ find_package(Boost
     system
     REQUIRED)
 
-add_library(catch2 INTERFACE)
-target_include_directories(catch2 INTERFACE libs/Catch2/single_include)
+include(FetchContent)
+
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG        v3.0.1
+)
+
+FetchContent_MakeAvailable(Catch2)
 
 # compiler definitions:
 
