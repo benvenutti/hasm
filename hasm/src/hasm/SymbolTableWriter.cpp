@@ -1,6 +1,6 @@
-#include "SymbolTableWriter.hpp"
+#include <hasm/SymbolTableWriter.hpp>
 
-#include "SymbolTable.hpp"
+#include <hasm/SymbolTable.hpp>
 
 #include <boost/io/ios_state.hpp>
 

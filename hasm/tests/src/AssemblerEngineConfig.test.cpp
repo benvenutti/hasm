@@ -1,4 +1,4 @@
-#include "AssemblerEngineConfig.hpp"
+#include <hasm/AssemblerEngineConfig.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 

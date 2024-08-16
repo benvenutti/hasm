@@ -1,4 +1,4 @@
-#include "SymbolTable.hpp"
+#include <hasm/SymbolTable.hpp>
 
 namespace Hasm
 {

@@ -1,7 +1,7 @@
-#include "Assembler.hpp"
+#include <hasm/Assembler.hpp>
 
-#include "Coder.hpp"
-#include "ErrorMessage.hpp"
+#include <hasm/Coder.hpp>
+#include <hasm/ErrorMessage.hpp>
 
 #include <bitset>
 #include <cctype>

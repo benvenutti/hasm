@@ -1,11 +1,11 @@
-#include "Parser.hpp"
+#include <hasm/Parser.hpp>
+
+#include <hasm/ErrorMessage.hpp>
+#include <hasm/HackCommandParser.hpp>
 
 #include <algorithm>
 #include <cctype>
 #include <iostream>
-
-#include "ErrorMessage.hpp"
-#include "HackCommandParser.hpp"
 
 namespace Hasm
 {

@@ -1,4 +1,4 @@
-#include "SymbolTable.hpp"
+#include <hasm/SymbolTable.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 
