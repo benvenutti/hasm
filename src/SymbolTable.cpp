@@ -18,15 +18,15 @@ bool SymbolTable::contains( const std::string& symbol ) const
     return m_table.find( symbol ) != m_table.end();
 }
 
-boost::optional<Hack::word> SymbolTable::getAddress( const std::string& symbol ) const
+std::optional<Hack::word> SymbolTable::getAddress( const std::string& symbol ) const
 {
     const auto it = m_table.find( symbol );
     if ( it != m_table.end() )
     {
-        return boost::optional<Hack::word>( it->second );
+        return it->second;
     }
 
-    return boost::none;
+    return std::nullopt;
 }
 
 std::vector<std::string> SymbolTable::getSymbols() const
