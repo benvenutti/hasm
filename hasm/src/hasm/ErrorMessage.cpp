@@ -1,4 +1,4 @@
-#include "ErrorMessage.hpp"
+#include <hasm/ErrorMessage.hpp>
 
 #include <sstream>
 

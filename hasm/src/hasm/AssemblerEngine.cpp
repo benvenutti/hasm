@@ -1,10 +1,10 @@
-#include "AssemblerEngine.hpp"
+#include <hasm/AssemblerEngine.hpp>
 
-#include "Assembler.hpp"
-#include "AssemblerEngineConfig.hpp"
-#include "CommandLineParser.hpp"
-#include "FileHandler.hpp"
-#include "SymbolTableWriter.hpp"
+#include <hasm/Assembler.hpp>
+#include <hasm/AssemblerEngineConfig.hpp>
+#include <hasm/CommandLineParser.hpp>
+#include <hasm/FileHandler.hpp>
+#include <hasm/SymbolTableWriter.hpp>
 
 #include <fstream>
 #include <iostream>

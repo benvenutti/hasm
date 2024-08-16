@@ -1,4 +1,4 @@
-#include "HackCommandParser.hpp"
+#include <hasm/HackCommandParser.hpp>
 
 #include <boost/range/join.hpp>
 #include <catch2/catch_test_macros.hpp>

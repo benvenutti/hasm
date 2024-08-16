@@ -1,6 +1,6 @@
-#include "AssemblerEngine.hpp"
-#include "AssemblerEngineConfig.hpp"
-#include "CommandLineParser.hpp"
+#include <hasm/AssemblerEngine.hpp>
+#include <hasm/AssemblerEngineConfig.hpp>
+#include <hasm/CommandLineParser.hpp>
 
 #include <cstdlib>
 

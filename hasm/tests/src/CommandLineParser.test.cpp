@@ -1,4 +1,4 @@
-#include "CommandLineParser.hpp"
+#include <hasm/CommandLineParser.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 
