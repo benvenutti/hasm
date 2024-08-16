@@ -13,7 +13,7 @@ set(CMAKE_CXX_FLAGS_RELEASE -O2)
 
 # 3rd-party dependencies:
 
-find_package(Boost
+find_package(Boost 1.78
   COMPONENTS
     filesystem
     program_options
