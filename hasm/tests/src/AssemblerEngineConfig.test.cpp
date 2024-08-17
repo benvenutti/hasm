@@ -5,17 +5,15 @@
 SCENARIO( "constructor", "[AssemblerEngineConfig]" )
 {
     {
-        const Hasm::AssemblerEngineConfig cfg( false, false, "input" );
+        const Hasm::AssemblerEngineConfig cfg( false, "input" );
 
-        REQUIRE_FALSE( cfg.isValid() );
         REQUIRE_FALSE( cfg.exportSymbols() );
         REQUIRE( cfg.inputName() == std::string{ "input" } );
     }
 
     {
-        const Hasm::AssemblerEngineConfig cfg( true, true, "file" );
+        const Hasm::AssemblerEngineConfig cfg( true, "file" );
 
-        REQUIRE( cfg.isValid() );
         REQUIRE( cfg.exportSymbols() );
         REQUIRE( cfg.inputName() == std::string{ "file" } );
     }

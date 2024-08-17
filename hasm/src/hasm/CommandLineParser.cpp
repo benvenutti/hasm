@@ -61,7 +61,7 @@ AssemblerEngineConfig CommandLineParser::parse( int argc, char const* const* arg
         isValid = false;
     }
 
-    return AssemblerEngineConfig{ isValid, exportSymbolTable, inputName };
+    return AssemblerEngineConfig{ exportSymbolTable, inputName };
 }
 
 } // namespace Hasm

@@ -8,7 +8,6 @@ namespace
 {
 
 const auto check_empty_config = []( const Hasm::AssemblerEngineConfig& cfg ) {
-    REQUIRE_FALSE( cfg.isValid() );
     REQUIRE_FALSE( cfg.exportSymbols() );
     REQUIRE( cfg.inputName().empty() );
 };
@@ -18,7 +17,6 @@ const auto check_empty_config = []( const Hasm::AssemblerEngineConfig& cfg ) {
 SCENARIO( "parse flag for filename", "[CommandLineParser]" )
 {
     const auto check = []( const Hasm::AssemblerEngineConfig& cfg ) {
-        REQUIRE( cfg.isValid() );
         REQUIRE_FALSE( cfg.exportSymbols() );
         REQUIRE( cfg.inputName() == std::string{ "input.asm" } );
     };
@@ -33,7 +31,6 @@ SCENARIO( "parse flag for filename", "[CommandLineParser]" )
 SCENARIO( "parse flag for symbol table", "[CommandLineParser]" )
 {
     const auto check = []( const Hasm::AssemblerEngineConfig& cfg ) {
-        REQUIRE( cfg.isValid() );
         REQUIRE( cfg.exportSymbols() );
         REQUIRE( cfg.inputName() == std::string{ "input.asm" } );
     };

@@ -14,11 +14,6 @@ namespace Hasm
 
 bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
 {
-    if ( !config.isValid() )
-    {
-        return false;
-    }
-
     if ( !isAsmFile( config.inputName() ) )
     {
         return false;
