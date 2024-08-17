@@ -1,13 +1,12 @@
 #pragma once
 
-#include "AssemblerEngineConfig.hpp"
+#include <hasm/AssemblerEngineConfig.hpp>
 
-namespace Hasm
+#include <optional>
+
+namespace Hasm::CommandLineParser
 {
-namespace CommandLineParser
-{
 
-AssemblerEngineConfig parse( int argc, char const* const* argv );
+std::optional< AssemblerEngineConfig > parse( int argc, char const* const* argv );
 
-} // namespace CommandLineParser
-} // namespace Hasm
+} // namespace Hasm::CommandLineParser

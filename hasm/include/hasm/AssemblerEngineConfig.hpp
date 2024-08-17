@@ -1,7 +1,6 @@
 #pragma once
 
-#include <string>
-#include <utility>
+#include <filesystem>
 
 namespace Hasm
 {
@@ -9,32 +8,25 @@ namespace Hasm
 class AssemblerEngineConfig
 {
 public:
-    AssemblerEngineConfig( const bool isValid, const bool exportSymbols, const std::string inputName )
-    : m_isValid{ isValid }
+    AssemblerEngineConfig( std::filesystem::path inputFile, bool exportSymbols )
+    : m_inputFile{ std::move( inputFile ) }
     , m_exportSymbols{ exportSymbols }
-    , m_inputName{ std::move( inputName ) }
     {
     }
 
-    bool isValid() const noexcept
+    [[nodiscard]] const std::filesystem::path& inputFile() const noexcept
     {
-        return m_isValid;
+        return m_inputFile;
     }
 
-    bool exportSymbols() const noexcept
+    [[nodiscard]] bool exportSymbols() const noexcept
     {
         return m_exportSymbols;
     }
 
-    const std::string& inputName() const
-    {
-        return m_inputName;
-    }
-
 private:
-    const bool        m_isValid;
-    const bool        m_exportSymbols;
-    const std::string m_inputName;
+    const std::filesystem::path m_inputFile;
+    const bool                  m_exportSymbols;
 };
 
 } // namespace Hasm
