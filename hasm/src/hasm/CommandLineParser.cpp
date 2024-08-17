@@ -5,6 +5,7 @@
 #include <boost/program_options.hpp>
 
 #include <cassert>
+#include <filesystem>
 #include <iostream>
 
 namespace Hasm
@@ -12,8 +13,8 @@ namespace Hasm
 
 std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc, char const* const* argv )
 {
-    bool        exportSymbolTable{ false };
-    std::string inputName{};
+    bool                  exportSymbolTable{ false };
+    std::filesystem::path inputFile{};
 
     try
     {
@@ -21,9 +22,9 @@ std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc,
 
         po::options_description desc{ "Allowed options" };
 
-        desc.add_options()                                                                //
-            ( "symbol-table,s", "export symbol table (to <input file>.sym)" )             //
-            ( "input-file,i", po::value< std::string >( &inputName ), "input .asm file" ) //
+        desc.add_options()                                                                          //
+            ( "symbol-table,s", "export symbol table (to <input file>.sym)" )                       //
+            ( "input-file,i", po::value< std::filesystem::path >( &inputFile ), "input .asm file" ) //
             ( "help,h", "print this help message" )( "version,v", "print version number" );
 
         po::positional_options_description positionalDescription{};
@@ -51,7 +52,7 @@ std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc,
             return std::nullopt;
         }
 
-        if ( vm.count( "input-file" ) == 0u || inputName.empty() )
+        if ( vm.count( "input-file" ) == 0u || inputFile.empty() )
         {
             std::cerr << "hasm: no input file" << std::endl;
 
@@ -67,9 +68,9 @@ std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc,
         return std::nullopt;
     }
 
-    assert( !inputName.empty() );
+    assert( !inputFile.empty() );
 
-    return AssemblerEngineConfig{ exportSymbolTable, inputName };
+    return AssemblerEngineConfig{ std::move( inputFile ), exportSymbolTable };
 }
 
 } // namespace Hasm

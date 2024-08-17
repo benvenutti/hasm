@@ -14,12 +14,12 @@ namespace Hasm
 
 bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
 {
-    if ( !isAsmFile( config.inputName() ) )
+    if ( !isAsmFile( config.inputFile() ) )
     {
         return false;
     }
 
-    std::ifstream inputFile{ config.inputName() };
+    std::ifstream inputFile{ config.inputFile() };
 
     if ( !inputFile.good() )
     {
@@ -28,7 +28,8 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
         return false;
     }
 
-    const std::string outputName{ FileHandler::changeExtension( config.inputName(), ".hack" ) };
+    // TODO: revisit FileHandler so it handles filesystem paths and not strings
+    const std::string outputName{ FileHandler::changeExtension( config.inputFile().string(), ".hack" ) };
     std::ofstream     outputFile{ outputName };
 
     if ( !outputFile.good() )
@@ -61,7 +62,8 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
 
 bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const
 {
-    const std::string symbolsOutName{ FileHandler::changeExtension( cfg.inputName(), "sym" ) };
+    // TODO: revisit FileHandler so it handles filesystem paths and not strings
+    const std::string symbolsOutName{ FileHandler::changeExtension( cfg.inputFile().string(), "sym" ) };
     std::ofstream     symbolsOut{ symbolsOutName };
 
     if ( !symbolsOut.good() )
@@ -83,16 +85,18 @@ void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& t
     tableWriter.write( out );
 }
 
-bool AssemblerEngine::isAsmFile( const std::string& fileName ) const
+bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
 {
-    if ( !FileHandler::isFile( fileName ) )
+    // TODO: revisit FileHandler so it handles filesystem paths and not strings
+    if ( !FileHandler::isFile( path.string() ) )
     {
-        std::cerr << "error: input \"" << fileName << "\"is not a file" << std::endl;
+        std::cerr << "error: input \"" << path << "\"is not a file" << std::endl;
 
         return false;
     }
 
-    if ( !FileHandler::hasExtension( fileName, ".asm" ) )
+    // TODO: revisit FileHandler so it handles filesystem paths and not strings
+    if ( !FileHandler::hasExtension( path.string(), ".asm" ) )
     {
         std::cerr << "error: input file must have .asm extension" << std::endl;
 

@@ -1,7 +1,7 @@
 #pragma once
 
+#include <filesystem>
 #include <ostream>
-#include <string>
 
 namespace Hasm
 {
@@ -17,7 +17,7 @@ public:
     bool run( const AssemblerEngineConfig& config ) const;
 
 private:
-    bool isAsmFile( const std::string& fileName ) const;
+    bool isAsmFile( const std::filesystem::path& path ) const;
     bool exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const;
     void outputSymbolTable( std::ostream& out, const SymbolTable& table ) const;
 };

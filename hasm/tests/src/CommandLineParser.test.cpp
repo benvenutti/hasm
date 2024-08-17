@@ -13,7 +13,7 @@ SCENARIO( "parse option for filename", "[CommandLineParser]" )
 
         REQUIRE( config.has_value() );
         REQUIRE_FALSE( config->exportSymbols() );
-        REQUIRE( config->inputName() == std::string{ "input.asm" } );
+        REQUIRE( config->inputFile() == std::filesystem::path{ "input.asm" } );
     }
 
     {
@@ -23,7 +23,7 @@ SCENARIO( "parse option for filename", "[CommandLineParser]" )
 
         REQUIRE( config.has_value() );
         REQUIRE_FALSE( config->exportSymbols() );
-        REQUIRE( config->inputName() == std::string{ "input.asm" } );
+        REQUIRE( config->inputFile() == std::filesystem::path{ "input.asm" } );
     }
 }
 
@@ -36,7 +36,7 @@ SCENARIO( "parse option for symbol table", "[CommandLineParser]" )
 
         REQUIRE( config.has_value() );
         REQUIRE( config->exportSymbols() );
-        REQUIRE( config->inputName() == std::string{ "input.asm" } );
+        REQUIRE( config->inputFile() == std::filesystem::path{ "input.asm" } );
     }
 
     {
@@ -46,7 +46,7 @@ SCENARIO( "parse option for symbol table", "[CommandLineParser]" )
 
         REQUIRE( config.has_value() );
         REQUIRE( config->exportSymbols() );
-        REQUIRE( config->inputName() == std::string{ "input.asm" } );
+        REQUIRE( config->inputFile() == std::filesystem::path{ "input.asm" } );
     }
 }
 
