@@ -9,7 +9,6 @@ add_library(
   include/hasm/Coder.hpp
   include/hasm/CommandLineParser.hpp
   include/hasm/ErrorMessage.hpp
-  include/hasm/FileHandler.hpp
   include/hasm/Hack.hpp
   include/hasm/HackCommandParser.hpp
   include/hasm/HackGrammar.hpp
@@ -23,7 +22,6 @@ add_library(
   src/hasm/Coder.cpp
   src/hasm/CommandLineParser.cpp
   src/hasm/ErrorMessage.cpp
-  src/hasm/FileHandler.cpp
   src/hasm/HackCommandParser.cpp
   src/hasm/Parser.cpp
   src/hasm/SymbolTable.cpp

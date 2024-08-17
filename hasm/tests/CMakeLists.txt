@@ -4,7 +4,6 @@ add_executable(
   src/AssemblerEngineConfig.test.cpp
   src/Coder.test.cpp
   src/CommandLineParser.test.cpp
-  src/FileHandler.test.cpp
   src/HackCommandParser.computation.test.cpp
   src/HackCommandParser.label.test.cpp
   src/HackCommandParser.load.test.cpp

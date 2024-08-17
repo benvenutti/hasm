@@ -3,7 +3,6 @@
 #include <hasm/Assembler.hpp>
 #include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/CommandLineParser.hpp>
-#include <hasm/FileHandler.hpp>
 #include <hasm/SymbolTableWriter.hpp>
 
 #include <fstream>
@@ -28,13 +27,14 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
         return false;
     }
 
-    // TODO: revisit FileHandler so it handles filesystem paths and not strings
-    const std::string outputName{ FileHandler::changeExtension( config.inputFile().string(), ".hack" ) };
-    std::ofstream     outputFile{ outputName };
+    auto outputPath = config.inputFile();
+    outputPath.replace_extension( "hack" );
+
+    std::ofstream outputFile{ outputPath };
 
     if ( !outputFile.good() )
     {
-        std::cerr << "error: unable to open " << outputName << std::endl;
+        std::cerr << "error: unable to open " << outputPath << std::endl;
 
         return false;
     }
@@ -60,21 +60,22 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
     return isOk;
 }
 
-bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const
+bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& config, const SymbolTable& table ) const
 {
-    // TODO: revisit FileHandler so it handles filesystem paths and not strings
-    const std::string symbolsOutName{ FileHandler::changeExtension( cfg.inputFile().string(), "sym" ) };
-    std::ofstream     symbolsOut{ symbolsOutName };
+    auto outputPath = config.inputFile();
+    outputPath.replace_extension( "sym" );
 
-    if ( !symbolsOut.good() )
+    std::ofstream outStream{ outputPath };
+
+    if ( !outStream.good() )
     {
         std::cerr << "error: unable to open output stream" << std::endl;
 
         return false;
     }
 
-    outputSymbolTable( symbolsOut, table );
-    symbolsOut.close();
+    outputSymbolTable( outStream, table );
+    outStream.close();
 
     return true;
 }
@@ -87,16 +88,16 @@ void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& t
 
 bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
 {
-    // TODO: revisit FileHandler so it handles filesystem paths and not strings
-    if ( !FileHandler::isFile( path.string() ) )
+    std::error_code errorCode{};
+
+    if ( !std::filesystem::is_regular_file( path, errorCode ) )
     {
         std::cerr << "error: input \"" << path << "\"is not a file" << std::endl;
 
         return false;
     }
 
-    // TODO: revisit FileHandler so it handles filesystem paths and not strings
-    if ( !FileHandler::hasExtension( path.string(), ".asm" ) )
+    if ( path.extension() != ".asm" )
     {
         std::cerr << "error: input file must have .asm extension" << std::endl;
 
