@@ -101,7 +101,7 @@ bool Assembler::assembleCCommand()
     Hack::word cc{ 0 };
 
     cc = Coder::dest( m_parser.dest() ) | Coder::comp( m_parser.comp() ) | Coder::jump( m_parser.jump() )
-         | static_cast<Hack::word>( 0b1110000000000000 );
+         | static_cast< Hack::word >( 0b1110000000000000 );
 
     output( cc );
 
@@ -114,7 +114,7 @@ Hack::word Assembler::computeValue( const std::string& symbol )
 
     if ( std::isdigit( symbol.front() ) != 0 )
     {
-        value = static_cast<Hack::word>( std::stoi( m_parser.symbol() ) );
+        value = static_cast< Hack::word >( std::stoi( m_parser.symbol() ) );
     }
     else if ( m_symbolTable.contains( symbol ) )
     {
@@ -136,7 +136,7 @@ bool Assembler::isValidValue( const Hack::word value ) const
 
 void Assembler::output( const Hack::word word )
 {
-    m_out << std::bitset<16>( word ).to_string() << std::endl;
+    m_out << std::bitset< 16 >( word ).to_string() << std::endl;
 }
 
 } // namespace Hasm

@@ -18,8 +18,8 @@ std::string FileHandler::changeExtension( const std::string& file, const std::st
 
 bool FileHandler::hasExtension( const std::string& file, const std::string& extension )
 {
-    const std::filesystem::path   path{ file };
-    const auto                    isEqual = boost::iequals( path.extension().string(), extension );
+    const std::filesystem::path path{ file };
+    const auto                  isEqual = boost::iequals( path.extension().string(), extension );
 
     return isEqual;
 }

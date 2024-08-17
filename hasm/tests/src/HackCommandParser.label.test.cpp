@@ -11,7 +11,7 @@ SCENARIO( "parse valid labels", "[HackCommandParser]" )
     REQUIRE( Hasm::HackCommandParser::isLabelCommand( "(_AA)" ) );
     REQUIRE( Hasm::HackCommandParser::isLabelCommand( "(.)" ) );
     REQUIRE( Hasm::HackCommandParser::isLabelCommand( "(.A)" ) );
-    REQUIRE( Hasm::HackCommandParser::isLabelCommand( "(.AA)" ) )  ;
+    REQUIRE( Hasm::HackCommandParser::isLabelCommand( "(.AA)" ) );
     REQUIRE( Hasm::HackCommandParser::isLabelCommand( "($)" ) );
     REQUIRE( Hasm::HackCommandParser::isLabelCommand( "($A)" ) );
     REQUIRE( Hasm::HackCommandParser::isLabelCommand( "($AA)" ) );
