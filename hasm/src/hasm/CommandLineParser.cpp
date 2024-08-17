@@ -21,7 +21,7 @@ AssemblerEngineConfig CommandLineParser::parse( int argc, char const* const* arg
 
         po::options_description desc{ "Allowed options" };
         desc.add_options()( "symbol-table,s", "export symbol table (to <input file>.sym)" )(
-            "input-file,i", po::value<std::string>( &inputName ), "input .asm file" )(
+            "input-file,i", po::value< std::string >( &inputName ), "input .asm file" )(
             "help,h", "print this help message" )( "version,v", "print version number" );
 
         po::positional_options_description positionalDescription{};

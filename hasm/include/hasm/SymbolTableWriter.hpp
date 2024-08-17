@@ -18,7 +18,7 @@ public:
     void write( std::ostream& out );
 
 private:
-    std::multimap<Hack::word, std::string> symbolMap;
+    std::multimap< Hack::word, std::string > symbolMap;
 };
 
 } // namespace Hasm

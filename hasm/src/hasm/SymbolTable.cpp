@@ -3,7 +3,7 @@
 namespace Hasm
 {
 
-SymbolTable::SymbolTable( std::unordered_map<std::string, Hack::word> symbols )
+SymbolTable::SymbolTable( std::unordered_map< std::string, Hack::word > symbols )
 : m_table{ std::move( symbols ) }
 {
 }
@@ -18,7 +18,7 @@ bool SymbolTable::contains( const std::string& symbol ) const
     return m_table.find( symbol ) != m_table.end();
 }
 
-std::optional<Hack::word> SymbolTable::getAddress( const std::string& symbol ) const
+std::optional< Hack::word > SymbolTable::getAddress( const std::string& symbol ) const
 {
     const auto it = m_table.find( symbol );
     if ( it != m_table.end() )
@@ -29,9 +29,9 @@ std::optional<Hack::word> SymbolTable::getAddress( const std::string& symbol ) c
     return std::nullopt;
 }
 
-std::vector<std::string> SymbolTable::getSymbols() const
+std::vector< std::string > SymbolTable::getSymbols() const
 {
-    std::vector<std::string> symbols;
+    std::vector< std::string > symbols;
     symbols.reserve( m_table.size() );
 
     for ( const auto& it : m_table )
