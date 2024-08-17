@@ -24,12 +24,4 @@ bool FileHandler::hasExtension( const std::string& file, const std::string& exte
     return isEqual;
 }
 
-bool FileHandler::isFile( const std::string& file )
-{
-    const std::filesystem::path path{ file };
-    const auto                  isRegularFile = std::filesystem::is_regular_file( path );
-
-    return isRegularFile;
-}
-
 } // namespace Hasm

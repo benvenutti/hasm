@@ -87,15 +87,15 @@ void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& t
 
 bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
 {
-    // TODO: revisit FileHandler so it handles filesystem paths and not strings
-    if ( !FileHandler::isFile( path.string() ) )
+    std::error_code errorCode{};
+
+    if ( !std::filesystem::is_regular_file( path, errorCode ) )
     {
         std::cerr << "error: input \"" << path << "\"is not a file" << std::endl;
 
         return false;
     }
 
-    // TODO: revisit FileHandler so it handles filesystem paths and not strings
     if ( !FileHandler::hasExtension( path.string(), ".asm" ) )
     {
         std::cerr << "error: input file must have .asm extension" << std::endl;
