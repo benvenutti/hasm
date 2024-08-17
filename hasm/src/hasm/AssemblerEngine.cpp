@@ -96,7 +96,7 @@ bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
         return false;
     }
 
-    if ( !FileHandler::hasExtension( path.string(), ".asm" ) )
+    if ( path.extension() != ".asm" )
     {
         std::cerr << "error: input file must have .asm extension" << std::endl;
 
