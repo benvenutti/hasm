@@ -94,14 +94,6 @@ The following list enumerates the tools and dependencies' minimum requirements:
 * Boost 1.83.0 (components: *program_options*)
 * Catch2 (this dependency is managed by the main CMake script)
 
-### Cloning
-
-Make sure to clone the repository with its submodules. One way to do this is as follows:
-
-```shh
-git clone --recurse-submodules https://github.com/benvenutti/hasm.git
-```
-
 ### Cross-platform
 
 One of the goals of **hasm** is to be a cross-platform project. The following table presents the operating systems and the compilers used in continuous integration at [Travis](https://travis-ci.org/benvenutti/hasm/) and [AppVeyor](https://ci.appveyor.com/project/benvenutti/hasmtest):
