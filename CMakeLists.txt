@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
+# project:
+
 project(
   hasm
   DESCRIPTION  "hasm is an assembler for the nand2tetris hack platform"
@@ -7,6 +9,8 @@ project(
   VERSION      0.2.1
   LANGUAGES    CXX
 )
+
+option(BUILD_TESTS "Build tests" ON)
 
 # 3rd party dependencies:
 
@@ -31,6 +35,12 @@ endif()
 set(CXX_STANDARD_REQUIRED ON)
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS_RELEASE -O3)
+
+# testing:
+
+if(BUILD_TESTS)
+  enable_testing()
+endif()
 
 # compiler's warning messages:
 

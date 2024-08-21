@@ -49,4 +49,8 @@ target_link_libraries(
     Boost::program_options
 )
 
-add_subdirectory(tests)
+# tests:
+
+if(BUILD_TESTS)
+  add_subdirectory(tests)
+endif()
