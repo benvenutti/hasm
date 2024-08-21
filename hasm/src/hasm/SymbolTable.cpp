@@ -20,26 +20,12 @@ bool SymbolTable::contains( const std::string& symbol ) const
 
 std::optional< Hack::word > SymbolTable::getAddress( const std::string& symbol ) const
 {
-    const auto it = m_table.find( symbol );
-    if ( it != m_table.end() )
+    if ( const auto it = m_table.find( symbol ); it != m_table.end() )
     {
         return it->second;
     }
 
     return std::nullopt;
-}
-
-std::vector< std::string > SymbolTable::getSymbols() const
-{
-    std::vector< std::string > symbols;
-    symbols.reserve( m_table.size() );
-
-    for ( const auto& it : m_table )
-    {
-        symbols.emplace_back( it.first );
-    }
-
-    return symbols;
 }
 
 } // namespace Hasm

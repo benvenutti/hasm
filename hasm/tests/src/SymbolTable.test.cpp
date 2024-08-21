@@ -36,13 +36,3 @@ SCENARIO_METHOD( FixtureSymbolTable, "symbol refers address", "[SymbolTable]" )
     REQUIRE( symbolTable.getAddress( "s3" ).value() == 0x3030 );
     REQUIRE( symbolTable.getAddress( "s4" ) == std::nullopt );
 }
-
-SCENARIO_METHOD( FixtureSymbolTable, "all symbols", "[SymbolTable]" )
-{
-    const auto symbols = symbolTable.getSymbols();
-
-    REQUIRE( boost::range::count( symbols, "s1" ) == 1u );
-    REQUIRE( boost::range::count( symbols, "s2" ) == 1u );
-    REQUIRE( boost::range::count( symbols, "s3" ) == 1u );
-    REQUIRE( boost::range::count( symbols, "s4" ) == 0u );
-}
