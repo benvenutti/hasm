@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hack.hpp"
+#include <hasm/Hack.hpp>
 
 #include <optional>
 #include <string>
@@ -16,10 +16,13 @@ public:
     SymbolTable() = default;
     explicit SymbolTable( std::unordered_map< std::string, Hack::word > symbols );
 
-    void                        addEntry( const std::string& symbol, const Hack::word address );
-    bool                        contains( const std::string& symbol ) const;
-    std::optional< Hack::word > getAddress( const std::string& symbol ) const;
-    std::vector< std::string >  getSymbols() const;
+    void addEntry( const std::string& symbol, const Hack::word address );
+
+    [[nodiscard]] bool contains( const std::string& symbol ) const;
+
+    [[nodiscard]] std::optional< Hack::word > getAddress( const std::string& symbol ) const;
+
+    [[nodiscard]] std::vector< std::string > getSymbols() const;
 
 private:
     std::unordered_map< std::string, Hack::word > m_table;
