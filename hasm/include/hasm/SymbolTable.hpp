@@ -5,7 +5,6 @@
 #include <optional>
 #include <string>
 #include <unordered_map>
-#include <vector>
 
 namespace Hasm
 {
@@ -22,7 +21,25 @@ public:
 
     [[nodiscard]] std::optional< Hack::word > getAddress( const std::string& symbol ) const;
 
-    [[nodiscard]] std::vector< std::string > getSymbols() const;
+    [[nodiscard]] inline auto begin() noexcept
+    {
+        return m_table.begin();
+    }
+
+    [[nodiscard]] inline auto begin() const noexcept
+    {
+        return m_table.begin();
+    }
+
+    [[nodiscard]] inline auto end() noexcept
+    {
+        return m_table.end();
+    }
+
+    [[nodiscard]] inline auto end() const noexcept
+    {
+        return m_table.end();
+    }
 
 private:
     std::unordered_map< std::string, Hack::word > m_table;

@@ -11,10 +11,9 @@ namespace Hasm
 
 SymbolTableWriter::SymbolTableWriter( const SymbolTable& symbolTable )
 {
-    const auto symbols = symbolTable.getSymbols();
-    for ( const auto& s : symbols )
+    for ( const auto& [symbol, address] : symbolTable )
     {
-        symbolMap.emplace( symbolTable.getAddress( s ).value(), s );
+        m_symbolMap.emplace( address, symbol );
     }
 }
 
@@ -22,7 +21,7 @@ void SymbolTableWriter::write( std::ostream& out )
 {
     boost::io::ios_flags_saver ifs{ out };
 
-    for ( const auto& it : symbolMap )
+    for ( const auto& it : m_symbolMap )
     {
         out << "0x" << std::setfill( '0' ) << std::setw( 4 ) << std::hex << it.first << " " << it.second << '\n';
     }
