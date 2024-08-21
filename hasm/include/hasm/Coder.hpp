@@ -7,8 +7,8 @@
 namespace Hasm::Coder
 {
 
-Hack::word dest( const std::string& mnemonic );
-Hack::word comp( const std::string& mnemonic );
-Hack::word jump( const std::string& mnemonic );
+[[nodiscard]] Hack::word dest( const std::string& mnemonic );
+[[nodiscard]] Hack::word comp( const std::string& mnemonic );
+[[nodiscard]] Hack::word jump( const std::string& mnemonic );
 
 } // namespace Hasm::Coder
