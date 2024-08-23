@@ -16,13 +16,17 @@ option(BUILD_TESTS "Build tests" ON)
 
 find_package(Boost 1.83 REQUIRED COMPONENTS program_options)
 
-include(FetchContent)
+if(BUILD_TESTS)
+  include(FetchContent)
 
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.0.1
-)
+  FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG        v3.0.1
+  )
+
+  FetchContent_MakeAvailable(Catch2)
+endif()
 
 FetchContent_MakeAvailable(Catch2)
 
@@ -59,8 +63,6 @@ else()
 endif()
 
 # subdirectories:
-
-enable_testing()
 
 add_subdirectory(hasm)
 add_subdirectory(app-command-line)
