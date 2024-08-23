@@ -30,7 +30,7 @@ SCENARIO( "parse option for filename", "[CommandLineParser]" )
 SCENARIO( "parse option for symbol table", "[CommandLineParser]" )
 {
     {
-        constexpr std::array< const char*, 3 > args{ { "hasm", "-s", "input.asm" } };
+        constexpr std::array< const char*, 4 > args{ { "hasm", "-i", "input.asm", "-s" } };
 
         const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
 
@@ -40,13 +40,32 @@ SCENARIO( "parse option for symbol table", "[CommandLineParser]" )
     }
 
     {
-        constexpr std::array< const char*, 3 > args{ { "hasm", "--symbol-table", "input.asm" } };
+        constexpr std::array< const char*, 4 > args{ { "hasm", "-i", "input.asm", "--symbol-table" } };
 
         const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
 
         REQUIRE( config.has_value() );
         REQUIRE( config->exportSymbols() );
         REQUIRE( config->inputFile() == std::filesystem::path{ "input.asm" } );
+    }
+}
+
+SCENARIO( "parse option for symbol table without an input file", "[CommandLineParser]" )
+{
+    {
+        constexpr std::array< const char*, 2 > args{ { "hasm", "-s" } };
+
+        const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
+
+        REQUIRE_FALSE( config.has_value() );
+    }
+
+    {
+        constexpr std::array< const char*, 2 > args{ { "hasm", "--symbol-table" } };
+
+        const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
+
+        REQUIRE_FALSE( config.has_value() );
     }
 }
 
@@ -100,33 +119,6 @@ SCENARIO( "parse invalid option", "[CommandLineParser]" )
 
     {
         constexpr std::array< const char*, 2 > args{ { "hasm", "--invalid_flag" } };
-
-        const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE_FALSE( config.has_value() );
-    }
-}
-
-SCENARIO( "missing input files", "[CommandLineParser]" )
-{
-    {
-        constexpr std::array< const char*, 1 > args{ { "hasm" } };
-
-        const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE_FALSE( config.has_value() );
-    }
-
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "-i" } };
-
-        const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE_FALSE( config.has_value() );
-    }
-
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "--input-file" } };
 
         const auto config = Hasm::CommandLineParser::parse( args.size(), args.data() );
 

@@ -14,7 +14,7 @@ option(BUILD_TESTS "Build tests" ON)
 
 # 3rd party dependencies:
 
-find_package(Boost 1.83 REQUIRED COMPONENTS program_options)
+find_package(Boost 1.83 REQUIRED)
 
 include(FetchContent)
 

@@ -46,7 +46,6 @@ target_link_libraries(
   hack_assembler
   PRIVATE
     Boost::boost
-    Boost::program_options
     CLI11::CLI11
 )
 
