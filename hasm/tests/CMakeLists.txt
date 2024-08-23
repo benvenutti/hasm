@@ -17,7 +17,6 @@ target_link_libraries(
   hasm_assembler_tests
   PRIVATE
     hack_assembler
-    Boost::boost
     Catch2::Catch2WithMain
 )
 

@@ -42,12 +42,7 @@ target_include_directories(
     ${PROJECT_BINARY_DIR}/include
 )
 
-target_link_libraries(
-  hack_assembler
-  PRIVATE
-    Boost::boost
-    CLI11::CLI11
-)
+target_link_libraries(hack_assembler PRIVATE CLI11::CLI11)
 
 # tests:
 
