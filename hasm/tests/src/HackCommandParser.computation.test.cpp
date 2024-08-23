@@ -1,12 +1,11 @@
 #include <hasm/HackCommandParser.hpp>
 
-#include <boost/range/join.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>
 #include <vector>
 
-namespace detail
+namespace
 {
 
 const std::vector< std::string > dest{ "M", "D", "MD", "A", "AM", "AD", "AMD" };
@@ -35,23 +34,25 @@ std::vector< std::string > combine( const std::vector< std::string >& itens1,
     return result;
 }
 
-std::vector< std::string > comps()
-{
+const auto allComps = []() {
     const auto destAndComp        = combine( dest, comp, "=" );
     const auto compAndJump        = combine( comp, jump, ";" );
     const auto destAndCompAndJump = combine( destAndComp, jump, ";" );
 
-    return boost::copy_range< std::vector< std::string > >(
-        boost::join( boost::join( boost::join( comp, destAndComp ), compAndJump ), destAndCompAndJump ) );
-}
+    auto comps = comp;
+    comps.reserve( destAndComp.size() + compAndJump.size() + destAndCompAndJump.size() );
+    comps.insert( comps.end(), destAndComp.begin(), destAndComp.end() );
+    comps.insert( comps.end(), compAndJump.begin(), compAndJump.end() );
+    comps.insert( comps.end(), destAndCompAndJump.begin(), destAndCompAndJump.end() );
 
-const auto allComps = comps();
+    return comps;
+}();
 
-} // namespace detail
+} // namespace
 
 SCENARIO( "parse valid computations", "[HackCommandParser]" )
 {
-    for ( const auto& comp : detail::allComps )
+    for ( const auto& comp : allComps )
     {
         REQUIRE( Hasm::HackCommandParser::isComputationCommand( comp ) );
     }
