@@ -5,8 +5,9 @@ on: [push]
 jobs:
   jobs_matrix:
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-13, windows-2022]
+        os: [ubuntu-24.04, macos-14, windows-2022]
         build_type: [Debug, Release]
 
     runs-on: ${{ matrix.os }}
