@@ -28,7 +28,7 @@ add_library(
   src/hasm/SymbolTableWriter.cpp
 )
 
-target_compile_features(hack_assembler PUBLIC cxx_std_17)
+target_compile_features(hack_assembler PUBLIC cxx_std_20)
 
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/hasm/HasmConfig.hpp.in

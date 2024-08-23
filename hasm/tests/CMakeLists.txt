@@ -11,7 +11,7 @@ add_executable(
   src/SymbolTable.test.cpp
 )
 
-target_compile_features(hasm_assembler_tests PUBLIC cxx_std_17)
+target_compile_features(hasm_assembler_tests PUBLIC cxx_std_20)
 
 target_link_libraries(
   hasm_assembler_tests
