@@ -52,9 +52,9 @@ const auto allComps = []() {
 
 SCENARIO( "parse valid computations", "[HackCommandParser]" )
 {
-    for ( const auto& comp : allComps )
+    for ( const auto& computation : allComps )
     {
-        REQUIRE( Hasm::HackCommandParser::isComputationCommand( comp ) );
+        REQUIRE( Hasm::HackCommandParser::isComputationCommand( computation ) );
     }
 }
 
