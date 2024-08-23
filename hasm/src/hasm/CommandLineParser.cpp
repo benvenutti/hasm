@@ -2,6 +2,7 @@
 
 #include <hasm/HasmConfig.hpp>
 
+#include <CLI/CLI.hpp>
 #include <boost/program_options.hpp>
 
 #include <cassert>
