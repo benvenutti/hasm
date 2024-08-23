@@ -2,9 +2,7 @@
 
 #include <hasm/SymbolTable.hpp>
 
-#include <boost/io/ios_state.hpp>
-
-#include <iomanip>
+#include <format>
 
 namespace Hasm
 {
@@ -19,15 +17,12 @@ SymbolTableWriter::SymbolTableWriter( const SymbolTable& symbolTable )
 
 void SymbolTableWriter::write( std::ostream& out )
 {
-    boost::io::ios_flags_saver ifs{ out };
-
-    for ( const auto& it : m_symbolMap )
+    for ( const auto& [address, symbol] : m_symbolMap )
     {
-        out << "0x" << std::setfill( '0' ) << std::setw( 4 ) << std::hex << it.first << " " << it.second << '\n';
+        out << std::format( "{:#06x} {}\n", address, symbol );
     }
 
     out.flush();
-    ifs.restore();
 }
 
 } // namespace Hasm

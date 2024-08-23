@@ -2,8 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <boost/range/irange.hpp>
-
+#include <ranges>
 #include <sstream>
 
 namespace
@@ -94,7 +93,7 @@ SCENARIO_METHOD( Fixture, "reset", "[Parser]" )
 {
     Hasm::Parser parser{ asmProgram };
 
-    for ( auto i : boost::irange( 0, 2 ) )
+    for ( [[maybe_unused]] const auto _ : std::views::iota( 0, 2 ) )
     {
         REQUIRE( parser.advance() );
         REQUIRE( parser.getCommand() == "@30" );

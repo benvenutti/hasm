@@ -14,8 +14,6 @@ option(BUILD_TESTS "Build tests" ON)
 
 # 3rd party dependencies:
 
-find_package(Boost 1.83 REQUIRED)
-
 include(FetchContent)
 
 FetchContent_Declare(
@@ -30,7 +28,7 @@ if(BUILD_TESTS)
   FetchContent_Declare(
     Catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG        v3.0.1
+    GIT_TAG        v3.7.0
   )
 
   FetchContent_MakeAvailable(Catch2)
