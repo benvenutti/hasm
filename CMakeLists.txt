@@ -14,11 +14,19 @@ option(BUILD_TESTS "Build tests" ON)
 
 # 3rd party dependencies:
 
-find_package(Boost 1.83 REQUIRED COMPONENTS program_options)
+find_package(Boost 1.83 REQUIRED)
+
+include(FetchContent)
+
+FetchContent_Declare(
+  cli11_proj
+  GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
+  GIT_TAG        v2.3.2
+)
+
+FetchContent_MakeAvailable(cli11_proj)
 
 if(BUILD_TESTS)
-  include(FetchContent)
-
   FetchContent_Declare(
     Catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git

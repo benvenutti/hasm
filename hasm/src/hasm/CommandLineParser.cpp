@@ -2,9 +2,8 @@
 
 #include <hasm/HasmConfig.hpp>
 
-#include <boost/program_options.hpp>
+#include <CLI/CLI.hpp>
 
-#include <cassert>
 #include <filesystem>
 #include <iostream>
 
@@ -13,64 +12,41 @@ namespace Hasm
 
 std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc, char const* const* argv )
 {
-    bool                  exportSymbolTable{ false };
+    CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
+
     std::filesystem::path inputFile{};
+    const auto            inputFileOption = app.add_option( "-i,--input-file", inputFile, "input .asm file" );
+
+    bool exportSymbolTable{ false };
+    app.add_flag( "-s,--symbol-table", exportSymbolTable, "export symbol table (to <input file>.sym)" )
+        ->needs( inputFileOption );
+
+    app.set_version_flag( "-v,--version" );
 
     try
     {
-        namespace po = boost::program_options;
+        app.parse( argc, argv );
 
-        po::options_description desc{ "Allowed options" };
-
-        desc.add_options()                                                                          //
-            ( "symbol-table,s", "export symbol table (to <input file>.sym)" )                       //
-            ( "input-file,i", po::value< std::filesystem::path >( &inputFile ), "input .asm file" ) //
-            ( "help,h", "print this help message" )( "version,v", "print version number" );
-
-        po::positional_options_description positionalDescription{};
-        const int                          maxNumberOfInputFiles{ 1 };
-        positionalDescription.add( "input-file", maxNumberOfInputFiles );
-
-        po::variables_map       vm{};
-        po::command_line_parser parser{ argc, argv };
-        po::store( parser.options( desc ).positional( positionalDescription ).run(), vm );
-        po::notify( vm );
-
-        if ( vm.count( "help" ) > 0u )
-        {
-            std::cout << "Usage: hasm [options] <input file>.asm" << std::endl;
-            std::cout << desc;
-
-            return std::nullopt;
-        }
-
-        if ( vm.count( "version" ) > 0u )
-        {
-            std::cout << "hasm " << Config::VERSION_MAJOR << "." << Config::VERSION_MINOR << "."
-                      << Config::VERSION_PATCH << std::endl;
-
-            return std::nullopt;
-        }
-
-        if ( vm.count( "input-file" ) == 0u || inputFile.empty() )
-        {
-            std::cerr << "hasm: no input file" << std::endl;
-
-            return std::nullopt;
-        }
-
-        exportSymbolTable = vm.count( "symbol-table" ) > 0u;
+        return AssemblerEngineConfig{ std::move( inputFile ), exportSymbolTable };
+    }
+    catch ( const CLI::CallForHelp& )
+    {
+        std::cout << app.help() << std::endl;
+    }
+    catch ( const CLI::CallForVersion& )
+    {
+        std::cout << "hasm " << Config::VERSION_MAJOR << "." << Config::VERSION_MINOR << "." << Config::VERSION_PATCH
+                  << std::endl;
     }
     catch ( const std::exception& exception )
     {
         std::cerr << exception.what() << std::endl;
-
-        return std::nullopt;
+    }
+    catch ( ... )
+    {
     }
 
-    assert( !inputFile.empty() );
-
-    return AssemblerEngineConfig{ std::move( inputFile ), exportSymbolTable };
+    return std::nullopt;
 }
 
 } // namespace Hasm
