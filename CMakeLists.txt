@@ -34,8 +34,6 @@ if(BUILD_TESTS)
   FetchContent_MakeAvailable(Catch2)
 endif()
 
-FetchContent_MakeAvailable(Catch2)
-
 # build settings:
 
 if(NOT CMAKE_BUILD_TYPE)
