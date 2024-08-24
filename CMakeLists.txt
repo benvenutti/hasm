@@ -34,14 +34,11 @@ if(BUILD_TESTS)
   FetchContent_MakeAvailable(Catch2)
 endif()
 
-# build settings:
+# build type:
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
 endif()
-
-set(CXX_STANDARD_REQUIRED ON)
-set(CXX_EXTENSIONS OFF)
 
 # compiler options:
 
