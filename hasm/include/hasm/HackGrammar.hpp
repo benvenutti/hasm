@@ -13,189 +13,189 @@ namespace Grammar
 
 // clang-format off
 
-const std::string LABEL{
-    Lex::LEFT_PAREN
-        + Lex::ID
-        + Lex::RIGHT_PAREN
+const std::string label{
+    Lex::left_paren
+        + Lex::id
+        + Lex::right_paren
 };
 
-const std::string LOAD{
-    Lex::AT
+const std::string load{
+    Lex::at
         + "("
-        + Lex::INTEGER
+        + Lex::integer
         + "|"
-        + Lex::ID
+        + Lex::id
         + ")"
 };
 
-const std::string DESTINATIONS{
+const std::string destinations{
     "("
-        + Lex::DEST_A
+        + Lex::dest_A
         + "|"
-        + Lex::DEST_M
+        + Lex::dest_M
         + "|"
-        + Lex::DEST_D
+        + Lex::dest_D
         + "|"
-        + Lex::DEST_A
-        + Lex::DEST_M
+        + Lex::dest_A
+        + Lex::dest_M
         + "|"
-        + Lex::DEST_A
-        + Lex::DEST_D
+        + Lex::dest_A
+        + Lex::dest_D
         + "|"
-        + Lex::DEST_M
-        + Lex::DEST_D
+        + Lex::dest_M
+        + Lex::dest_D
         + "|"
-        + Lex::DEST_A
-        + Lex::DEST_M
-        + Lex::DEST_D
+        + Lex::dest_A
+        + Lex::dest_M
+        + Lex::dest_D
         + ")"
 };
 
-const std::string JUMPS{
+const std::string jumps{
     "("
-        + Lex::JUMP_JGT
+        + Lex::jump_JGT
         + "|"
-        + Lex::JUMP_JGE
+        + Lex::jump_JGE
         + "|"
-        + Lex::JUMP_JLT
+        + Lex::jump_JLT
         + "|"
-        + Lex::JUMP_JLE
+        + Lex::jump_JLE
         + "|"
-        + Lex::JUMP_JEQ
+        + Lex::jump_JEQ
         + "|"
-        + Lex::JUMP_JNE
+        + Lex::jump_JNE
         + "|"
-        + Lex::JUMP_JEQ
+        + Lex::jump_JEQ
         + "|"
-        + Lex::JUMP_JMP
+        + Lex::jump_JMP
         + ")"
 };
 
-const std::string COMP_ZERO{Lex::ZERO};
+const std::string comp_zero{Lex::zero};
 
-const std::string COMP_ONE{Lex::ONE};
+const std::string comp_one{Lex::one};
 
-const std::string COMP_MINUS_ONE{Lex::MINUS + Lex::ONE};
+const std::string comp_minus_one{Lex::minus + Lex::one};
 
-const std::string COMP_D{Lex::DEST_D};
+const std::string comp_D{Lex::dest_D};
 
-const std::string COMP_A{Lex::DEST_A};
+const std::string comp_A{Lex::dest_A};
 
-const std::string COMP_NOT_D{Lex::NOT + Lex::DEST_D};
+const std::string comp_not_D{Lex::not_ + Lex::dest_D};
 
-const std::string COMP_NOT_A{Lex::NOT + Lex::DEST_A};
+const std::string comp_not_A{Lex::not_ + Lex::dest_A};
 
-const std::string COMP_MINUS_D{Lex::MINUS + Lex::DEST_D};
+const std::string comp_minus_D{Lex::minus + Lex::dest_D};
 
-const std::string COMP_MINUS_A{Lex::MINUS + Lex::DEST_A};
+const std::string comp_minus_A{Lex::minus + Lex::dest_A};
 
-const std::string COMP_D_PLUS_ONE{Lex::DEST_D + Lex::PLUS + Lex::ONE};
+const std::string comp_D_plus_one{Lex::dest_D + Lex::plus + Lex::one};
 
-const std::string COMP_A_PLUS_ONE{Lex::DEST_A + Lex::PLUS + Lex::ONE};
+const std::string comp_A_plus_one{Lex::dest_A + Lex::plus + Lex::one};
 
-const std::string COMP_D_MINUS_ONE{Lex::DEST_D + Lex::MINUS + Lex::ONE};
+const std::string comp_D_minus_one{Lex::dest_D + Lex::minus + Lex::one};
 
-const std::string COMP_A_MINUS_ONE{Lex::DEST_A + Lex::MINUS + Lex::ONE};
+const std::string comp_A_minus_one{Lex::dest_A + Lex::minus + Lex::one};
 
-const std::string COMP_D_PLUS_A{Lex::DEST_D + Lex::PLUS + Lex::DEST_A};
+const std::string comp_D_plus_A{Lex::dest_D + Lex::plus + Lex::dest_A};
 
-const std::string COMP_D_MINUS_A{Lex::DEST_D + Lex::MINUS + Lex::DEST_A};
+const std::string comp_D_minus_A{Lex::dest_D + Lex::minus + Lex::dest_A};
 
-const std::string COMP_A_MINUS_D{Lex::DEST_A + Lex::MINUS + Lex::DEST_D};
+const std::string comp_A_minus_D{Lex::dest_A + Lex::minus + Lex::dest_D};
 
-const std::string COMP_D_AND_A{Lex::DEST_D + Lex::AND + Lex::DEST_A};
+const std::string comp_D_and_A{Lex::dest_D + Lex::and_ + Lex::dest_A};
 
-const std::string COMP_D_OR_A{Lex::DEST_D + Lex::OR + Lex::DEST_A};
+const std::string comp_D_or_A{Lex::dest_D + Lex::or_ + Lex::dest_A};
 
-const std::string COMP_M{Lex::DEST_M};
+const std::string comp_M{Lex::dest_M};
 
-const std::string COMP_NOT_M{Lex::NOT + Lex::DEST_M};
+const std::string comp_not_M{Lex::not_ + Lex::dest_M};
 
-const std::string COMP_MINUS_M{Lex::MINUS + Lex::DEST_M};
+const std::string comp_minus_M{Lex::minus + Lex::dest_M};
 
-const std::string COMP_M_PLUS_ONE{Lex::DEST_M + Lex::PLUS + Lex::ONE};
+const std::string comp_M_plus_one{Lex::dest_M + Lex::plus + Lex::one};
 
-const std::string COMP_M_MINUS_ONE{Lex::DEST_M + Lex::MINUS + Lex::ONE};
+const std::string comp_M_minus_one{Lex::dest_M + Lex::minus + Lex::one};
 
-const std::string COMP_D_PLUS_M{Lex::DEST_D + Lex::PLUS + Lex::DEST_M};
+const std::string comp_D_plus_M{Lex::dest_D + Lex::plus + Lex::dest_M};
 
-const std::string COMP_D_MINUS_M{Lex::DEST_D + Lex::MINUS + Lex::DEST_M};
+const std::string comp_D_minus_M{Lex::dest_D + Lex::minus + Lex::dest_M};
 
-const std::string COMP_M_MINUS_D{Lex::DEST_M + Lex::MINUS + Lex::DEST_D};
+const std::string comp_M_minus_D{Lex::dest_M + Lex::minus + Lex::dest_D};
 
-const std::string COMP_D_AND_M{Lex::DEST_D + Lex::AND + Lex::DEST_M};
+const std::string comp_D_and_M{Lex::dest_D + Lex::and_ + Lex::dest_M};
 
-const std::string COMP_D_OR_M{Lex::DEST_D + Lex::OR + Lex::DEST_M};
+const std::string comp_D_or_M{Lex::dest_D + Lex::or_ + Lex::dest_M};
 
-const std::string COMPUTATIONS{
+const std::string computations{
     "("
-        + COMP_ZERO
+        + comp_zero
         + "|"
-        + COMP_ONE
+        + comp_one
         + "|"
-        + COMP_MINUS_ONE
+        + comp_minus_one
         + "|"
-        + COMP_D
+        + comp_D
         + "|"
-        + COMP_A
+        + comp_A
         + "|"
-        + COMP_NOT_D
+        + comp_not_D
         + "|"
-        + COMP_NOT_A
+        + comp_not_A
         + "|"
-        + COMP_MINUS_D
+        + comp_minus_D
         + "|"
-        + COMP_MINUS_A
+        + comp_minus_A
         + "|"
-        + COMP_D_PLUS_ONE
+        + comp_D_plus_one
         + "|"
-        + COMP_A_PLUS_ONE
+        + comp_A_plus_one
         + "|"
-        + COMP_D_MINUS_ONE
+        + comp_D_minus_one
         + "|"
-        + COMP_A_MINUS_ONE
+        + comp_A_minus_one
         + "|"
-        + COMP_D_PLUS_A
+        + comp_D_plus_A
         + "|"
-        + COMP_D_MINUS_A
+        + comp_D_minus_A
         + "|"
-        + COMP_A_MINUS_D
+        + comp_A_minus_D
         + "|"
-        + COMP_D_AND_A
+        + comp_D_and_A
         + "|"
-        + COMP_D_OR_A
+        + comp_D_or_A
         + "|"
-        + COMP_M
+        + comp_M
         + "|"
-        + COMP_NOT_M
+        + comp_not_M
         + "|"
-        + COMP_MINUS_M
+        + comp_minus_M
         + "|"
-        + COMP_M_PLUS_ONE
+        + comp_M_plus_one
         + "|"
-        + COMP_M_MINUS_ONE
+        + comp_M_minus_one
         + "|"
-        + COMP_D_PLUS_M
+        + comp_D_plus_M
         + "|"
-        + COMP_D_MINUS_M
+        + comp_D_minus_M
         + "|"
-        + COMP_M_MINUS_D
+        + comp_M_minus_D
         + "|"
-        + COMP_D_AND_M
+        + comp_D_and_M
         + "|"
-        + COMP_D_OR_M
+        + comp_D_or_M
         + ")"
 };
 
-const std::string COMPUTATION_COMMAND{
+const std::string computation_command{
     "("
-        + DESTINATIONS
-        + Lex::EQUAL
+        + destinations
+        + Lex::equal
         + ")?"
-        + COMPUTATIONS
+        + computations
         + "("
-        + Lex::SEMICOLON
-        + JUMPS
+        + Lex::semicolon
+        + jumps
         + ")?"
 };
 
