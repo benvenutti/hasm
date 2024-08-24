@@ -11,6 +11,7 @@ project(
 )
 
 option(BUILD_TESTS "Build tests" ON)
+option(CODE_COVERAGE "Enable code coverage" OFF)
 
 # 3rd party dependencies:
 
@@ -61,6 +62,14 @@ else()
     # optimization levels:
     $<$<CONFIG:RELEASE>:-O3>
     $<$<CONFIG:DEBUG>:-O0>
+
+    # coverage:
+    $<$<BOOL:CODE_COVERAGE>:-coverage>
+  )
+
+  add_link_options(
+    # coverage:
+    $<$<BOOL:CODE_COVERAGE>:-coverage>
   )
 endif()
 
