@@ -24,7 +24,7 @@ jobs:
 
       - name: Build
         working-directory: ${{github.workspace}}/build
-        run: cmake --build . --config ${{ matrix.build_type }}
+        run: cmake --build . --config ${{ matrix.build_type }} --verbose
 
       - name: Test
         working-directory: ${{github.workspace}}/build

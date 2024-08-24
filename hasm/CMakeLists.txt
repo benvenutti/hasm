@@ -30,6 +30,13 @@ add_library(
 
 target_compile_features(hack_assembler PUBLIC cxx_std_20)
 
+set_target_properties(
+  hack_assembler
+  PROPERTIES
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+)
+
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/hasm/HasmConfig.hpp.in
   ${PROJECT_BINARY_DIR}/include/hasm/HasmConfig.hpp

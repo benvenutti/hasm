@@ -13,6 +13,13 @@ add_executable(
 
 target_compile_features(hasm_assembler_tests PUBLIC cxx_std_20)
 
+set_target_properties(
+  hasm_assembler_tests
+  PROPERTIES
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+)
+
 target_link_libraries(
   hasm_assembler_tests
   PRIVATE
