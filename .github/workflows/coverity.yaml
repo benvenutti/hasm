@@ -2,7 +2,7 @@ name: coverity scan
 
 on:
   pull_request:
-    types: [opened]
+    types: [closed]
 
 jobs:
   coverage:
