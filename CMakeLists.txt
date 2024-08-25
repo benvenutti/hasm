@@ -64,12 +64,12 @@ else()
     $<$<CONFIG:DEBUG>:-O0>
 
     # coverage:
-    $<$<BOOL:CODE_COVERAGE>:-coverage>
+    $<$<BOOL:${CODE_COVERAGE}>:-coverage>
   )
 
   add_link_options(
     # coverage:
-    $<$<BOOL:CODE_COVERAGE>:-coverage>
+    $<$<BOOL:${CODE_COVERAGE}>:-coverage>
   )
 endif()
 
