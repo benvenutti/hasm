@@ -17,16 +17,12 @@ std::string message( const std::string& cmd, const int lineNumber, const std::st
 
 std::string ErrorMessage::invalidCommand( const std::string& cmd, const int lineNumber )
 {
-    const auto msg = message( cmd, lineNumber, "is an invalid command" );
-
-    return msg;
+    return message( cmd, lineNumber, "is an invalid command" );
 }
 
 std::string ErrorMessage::invalidLoadValue( const std::string& cmd, const int lineNumber )
 {
-    const auto msg = message( cmd, lineNumber, "loads a value greater than an unsigned 15-bit number" );
-
-    return msg;
+    return message( cmd, lineNumber, "loads a value greater than an unsigned 15-bit number" );
 }
 
 } // namespace Hasm
