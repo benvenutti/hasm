@@ -10,12 +10,18 @@ project(
   LANGUAGES    CXX
 )
 
+# modules:
+
+include(CMakeDependentOption)
+include(FetchContent)
+
+# project options:
+
 option(BUILD_TESTS "Build tests" ON)
-option(CODE_COVERAGE "Enable code coverage" OFF)
+
+cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
 
 # 3rd party dependencies:
-
-include(FetchContent)
 
 FetchContent_Declare(
   cli11_proj
