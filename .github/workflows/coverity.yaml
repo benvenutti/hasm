@@ -1,0 +1,28 @@
+name: coverity scan
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Create build directory
+        run: cmake -E make_directory ${{github.workspace}}/build
+
+      - name: Configure
+        working-directory: ${{github.workspace}}/build
+        run: cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON ..
+
+      - name: Build
+        uses: vapier/coverity-scan-action@v1
+        with:
+          working-directory: ${{github.workspace}}/build
+          email: ${{ secrets.COVERITY_SCAN_EMAIL }}
+          token: ${{ secrets.COVERITY_SCAN_TOKEN }}
+          command: cmake --build . --config Debug --verbose
