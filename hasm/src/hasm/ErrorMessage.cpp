@@ -1,6 +1,6 @@
 #include <hasm/ErrorMessage.hpp>
 
-#include <sstream>
+#include <format>
 
 namespace Hasm
 {
@@ -10,11 +10,7 @@ namespace
 
 std::string message( const std::string& cmd, const int lineNumber, const std::string& info )
 {
-    std::stringstream ss{};
-    ss << "line " << lineNumber << ": error: \"" << cmd << "\" " << info;
-    const auto msg = ss.str();
-
-    return msg;
+    return std::format( R"( line {}: error: "{}" {} )", lineNumber, cmd, info );
 }
 
 } // namespace
