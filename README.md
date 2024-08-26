@@ -31,7 +31,7 @@ M=D
 We can run the assembler from the command line, passing the path for the source file as an argument:
 
 ```sh
-$ ./hasm add.asm
+$ ./hasm --input-file add.asm
 ```
 
 This will generate an output file called *add.hack*, with the following content:
