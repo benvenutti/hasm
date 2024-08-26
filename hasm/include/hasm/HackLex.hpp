@@ -12,6 +12,8 @@ namespace Lex
 const std::string id{ "([[:alpha:]]|_|\\.|\\$|:)(\\w|\\.|\\$|:)*" };
 const std::string integer{ "\\d+" };
 
+const std::string line_comment{ "//" };
+
 const std::string at{ "@" };
 const std::string semicolon{ ";" };
 const std::string equal{ "=" };

@@ -2,6 +2,7 @@
 
 #include <hasm/ErrorMessage.hpp>
 #include <hasm/HackCommandParser.hpp>
+#include <hasm/HackLex.hpp>
 
 #include <algorithm>
 #include <cctype>
@@ -17,9 +18,9 @@ void removeSpaces( std::string& str )
     str.erase( range.begin(), range.end() );
 }
 
-void removeComments( std::string& str )
+void removeComment( std::string& str )
 {
-    const auto pos = str.find( "//" );
+    const auto pos = str.find( Hasm::Hack::Lex::line_comment );
     if ( pos != std::string::npos )
     {
         str.erase( pos, str.size() );
@@ -99,7 +100,7 @@ bool Parser::advance()
     std::string line{ "" };
     while ( readNextLine( line ) )
     {
-        removeComments( line );
+        removeComment( line );
         removeSpaces( line );
 
         if ( !line.empty() )
