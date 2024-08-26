@@ -24,12 +24,6 @@ void removeComments( std::string& str )
     }
 }
 
-void trim( std::string& str )
-{
-    removeComments( str );
-    removeSpaces( str );
-}
-
 } // namespace
 
 namespace Hasm
@@ -103,7 +97,8 @@ bool Parser::advance()
     std::string line{ "" };
     while ( readNextLine( line ) )
     {
-        trim( line );
+        removeComments( line );
+        removeSpaces( line );
 
         if ( !line.empty() )
         {
