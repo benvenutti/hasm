@@ -33,37 +33,37 @@ namespace Hasm
 {
 
 Parser::Parser( std::istream& in )
-: input( in )
+: m_input( in )
 {
 }
 
 Parser::Status Parser::getStatus() const
 {
-    return status;
+    return m_status;
 }
 
 const std::string& Parser::getCommand() const
 {
-    return command;
+    return m_command;
 }
 
 CommandType Parser::getCommandType() const
 {
-    return commandType;
+    return m_commandType;
 }
 
 int Parser::getCurrentLineNumber() const
 {
-    return lineNumber;
+    return m_lineNumber;
 }
 
 bool Parser::readNextLine( std::string& str )
 {
     bool hasRead{ false };
 
-    if ( getline( input, str ) )
+    if ( getline( m_input, str ) )
     {
-        lineNumber++;
+        m_lineNumber++;
         hasRead = true;
     }
 
@@ -79,19 +79,19 @@ void Parser::update( const std::string& newCommand )
 
 void Parser::setCommand( const std::string& newCommand )
 {
-    command = newCommand;
+    m_command = newCommand;
 }
 
 void Parser::updateStatus()
 {
-    status = isValidCommand() ? Status::valid_command : Status::invalid_command;
+    m_status = isValidCommand() ? Status::valid_command : Status::invalid_command;
 }
 
 void Parser::checkErrors()
 {
-    if ( status == Status::invalid_command )
+    if ( m_status == Status::invalid_command )
     {
-        std::cerr << ErrorMessage::invalidCommand( command, lineNumber ) << std::endl;
+        std::cerr << ErrorMessage::invalidCommand( m_command, m_lineNumber ) << std::endl;
     }
 }
 
@@ -107,11 +107,11 @@ bool Parser::advance()
         {
             update( line );
 
-            return status == Status::valid_command;
+            return m_status == Status::valid_command;
         }
     }
 
-    status = Status::end_of_file;
+    m_status = Status::end_of_file;
 
     return false;
 }
@@ -120,18 +120,18 @@ std::string Parser::symbol() const
 {
     if ( getCommandType() == CommandType::addressing )
     {
-        return command.substr( 1 );
+        return m_command.substr( 1 );
     }
 
-    return command.substr( 1, command.size() - 2 );
+    return m_command.substr( 1, m_command.size() - 2 );
 }
 
 std::string Parser::dest() const
 {
     // C_COMMAND dest=comp;jump
-    if ( command.find( '=' ) != std::string::npos )
+    if ( m_command.find( '=' ) != std::string::npos )
     {
-        return command.substr( 0, command.find( '=' ) );
+        return m_command.substr( 0, m_command.find( '=' ) );
     }
 
     return "";
@@ -140,17 +140,17 @@ std::string Parser::dest() const
 std::string Parser::comp() const
 {
     // C_COMMAND dest=comp;jump
-    if ( command.find( '=' ) == std::string::npos )
+    if ( m_command.find( '=' ) == std::string::npos )
     { // dest omitted
-        return command.substr( 0, command.find( ';' ) );
+        return m_command.substr( 0, m_command.find( ';' ) );
     }
 
-    if ( command.find( ';' ) == std::string::npos )
+    if ( m_command.find( ';' ) == std::string::npos )
     { // jump omitted
-        return command.substr( command.find( '=' ) + 1 );
+        return m_command.substr( m_command.find( '=' ) + 1 );
     }
 
-    std::string s{ command.substr( command.find( '=' ) + 1 ) };
+    std::string s{ m_command.substr( m_command.find( '=' ) + 1 ) };
 
     return s.substr( 0, s.find( ';' ) );
 }
@@ -158,9 +158,9 @@ std::string Parser::comp() const
 std::string Parser::jump() const
 {
     // C_COMMAND dest=comp;jump
-    if ( command.find( ';' ) != std::string::npos )
+    if ( m_command.find( ';' ) != std::string::npos )
     {
-        return command.substr( command.find( ';' ) + 1 );
+        return m_command.substr( m_command.find( ';' ) + 1 );
     }
 
     return "";
@@ -168,14 +168,14 @@ std::string Parser::jump() const
 
 bool Parser::reset()
 {
-    command     = std::string{ "" };
-    lineNumber  = 0;
-    status      = Status::start_of_file;
-    commandType = CommandType::invalid;
-    input.clear();
-    input.seekg( std::streampos{ 0 } );
+    m_command     = std::string{ "" };
+    m_lineNumber  = 0;
+    m_status      = Status::start_of_file;
+    m_commandType = CommandType::invalid;
+    m_input.clear();
+    m_input.seekg( std::streampos{ 0 } );
 
-    return input.good();
+    return m_input.good();
 }
 
 bool Parser::isValidCommand() const
@@ -184,19 +184,19 @@ bool Parser::isValidCommand() const
 
     if ( isACommand() )
     {
-        commandType = CommandType::addressing;
+        m_commandType = CommandType::addressing;
     }
     else if ( isLCommand() )
     {
-        commandType = CommandType::label;
+        m_commandType = CommandType::label;
     }
     else if ( isCCommand() )
     {
-        commandType = CommandType::computation;
+        m_commandType = CommandType::computation;
     }
     else
     {
-        commandType = CommandType::invalid;
+        m_commandType = CommandType::invalid;
         isValid     = false;
     }
 
@@ -205,17 +205,17 @@ bool Parser::isValidCommand() const
 
 bool Parser::isACommand() const
 {
-    return HackCommandParser::isLoadCommand( command );
+    return HackCommandParser::isLoadCommand( m_command );
 }
 
 bool Parser::isCCommand() const
 {
-    return HackCommandParser::isComputationCommand( command );
+    return HackCommandParser::isComputationCommand( m_command );
 }
 
 bool Parser::isLCommand() const
 {
-    return HackCommandParser::isLabelCommand( command );
+    return HackCommandParser::isLabelCommand( m_command );
 }
 
 } // namespace Hasm

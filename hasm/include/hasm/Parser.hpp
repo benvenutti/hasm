@@ -48,11 +48,11 @@ private:
     bool isCCommand() const;
     bool isLCommand() const;
 
-    std::istream&       input;
-    std::string         command{ "" };
-    mutable CommandType commandType{ CommandType::invalid };
-    int                 lineNumber{ 0 };
-    Status              status{ Status::start_of_file };
+    std::istream&       m_input;
+    std::string         m_command{ "" };
+    mutable CommandType m_commandType{ CommandType::invalid };
+    int                 m_lineNumber{ 0 };
+    Status              m_status{ Status::start_of_file };
 };
 
 } // namespace Hasm
