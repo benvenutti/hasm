@@ -4,9 +4,9 @@
 
 ## Overview
 
-The **hasm** assembler is a command line executable. From a valid *.asm* file, **hasm** will generate a valid *.hack* textual binary file. This output file can then be executed in any implementation of the *Hack Platform*.
+The **hasm** assembler is a cross-platform command line tool. From a valid *.asm* file, **hasm** will generate a valid *.hack* textual binary file. This output file can then be executed in any implementation of the *Hack Platform*.
 
-Staying true to the chapter's goal, the assembler is implemented without the help of parser generators nor tools like boost's [Spirit](http://www.boost.org/doc/libs/1_62_0/libs/spirit/doc/html/index.html). Some parts of the code follow the authors' suggested API. On the other hand, some parts aim for a broader implementation, leaving the original API aside.
+Staying true to the chapter's goal, the assembler is implemented without the help of parser generators nor tools like boost's [Spirit](https://github.com/boostorg/spirit). Some parts of the code follow the authors' suggested API. On the other hand, some parts aim for a broader implementation, leaving the original API aside.
 
 **hasm** goes a bit further than the assembler described in the book, offering the extra functionalities:
 
@@ -96,23 +96,6 @@ The following list enumerates the tools and dependencies' minimum requirements:
 * CMake 3.25 or higher
 * CLI11 (managed by the main CMake script)
 * Catch2 (managed by the main CMake script)
-
-### Cross-platform
-
-One of the goals of **hasm** is to be a cross-platform project. The following table presents the operating systems and the compilers used in continuous integration at [Travis](https://travis-ci.org/benvenutti/hasm/) and [AppVeyor](https://ci.appveyor.com/project/benvenutti/hasmtest):
-
-| Compiler        | Operating System             | Version String |
-|-----------------|------------------------------|----------------|
-| GCC 4.8.5       | Ubuntu 14.04.5 LTS           | g++-4.8 (Ubuntu 4.8.5-2ubuntu1~14.04.1) 4.8.5 |
-| GCC 4.9.3       | Ubuntu 14.04.5 LTS           | g++-4.9 (Ubuntu 4.9.3-8ubuntu2~14.04) 4.9.3 |
-| GCC 5.3.0       | Ubuntu 14.04.5 LTS           | g++-5 (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 20151204 |
-| GCC 6.1.1       | Ubuntu 14.04.5 LTS           | g++-6 (Ubuntu 6.1.1-3ubuntu11~14.04.1) 6.1.1 20160511 |
-| Clang 3.7.1     | Ubuntu 14.04.5 LTS           | clang version 3.7.1-svn253571-1~exp1 (branches/release_37) |
-| Clang 5.0.0     | Ubuntu 14.04.5 LTS           | clang version 5.0.0 (tags/RELEASE_500/final) |
-| Clang Xcode 7.3.1 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 7.3.0 (clang-703.0.31) |
-| Clang Xcode 8.0 beta 4 | Darwin Kernel Version 15.6.0 (OS X 10.11)           | Apple LLVM version 8.0.0 (clang-800.0.38) |
-| Visual Studio 14 2015 | Windows Server 2012 R2 (x86)          | Microsoft (R) Build Engine version 14.0.25420.1 |
-| Visual Studio 14 2015 Win64 | Windows Server 2012 R2 (x64)          | Microsoft (R) Build Engine version 14.0.25420.1 |
 
 ### Compiling
 
