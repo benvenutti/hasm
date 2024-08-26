@@ -6,13 +6,15 @@
 #include <algorithm>
 #include <cctype>
 #include <iostream>
+#include <ranges>
 
 namespace
 {
 
 void removeSpaces( std::string& str )
 {
-    str.erase( std::remove_if( str.begin(), str.end(), []( const char c ) { return std::isspace( c ); } ), str.end() );
+    const auto range = std::ranges::remove_if( str, []( const auto c ) { return std::isspace( c ); } );
+    str.erase( range.begin(), range.end() );
 }
 
 void removeComments( std::string& str )
