@@ -7,6 +7,31 @@
 #include <cctype>
 #include <iostream>
 
+namespace
+{
+
+void removeSpaces( std::string& str )
+{
+    str.erase( std::remove_if( str.begin(), str.end(), []( const char c ) { return std::isspace( c ); } ), str.end() );
+}
+
+void removeComments( std::string& str )
+{
+    const auto pos = str.find( "//" );
+    if ( pos != std::string::npos )
+    {
+        str.erase( pos, str.size() );
+    }
+}
+
+void trim( std::string& str )
+{
+    removeComments( str );
+    removeSpaces( str );
+}
+
+} // namespace
+
 namespace Hasm
 {
 
@@ -33,26 +58,6 @@ CommandType Parser::getCommandType() const
 int Parser::getCurrentLineNumber() const
 {
     return lineNumber;
-}
-
-void Parser::trim( std::string& str ) const
-{
-    removeComments( str );
-    removeSpaces( str );
-}
-
-void Parser::removeSpaces( std::string& str ) const
-{
-    str.erase( std::remove_if( str.begin(), str.end(), []( char c ) { return std::isspace( c ); } ), str.end() );
-}
-
-void Parser::removeComments( std::string& str ) const
-{
-    const auto pos = str.find( "//" );
-    if ( pos != std::string::npos )
-    {
-        str.erase( pos, str.size() );
-    }
 }
 
 bool Parser::readNextLine( std::string& str )

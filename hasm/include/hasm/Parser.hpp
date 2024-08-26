@@ -43,10 +43,6 @@ private:
     void updateStatus();
     void checkErrors();
 
-    void trim( std::string& str ) const;
-    void removeComments( std::string& str ) const;
-    void removeSpaces( std::string& str ) const;
-
     bool isValidCommand() const;
     bool isACommand() const;
     bool isCCommand() const;
