@@ -71,16 +71,19 @@ The *.sym* exported table will list the addresses of user defined symbols (like 
 
 #### Example 3: getting help
 
-Running **hasm** in the command line with the argument *&#8209;&#8209;help* (or the shorthand *&#8209;h*) will print the usage message:
+Running **hasm** in the command line with the argument `--help` (or the shorthand `-h`) will print the usage message:
 
 ```
 $ ./hasm --help
-Usage: hasm [options] <input file>.asm
-Allowed options:
-  -s [ --symbol-table ]   export symbol table (to <input file>.sym)
-  -i [ --input-file ] arg input .asm file
-  -h [ --help ]           print this help message
-  -v [ --version]         print version number
+hasm: assembler for the nand2tetris hack platform
+Usage: ./hasm [OPTIONS]
+
+Options:
+  -h,--help                   Print this help message and exit
+  -i,--input-file TEXT        input .asm file
+  -s,--symbol-table Needs: --input-file
+                              export symbol table (to <input file>.sym)
+  -v,--version                Display program version information and exit
 ```
 
 ## Building **hasm** from source
