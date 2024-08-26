@@ -43,13 +43,11 @@ private:
     void updateStatus();
     void checkErrors();
 
-    bool isValidCommand() const;
-
-    std::istream&       m_input;
-    std::string         m_command{ "" };
-    mutable CommandType m_commandType{ CommandType::invalid };
-    int                 m_lineNumber{ 0 };
-    Status              m_status{ Status::start_of_file };
+    std::istream& m_input;
+    std::string   m_command{};
+    CommandType   m_commandType{ CommandType::invalid };
+    int           m_lineNumber{ 0 };
+    Status        m_status{ Status::start_of_file };
 };
 
 } // namespace Hasm

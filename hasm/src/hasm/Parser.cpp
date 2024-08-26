@@ -27,6 +27,26 @@ void removeComment( std::string& str )
     }
 }
 
+Hasm::CommandType commandType( const std::string& command )
+{
+    if ( Hasm::HackCommandParser::isLoadCommand( command ) )
+    {
+        return Hasm::CommandType::addressing;
+    }
+
+    if ( Hasm::HackCommandParser::isLabelCommand( command ) )
+    {
+        return Hasm::CommandType::label;
+    }
+
+    if ( Hasm::HackCommandParser::isComputationCommand( command ) )
+    {
+        return Hasm::CommandType::computation;
+    }
+
+    return Hasm::CommandType::invalid;
+}
+
 } // namespace
 
 namespace Hasm
@@ -84,7 +104,8 @@ void Parser::setCommand( const std::string& newCommand )
 
 void Parser::updateStatus()
 {
-    m_status = isValidCommand() ? Status::valid_command : Status::invalid_command;
+    m_commandType = commandType( m_command );
+    m_status      = ( m_commandType != CommandType::invalid ) ? Status::valid_command : Status::invalid_command;
 }
 
 void Parser::checkErrors()
@@ -176,31 +197,6 @@ bool Parser::reset()
     m_input.seekg( std::streampos{ 0 } );
 
     return m_input.good();
-}
-
-bool Parser::isValidCommand() const
-{
-    bool isValid{ true };
-
-    if ( HackCommandParser::isLoadCommand( m_command ) )
-    {
-        m_commandType = CommandType::addressing;
-    }
-    else if ( HackCommandParser::isLabelCommand( m_command ) )
-    {
-        m_commandType = CommandType::label;
-    }
-    else if ( HackCommandParser::isComputationCommand( m_command ) )
-    {
-        m_commandType = CommandType::computation;
-    }
-    else
-    {
-        m_commandType = CommandType::invalid;
-        isValid     = false;
-    }
-
-    return isValid;
 }
 
 } // namespace Hasm
