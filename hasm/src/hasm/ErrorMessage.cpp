@@ -2,9 +2,6 @@
 
 #include <format>
 
-namespace Hasm
-{
-
 namespace
 {
 
@@ -14,6 +11,9 @@ std::string message( const std::string& cmd, const int lineNumber, const std::st
 }
 
 } // namespace
+
+namespace Hasm
+{
 
 std::string ErrorMessage::invalidCommand( const std::string& cmd, const int lineNumber )
 {
