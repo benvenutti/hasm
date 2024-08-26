@@ -51,8 +51,14 @@ bool Assembler::secondPass()
 
     while ( ok && m_parser.advance() )
     {
-        const auto commandType = m_parser.getCommandType();
-        ok                     = assembleCommand( commandType );
+        if ( const auto commandType = m_parser.getCommandType() )
+        {
+            ok = assembleCommand( commandType.value() );
+        }
+        else
+        {
+            ok = false;
+        }
     }
 
     return ok;

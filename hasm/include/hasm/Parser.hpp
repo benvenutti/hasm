@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Hasm.hpp"
+#include <hasm/Hasm.hpp>
 
 #include <istream>
+#include <optional>
 #include <string>
 
 namespace Hasm
@@ -23,10 +24,10 @@ public:
 
     bool advance();
 
-    Status             getStatus() const;
-    const std::string& getCommand() const;
-    CommandType        getCommandType() const;
-    int                getCurrentLineNumber() const;
+    Status                       getStatus() const;
+    const std::string&           getCommand() const;
+    std::optional< CommandType > getCommandType() const;
+    size_t                       getCurrentLineNumber() const;
 
     std::string symbol() const;
     std::string dest() const;
@@ -43,20 +44,11 @@ private:
     void updateStatus();
     void checkErrors();
 
-    void trim( std::string& str ) const;
-    void removeComments( std::string& str ) const;
-    void removeSpaces( std::string& str ) const;
-
-    bool isValidCommand() const;
-    bool isACommand() const;
-    bool isCCommand() const;
-    bool isLCommand() const;
-
-    std::istream&       input;
-    std::string         command{ "" };
-    mutable CommandType commandType{ CommandType::invalid };
-    int                 lineNumber{ 0 };
-    Status              status{ Status::start_of_file };
+    std::istream&                m_input;
+    std::string                  m_command{};
+    std::optional< CommandType > m_commandType{};
+    size_t                       m_lineNumber{ 0u };
+    Status                       m_status{ Status::start_of_file };
 };
 
 } // namespace Hasm

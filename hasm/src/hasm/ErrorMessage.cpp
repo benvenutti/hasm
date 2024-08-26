@@ -5,7 +5,7 @@
 namespace
 {
 
-std::string message( const std::string& cmd, const int lineNumber, const std::string& info )
+std::string message( const std::string& cmd, const size_t lineNumber, const std::string& info )
 {
     return std::format( R"(line {}: error: "{}" {})", lineNumber, cmd, info );
 }
@@ -15,12 +15,12 @@ std::string message( const std::string& cmd, const int lineNumber, const std::st
 namespace Hasm
 {
 
-std::string ErrorMessage::invalidCommand( const std::string& cmd, const int lineNumber )
+std::string ErrorMessage::invalidCommand( const std::string& cmd, const size_t lineNumber )
 {
     return message( cmd, lineNumber, "is an invalid command" );
 }
 
-std::string ErrorMessage::invalidLoadValue( const std::string& cmd, const int lineNumber )
+std::string ErrorMessage::invalidLoadValue( const std::string& cmd, const size_t lineNumber )
 {
     return message( cmd, lineNumber, "loads a value greater than an unsigned 15-bit number" );
 }
