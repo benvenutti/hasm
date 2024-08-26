@@ -85,14 +85,14 @@ Allowed options:
 
 ## Building **hasm** from source
 
-The assembler is written in C++17 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [Boost](http://www.boost.org/) and [Catch2](https://github.com/catchorg/Catch2).
+The assembler is written in C++20 and uses [CMake](https://cmake.org/) to manage the building process. Aside from the C++ Standard Library, **hasm** uses [CLI11](https://github.com/CLIUtils/CLI11) and [Catch2](https://github.com/catchorg/Catch2).
 
 The following list enumerates the tools and dependencies' minimum requirements:
 
-* C++17 compiler
-* CMake 3.25
-* Boost 1.83.0 (components: *program_options*)
-* Catch2 (this dependency is managed by the main CMake script)
+* C++20 compiler
+* CMake 3.25 or higher
+* CLI11 (managed by the main CMake script)
+* Catch2 (managed by the main CMake script)
 
 ### Cross-platform
 
