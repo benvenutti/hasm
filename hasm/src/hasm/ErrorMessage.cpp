@@ -7,7 +7,7 @@ namespace
 
 std::string message( const std::string& cmd, const int lineNumber, const std::string& info )
 {
-    return std::format( R"( line {}: error: "{}" {} )", lineNumber, cmd, info );
+    return std::format( R"(line {}: error: "{}" {})", lineNumber, cmd, info );
 }
 
 } // namespace
