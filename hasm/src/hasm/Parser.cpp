@@ -72,7 +72,7 @@ std::optional< CommandType > Parser::getCommandType() const
     return m_commandType;
 }
 
-int Parser::getCurrentLineNumber() const
+size_t Parser::getCurrentLineNumber() const
 {
     return m_lineNumber;
 }
@@ -190,7 +190,7 @@ std::string Parser::jump() const
 bool Parser::reset()
 {
     m_command.clear();
-    m_lineNumber = 0;
+    m_lineNumber = 0u;
     m_status     = Status::start_of_file;
     m_commandType.reset();
     m_input.clear();

@@ -27,7 +27,7 @@ public:
     Status                       getStatus() const;
     const std::string&           getCommand() const;
     std::optional< CommandType > getCommandType() const;
-    int                          getCurrentLineNumber() const;
+    size_t                       getCurrentLineNumber() const;
 
     std::string symbol() const;
     std::string dest() const;
@@ -47,7 +47,7 @@ private:
     std::istream&                m_input;
     std::string                  m_command{};
     std::optional< CommandType > m_commandType{};
-    int                          m_lineNumber{ 0 };
+    size_t                       m_lineNumber{ 0u };
     Status                       m_status{ Status::start_of_file };
 };
 
