@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hasm.hpp"
+#include <hasm/Hasm.hpp>
 
 #include <istream>
 #include <string>
@@ -44,9 +44,6 @@ private:
     void checkErrors();
 
     bool isValidCommand() const;
-    bool isACommand() const;
-    bool isCCommand() const;
-    bool isLCommand() const;
 
     std::istream&       m_input;
     std::string         m_command{ "" };

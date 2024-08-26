@@ -182,15 +182,15 @@ bool Parser::isValidCommand() const
 {
     bool isValid{ true };
 
-    if ( isACommand() )
+    if ( HackCommandParser::isLoadCommand( m_command ) )
     {
         m_commandType = CommandType::addressing;
     }
-    else if ( isLCommand() )
+    else if ( HackCommandParser::isLabelCommand( m_command ) )
     {
         m_commandType = CommandType::label;
     }
-    else if ( isCCommand() )
+    else if ( HackCommandParser::isComputationCommand( m_command ) )
     {
         m_commandType = CommandType::computation;
     }
@@ -201,21 +201,6 @@ bool Parser::isValidCommand() const
     }
 
     return isValid;
-}
-
-bool Parser::isACommand() const
-{
-    return HackCommandParser::isLoadCommand( m_command );
-}
-
-bool Parser::isCCommand() const
-{
-    return HackCommandParser::isComputationCommand( m_command );
-}
-
-bool Parser::isLCommand() const
-{
-    return HackCommandParser::isLabelCommand( m_command );
 }
 
 } // namespace Hasm
