@@ -5,7 +5,7 @@
 namespace Hasm::ErrorMessage
 {
 
-std::string invalidCommand( const std::string& cmd, const int lineNumber );
-std::string invalidLoadValue( const std::string& cmd, const int lineNumber );
+[[nodiscard]] std::string invalidCommand( const std::string& cmd, int lineNumber );
+[[nodiscard]] std::string invalidLoadValue( const std::string& cmd, int lineNumber );
 
 } // namespace Hasm::ErrorMessage
