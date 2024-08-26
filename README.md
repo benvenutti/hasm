@@ -49,13 +49,13 @@ This file can then be loaded into any Hack-compliance machine and it will correc
 
 #### Example 2: exporting the symbol table
 
-If we feel the need to take a look at the symbol table generated during the assembling process, we can add the flag *&#8209;&#8209;symbol&#8209;table* (or the shorthand *&#8209;s*) to the command line as so:
+If you feel the need to take a look at the symbol table generated during the assembling process, you can add the flag `--symbol-table` (or the shorthand `-s`) to the command line as so:
 
 ```sh
-$ ./hasm -s pong.asm
+$ ./hasm --symbol-table --input-file pong.asm
 ```
 
-This will generate (alongside with the assembled *pong.hack*) a text file called *pong.sym* that might look like this:
+This will generate (alongside with the assembled *pong.hack*) a text file called *pong.sym* that could look like this:
 
 ```
 0x0001 LCL
@@ -67,7 +67,7 @@ This will generate (alongside with the assembled *pong.hack*) a text file called
 0x6000 KBD
 ```
 
-The *.sym* exported table will list the addresses of user defined symbols (like *END_GT* and *LOOP_ball.bounce* in the  example above), as well as *Hack* predefined symbols, like *KBD* and *LCL*, for instance.
+The *.sym* exported table will list the addresses of user defined symbols (like *END_GT* and *LOOP_ball.bounce* in the  example above), as well as *Hack* predefined symbols, like *KBD* and *LCL*, etc. for instance.
 
 #### Example 3: getting help
 
