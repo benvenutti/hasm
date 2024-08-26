@@ -107,18 +107,3 @@ hasm$ cd build
 hasm/build$ cmake ..
 hasm/build$ cmake --build .
 ```
-
-### Running tests
-
-To run the available test suite, first make sure the configuration option *BUILD_TESTING* was properly set (its default value is *ON*) . After a successful build, you need to execute the *test* target using **ctest** from CMake, like this:
-
-```shh
-Running tests...
-Test project /Users/diogo.benvenutti/draft/hasm/build
-    Start 1: HasmTestSuite
-1/1 Test #1: HasmTestSuite ....................   Passed    0.01 sec
-
-100% tests passed, 0 tests failed out of 1
-
-Total Test time (real) =   0.02 sec
-```
