@@ -27,7 +27,7 @@ void removeComment( std::string& str )
     }
 }
 
-Hasm::CommandType commandType( const std::string& command )
+std::optional< Hasm::CommandType > commandType( const std::string& command )
 {
     if ( Hasm::HackCommandParser::isLoadCommand( command ) )
     {
@@ -44,7 +44,7 @@ Hasm::CommandType commandType( const std::string& command )
         return Hasm::CommandType::computation;
     }
 
-    return Hasm::CommandType::invalid;
+    return std::nullopt;
 }
 
 } // namespace
@@ -67,7 +67,7 @@ const std::string& Parser::getCommand() const
     return m_command;
 }
 
-CommandType Parser::getCommandType() const
+std::optional< CommandType > Parser::getCommandType() const
 {
     return m_commandType;
 }
@@ -105,7 +105,7 @@ void Parser::setCommand( const std::string& newCommand )
 void Parser::updateStatus()
 {
     m_commandType = commandType( m_command );
-    m_status      = ( m_commandType != CommandType::invalid ) ? Status::valid_command : Status::invalid_command;
+    m_status      = m_commandType.has_value() ? Status::valid_command : Status::invalid_command;
 }
 
 void Parser::checkErrors()
@@ -118,7 +118,7 @@ void Parser::checkErrors()
 
 bool Parser::advance()
 {
-    std::string line{ "" };
+    std::string line{};
     while ( readNextLine( line ) )
     {
         removeComment( line );
@@ -155,7 +155,7 @@ std::string Parser::dest() const
         return m_command.substr( 0, m_command.find( '=' ) );
     }
 
-    return "";
+    return {};
 }
 
 std::string Parser::comp() const
@@ -184,15 +184,15 @@ std::string Parser::jump() const
         return m_command.substr( m_command.find( ';' ) + 1 );
     }
 
-    return "";
+    return {};
 }
 
 bool Parser::reset()
 {
-    m_command     = std::string{ "" };
-    m_lineNumber  = 0;
-    m_status      = Status::start_of_file;
-    m_commandType = CommandType::invalid;
+    m_command.clear();
+    m_lineNumber = 0;
+    m_status     = Status::start_of_file;
+    m_commandType.reset();
     m_input.clear();
     m_input.seekg( std::streampos{ 0 } );
 

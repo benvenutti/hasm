@@ -11,8 +11,7 @@ enum class CommandType
 {
     addressing,  /// A-Command
     computation, /// C-Command
-    label,       /// L-Command
-    invalid
+    label        /// L-Command
 };
 
 // max value for unsigned 15 bit number
