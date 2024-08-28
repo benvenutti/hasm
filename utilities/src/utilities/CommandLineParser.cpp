@@ -1,16 +1,13 @@
-#include <hasm/CommandLineParser.hpp>
-
-#include <hasm/HasmConfig.hpp>
+#include <utilities/CommandLineParser.hpp>
 
 #include <CLI/CLI.hpp>
 
-#include <filesystem>
 #include <iostream>
 
-namespace Hasm
+namespace Utilities
 {
 
-std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc, char const* const* argv )
+std::optional< CommandLineParser::Config > CommandLineParser::parse( const int argc, char const* const* argv )
 {
     CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
 
@@ -27,7 +24,7 @@ std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc,
     {
         app.parse( argc, argv );
 
-        return AssemblerEngineConfig{ std::move( inputFile ), exportSymbolTable };
+        return Config{ std::move( inputFile ), exportSymbolTable };
     }
     catch ( const CLI::CallForHelp& )
     {
@@ -35,8 +32,8 @@ std::optional< AssemblerEngineConfig > CommandLineParser::parse( const int argc,
     }
     catch ( const CLI::CallForVersion& )
     {
-        std::cout << "hasm " << Config::VERSION_MAJOR << "." << Config::VERSION_MINOR << "." << Config::VERSION_PATCH
-                  << std::endl;
+        // TODO: read version from configuration file, or request version to be displayed
+        std::cout << "hasm 0.2.1" << std::endl;
     }
     catch ( const std::exception& exception )
     {
