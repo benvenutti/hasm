@@ -2,7 +2,6 @@
 
 #include <hasm/Assembler.hpp>
 #include <hasm/AssemblerEngineConfig.hpp>
-#include <hasm/CommandLineParser.hpp>
 #include <hasm/SymbolTableWriter.hpp>
 
 #include <fstream>

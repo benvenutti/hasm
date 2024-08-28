@@ -7,7 +7,6 @@ add_library(
   include/hasm/AssemblerEngine.hpp
   include/hasm/AssemblerEngineConfig.hpp
   include/hasm/Coder.hpp
-  include/hasm/CommandLineParser.hpp
   include/hasm/ErrorMessage.hpp
   include/hasm/Hack.hpp
   include/hasm/HackCommandParser.hpp
@@ -20,7 +19,6 @@ add_library(
   src/hasm/Assembler.cpp
   src/hasm/AssemblerEngine.cpp
   src/hasm/Coder.cpp
-  src/hasm/CommandLineParser.cpp
   src/hasm/ErrorMessage.cpp
   src/hasm/HackCommandParser.cpp
   src/hasm/Parser.cpp
@@ -48,8 +46,6 @@ target_include_directories(
     include
     ${PROJECT_BINARY_DIR}/include
 )
-
-target_link_libraries(hack_assembler PRIVATE CLI11::CLI11)
 
 # tests:
 
