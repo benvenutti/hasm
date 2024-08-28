@@ -11,4 +11,9 @@ set_target_properties(
     CXX_EXTENSIONS OFF
 )
 
-target_link_libraries(hasm PRIVATE hack_assembler)
+target_link_libraries(
+  hasm
+  PRIVATE
+    hack_assembler
+    utilities
+)
