@@ -1,12 +1,17 @@
 #pragma once
 
-#include <hasm/AssemblerEngineConfig.hpp>
-
+#include <filesystem>
 #include <optional>
 
-namespace Hasm::CommandLineParser
+namespace Utilities::CommandLineParser
 {
 
-std::optional< AssemblerEngineConfig > parse( int argc, char const* const* argv );
+struct Config
+{
+    std::filesystem::path inputFile;
+    bool                  exportSymbols;
+};
 
-} // namespace Hasm::CommandLineParser
+std::optional< Config > parse( int argc, char const* const* argv );
+
+} // namespace Utilities::CommandLineParser

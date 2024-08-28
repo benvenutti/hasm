@@ -88,6 +88,7 @@ endif()
 # subdirectories:
 
 add_subdirectory(hasm)
+add_subdirectory(utilities)
 
 if(BUILD_APP_COMMAND_LINE)
   add_subdirectory(app-command-line)
