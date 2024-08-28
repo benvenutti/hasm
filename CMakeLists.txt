@@ -17,8 +17,8 @@ include(FetchContent)
 
 # project options:
 
+option(BUILD_APP_COMMAND_LINE "Build hasm command line application" ON)
 option(BUILD_TESTS "Build tests" ON)
-
 cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
 
 # 3rd party dependencies:
@@ -88,4 +88,7 @@ endif()
 # subdirectories:
 
 add_subdirectory(hasm)
-add_subdirectory(app-command-line)
+
+if(BUILD_APP_COMMAND_LINE)
+  add_subdirectory(app-command-line)
+endif()
