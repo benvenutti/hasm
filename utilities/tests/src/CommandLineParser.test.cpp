@@ -1,139 +1,80 @@
 #include <utilities/CommandLineParser.hpp>
 
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
 
 #include <array>
 
 TEST_CASE( "parse option for filename", "[CommandLineParser]" )
 {
-    {
-        constexpr std::array< const char*, 3 > args{ { "hasm", "-i", "input.asm" } };
+    const auto args = GENERATE( std::array< const char*, 3 >{ "hasm", "-i", "input.asm" },
+                                std::array< const char*, 3 >{ "hasm", "--input-file", "input.asm" } );
 
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
+    CAPTURE( args );
 
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+    const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        const auto& config = std::get< Utilities::CommandLineParser::Config >( result );
+    REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
 
-        REQUIRE_FALSE( config.exportSymbols );
-        REQUIRE( config.inputFile == std::filesystem::path{ "input.asm" } );
-    }
+    const auto& config = std::get< Utilities::CommandLineParser::Config >( result );
 
-    {
-        constexpr std::array< const char*, 3 > args{ { "hasm", "--input-file", "input.asm" } };
-
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
-
-        const auto& config = std::get< Utilities::CommandLineParser::Config >( result );
-
-        REQUIRE_FALSE( config.exportSymbols );
-        REQUIRE( config.inputFile == std::filesystem::path{ "input.asm" } );
-    }
+    REQUIRE_FALSE( config.exportSymbols );
+    REQUIRE( config.inputFile == std::filesystem::path{ "input.asm" } );
 }
 
 TEST_CASE( "parse option for symbol table", "[CommandLineParser]" )
 {
-    {
-        constexpr std::array< const char*, 4 > args{ { "hasm", "-i", "input.asm", "-s" } };
+    const auto args = GENERATE( std::array< const char*, 4 >{ "hasm", "-i", "input.asm", "-s" },
+                                std::array< const char*, 4 >{ "hasm", "--input-file", "input.asm", "--symbol-table" } );
 
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
+    CAPTURE( args );
 
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+    const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        const auto& config = std::get< Utilities::CommandLineParser::Config >( result );
+    REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
 
-        REQUIRE( config.exportSymbols );
-        REQUIRE( config.inputFile == std::filesystem::path{ "input.asm" } );
-    }
+    const auto& config = std::get< Utilities::CommandLineParser::Config >( result );
 
-    {
-        constexpr std::array< const char*, 4 > args{ { "hasm", "-i", "input.asm", "--symbol-table" } };
-
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
-
-        const auto& config = std::get< Utilities::CommandLineParser::Config >( result );
-
-        REQUIRE( config.exportSymbols );
-        REQUIRE( config.inputFile == std::filesystem::path{ "input.asm" } );
-    }
+    REQUIRE( config.exportSymbols );
+    REQUIRE( config.inputFile == std::filesystem::path{ "input.asm" } );
 }
 
 TEST_CASE( "parse option for symbol table without an input file", "[CommandLineParser]" )
 {
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "-s" } };
+    const auto args = GENERATE( std::array< const char*, 2 >{ "hasm", "-s" },
+                                std::array< const char*, 2 >{ "hasm", "--symbol-table" } );
 
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
+    const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
-    }
-
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "--symbol-table" } };
-
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
-    }
+    REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
 }
 
 TEST_CASE( "parse option for help", "[CommandLineParser]" )
 {
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "-h" } };
+    const auto args = GENERATE( std::array< const char*, 2 >{ "hasm", "-h" }, //
+                                std::array< const char*, 2 >{ "hasm", "--help" } );
 
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
+    const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintHelp >( result ) );
-    }
-
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "--help" } };
-
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintHelp >( result ) );
-    }
+    REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintHelp >( result ) );
 }
 
 TEST_CASE( "parse option for version", "[CommandLineParser]" )
 {
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "-v" } };
+    const auto args = GENERATE( std::array< const char*, 2 >{ "hasm", "-v" }, //
+                                std::array< const char*, 2 >{ "hasm", "--version" } );
 
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
+    const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintVersion >( result ) );
-    }
-
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "--version" } };
-
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintVersion >( result ) );
-    }
+    REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintVersion >( result ) );
 }
 
 TEST_CASE( "parse invalid option", "[CommandLineParser]" )
 {
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "-x" } };
+    const auto args = GENERATE( std::array< const char*, 2 >{ "hasm", "-x" }, //
+                                std::array< const char*, 2 >{ "hasm", "--invalid-flag" } );
 
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
+    const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Error >( result ) );
-    }
-
-    {
-        constexpr std::array< const char*, 2 > args{ { "hasm", "--invalid_flag" } };
-
-        const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
-
-        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Error >( result ) );
-    }
+    REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Error >( result ) );
 }
