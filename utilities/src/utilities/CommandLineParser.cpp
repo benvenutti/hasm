@@ -32,8 +32,7 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
     }
     catch ( const CLI::CallForVersion& )
     {
-        // TODO: read version from configuration file, or request version to be displayed
-        std::cout << "hasm 0.2.1" << std::endl;
+        return RequestToPrintVersion{};
     }
     catch ( const std::exception& exception )
     {

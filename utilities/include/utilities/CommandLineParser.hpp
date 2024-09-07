@@ -18,11 +18,15 @@ struct RequestToPrintHelp
     std::string message;
 };
 
+struct RequestToPrintVersion
+{
+};
+
 struct Error
 {
 };
 
-using Result = std::variant< Config, RequestToPrintHelp, Error >;
+using Result = std::variant< Config, RequestToPrintHelp, RequestToPrintVersion, Error >;
 
 Result parse( int argc, char const* const* argv );
 

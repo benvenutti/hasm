@@ -107,7 +107,7 @@ SCENARIO( "parse option for version", "[CommandLineParser]" )
 
         const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintVersion >( result ) );
     }
 
     {
@@ -115,7 +115,7 @@ SCENARIO( "parse option for version", "[CommandLineParser]" )
 
         const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintVersion >( result ) );
     }
 }
 
