@@ -3,6 +3,7 @@
 #include <utilities/CommandLineParser.hpp>
 
 #include <cstdlib>
+#include <iostream>
 #include <variant>
 
 struct RequestVisitor
@@ -12,6 +13,13 @@ struct RequestVisitor
         const Hasm::AssemblerEngine assembler{};
 
         return assembler.run( { config.inputFile, config.exportSymbols } );
+    }
+
+    bool operator()( const Utilities::CommandLineParser::RequestToPrintHelp& help ) const
+    {
+        std::cout << help.message << std::endl;
+
+        return true;
     }
 
     bool operator()( const auto& ) const

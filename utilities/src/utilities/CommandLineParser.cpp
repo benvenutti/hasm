@@ -28,7 +28,7 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
     }
     catch ( const CLI::CallForHelp& )
     {
-        std::cout << app.help() << std::endl;
+        return RequestToPrintHelp{ app.help() };
     }
     catch ( const CLI::CallForVersion& )
     {

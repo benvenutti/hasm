@@ -88,7 +88,7 @@ SCENARIO( "parse option for help", "[CommandLineParser]" )
 
         const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintHelp >( result ) );
     }
 
     {
@@ -96,7 +96,7 @@ SCENARIO( "parse option for help", "[CommandLineParser]" )
 
         const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::RequestToPrintHelp >( result ) );
     }
 }
 

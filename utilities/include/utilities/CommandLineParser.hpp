@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <string>
 #include <variant>
 
 namespace Utilities::CommandLineParser
@@ -12,11 +13,16 @@ struct Config
     bool                  exportSymbols;
 };
 
+struct RequestToPrintHelp
+{
+    std::string message;
+};
+
 struct Error
 {
 };
 
-using Result = std::variant< Config, Error >;
+using Result = std::variant< Config, RequestToPrintHelp, Error >;
 
 Result parse( int argc, char const* const* argv );
 
