@@ -1,7 +1,7 @@
 #pragma once
 
 #include <filesystem>
-#include <optional>
+#include <variant>
 
 namespace Utilities::CommandLineParser
 {
@@ -12,6 +12,12 @@ struct Config
     bool                  exportSymbols;
 };
 
-std::optional< Config > parse( int argc, char const* const* argv );
+struct Error
+{
+};
+
+using Result = std::variant< Config, Error >;
+
+Result parse( int argc, char const* const* argv );
 
 } // namespace Utilities::CommandLineParser

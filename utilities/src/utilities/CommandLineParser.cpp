@@ -7,7 +7,7 @@
 namespace Utilities
 {
 
-std::optional< CommandLineParser::Config > CommandLineParser::parse( const int argc, char const* const* argv )
+CommandLineParser::Result CommandLineParser::parse( const int argc, char const* const* argv )
 {
     CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
 
@@ -43,7 +43,7 @@ std::optional< CommandLineParser::Config > CommandLineParser::parse( const int a
     {
     }
 
-    return std::nullopt;
+    return Error{};
 }
 
-} // namespace Hasm
+} // namespace Utilities

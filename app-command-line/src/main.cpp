@@ -3,15 +3,26 @@
 #include <utilities/CommandLineParser.hpp>
 
 #include <cstdlib>
+#include <variant>
 
-int main( int argc, char** argv )
+struct RequestVisitor
 {
-    if ( const auto config = Utilities::CommandLineParser::parse( argc, argv ) )
+    bool operator()( const Utilities::CommandLineParser::Config& config ) const
     {
         const Hasm::AssemblerEngine assembler{};
 
-        return assembler.run( { config->inputFile, config->exportSymbols } ) ? EXIT_SUCCESS : EXIT_FAILURE;
+        return assembler.run( { config.inputFile, config.exportSymbols } );
     }
 
-    return EXIT_FAILURE;
+    bool operator()( const auto& ) const
+    {
+        return false;
+    }
+};
+
+int main( int argc, char** argv )
+{
+    const auto userRequest = Utilities::CommandLineParser::parse( argc, argv );
+
+    return std::visit( RequestVisitor{}, userRequest ) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
