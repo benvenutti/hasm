@@ -2,12 +2,12 @@
 
 #include <CLI/CLI.hpp>
 
-#include <iostream>
+#include <exception>
 
 namespace Utilities
 {
 
-std::optional< CommandLineParser::Config > CommandLineParser::parse( const int argc, char const* const* argv )
+CommandLineParser::Result CommandLineParser::parse( const int argc, char const* const* argv )
 {
     CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
 
@@ -28,22 +28,18 @@ std::optional< CommandLineParser::Config > CommandLineParser::parse( const int a
     }
     catch ( const CLI::CallForHelp& )
     {
-        std::cout << app.help() << std::endl;
+        return RequestToPrintHelp{ app.help() };
     }
     catch ( const CLI::CallForVersion& )
     {
-        // TODO: read version from configuration file, or request version to be displayed
-        std::cout << "hasm 0.2.1" << std::endl;
+        return RequestToPrintVersion{};
     }
     catch ( const std::exception& exception )
     {
-        std::cerr << exception.what() << std::endl;
-    }
-    catch ( ... )
-    {
+        return Error{ exception.what() };
     }
 
-    return std::nullopt;
+    return Error{};
 }
 
-} // namespace Hasm
+} // namespace Utilities
