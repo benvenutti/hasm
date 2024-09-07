@@ -4,7 +4,7 @@
 
 #include <array>
 
-SCENARIO( "parse option for filename", "[CommandLineParser]" )
+TEST_CASE( "parse option for filename", "[CommandLineParser]" )
 {
     {
         constexpr std::array< const char*, 3 > args{ { "hasm", "-i", "input.asm" } };
@@ -33,7 +33,7 @@ SCENARIO( "parse option for filename", "[CommandLineParser]" )
     }
 }
 
-SCENARIO( "parse option for symbol table", "[CommandLineParser]" )
+TEST_CASE( "parse option for symbol table", "[CommandLineParser]" )
 {
     {
         constexpr std::array< const char*, 4 > args{ { "hasm", "-i", "input.asm", "-s" } };
@@ -62,7 +62,7 @@ SCENARIO( "parse option for symbol table", "[CommandLineParser]" )
     }
 }
 
-SCENARIO( "parse option for symbol table without an input file", "[CommandLineParser]" )
+TEST_CASE( "parse option for symbol table without an input file", "[CommandLineParser]" )
 {
     {
         constexpr std::array< const char*, 2 > args{ { "hasm", "-s" } };
@@ -81,7 +81,7 @@ SCENARIO( "parse option for symbol table without an input file", "[CommandLinePa
     }
 }
 
-SCENARIO( "parse option for help", "[CommandLineParser]" )
+TEST_CASE( "parse option for help", "[CommandLineParser]" )
 {
     {
         constexpr std::array< const char*, 2 > args{ { "hasm", "-h" } };
@@ -100,7 +100,7 @@ SCENARIO( "parse option for help", "[CommandLineParser]" )
     }
 }
 
-SCENARIO( "parse option for version", "[CommandLineParser]" )
+TEST_CASE( "parse option for version", "[CommandLineParser]" )
 {
     {
         constexpr std::array< const char*, 2 > args{ { "hasm", "-v" } };
@@ -119,7 +119,7 @@ SCENARIO( "parse option for version", "[CommandLineParser]" )
     }
 }
 
-SCENARIO( "parse invalid option", "[CommandLineParser]" )
+TEST_CASE( "parse invalid option", "[CommandLineParser]" )
 {
     {
         constexpr std::array< const char*, 2 > args{ { "hasm", "-x" } };
