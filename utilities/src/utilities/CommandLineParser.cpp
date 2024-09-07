@@ -2,7 +2,7 @@
 
 #include <CLI/CLI.hpp>
 
-#include <iostream>
+#include <exception>
 
 namespace Utilities
 {
@@ -36,10 +36,7 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
     }
     catch ( const std::exception& exception )
     {
-        std::cerr << exception.what() << std::endl;
-    }
-    catch ( ... )
-    {
+        return Error{ exception.what() };
     }
 
     return Error{};

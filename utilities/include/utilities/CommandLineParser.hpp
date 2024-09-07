@@ -24,6 +24,7 @@ struct RequestToPrintVersion
 
 struct Error
 {
+    std::string message;
 };
 
 using Result = std::variant< Config, RequestToPrintHelp, RequestToPrintVersion, Error >;

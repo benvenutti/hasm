@@ -33,9 +33,11 @@ struct RequestVisitor
         return true;
     }
 
-    bool operator()( const auto& ) const
+    bool operator()( const Utilities::CommandLineParser::Error& error ) const
     {
-        return false;
+        std::cerr << error.message << std::endl;
+
+        return true;
     }
 };
 

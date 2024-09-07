@@ -126,7 +126,7 @@ SCENARIO( "parse invalid option", "[CommandLineParser]" )
 
         const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Error >( result ) );
     }
 
     {
@@ -134,6 +134,6 @@ SCENARIO( "parse invalid option", "[CommandLineParser]" )
 
         const auto result = Utilities::CommandLineParser::parse( args.size(), args.data() );
 
-        REQUIRE_FALSE( std::holds_alternative< Utilities::CommandLineParser::Config >( result ) );
+        REQUIRE( std::holds_alternative< Utilities::CommandLineParser::Error >( result ) );
     }
 }
