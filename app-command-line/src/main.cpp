@@ -1,6 +1,6 @@
 #include <hasm/AssemblerEngine.hpp>
 #include <hasm/AssemblerEngineConfig.hpp>
-#include <hasm/HasmConfig.hpp>
+#include <hasm/HasmInfo.hpp>
 #include <utilities/CommandLineParser.hpp>
 
 #include <cstdlib>

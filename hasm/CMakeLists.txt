@@ -36,8 +36,8 @@ set_target_properties(
 )
 
 configure_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/hasm/HasmConfig.hpp.in
-  ${PROJECT_BINARY_DIR}/include/hasm/HasmConfig.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/hasm/HasmInfo.hpp.in
+  ${PROJECT_BINARY_DIR}/include/hasm/HasmInfo.hpp
 )
 
 target_include_directories(
