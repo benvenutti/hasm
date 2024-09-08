@@ -1,0 +1,21 @@
+#pragma once
+
+#include <string>
+
+namespace Hasm
+{
+
+const std::string projectName{ "${CMAKE_PROJECT_NAME}" };
+
+namespace Version
+{
+
+const std::string full{ "${hasm_VERSION}" };
+
+constexpr unsigned int major{ ${hasm_VERSION_MAJOR}u };
+constexpr unsigned int minor{ ${hasm_VERSION_MINOR}u };
+constexpr unsigned int patch{ ${hasm_VERSION_PATCH}u };
+
+} // namespace Version
+
+} // namespace Hasm

@@ -1,6 +1,6 @@
 #include <hasm/AssemblerEngine.hpp>
 #include <hasm/AssemblerEngineConfig.hpp>
-#include <hasm/HasmConfig.hpp>
+#include <hasm/HasmInfo.hpp>
 #include <utilities/CommandLineParser.hpp>
 
 #include <cstdlib>
@@ -26,9 +26,7 @@ struct RequestVisitor
 
     bool operator()( const Utilities::CommandLineParser::RequestToPrintVersion& ) const
     {
-        std::cout << std::format(
-            "hasm {}.{}.{}", Hasm::Config::VERSION_MAJOR, Hasm::Config::VERSION_MINOR, Hasm::Config::VERSION_PATCH )
-                  << std::endl;
+        std::cout << std::format( "{} {}", Hasm::projectName, Hasm::Version::full ) << std::endl;
 
         return true;
     }
