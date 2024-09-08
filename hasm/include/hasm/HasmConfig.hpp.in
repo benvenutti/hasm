@@ -1,5 +1,4 @@
-#ifndef HASM_HASMCONFIG_HPP
-#define HASM_HASMCONFIG_HPP
+#pragma once
 
 namespace Hasm
 {
@@ -12,5 +11,3 @@ const int VERSION_PATCH{ ${hasm_VERSION_PATCH} };
 
 } // namespace Config
 } // namespace Hasm
-
-#endif
