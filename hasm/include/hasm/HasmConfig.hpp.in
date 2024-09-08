@@ -1,9 +1,18 @@
 #pragma once
 
+#include <string>
+
 namespace Hasm
 {
 namespace Config
 {
+
+namespace Version
+{
+
+const std::string full{ "${hasm_VERSION}" };
+
+} // namespace Version
 
 constexpr unsigned int VERSION_MAJOR{ ${hasm_VERSION_MAJOR} };
 constexpr unsigned int VERSION_MINOR{ ${hasm_VERSION_MINOR} };
