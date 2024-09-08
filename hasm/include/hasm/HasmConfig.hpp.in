@@ -4,8 +4,6 @@
 
 namespace Hasm
 {
-namespace Config
-{
 
 namespace Version
 {
@@ -18,5 +16,4 @@ constexpr unsigned int patch{ ${hasm_VERSION_PATCH} };
 
 } // namespace Version
 
-} // namespace Config
 } // namespace Hasm
