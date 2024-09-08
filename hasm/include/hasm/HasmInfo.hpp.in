@@ -12,9 +12,9 @@ namespace Version
 
 const std::string full{ "${hasm_VERSION}" };
 
-constexpr unsigned int major{ ${hasm_VERSION_MAJOR} };
-constexpr unsigned int minor{ ${hasm_VERSION_MINOR} };
-constexpr unsigned int patch{ ${hasm_VERSION_PATCH} };
+constexpr unsigned int major{ ${hasm_VERSION_MAJOR}u };
+constexpr unsigned int minor{ ${hasm_VERSION_MINOR}u };
+constexpr unsigned int patch{ ${hasm_VERSION_PATCH}u };
 
 } // namespace Version
 
