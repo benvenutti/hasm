@@ -5,9 +5,9 @@ namespace Hasm
 namespace Config
 {
 
-const int VERSION_MAJOR{ ${hasm_VERSION_MAJOR} };
-const int VERSION_MINOR{ ${hasm_VERSION_MINOR} };
-const int VERSION_PATCH{ ${hasm_VERSION_PATCH} };
+constexpr unsigned int VERSION_MAJOR{ ${hasm_VERSION_MAJOR} };
+constexpr unsigned int VERSION_MINOR{ ${hasm_VERSION_MINOR} };
+constexpr unsigned int VERSION_PATCH{ ${hasm_VERSION_PATCH} };
 
 } // namespace Config
 } // namespace Hasm
