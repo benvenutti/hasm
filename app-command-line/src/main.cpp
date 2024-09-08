@@ -26,7 +26,7 @@ struct RequestVisitor
 
     bool operator()( const Utilities::CommandLineParser::RequestToPrintVersion& ) const
     {
-        std::cout << std::format( "hasm {}", Hasm::Version::full ) << std::endl;
+        std::cout << std::format( "{} {}", Hasm::projectName, Hasm::Version::full ) << std::endl;
 
         return true;
     }

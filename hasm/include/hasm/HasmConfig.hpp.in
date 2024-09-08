@@ -5,6 +5,8 @@
 namespace Hasm
 {
 
+const std::string projectName{ "${CMAKE_PROJECT_NAME}" };
+
 namespace Version
 {
 
