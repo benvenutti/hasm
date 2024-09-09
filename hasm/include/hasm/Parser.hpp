@@ -41,7 +41,6 @@ private:
 
     void update( const std::string& newCommand );
     void setCommand( const std::string& newCommand );
-    void updateStatus();
     void checkErrors();
 
     std::istream&                m_input;
