@@ -6,7 +6,6 @@
 
 #include <algorithm>
 #include <cctype>
-#include <iostream>
 #include <ranges>
 
 namespace
@@ -95,16 +94,6 @@ void Parser::update( const std::string& newCommand )
     m_command     = newCommand;
     m_commandType = commandType( m_command );
     m_status      = m_commandType.has_value() ? Status::valid_command : Status::invalid_command;
-
-    checkErrors();
-}
-
-void Parser::checkErrors()
-{
-    if ( m_status == Status::invalid_command )
-    {
-        std::cerr << ErrorMessage::invalidCommand( m_command, m_lineNumber ) << std::endl;
-    }
 }
 
 bool Parser::advance()
