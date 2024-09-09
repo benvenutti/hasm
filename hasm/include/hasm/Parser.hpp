@@ -40,7 +40,6 @@ private:
     bool readNextLine( std::string& str );
 
     void update( const std::string& newCommand );
-    void setCommand( const std::string& newCommand );
     void checkErrors();
 
     std::istream&                m_input;

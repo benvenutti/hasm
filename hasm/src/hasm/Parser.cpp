@@ -92,17 +92,11 @@ bool Parser::readNextLine( std::string& str )
 
 void Parser::update( const std::string& newCommand )
 {
-    setCommand( newCommand );
-
+    m_command     = newCommand;
     m_commandType = commandType( m_command );
     m_status      = m_commandType.has_value() ? Status::valid_command : Status::invalid_command;
 
     checkErrors();
-}
-
-void Parser::setCommand( const std::string& newCommand )
-{
-    m_command = newCommand;
 }
 
 void Parser::checkErrors()
