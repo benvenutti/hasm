@@ -89,24 +89,24 @@ bool Parser::readNextLine( std::string& str )
     return hasRead;
 }
 
-void Parser::update( const std::string& newCommand )
+void Parser::setCommand( std::string command )
 {
-    m_command     = newCommand;
+    m_command     = std::move( command );
     m_commandType = commandType( m_command );
     m_status      = m_commandType.has_value() ? Status::valid_command : Status::invalid_command;
 }
 
 bool Parser::advance()
 {
-    std::string line{};
-    while ( readNextLine( line ) )
+    std::string command{};
+    while ( readNextLine( command ) )
     {
-        removeComment( line );
-        removeSpaces( line );
+        removeComment( command );
+        removeSpaces( command );
 
-        if ( !line.empty() )
+        if ( !command.empty() )
         {
-            update( line );
+            setCommand( command );
 
             return m_status == Status::valid_command;
         }

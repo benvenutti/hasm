@@ -39,7 +39,7 @@ public:
 private:
     bool readNextLine( std::string& str );
 
-    void update( const std::string& newCommand );
+    void setCommand( std::string command );
 
     std::istream&                m_input;
     std::string                  m_command{};
