@@ -38,7 +38,7 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
         return false;
     }
 
-    Assembler hasm{ inputFile, outputFile };
+    Assembler hasm{ inputFile, outputFile, []( const auto& message ) { std::cout << message << std::endl; } };
     bool      isOk{ hasm.assemble() };
 
     if ( config.exportSymbols() )

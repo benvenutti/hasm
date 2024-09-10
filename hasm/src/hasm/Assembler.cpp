@@ -10,9 +10,10 @@
 namespace Hasm
 {
 
-Assembler::Assembler( std::istream& in, std::ostream& out )
+Assembler::Assembler( std::istream& in, std::ostream& out, const Logger& logger )
 : m_out( out )
 , m_parser( in )
+, m_logger( logger )
 {
 }
 
@@ -99,7 +100,8 @@ void Assembler::displayInvalidACommandMessage()
 {
     const auto cmd        = m_parser.getCommand();
     const auto lineNumber = m_parser.getCurrentLineNumber();
-    std::cerr << ErrorMessage::invalidLoadValue( cmd, lineNumber ) << std::endl;
+
+    m_logger( ErrorMessage::invalidLoadValue( cmd, lineNumber ) );
 }
 
 bool Assembler::assembleCCommand()

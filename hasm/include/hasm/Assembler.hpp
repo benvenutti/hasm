@@ -5,7 +5,10 @@
 #include "Parser.hpp"
 #include "SymbolTable.hpp"
 
-#include <iostream>
+#include <functional>
+#include <istream>
+#include <ostream>
+#include <string>
 
 namespace Hasm
 {
@@ -13,7 +16,9 @@ namespace Hasm
 class Assembler
 {
 public:
-    Assembler( std::istream& in, std::ostream& out );
+    using Logger = std::function< void( const std::string& message ) >;
+
+    Assembler( std::istream& in, std::ostream& out, const Logger& logger = {} );
 
     bool               assemble();
     const SymbolTable& getSymbolTable() const;
@@ -33,6 +38,7 @@ private:
     Parser        m_parser;
     SymbolTable   m_symbolTable{ Hack::predefined_symbols };
     Hack::word    m_ramAddress{ Hack::init_ram_address };
+    const Logger& m_logger;
 };
 
 } // namespace Hasm
