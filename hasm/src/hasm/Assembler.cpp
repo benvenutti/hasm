@@ -29,7 +29,7 @@ const SymbolTable& Assembler::getSymbolTable() const
 
 bool Assembler::firstPass()
 {
-    Hack::word lineCounter{ 0 };
+    Hack::word lineCounter{ 0_w };
 
     while ( m_parser.advance() )
     {
@@ -106,7 +106,7 @@ void Assembler::displayInvalidACommandMessage()
 
 bool Assembler::assembleCCommand()
 {
-    Hack::word cc{ 0 };
+    Hack::word cc{ 0_w };
 
     cc = Coder::dest( m_parser.dest() ) | Coder::comp( m_parser.comp() ) | Coder::jump( m_parser.jump() )
          | static_cast< Hack::word >( 0b1110000000000000 );
@@ -118,7 +118,7 @@ bool Assembler::assembleCCommand()
 
 Hack::word Assembler::computeValue( const std::string& symbol )
 {
-    Hack::word value{ 0u };
+    Hack::word value{ 0_w };
 
     if ( std::isdigit( symbol.front() ) != 0 )
     {
