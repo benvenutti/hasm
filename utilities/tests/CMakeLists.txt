@@ -5,6 +5,8 @@ add_executable(
 
 target_compile_features(utilities_tests PUBLIC cxx_std_20)
 
+set_target_properties(utilities_tests PROPERTIES COMPILE_WARNING_AS_ERROR ON)
+
 set_target_properties(
   utilities_tests
   PROPERTIES
