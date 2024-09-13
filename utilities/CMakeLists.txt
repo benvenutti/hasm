@@ -18,6 +18,10 @@ set_target_properties(
     CXX_EXTENSIONS OFF
 )
 
+if(NOT MSVC)
+  target_compile_options(utilities PRIVATE -Wno-unknown-pragmas)
+endif()
+
 target_include_directories(utilities PUBLIC include)
 
 target_link_libraries(utilities PRIVATE CLI11::CLI11)

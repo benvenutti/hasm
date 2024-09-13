@@ -64,7 +64,6 @@ else()
     # warnings:
     -Wall -Wconversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Wcast-qual
     -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -pedantic -Wextra
-    -Wno-unknown-pragmas
 
     # optimization levels:
     $<$<CONFIG:RELEASE>:-O3>
