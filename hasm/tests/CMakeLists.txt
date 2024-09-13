@@ -12,6 +12,8 @@ add_executable(
 
 target_compile_features(hasm_assembler_tests PUBLIC cxx_std_20)
 
+set_target_properties(hasm_assembler_tests PROPERTIES COMPILE_WARNING_AS_ERROR ON)
+
 set_target_properties(
   hasm_assembler_tests
   PROPERTIES
