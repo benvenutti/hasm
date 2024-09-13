@@ -29,11 +29,11 @@ const SymbolTable& Assembler::getSymbolTable() const
 
 bool Assembler::firstPass()
 {
-    Hack::word lineCounter{ 0 };
+    Hack::word lineCounter{ 0_w };
 
     while ( m_parser.advance() )
     {
-        if ( m_parser.getCommandType() == CommandType::label )
+        if ( m_parser.getCommandType() == Hack::CommandType::label )
         {
             m_symbolTable.addEntry( m_parser.symbol(), lineCounter );
         }
@@ -65,13 +65,13 @@ bool Assembler::secondPass()
     return ok;
 }
 
-bool Assembler::assembleCommand( const CommandType commandType )
+bool Assembler::assembleCommand( const Hack::CommandType commandType )
 {
     switch ( commandType )
     {
-        case CommandType::addressing:
+        case Hack::CommandType::addressing:
             return assembleACommand();
-        case CommandType::computation:
+        case Hack::CommandType::computation:
             return assembleCCommand();
         default:
             return true;
@@ -106,7 +106,7 @@ void Assembler::displayInvalidACommandMessage()
 
 bool Assembler::assembleCCommand()
 {
-    Hack::word cc{ 0 };
+    Hack::word cc{ 0_w };
 
     cc = Coder::dest( m_parser.dest() ) | Coder::comp( m_parser.comp() ) | Coder::jump( m_parser.jump() )
          | static_cast< Hack::word >( 0b1110000000000000 );
@@ -118,7 +118,7 @@ bool Assembler::assembleCCommand()
 
 Hack::word Assembler::computeValue( const std::string& symbol )
 {
-    Hack::word value{ 0u };
+    Hack::word value{ 0_w };
 
     if ( std::isdigit( symbol.front() ) != 0 )
     {
@@ -139,7 +139,7 @@ Hack::word Assembler::computeValue( const std::string& symbol )
 
 bool Assembler::isValidValue( const Hack::word value ) const
 {
-    return value <= max_loadable_value;
+    return value <= Hack::max_loadable_value;
 }
 
 void Assembler::output( const Hack::word word )

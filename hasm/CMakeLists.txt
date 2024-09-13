@@ -12,7 +12,6 @@ add_library(
   include/hasm/HackCommandParser.hpp
   include/hasm/HackGrammar.hpp
   include/hasm/HackLex.hpp
-  include/hasm/Hasm.hpp
   include/hasm/Parser.hpp
   include/hasm/SymbolTable.hpp
   include/hasm/SymbolTableWriter.hpp
@@ -27,6 +26,8 @@ add_library(
 )
 
 target_compile_features(hack_assembler PUBLIC cxx_std_20)
+
+set_target_properties(hack_assembler PROPERTIES COMPILE_WARNING_AS_ERROR ON)
 
 set_target_properties(
   hack_assembler

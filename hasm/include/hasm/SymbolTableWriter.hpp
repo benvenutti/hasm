@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hack.hpp"
+#include <hasm/Hack.hpp>
 
 #include <map>
 #include <ostream>

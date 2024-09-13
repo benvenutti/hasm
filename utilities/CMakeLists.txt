@@ -9,12 +9,18 @@ add_library(
 
 target_compile_features(utilities PUBLIC cxx_std_20)
 
+set_target_properties(utilities PROPERTIES COMPILE_WARNING_AS_ERROR ON)
+
 set_target_properties(
   utilities
   PROPERTIES
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
 )
+
+if(NOT MSVC)
+  target_compile_options(utilities PRIVATE -Wno-unknown-pragmas)
+endif()
 
 target_include_directories(utilities PUBLIC include)
 

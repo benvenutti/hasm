@@ -4,6 +4,9 @@
 
 #include <exception>
 
+#pragma warning( push )
+#pragma warning( disable : 4702 )
+
 namespace Utilities
 {
 
@@ -43,3 +46,5 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
 }
 
 } // namespace Utilities
+
+#pragma warning( pop )

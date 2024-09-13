@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Hack.hpp"
-#include "Hasm.hpp"
-#include "Parser.hpp"
-#include "SymbolTable.hpp"
+#include <hasm/Hack.hpp>
+#include <hasm/Parser.hpp>
+#include <hasm/SymbolTable.hpp>
 
 #include <functional>
 #include <istream>
@@ -26,7 +25,7 @@ public:
 private:
     bool       firstPass();
     bool       secondPass();
-    bool       assembleCommand( CommandType commandType );
+    bool       assembleCommand( Hack::CommandType commandType );
     bool       assembleACommand();
     bool       assembleCCommand();
     Hack::word computeValue( const std::string& symbol );

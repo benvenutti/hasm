@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HackLex.hpp"
+#include <hasm/HackLex.hpp>
 
 #include <string>
 
