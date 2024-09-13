@@ -1,6 +1,6 @@
 #pragma once
 
-#include <hasm/Hasm.hpp>
+#include <hasm/Hack.hpp>
 
 #include <istream>
 #include <optional>
@@ -24,10 +24,10 @@ public:
 
     bool advance();
 
-    Status                       getStatus() const;
-    const std::string&           getCommand() const;
-    std::optional< CommandType > getCommandType() const;
-    size_t                       getCurrentLineNumber() const;
+    Status                             getStatus() const;
+    const std::string&                 getCommand() const;
+    std::optional< Hack::CommandType > getCommandType() const;
+    size_t                             getCurrentLineNumber() const;
 
     std::string symbol() const;
     std::string dest() const;
@@ -41,11 +41,11 @@ private:
 
     void setCommand( std::string command );
 
-    std::istream&                m_input;
-    std::string                  m_command{};
-    std::optional< CommandType > m_commandType{};
-    size_t                       m_lineNumber{ 0u };
-    Status                       m_status{ Status::start_of_file };
+    std::istream&                      m_input;
+    std::string                        m_command{};
+    std::optional< Hack::CommandType > m_commandType{};
+    size_t                             m_lineNumber{ 0u };
+    Status                             m_status{ Status::start_of_file };
 };
 
 } // namespace Hasm

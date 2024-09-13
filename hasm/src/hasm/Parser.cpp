@@ -26,21 +26,21 @@ void removeComment( std::string& str )
     }
 }
 
-std::optional< Hasm::CommandType > commandType( const std::string& command )
+std::optional< Hasm::Hack::CommandType > commandType( const std::string& command )
 {
     if ( Hasm::HackCommandParser::isLoadCommand( command ) )
     {
-        return Hasm::CommandType::addressing;
+        return Hasm::Hack::CommandType::addressing;
     }
 
     if ( Hasm::HackCommandParser::isLabelCommand( command ) )
     {
-        return Hasm::CommandType::label;
+        return Hasm::Hack::CommandType::label;
     }
 
     if ( Hasm::HackCommandParser::isComputationCommand( command ) )
     {
-        return Hasm::CommandType::computation;
+        return Hasm::Hack::CommandType::computation;
     }
 
     return std::nullopt;
@@ -66,7 +66,7 @@ const std::string& Parser::getCommand() const
     return m_command;
 }
 
-std::optional< CommandType > Parser::getCommandType() const
+std::optional< Hack::CommandType > Parser::getCommandType() const
 {
     return m_commandType;
 }
@@ -119,7 +119,7 @@ bool Parser::advance()
 
 std::string Parser::symbol() const
 {
-    if ( getCommandType() == CommandType::addressing )
+    if ( getCommandType() == Hack::CommandType::addressing )
     {
         return m_command.substr( 1 );
     }

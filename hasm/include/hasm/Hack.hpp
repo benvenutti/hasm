@@ -1,22 +1,29 @@
 #pragma once
 
 #include <cstdint>
+#include <limits>
 #include <string>
 #include <unordered_map>
 
-constexpr uint16_t operator"" _w( unsigned long long value )
-{
-    return static_cast< uint16_t >( value );
-}
-
-namespace Hasm
-{
-namespace Hack
+namespace Hasm::Hack
 {
 
 using word = uint16_t;
 
-constexpr word init_ram_address{ 16_w };
+} // namespace Hasm::Hack
+
+constexpr Hasm::Hack::word operator"" _w( unsigned long long value )
+{
+    return static_cast< Hasm::Hack::word >( value );
+}
+
+namespace Hasm::Hack
+{
+
+const word init_ram_address{ 16_w };
+
+// max value for unsigned 15 bit number
+const word max_loadable_value = std::numeric_limits< word >::max() >> 1;
 
 const std::unordered_map< std::string, word > predefined_symbols{
     { "SP", 0x0_w },  { "LCL", 0x1_w }, { "ARG", 0x2_w }, { "THIS", 0x3_w },      { "THAT", 0x4_w },  { "R0", 0x0_w },
@@ -25,5 +32,11 @@ const std::unordered_map< std::string, word > predefined_symbols{
     { "R13", 0xD_w }, { "R14", 0xE_w }, { "R15", 0xF_w }, { "SCREEN", 0x4000_w }, { "KBD", 0x6000_w }
 };
 
-} // namespace Hack
-} // namespace Hasm
+enum class CommandType
+{
+    addressing,  /// A-Command
+    computation, /// C-Command
+    label        /// L-Command
+};
+
+} // namespace Hasm::Hack

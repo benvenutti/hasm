@@ -33,7 +33,7 @@ bool Assembler::firstPass()
 
     while ( m_parser.advance() )
     {
-        if ( m_parser.getCommandType() == CommandType::label )
+        if ( m_parser.getCommandType() == Hack::CommandType::label )
         {
             m_symbolTable.addEntry( m_parser.symbol(), lineCounter );
         }
@@ -65,13 +65,13 @@ bool Assembler::secondPass()
     return ok;
 }
 
-bool Assembler::assembleCommand( const CommandType commandType )
+bool Assembler::assembleCommand( const Hack::CommandType commandType )
 {
     switch ( commandType )
     {
-        case CommandType::addressing:
+        case Hack::CommandType::addressing:
             return assembleACommand();
-        case CommandType::computation:
+        case Hack::CommandType::computation:
             return assembleCCommand();
         default:
             return true;
@@ -139,7 +139,7 @@ Hack::word Assembler::computeValue( const std::string& symbol )
 
 bool Assembler::isValidValue( const Hack::word value ) const
 {
-    return value <= max_loadable_value;
+    return value <= Hack::max_loadable_value;
 }
 
 void Assembler::output( const Hack::word word )
