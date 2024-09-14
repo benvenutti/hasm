@@ -27,13 +27,12 @@ add_library(
 
 target_compile_features(hack_assembler PUBLIC cxx_std_20)
 
-set_target_properties(hack_assembler PROPERTIES COMPILE_WARNING_AS_ERROR ON)
-
 set_target_properties(
   hack_assembler
   PROPERTIES
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
+    COMPILE_WARNING_AS_ERROR ON
 )
 
 configure_file(
