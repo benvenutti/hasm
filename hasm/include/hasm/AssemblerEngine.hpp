@@ -14,7 +14,7 @@ class SymbolTable;
 class AssemblerEngine
 {
 public:
-    AssemblerEngine( const Assembler::Logger& logger );
+    AssemblerEngine( Assembler::Logger logger );
 
     bool run( const AssemblerEngineConfig& config ) const;
 
@@ -23,7 +23,7 @@ private:
     bool exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const;
     void outputSymbolTable( std::ostream& out, const SymbolTable& table ) const;
 
-    const Assembler::Logger& m_logger;
+    const Assembler::Logger m_logger;
 };
 
 } // namespace Hasm

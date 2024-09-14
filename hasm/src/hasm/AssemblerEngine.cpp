@@ -5,13 +5,18 @@
 
 #include <format>
 #include <fstream>
+#include <stdexcept>
 
 namespace Hasm
 {
 
-AssemblerEngine::AssemblerEngine( const Assembler::Logger& logger )
-: m_logger{ logger }
+AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
+: m_logger{ std::move( logger ) }
 {
+    if ( !m_logger )
+    {
+        throw std::logic_error( "invalid logger" );
+    }
 }
 
 bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const

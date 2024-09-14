@@ -87,7 +87,7 @@ SCENARIO_METHOD( FixtureAddProgram, "assemble program without labels", "[Assembl
 {
     std::stringstream binResult;
 
-    Hasm::Assembler assembler{ asmCode, binResult, {} };
+    Hasm::Assembler assembler{ asmCode, binResult, []( const auto& ) {} };
     assembler.assemble();
 
     REQUIRE( binResult.str() == binCode.str() );
@@ -97,7 +97,7 @@ SCENARIO_METHOD( FixtureRectProgram, "assemble program with labels", "[Assembler
 {
     std::stringstream binResult;
 
-    Hasm::Assembler assembler{ asmCode, binResult, {} };
+    Hasm::Assembler assembler{ asmCode, binResult, []( const auto& ) {} };
     assembler.assemble();
 
     REQUIRE( binResult.str() == binCode.str() );
