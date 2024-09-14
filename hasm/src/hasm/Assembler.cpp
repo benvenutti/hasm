@@ -6,6 +6,7 @@
 #include <bitset>
 #include <cctype>
 #include <iomanip>
+#include <stdexcept>
 
 namespace Hasm
 {
@@ -15,6 +16,10 @@ Assembler::Assembler( std::istream& in, std::ostream& out, const Logger& logger 
 , m_parser( in )
 , m_logger( logger )
 {
+    if ( !m_logger )
+    {
+        throw std::logic_error( "invalid logger" );
+    }
 }
 
 bool Assembler::assemble()
