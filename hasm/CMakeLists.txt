@@ -12,6 +12,7 @@ add_library(
   include/hasm/HackGrammar.hpp
   include/hasm/HackLex.hpp
   include/hasm/Parser.hpp
+  include/hasm/PredefinedSymbols.hpp
   include/hasm/SymbolTable.hpp
   include/hasm/SymbolTableWriter.hpp
   src/hasm/Assembler.cpp

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <hasm/Parser.hpp>
+#include <hasm/PredefinedSymbols.hpp>
 #include <hasm/SymbolTable.hpp>
 
 #include <Hack/Hack.hpp>
@@ -37,7 +38,7 @@ private:
 
     std::ostream& m_out;
     Parser        m_parser;
-    SymbolTable   m_symbolTable{ Hack::predefined_symbols };
+    SymbolTable   m_symbolTable{ predefined_symbols };
     Hack::word    m_ramAddress{ Hack::init_ram_address };
     const Logger& m_logger;
 };
