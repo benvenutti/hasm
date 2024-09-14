@@ -8,7 +8,6 @@ add_library(
   include/hasm/AssemblerEngineConfig.hpp
   include/hasm/Coder.hpp
   include/hasm/ErrorMessage.hpp
-  include/hasm/Hack.hpp
   include/hasm/HackCommandParser.hpp
   include/hasm/HackGrammar.hpp
   include/hasm/HackLex.hpp

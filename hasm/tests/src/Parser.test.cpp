@@ -50,21 +50,21 @@ SCENARIO_METHOD( Fixture, "commands types", "[Parser]" )
     Hasm::Parser parser{ asmProgram };
 
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::addressing );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::addressing );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::computation );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::computation );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::addressing );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::addressing );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::computation );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::computation );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::computation );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::computation );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::label );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::label );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::addressing );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::addressing );
     REQUIRE( parser.advance() );
-    REQUIRE( parser.getCommandType() == Hasm::Hack::CommandType::computation );
+    REQUIRE( parser.getCommandType() == Hack::CommandType::computation );
 }
 
 SCENARIO_METHOD( Fixture, "line number", "[Parser]" )

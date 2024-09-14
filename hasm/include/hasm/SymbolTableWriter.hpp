@@ -1,6 +1,6 @@
 #pragma once
 
-#include <hasm/Hack.hpp>
+#include <Hack/Hack.hpp>
 
 #include <map>
 #include <ostream>
@@ -18,7 +18,7 @@ public:
     void write( std::ostream& out );
 
 private:
-    std::multimap< ::Hack::word, std::string > m_symbolMap;
+    std::multimap< Hack::word, std::string > m_symbolMap;
 };
 
 } // namespace Hasm
