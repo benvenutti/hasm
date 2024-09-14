@@ -9,21 +9,21 @@ namespace Hasm
 
 bool HackCommandParser::isComputationCommand( const std::string& cmd )
 {
-    static const std::regex regex{ Hack::Grammar::computation_command };
+    static const std::regex regex{ Grammar::computation_command };
 
     return std::regex_match( cmd, regex );
 }
 
 bool HackCommandParser::isLabelCommand( const std::string& cmd )
 {
-    static const std::regex regex{ Hack::Grammar::label };
+    static const std::regex regex{ Grammar::label };
 
     return std::regex_match( cmd, regex );
 }
 
 bool HackCommandParser::isLoadCommand( const std::string& cmd )
 {
-    static const std::regex regex{ Hack::Grammar::load };
+    static const std::regex regex{ Grammar::load };
 
     return std::regex_match( cmd, regex );
 }

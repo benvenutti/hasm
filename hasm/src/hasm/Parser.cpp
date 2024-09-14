@@ -19,7 +19,7 @@ void removeSpaces( std::string& str )
 
 void removeComment( std::string& str )
 {
-    const auto pos = str.find( Hasm::Hack::Lex::line_comment );
+    const auto pos = str.find( Hasm::Lex::line_comment );
     if ( pos != std::string::npos )
     {
         str.erase( pos, str.size() );
@@ -66,8 +66,7 @@ const std::string& Parser::getInstruction() const
     return m_instruction;
 }
 
-// TODO: fix the need to ::Hack
-std::optional< ::Hack::InstructionType > Parser::getInstructionType() const
+std::optional< Hack::InstructionType > Parser::getInstructionType() const
 {
     return m_instructionType;
 }
@@ -120,8 +119,7 @@ bool Parser::advance()
 
 std::string Parser::symbol() const
 {
-    // TODO: fix the need to ::Hack
-    if ( getInstructionType() == ::Hack::InstructionType::addressing )
+    if ( getInstructionType() == Hack::InstructionType::addressing )
     {
         return m_instruction.substr( 1 );
     }
