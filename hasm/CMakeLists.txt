@@ -8,11 +8,11 @@ add_library(
   include/hasm/AssemblerEngineConfig.hpp
   include/hasm/Coder.hpp
   include/hasm/ErrorMessage.hpp
-  include/hasm/Hack.hpp
   include/hasm/HackCommandParser.hpp
   include/hasm/HackGrammar.hpp
   include/hasm/HackLex.hpp
   include/hasm/Parser.hpp
+  include/hasm/PredefinedSymbols.hpp
   include/hasm/SymbolTable.hpp
   include/hasm/SymbolTableWriter.hpp
   src/hasm/Assembler.cpp
@@ -46,6 +46,12 @@ target_include_directories(
   PUBLIC
     include
     ${PROJECT_BINARY_DIR}/include
+)
+
+target_link_libraries(
+  hack_assembler
+  PUBLIC
+    hack
 )
 
 # tests:

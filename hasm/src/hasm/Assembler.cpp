@@ -33,7 +33,7 @@ bool Assembler::firstPass()
 
     while ( m_parser.advance() )
     {
-        if ( m_parser.getCommandType() == Hack::CommandType::label )
+        if ( m_parser.getInstructionType() == Hack::InstructionType::label )
         {
             m_symbolTable.addEntry( m_parser.symbol(), lineCounter );
         }
@@ -52,9 +52,9 @@ bool Assembler::secondPass()
 
     while ( ok && m_parser.advance() )
     {
-        if ( const auto commandType = m_parser.getCommandType() )
+        if ( const auto commandType = m_parser.getInstructionType() )
         {
-            ok = assembleCommand( commandType.value() );
+            ok = assembleInstruction( commandType.value() );
         }
         else
         {
@@ -65,20 +65,20 @@ bool Assembler::secondPass()
     return ok;
 }
 
-bool Assembler::assembleCommand( const Hack::CommandType commandType )
+bool Assembler::assembleInstruction( const Hack::InstructionType instructionType )
 {
-    switch ( commandType )
+    switch ( instructionType )
     {
-        case Hack::CommandType::addressing:
-            return assembleACommand();
-        case Hack::CommandType::computation:
-            return assembleCCommand();
+        case Hack::InstructionType::addressing:
+            return assembleAddressingInstruction();
+        case Hack::InstructionType::computation:
+            return assembleComputationInstruction();
         default:
             return true;
     }
 }
 
-bool Assembler::assembleACommand()
+bool Assembler::assembleAddressingInstruction()
 {
     const auto symbol  = m_parser.symbol();
     const auto value   = computeValue( symbol );
@@ -98,13 +98,13 @@ bool Assembler::assembleACommand()
 
 void Assembler::displayInvalidACommandMessage()
 {
-    const auto cmd        = m_parser.getCommand();
+    const auto cmd        = m_parser.getInstruction();
     const auto lineNumber = m_parser.getCurrentLineNumber();
 
     m_logger( ErrorMessage::invalidLoadValue( cmd, lineNumber ) );
 }
 
-bool Assembler::assembleCCommand()
+bool Assembler::assembleComputationInstruction()
 {
     Hack::word cc{ 0_w };
 

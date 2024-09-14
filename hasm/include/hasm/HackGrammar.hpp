@@ -4,11 +4,7 @@
 
 #include <string>
 
-namespace Hasm
-{
-namespace Hack
-{
-namespace Grammar
+namespace Hasm::Grammar
 {
 
 // clang-format off
@@ -201,6 +197,4 @@ const std::string computation_command{
 
 // clang-format on
 
-} // namespace Grammar
-} // namespace Hack
-} // namespace Hasm
+} // namespace Hasm::Grammar

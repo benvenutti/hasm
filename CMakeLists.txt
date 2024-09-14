@@ -87,6 +87,7 @@ endif()
 
 # subdirectories:
 
+add_subdirectory(hack)
 add_subdirectory(hasm)
 add_subdirectory(utilities)
 

@@ -38,7 +38,7 @@ Hack::word Coder::comp( const std::string& mnemonic )
         std::replace( m.begin(), m.end(), 'M', 'A' );
     }
 
-    Hack::word comp;
+    Hack::word comp{};
 
     if ( m == "0" )
     {

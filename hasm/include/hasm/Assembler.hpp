@@ -1,8 +1,11 @@
 #pragma once
 
-#include <hasm/Hack.hpp>
 #include <hasm/Parser.hpp>
+#include <hasm/PredefinedSymbols.hpp>
 #include <hasm/SymbolTable.hpp>
+
+#include <Hack/Hack.hpp>
+#include <Hack/InstructionType.hpp>
 
 #include <functional>
 #include <istream>
@@ -25,9 +28,9 @@ public:
 private:
     bool       firstPass();
     bool       secondPass();
-    bool       assembleCommand( Hack::CommandType commandType );
-    bool       assembleACommand();
-    bool       assembleCCommand();
+    bool       assembleInstruction( Hack::InstructionType instructionType );
+    bool       assembleAddressingInstruction();
+    bool       assembleComputationInstruction();
     Hack::word computeValue( const std::string& symbol );
     bool       isValidValue( Hack::word value ) const;
     void       output( Hack::word word );
@@ -35,7 +38,7 @@ private:
 
     std::ostream& m_out;
     Parser        m_parser;
-    SymbolTable   m_symbolTable{ Hack::predefined_symbols };
+    SymbolTable   m_symbolTable{ predefined_symbols };
     Hack::word    m_ramAddress{ Hack::init_ram_address };
     const Logger& m_logger;
 };

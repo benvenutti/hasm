@@ -2,11 +2,7 @@
 
 #include <string>
 
-namespace Hasm
-{
-namespace Hack
-{
-namespace Lex
+namespace Hasm::Lex
 {
 
 const std::string id{ "([[:alpha:]]|_|\\.|\\$|:)(\\w|\\.|\\$|:)*" };
@@ -40,6 +36,4 @@ const std::string jump_JEQ{ "JEQ" };
 const std::string jump_JNE{ "JNE" };
 const std::string jump_JMP{ "JMP" };
 
-} // namespace Lex
-} // namespace Hack
-} // namespace Hasm
+} // namespace Hasm::Lex

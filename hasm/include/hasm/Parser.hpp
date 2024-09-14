@@ -1,6 +1,6 @@
 #pragma once
 
-#include <hasm/Hack.hpp>
+#include <Hack/InstructionType.hpp>
 
 #include <istream>
 #include <optional>
@@ -15,8 +15,8 @@ public:
     enum class Status
     {
         start_of_file,
-        valid_command,
-        invalid_command,
+        valid_instruction,
+        invalid_instruction,
         end_of_file
     };
 
@@ -24,10 +24,10 @@ public:
 
     bool advance();
 
-    Status                             getStatus() const;
-    const std::string&                 getCommand() const;
-    std::optional< Hack::CommandType > getCommandType() const;
-    size_t                             getCurrentLineNumber() const;
+    Status                                 getStatus() const;
+    const std::string&                     getInstruction() const;
+    std::optional< Hack::InstructionType > getInstructionType() const;
+    size_t                                 getCurrentLineNumber() const;
 
     std::string symbol() const;
     std::string dest() const;
@@ -39,13 +39,13 @@ public:
 private:
     bool readNextLine( std::string& str );
 
-    void setCommand( std::string command );
+    void setInstruction( std::string instruction );
 
-    std::istream&                      m_input;
-    std::string                        m_command{};
-    std::optional< Hack::CommandType > m_commandType{};
-    size_t                             m_lineNumber{ 0u };
-    Status                             m_status{ Status::start_of_file };
+    std::istream&                          m_input;
+    std::string                            m_instruction{};
+    std::optional< Hack::InstructionType > m_instructionType{};
+    size_t                                 m_lineNumber{ 0u };
+    Status                                 m_status{ Status::start_of_file };
 };
 
 } // namespace Hasm
