@@ -12,7 +12,7 @@ struct RequestVisitor
 {
     bool operator()( const Utilities::CommandLineParser::Config& config ) const
     {
-        const Hasm::AssemblerEngine assembler{};
+        const Hasm::AssemblerEngine assembler{ []( const auto& log ) { std::cout << log << std::endl; } };
 
         return assembler.run( { config.inputFile, config.exportSymbols } );
     }

@@ -14,7 +14,7 @@ class SymbolTable;
 class AssemblerEngine
 {
 public:
-    AssemblerEngine( const Assembler::Logger& logger = {} );
+    AssemblerEngine( const Assembler::Logger& logger );
 
     bool run( const AssemblerEngineConfig& config ) const;
 

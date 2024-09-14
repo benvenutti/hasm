@@ -3,8 +3,8 @@
 #include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/SymbolTableWriter.hpp>
 
+#include <format>
 #include <fstream>
-#include <iostream>
 
 namespace Hasm
 {
@@ -25,7 +25,7 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
 
     if ( !inputFile.good() )
     {
-        std::cerr << "error: unable to open input stream" << std::endl;
+        m_logger( "error: unable to open input stream" );
 
         return false;
     }
@@ -37,7 +37,7 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
 
     if ( !outputFile.good() )
     {
-        std::cerr << "error: unable to open " << outputPath << std::endl;
+        m_logger( std::format( R"(error: unable to open "{}")", outputPath.string() ) );
 
         return false;
     }
@@ -72,7 +72,7 @@ bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& config, co
 
     if ( !outStream.good() )
     {
-        std::cerr << "error: unable to open output stream" << std::endl;
+        m_logger( "error: unable to open output stream" );
 
         return false;
     }
@@ -95,14 +95,14 @@ bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
 
     if ( !std::filesystem::is_regular_file( path, errorCode ) )
     {
-        std::cerr << "error: input \"" << path << "\"is not a file" << std::endl;
+        m_logger( std::format( R"(error: input "{}" is not a file)", path.string() ) );
 
         return false;
     }
 
     if ( path.extension() != ".asm" )
     {
-        std::cerr << "error: input file must have .asm extension" << std::endl;
+        m_logger( "error: input file must have .asm extension" );
 
         return false;
     }
