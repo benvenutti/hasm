@@ -34,7 +34,6 @@ private:
     Hack::word computeValue( const std::string& symbol );
     bool       isValidValue( Hack::word value ) const;
     void       output( Hack::word word );
-    void       displayInvalidACommandMessage();
 
     std::ostream& m_out;
     Parser        m_parser;

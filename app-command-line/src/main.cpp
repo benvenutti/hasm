@@ -12,9 +12,18 @@ struct RequestVisitor
 {
     bool operator()( const Utilities::CommandLineParser::Config& config ) const
     {
-        const Hasm::AssemblerEngine assembler{ []( const auto& log ) { std::cout << log << std::endl; } };
+        try
+        {
+            const Hasm::AssemblerEngine assembler{ []( const auto& log ) { std::cout << log << std::endl; } };
 
-        return assembler.run( { config.inputFile, config.exportSymbols } );
+            return assembler.run( { config.inputFile, config.exportSymbols } );
+        }
+        catch ( const std::exception& exception )
+        {
+            std::cerr << exception.what() << std::endl;
+
+            return false;
+        }
     }
 
     bool operator()( const Utilities::CommandLineParser::RequestToPrintHelp& help ) const
