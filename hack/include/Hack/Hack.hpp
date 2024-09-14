@@ -21,11 +21,4 @@ const std::unordered_map< std::string, Hack::word > predefined_symbols{
     { "R13", 0xD_w }, { "R14", 0xE_w }, { "R15", 0xF_w }, { "SCREEN", 0x4000_w }, { "KBD", 0x6000_w }
 };
 
-enum class CommandType
-{
-    addressing,  /// A-Command
-    computation, /// C-Command
-    label        /// L-Command
-};
-
 } // namespace Hack

@@ -3,6 +3,7 @@
 add_library(
   hack
   INTERFACE
+  include/Hack/InstructionType.hpp
   include/Hack/Hack.hpp
   include/Hack/Word.hpp
 )

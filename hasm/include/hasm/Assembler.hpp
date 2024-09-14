@@ -4,6 +4,7 @@
 #include <hasm/SymbolTable.hpp>
 
 #include <Hack/Hack.hpp>
+#include <Hack/InstructionType.hpp>
 
 #include <functional>
 #include <istream>
@@ -26,9 +27,9 @@ public:
 private:
     bool       firstPass();
     bool       secondPass();
-    bool       assembleCommand( Hack::CommandType commandType );
-    bool       assembleACommand();
-    bool       assembleCCommand();
+    bool       assembleInstruction( Hack::InstructionType instructionType );
+    bool       assembleAddressingInstruction();
+    bool       assembleComputationInstruction();
     Hack::word computeValue( const std::string& symbol );
     bool       isValidValue( Hack::word value ) const;
     void       output( Hack::word word );
