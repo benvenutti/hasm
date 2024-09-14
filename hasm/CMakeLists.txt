@@ -48,6 +48,12 @@ target_include_directories(
     ${PROJECT_BINARY_DIR}/include
 )
 
+target_link_libraries(
+  hack_assembler
+  PUBLIC
+    hack
+)
+
 # tests:
 
 if(BUILD_TESTS)

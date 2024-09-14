@@ -28,15 +28,15 @@ private:
     bool       assembleCommand( Hack::CommandType commandType );
     bool       assembleACommand();
     bool       assembleCCommand();
-    Hack::word computeValue( const std::string& symbol );
-    bool       isValidValue( Hack::word value ) const;
-    void       output( Hack::word word );
+    ::Hack::word computeValue( const std::string& symbol );
+    bool         isValidValue( ::Hack::word value ) const;
+    void         output( ::Hack::word word );
     void       displayInvalidACommandMessage();
 
     std::ostream& m_out;
     Parser        m_parser;
     SymbolTable   m_symbolTable{ Hack::predefined_symbols };
-    Hack::word    m_ramAddress{ Hack::init_ram_address };
+    ::Hack::word  m_ramAddress{ Hack::init_ram_address };
     const Logger& m_logger;
 };
 
