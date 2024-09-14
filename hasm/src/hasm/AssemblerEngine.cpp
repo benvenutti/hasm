@@ -1,6 +1,5 @@
 #include <hasm/AssemblerEngine.hpp>
 
-#include <hasm/Assembler.hpp>
 #include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/SymbolTableWriter.hpp>
 
@@ -9,6 +8,11 @@
 
 namespace Hasm
 {
+
+AssemblerEngine::AssemblerEngine( const Assembler::Logger& logger )
+: m_logger{ logger }
+{
+}
 
 bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
 {
@@ -38,7 +42,7 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
         return false;
     }
 
-    Assembler hasm{ inputFile, outputFile, []( const auto& message ) { std::cout << message << std::endl; } };
+    Assembler hasm{ inputFile, outputFile, m_logger };
     bool      isOk{ hasm.assemble() };
 
     if ( config.exportSymbols() )
