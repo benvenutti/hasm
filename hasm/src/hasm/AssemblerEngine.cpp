@@ -9,8 +9,8 @@
 namespace Hasm
 {
 
-AssemblerEngine::AssemblerEngine( const Assembler::Logger& logger )
-: m_logger{ logger }
+AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
+: m_logger{ std::move( logger ) }
 {
 }
 
