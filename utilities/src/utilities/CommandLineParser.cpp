@@ -38,8 +38,10 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
     {
         return Error{ exception.what() };
     }
-
-    return Error{};
+    catch ( ... )
+    {
+        return Error{};
+    }
 }
 
 } // namespace Utilities
