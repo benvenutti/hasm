@@ -43,6 +43,11 @@ bool Assembler::firstPass()
         }
     }
 
+    if ( m_parser.getStatus() == Parser::Status::invalid_instruction )
+    {
+        m_logger( ErrorMessage::invalidInstruction( m_parser.getInstruction(), m_parser.getCurrentLineNumber() ) );
+    }
+
     return m_parser.getStatus() == Parser::Status::end_of_file;
 }
 

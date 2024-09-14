@@ -20,7 +20,7 @@ class Assembler
 public:
     using Logger = std::function< void( const std::string& message ) >;
 
-    Assembler( std::istream& in, std::ostream& out, const Logger& logger = {} );
+    Assembler( std::istream& in, std::ostream& out, const Logger& logger );
 
     bool               assemble();
     const SymbolTable& getSymbolTable() const;
