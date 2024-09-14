@@ -10,13 +10,12 @@ add_library(
 
 target_compile_features(hack INTERFACE cxx_std_20)
 
-set_target_properties(hack PROPERTIES COMPILE_WARNING_AS_ERROR ON)
-
 set_target_properties(
   hack
   PROPERTIES
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
+    COMPILE_WARNING_AS_ERROR ON
 )
 
 target_include_directories(
