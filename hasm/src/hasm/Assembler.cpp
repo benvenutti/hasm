@@ -92,26 +92,17 @@ bool Assembler::assembleAddressingInstruction()
 {
     const auto symbol  = m_parser.symbol();
     const auto value   = computeValue( symbol );
-    const auto isValid = isValidValue( value );
 
-    if ( isValid )
+    if ( isValidValue( value ) )
     {
         output( value );
-    }
-    else
-    {
-        displayInvalidACommandMessage();
+
+        return true;
     }
 
-    return isValid;
-}
+    m_logger( ErrorMessage::invalidLoadValue( m_parser.getInstruction(), m_parser.getCurrentLineNumber() ) );
 
-void Assembler::displayInvalidACommandMessage()
-{
-    const auto cmd        = m_parser.getInstruction();
-    const auto lineNumber = m_parser.getCurrentLineNumber();
-
-    m_logger( ErrorMessage::invalidLoadValue( cmd, lineNumber ) );
+    return false;
 }
 
 bool Assembler::assembleComputationInstruction()
