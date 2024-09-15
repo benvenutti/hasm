@@ -28,17 +28,17 @@ void removeComment( std::string& str )
 
 std::optional< Hack::InstructionType > instructionType( const std::string& instruction )
 {
-    if ( Hasm::InstructionParser::isLoadCommand( instruction ) )
+    if ( Hasm::InstructionParser::isLoad( instruction ) )
     {
         return Hack::InstructionType::addressing;
     }
 
-    if ( Hasm::InstructionParser::isLabelCommand( instruction ) )
+    if ( Hasm::InstructionParser::isLabel( instruction ) )
     {
         return Hack::InstructionType::label;
     }
 
-    if ( Hasm::InstructionParser::isComputationCommand( instruction ) )
+    if ( Hasm::InstructionParser::isComputation( instruction ) )
     {
         return Hack::InstructionType::computation;
     }

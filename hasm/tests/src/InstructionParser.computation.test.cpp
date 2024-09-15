@@ -54,45 +54,45 @@ SCENARIO( "parse valid computations", "[InstructionParser]" )
 {
     for ( const auto& computation : allComps )
     {
-        REQUIRE( Hasm::InstructionParser::isComputationCommand( computation ) );
+        REQUIRE( Hasm::InstructionParser::isComputation( computation ) );
     }
 }
 
 SCENARIO( "parse invalid computations", "[InstructionParser]" )
 {
     // invalid computations
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D+X" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D+X" ) );
 
     // invalid destinations
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "X=D+A" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "1=D+A" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "=D+A" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=X" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=2" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "X=D+A" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "1=D+A" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "=D+A" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=X" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=2" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=" ) );
 
     // invalid computation and valid jump
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "X;JMP" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "2;JGT" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( ";JGE" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "X;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "2;JGT" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( ";JGE" ) );
 
     // valid computation and invalid jump
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D;JM" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D;JG" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D;" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D;JM" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D;JG" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D;" ) );
 
     // invalid destination, valid computation and jump
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "d=D+1;JMP" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "0=D+1;JMP" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "=D+1;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "d=D+1;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "0=D+1;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "=D+1;JMP" ) );
 
     // valid destination, invalid computation and valid jump
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=d+1;JMP" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=D+;JMP" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=d+1;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=D+;JMP" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=;JMP" ) );
 
     // valid destination and computation, invalid jump
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=A+1;jmp" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=D+1;JM" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isComputationCommand( "D=M+1;" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=A+1;jmp" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=D+1;JM" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isComputation( "D=M+1;" ) );
 }

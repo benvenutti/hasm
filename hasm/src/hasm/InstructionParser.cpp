@@ -7,25 +7,25 @@
 namespace Hasm
 {
 
-bool InstructionParser::isComputationCommand( const std::string& cmd )
+bool InstructionParser::isComputation( const std::string& instruction )
 {
     static const std::regex regex{ Grammar::computation_command };
 
-    return std::regex_match( cmd, regex );
+    return std::regex_match( instruction, regex );
 }
 
-bool InstructionParser::isLabelCommand( const std::string& cmd )
+bool InstructionParser::isLabel( const std::string& instruction )
 {
     static const std::regex regex{ Grammar::label };
 
-    return std::regex_match( cmd, regex );
+    return std::regex_match( instruction, regex );
 }
 
-bool InstructionParser::isLoadCommand( const std::string& cmd )
+bool InstructionParser::isLoad( const std::string& instruction )
 {
     static const std::regex regex{ Grammar::load };
 
-    return std::regex_match( cmd, regex );
+    return std::regex_match( instruction, regex );
 }
 
 } // namespace Hasm

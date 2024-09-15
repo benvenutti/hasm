@@ -5,8 +5,8 @@
 namespace Hasm::InstructionParser
 {
 
-bool isComputationCommand( const std::string& cmd );
-bool isLabelCommand( const std::string& cmd );
-bool isLoadCommand( const std::string& cmd );
+bool isComputation( const std::string& instruction );
+bool isLabel( const std::string& instruction );
+bool isLoad( const std::string& instruction );
 
 } // namespace Hasm::InstructionParser

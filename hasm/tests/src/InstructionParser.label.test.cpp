@@ -4,27 +4,27 @@
 
 SCENARIO( "parse valid labels", "[InstructionParser]" )
 {
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(A)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(AA)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(_)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(_A)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(_AA)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(.)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(.A)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(.AA)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "($)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "($A)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "($AA)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(:)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(:A)" ) );
-    REQUIRE( Hasm::InstructionParser::isLabelCommand( "(:AA)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(A)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(AA)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(_)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(_A)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(_AA)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(.)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(.A)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(.AA)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "($)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "($A)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "($AA)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(:)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(:A)" ) );
+    REQUIRE( Hasm::InstructionParser::isLabel( "(:AA)" ) );
 }
 
 SCENARIO( "parse invalid labels", "[InstructionParser]" )
 {
-    REQUIRE_FALSE( Hasm::InstructionParser::isLabelCommand( "()" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isLabelCommand( "(A" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isLabelCommand( "(AA" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isLabelCommand( "A)" ) );
-    REQUIRE_FALSE( Hasm::InstructionParser::isLabelCommand( "AA)" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isLabel( "()" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isLabel( "(A" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isLabel( "(AA" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isLabel( "A)" ) );
+    REQUIRE_FALSE( Hasm::InstructionParser::isLabel( "AA)" ) );
 }
