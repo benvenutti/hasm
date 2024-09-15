@@ -81,13 +81,15 @@ struct FixtureRectProgram
                                "1110101010000111\n" };
 };
 
+const Hasm::Assembler::Logger logger = []( const auto& ) {};
+
 } // namespace
 
 SCENARIO_METHOD( FixtureAddProgram, "assemble program without labels", "[Assembler]" )
 {
     std::stringstream binResult;
 
-    Hasm::Assembler assembler{ asmCode, binResult, []( const auto& ) {} };
+    Hasm::Assembler assembler{ asmCode, binResult, logger };
     assembler.assemble();
 
     REQUIRE( binResult.str() == binCode.str() );
@@ -97,7 +99,7 @@ SCENARIO_METHOD( FixtureRectProgram, "assemble program with labels", "[Assembler
 {
     std::stringstream binResult;
 
-    Hasm::Assembler assembler{ asmCode, binResult, []( const auto& ) {} };
+    Hasm::Assembler assembler{ asmCode, binResult, logger };
     assembler.assemble();
 
     REQUIRE( binResult.str() == binCode.str() );
