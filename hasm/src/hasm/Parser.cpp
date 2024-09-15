@@ -1,8 +1,8 @@
 #include <hasm/Parser.hpp>
 
 #include <hasm/ErrorMessage.hpp>
-#include <hasm/HackCommandParser.hpp>
 #include <hasm/HackLex.hpp>
+#include <hasm/InstructionParser.hpp>
 
 #include <algorithm>
 #include <cctype>
@@ -28,17 +28,17 @@ void removeComment( std::string& str )
 
 std::optional< Hack::InstructionType > instructionType( const std::string& instruction )
 {
-    if ( Hasm::HackCommandParser::isLoadCommand( instruction ) )
+    if ( Hasm::InstructionParser::isLoadCommand( instruction ) )
     {
         return Hack::InstructionType::addressing;
     }
 
-    if ( Hasm::HackCommandParser::isLabelCommand( instruction ) )
+    if ( Hasm::InstructionParser::isLabelCommand( instruction ) )
     {
         return Hack::InstructionType::label;
     }
 
-    if ( Hasm::HackCommandParser::isComputationCommand( instruction ) )
+    if ( Hasm::InstructionParser::isComputationCommand( instruction ) )
     {
         return Hack::InstructionType::computation;
     }
