@@ -32,7 +32,6 @@ private:
     bool       assembleAddressingInstruction();
     bool       assembleComputationInstruction();
     Hack::word computeValue( const std::string& symbol );
-    bool       isValidValue( Hack::word value ) const;
     void       output( Hack::word word );
 
     std::ostream& m_out;
