@@ -3,9 +3,9 @@ add_executable(
   src/Assembler.test.cpp
   src/AssemblerEngineConfig.test.cpp
   src/Coder.test.cpp
-  src/HackCommandParser.computation.test.cpp
-  src/HackCommandParser.label.test.cpp
-  src/HackCommandParser.load.test.cpp
+  src/InstructionParser.computation.test.cpp
+  src/InstructionParser.label.test.cpp
+  src/InstructionParser.load.test.cpp
   src/Parser.test.cpp
   src/SymbolTable.test.cpp
 )
