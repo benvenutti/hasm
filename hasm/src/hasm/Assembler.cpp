@@ -93,7 +93,7 @@ bool Assembler::assembleAddressingInstruction()
     const auto symbol  = m_parser.symbol();
     const auto value   = computeValue( symbol );
 
-    if ( isValidValue( value ) )
+    if ( value <= Hack::max_loadable_value )
     {
         output( value );
 
@@ -136,11 +136,6 @@ Hack::word Assembler::computeValue( const std::string& symbol )
     }
 
     return value;
-}
-
-bool Assembler::isValidValue( const Hack::word value ) const
-{
-    return value <= Hack::max_loadable_value;
 }
 
 void Assembler::output( const Hack::word word )

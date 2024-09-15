@@ -8,9 +8,9 @@ add_library(
   include/hasm/AssemblerEngineConfig.hpp
   include/hasm/Coder.hpp
   include/hasm/ErrorMessage.hpp
-  include/hasm/HackCommandParser.hpp
   include/hasm/HackGrammar.hpp
   include/hasm/HackLex.hpp
+  include/hasm/InstructionParser.hpp
   include/hasm/Parser.hpp
   include/hasm/PredefinedSymbols.hpp
   include/hasm/SymbolTable.hpp
@@ -19,7 +19,7 @@ add_library(
   src/hasm/AssemblerEngine.cpp
   src/hasm/Coder.cpp
   src/hasm/ErrorMessage.cpp
-  src/hasm/HackCommandParser.cpp
+  src/hasm/InstructionParser.cpp
   src/hasm/Parser.cpp
   src/hasm/SymbolTable.cpp
   src/hasm/SymbolTableWriter.cpp
