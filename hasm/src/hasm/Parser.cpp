@@ -78,15 +78,14 @@ size_t Parser::getCurrentLineNumber() const
 
 bool Parser::readNextLine( std::string& str )
 {
-    bool hasRead{ false };
-
-    if ( getline( m_input, str ) )
+    if ( std::getline( m_input, str ) )
     {
         m_lineNumber++;
-        hasRead = true;
+
+        return true;
     }
 
-    return hasRead;
+    return false;
 }
 
 void Parser::setInstruction( std::string instruction )
