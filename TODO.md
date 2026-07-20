@@ -5,7 +5,6 @@
 - [ ] Add READMEs to other folders
 - [ ] Rewrite root README
 - [ ] Add CHANGELOG
-- [ ] Add GitHub PR template
 
 ## 🐛 Bugs
 

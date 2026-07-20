@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- GitHub pull request template
+
 ### Changed
 
 ### Removed
