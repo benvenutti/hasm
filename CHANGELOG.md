@@ -85,7 +85,27 @@ All notable changes to this project will be documented in this file.
 
 ## [0.2.0] - Nov 19, 2016
 
-Log not available
+### Added
+
+- Add version flag to command line
+- Error messages for invalid assembly code
+- Introduce CMake lib target to enable unit testing
+
+### Changed
+
+- Refactor coding style
+- Remove IDE folder
+- Load instruction accepts integers bigger than 15 bits
+- Decouple AssemblerEngine from command line arguments
+- Load command accepts negative numbers
+
+### Fixed
+
+- Duplicated compiler flag
+- The assembler accepts invalid symbols
+- The assembler accepts invalid computations
+- Program exits with wrong value
+- Exported symbol table has wrong string format
 
 ## [0.1.0] - Aug 8, 2016
 
