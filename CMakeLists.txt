@@ -34,7 +34,7 @@ cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OF
 FetchContent_Declare(
   cli11_proj
   GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
-  GIT_TAG        v2.3.2
+  GIT_TAG        v2.6.2
 )
 
 FetchContent_MakeAvailable(cli11_proj)
