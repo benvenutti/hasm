@@ -7,15 +7,9 @@ add_library(
   src/utilities/CommandLineParser.cpp
 )
 
-target_compile_features(utilities PUBLIC cxx_std_20)
-
-set_target_properties(
-  utilities
-  PROPERTIES
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    COMPILE_WARNING_AS_ERROR ON
-)
+apply_target_options(utilities)
+apply_target_warnings(utilities)
+apply_target_coverage(utilities)
 
 target_include_directories(utilities PUBLIC include)
 

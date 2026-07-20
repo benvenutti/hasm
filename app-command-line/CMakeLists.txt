@@ -2,15 +2,8 @@
 
 add_executable(hasm src/main.cpp)
 
-target_compile_features(hasm PUBLIC cxx_std_20)
-
-set_target_properties(
-  hasm
-  PROPERTIES
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    COMPILE_WARNING_AS_ERROR ON
-)
+apply_target_options(hasm)
+apply_target_warnings(hasm)
 
 target_link_libraries(
   hasm

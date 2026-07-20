@@ -10,15 +10,9 @@ add_executable(
   src/SymbolTable.test.cpp
 )
 
-target_compile_features(hasm_assembler_tests PUBLIC cxx_std_20)
-
-set_target_properties(
-  hasm_assembler_tests
-  PROPERTIES
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    COMPILE_WARNING_AS_ERROR ON
-)
+apply_target_options(hasm_assembler_tests)
+apply_target_warnings(hasm_assembler_tests)
+apply_target_coverage(hasm_assembler_tests)
 
 target_link_libraries(
   hasm_assembler_tests

@@ -3,15 +3,9 @@ add_executable(
   src/CommandLineParser.test.cpp
 )
 
-target_compile_features(utilities_tests PUBLIC cxx_std_20)
-
-set_target_properties(
-  utilities_tests
-  PROPERTIES
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    COMPILE_WARNING_AS_ERROR ON
-)
+apply_target_options(utilities_tests)
+apply_target_warnings(utilities_tests)
+apply_target_coverage(utilities_tests)
 
 target_link_libraries(
   utilities_tests
