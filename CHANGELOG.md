@@ -54,6 +54,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Failing macOS build: bump CLI11 to v2.6.2
 - Coverity Scan issues
 - CMake warnings
 - Illegal memory access in assembler engine

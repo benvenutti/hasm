@@ -11,11 +11,11 @@ Utilities::CommandLineParser::Result createCLIAndParse( const int argc, char con
 {
     CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
 
-    std::filesystem::path inputFile{};
+    std::filesystem::path inputFile;
 
-    const auto inputFileOption = app.add_option( "-i,--input-file", inputFile, "input .asm file" );
+    auto* inputFileOption = app.add_option( "-i,--input-file", inputFile, "input .asm file" );
 
-    bool exportSymbolTable{ false };
+    bool exportSymbolTable = false;
 
     app.add_flag( "-s,--symbol-table", exportSymbolTable, "export symbol table (to <input file>.sym)" )
         ->needs( inputFileOption );
