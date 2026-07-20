@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+### Changed
+
+### Removed
+
+### Fixed
+
 ## [0.3.0] - Jul 20, 2026
 
 ### Added
@@ -113,7 +123,8 @@ All notable changes to this project will be documented in this file.
 
 Log not available
 
-[Unreleased]: https://github.com/benvenutti/hasm/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/benvenutti/hasm/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/benvenutti/hasm/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/benvenutti/hasm/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/benvenutti/hasm/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/benvenutti/hasm/compare/48222141a2ba7e2d7ae0a433914cf3459f9c4051...v0.1.0
