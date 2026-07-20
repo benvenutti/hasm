@@ -6,7 +6,7 @@ project(
   hasm
   DESCRIPTION  "hasm is an assembler for the nand2tetris hack platform"
   HOMEPAGE_URL https://github.com/benvenutti/hasm
-  VERSION      0.2.1
+  VERSION      0.3.0
   LANGUAGES    CXX
 )
 
