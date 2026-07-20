@@ -25,15 +25,9 @@ add_library(
   src/hasm/SymbolTableWriter.cpp
 )
 
-target_compile_features(hack_assembler PUBLIC cxx_std_20)
-
-set_target_properties(
-  hack_assembler
-  PROPERTIES
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    COMPILE_WARNING_AS_ERROR ON
-)
+apply_target_options(hack_assembler)
+apply_target_warnings(hack_assembler)
+apply_target_coverage(hack_assembler)
 
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/hasm/HasmInfo.hpp.in
