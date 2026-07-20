@@ -10,10 +10,18 @@ project(
   LANGUAGES    CXX
 )
 
-# modules:
 
+# cmake modules and scripts:
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# custom modules:
+include(DefaultTargetSettings)
+
+# standard/built-in modules:
 include(CMakeDependentOption)
 include(FetchContent)
+
 
 # project options:
 
