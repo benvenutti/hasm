@@ -63,7 +63,25 @@ All notable changes to this project will be documented in this file.
 
 ## [0.2.1] - Jul 23, 2018
 
-Log not available
+### Added
+
+- Log tests results on dashboard
+- Add clang-format file
+- Add c++14 support
+- Add license badge to README
+- Add clang 3.6 and 3.7 to Travis build
+
+### Changed
+
+- Use Catch2 for unit tests
+- Refactor CMake scripts
+- Sort exported symbol table by address
+- Refactor Hack lexical expressions into smaller units
+- Refactor using clang-tidy
+
+### Fixed
+
+- Wrong values for predefined Hack symbols
 
 ## [0.2.0] - Nov 19, 2016
 
