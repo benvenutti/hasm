@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Added TODO list
 - Project default target settings
 - Group target properties calls in cmake
 - Define hack hardware related target
