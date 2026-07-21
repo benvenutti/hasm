@@ -1,24 +1,30 @@
-add_executable(
-  hasm_assembler_tests
-  src/Assembler.test.cpp
-  src/AssemblerEngineConfig.test.cpp
-  src/Coder.test.cpp
-  src/InstructionParser.computation.test.cpp
-  src/InstructionParser.label.test.cpp
-  src/InstructionParser.load.test.cpp
-  src/Parser.test.cpp
-  src/SymbolTable.test.cpp
+# Test executable:
+
+add_executable(hasm_tests)
+
+apply_target_options(hasm_tests)
+apply_target_warnings(hasm_tests)
+apply_target_coverage(hasm_tests)
+
+target_sources(hasm_tests
+    PRIVATE
+        src/Assembler.test.cpp
+        src/AssemblerEngineConfig.test.cpp
+        src/Coder.test.cpp
+        src/InstructionParser.computation.test.cpp
+        src/InstructionParser.label.test.cpp
+        src/InstructionParser.load.test.cpp
+        src/Parser.test.cpp
+        src/SymbolTable.test.cpp
 )
 
-apply_target_options(hasm_assembler_tests)
-apply_target_warnings(hasm_assembler_tests)
-apply_target_coverage(hasm_assembler_tests)
-
-target_link_libraries(
-  hasm_assembler_tests
-  PRIVATE
-    hasm
-    Catch2::Catch2WithMain
+target_link_libraries(hasm_tests
+    PRIVATE
+        hasm
+        Catch2::Catch2WithMain
 )
 
-add_test(NAME HasmTestSuite COMMAND hasm_assembler_tests)
+add_test(
+    NAME    HasmTestSuite
+    COMMAND hasm_tests
+)
