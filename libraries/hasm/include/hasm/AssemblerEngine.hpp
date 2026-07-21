@@ -19,7 +19,6 @@ public:
     bool run( const AssemblerOptions& options ) const;
 
 private:
-    bool isAsmFile( const std::filesystem::path& path ) const;
     bool exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const;
     void outputSymbolTable( std::ostream& out, const SymbolTable& table ) const;
 

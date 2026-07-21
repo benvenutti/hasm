@@ -9,6 +9,33 @@
 namespace Hasm
 {
 
+namespace
+{
+
+[[nodiscard]] bool isValidInputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
+{
+    if ( std::error_code errorCode; !std::filesystem::is_regular_file( path, errorCode ) )
+    {
+        logger( std::format( R"(error: input "{}" is not a file)", path.string() ) );
+        return false;
+    }
+
+    if ( path.extension() != ".asm" )
+    {
+        logger( "error: input file must have .asm extension" );
+        return false;
+    }
+
+    return true;
+}
+
+[[nodiscard]] bool validateOptions( const AssemblerOptions& options, const Assembler::Logger& logger )
+{
+    return isValidInputFile( options.inputFile(), logger );
+}
+
+} // namespace
+
 AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
 : m_logger{ std::move( logger ) }
 {
@@ -20,7 +47,7 @@ AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
 
 bool AssemblerEngine::run( const AssemblerOptions& options ) const
 {
-    if ( !isAsmFile( options.inputFile() ) )
+    if ( !validateOptions( options, m_logger ) )
     {
         return false;
     }
@@ -91,27 +118,6 @@ void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& t
 {
     SymbolTableWriter tableWriter{ table };
     tableWriter.write( out );
-}
-
-bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
-{
-    std::error_code errorCode{};
-
-    if ( !std::filesystem::is_regular_file( path, errorCode ) )
-    {
-        m_logger( std::format( R"(error: input "{}" is not a file)", path.string() ) );
-
-        return false;
-    }
-
-    if ( path.extension() != ".asm" )
-    {
-        m_logger( "error: input file must have .asm extension" );
-
-        return false;
-    }
-
-    return true;
 }
 
 } // namespace Hasm
