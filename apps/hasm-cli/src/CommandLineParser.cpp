@@ -7,26 +7,25 @@
 namespace
 {
 
-CommandLineParser::Result createCLIAndParse( const int argc, char const* const* argv )
+[[nodiscard]] CommandLineParser::Result parseCommandLine( const int argc, char const* const* argv )
 {
     CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
 
-    std::filesystem::path inputFile;
+    CommandLineParser::ParsedArguments parsedArguments;
 
-    auto* inputFileOption = app.add_option( "-i,--input-file", inputFile, "input .asm file" );
+    app.add_option( "-i,--input-file", parsedArguments.inputFile, "input .asm file" )
+        ->required()
+        ->check( CLI::ExistingFile );
 
-    bool exportSymbolTable = false;
-
-    app.add_flag( "-s,--symbol-table", exportSymbolTable, "export symbol table (to <input file>.sym)" )
-        ->needs( inputFileOption );
-
+    app.add_option( "-o,--output-file", parsedArguments.outputFile, "output .hack file" );
+    app.add_flag( "-s,--symbol-table", parsedArguments.exportSymbols, "export symbol table (to <input file>.sym)" );
     app.set_version_flag( "-v,--version" );
 
     try
     {
         app.parse( argc, argv );
 
-        return CommandLineParser::Config{ std::move( inputFile ), exportSymbolTable };
+        return parsedArguments;
     }
     catch ( const CLI::CallForHelp& )
     {
@@ -44,7 +43,7 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
 {
     try
     {
-        return createCLIAndParse( argc, argv );
+        return parseCommandLine( argc, argv );
     }
     catch ( const std::exception& exception )
     {
@@ -52,6 +51,6 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
     }
     catch ( ... )
     {
-        return Error{};
+        return Error{ "Unknown error" };
     }
 }

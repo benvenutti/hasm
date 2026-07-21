@@ -1,16 +1,18 @@
 #pragma once
 
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <variant>
 
 namespace CommandLineParser
 {
 
-struct Config
+struct ParsedArguments
 {
-    std::filesystem::path inputFile;
-    bool                  exportSymbols;
+    std::filesystem::path                  inputFile;
+    std::optional< std::filesystem::path > outputFile;
+    bool                                   exportSymbols = false;
 };
 
 struct RequestToPrintHelp
@@ -27,8 +29,8 @@ struct Error
     std::string message;
 };
 
-using Result = std::variant< Config, RequestToPrintHelp, RequestToPrintVersion, Error >;
+using Result = std::variant< ParsedArguments, RequestToPrintHelp, RequestToPrintVersion, Error >;
 
-Result parse( int argc, char const* const* argv );
+[[nodiscard]] Result parse( int argc, char const* const* argv );
 
 } // namespace CommandLineParser

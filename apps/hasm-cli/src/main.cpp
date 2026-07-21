@@ -10,14 +10,14 @@
 
 struct RequestVisitor
 {
-    bool operator()( const CommandLineParser::Config& config ) const
+    bool operator()( const CommandLineParser::ParsedArguments& parsedArguments ) const
     {
         try
         {
             const Hasm::AssemblerEngine assembler{ []( const auto& log ) { std::cout << log << std::endl; } };
 
             // TODO: provide output file
-            return assembler.run( { config.inputFile, {}, config.exportSymbols } );
+            return assembler.run( { parsedArguments.inputFile, {}, parsedArguments.exportSymbols } );
         }
         catch ( const std::exception& exception )
         {
@@ -49,7 +49,7 @@ struct RequestVisitor
     }
 };
 
-int main( int argc, char** argv )
+int main( const int argc, char** argv )
 {
     const auto userRequest = CommandLineParser::parse( argc, argv );
 
