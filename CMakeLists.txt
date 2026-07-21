@@ -25,7 +25,7 @@ include(FetchContent)
 
 # project options:
 
-option(BUILD_APP_COMMAND_LINE "Build hasm command line application" ON)
+option(BUILD_HASM_CLI "Build the hasm command-line application" ON)
 option(BUILD_TESTS "Build tests" ON)
 cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
 

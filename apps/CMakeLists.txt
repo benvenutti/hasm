@@ -1,3 +1,3 @@
-if(BUILD_APP_COMMAND_LINE)
+if(BUILD_HASM_CLI)
     add_subdirectory(hasm-cli)
 endif()
