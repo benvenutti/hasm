@@ -1,13 +1,15 @@
-# hasm executable:
+add_executable(hasm-cli)
 
-add_executable(hasm src/main.cpp)
+apply_target_options(hasm-cli)
+apply_target_warnings(hasm-cli)
 
-apply_target_options(hasm)
-apply_target_warnings(hasm)
+target_sources(hasm-cli
+    PRIVATE
+        src/main.cpp
+)
 
-target_link_libraries(
-  hasm
-  PRIVATE
-    hack_assembler
-    utilities
+target_link_libraries(hasm-cli
+    PRIVATE
+        hack_assembler
+        utilities
 )
