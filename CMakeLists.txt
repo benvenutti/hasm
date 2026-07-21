@@ -31,14 +31,6 @@ cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OF
 
 # 3rd party dependencies:
 
-FetchContent_Declare(
-  cli11_proj
-  GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
-  GIT_TAG        v2.6.2
-)
-
-FetchContent_MakeAvailable(cli11_proj)
-
 if(BUILD_TESTS)
   FetchContent_Declare(
     Catch2
