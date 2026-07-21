@@ -10,7 +10,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Project structure: folders, CMake targets and modules reorganised
+
 ### Removed
+
+- `utilities` folder dropped: command line parser moved to new `hasm-cli`
 
 ### Fixed
 

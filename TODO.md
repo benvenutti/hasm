@@ -4,15 +4,17 @@
 
 - [ ] Add READMEs to other folders
 - [ ] Rewrite root README
-- [ ] Add CHANGELOG
+- [ ] Integration tests for `hasm-cli`
+- [x] Add CHANGELOG
 
 ## 🐛 Bugs
 
 ## 🛠️ Tech Debt & Refactoring
 
-- [ ] Rename CMake targets and use ALIASes
-- [ ] Reorganise project folder structure
-- [ ] Drop BUILD_TESTS option and use CTest's BUILD_TESTING
+
+- [ ] Consider using CMake TARGET ALIAS
+- [x] Rename CMake targets
+- [x] Reorganise project folder structure 
 
 ## 🤔 To Think about...
 
