@@ -106,7 +106,7 @@ bool AssemblerEngine::run( const AssemblerOptions& options ) const
 
     if ( success && options.exportSymbols() )
     {
-        success = exportSymbolTable( options.inputFile(), assembler.getSymbolTable(), m_logger );
+        success = exportSymbolTable( options.outputFile(), assembler.getSymbolTable(), m_logger );
     }
 
     return success;
