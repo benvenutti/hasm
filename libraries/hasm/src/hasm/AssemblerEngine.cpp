@@ -1,6 +1,5 @@
 #include <hasm/AssemblerEngine.hpp>
 
-#include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/SymbolTableWriter.hpp>
 
 #include <format>
@@ -9,6 +8,45 @@
 
 namespace Hasm
 {
+
+namespace
+{
+
+[[nodiscard]] bool isValidInputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
+{
+    if ( std::error_code errorCode; !std::filesystem::is_regular_file( path, errorCode ) )
+    {
+        logger( std::format( R"(error: input "{}" is not a file)", path.string() ) );
+        return false;
+    }
+
+    if ( path.extension() != ".asm" )
+    {
+        logger( "error: input file must have .asm extension" );
+        return false;
+    }
+
+    return true;
+}
+
+[[nodiscard]] bool isValidOutputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
+{
+    if ( path.extension() != ".hack" )
+    {
+        logger( "error: output file must have .hack extension" );
+        return false;
+    }
+
+    return true;
+}
+
+[[nodiscard]] bool validateOptions( const AssemblerOptions& options, const Assembler::Logger& logger )
+{
+    return options.inputFile() != options.outputFile() && isValidInputFile( options.inputFile(), logger )
+           && isValidOutputFile( options.outputFile(), logger );
+}
+
+} // namespace
 
 AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
 : m_logger{ std::move( logger ) }
@@ -19,58 +57,44 @@ AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
     }
 }
 
-bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
+bool AssemblerEngine::run( const AssemblerOptions& options ) const
 {
-    if ( !isAsmFile( config.inputFile() ) )
+    if ( !validateOptions( options, m_logger ) )
     {
         return false;
     }
 
-    std::ifstream inputFile{ config.inputFile() };
+    std::ifstream inputFile{ options.inputFile() };
 
-    if ( !inputFile.good() )
+    if ( !inputFile )
     {
-        m_logger( "error: unable to open input stream" );
-
+        m_logger( std::format( R"(error: unable to open input stream "{}")", options.inputFile().string() ) );
         return false;
     }
 
-    auto outputPath = config.inputFile();
-    outputPath.replace_extension( "hack" );
+    std::ofstream outputFile{ options.outputFile() };
 
-    std::ofstream outputFile{ outputPath };
-
-    if ( !outputFile.good() )
+    if ( !outputFile )
     {
-        m_logger( std::format( R"(error: unable to open "{}")", outputPath.string() ) );
-
+        m_logger( std::format( R"(error: unable to open output stream "{}")", options.outputFile().string() ) );
         return false;
     }
 
-    Assembler hasm{ inputFile, outputFile, m_logger };
-    bool      isOk{ hasm.assemble() };
+    Assembler assembler{ inputFile, outputFile, m_logger };
 
-    if ( config.exportSymbols() )
+    bool success = assembler.assemble();
+
+    if ( success && options.exportSymbols() )
     {
-        isOk = exportSymbolTable( config, hasm.getSymbolTable() );
+        success = exportSymbolTable( options, assembler.getSymbolTable() );
     }
 
-    if ( inputFile.is_open() )
-    {
-        inputFile.close();
-    }
-
-    if ( outputFile.is_open() )
-    {
-        outputFile.close();
-    }
-
-    return isOk;
+    return success;
 }
 
-bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& config, const SymbolTable& table ) const
+bool AssemblerEngine::exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const
 {
-    auto outputPath = config.inputFile();
+    auto outputPath = options.inputFile();
     outputPath.replace_extension( "sym" );
 
     std::ofstream outStream{ outputPath };
@@ -92,27 +116,6 @@ void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& t
 {
     SymbolTableWriter tableWriter{ table };
     tableWriter.write( out );
-}
-
-bool AssemblerEngine::isAsmFile( const std::filesystem::path& path ) const
-{
-    std::error_code errorCode{};
-
-    if ( !std::filesystem::is_regular_file( path, errorCode ) )
-    {
-        m_logger( std::format( R"(error: input "{}" is not a file)", path.string() ) );
-
-        return false;
-    }
-
-    if ( path.extension() != ".asm" )
-    {
-        m_logger( "error: input file must have .asm extension" );
-
-        return false;
-    }
-
-    return true;
 }
 
 } // namespace Hasm
