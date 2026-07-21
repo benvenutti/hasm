@@ -1,72 +1,50 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
-# project:
+
+# Project:
 
 project(
-  hasm
-  DESCRIPTION  "hasm is an assembler for the nand2tetris hack platform"
-  HOMEPAGE_URL https://github.com/benvenutti/hasm
-  VERSION      0.3.0
-  LANGUAGES    CXX
+    hasm
+    VERSION      0.3.0
+    DESCRIPTION  "An assembler for the nand2tetris Hack platform"
+    HOMEPAGE_URL "https://github.com/benvenutti/hasm"
+    LANGUAGES    CXX
 )
 
 
-# cmake modules and scripts:
+# Project CMake utilities:
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(cmake/DefaultTargetSettings.cmake)
 
-# custom modules:
-include(DefaultTargetSettings)
 
-# standard/built-in modules:
+# Standard CMake modules:
+
 include(CMakeDependentOption)
-include(FetchContent)
 
 
-# project options:
+# Project options:
 
-option(BUILD_APP_COMMAND_LINE "Build hasm command line application" ON)
-option(BUILD_TESTS "Build tests" ON)
+option(BUILD_HASM_CLI "Build the hasm command-line application" ON)
+option(BUILD_TESTS "Build the project's test suite" ON)
 cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
 
-# 3rd party dependencies:
 
-FetchContent_Declare(
-  cli11_proj
-  GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
-  GIT_TAG        v2.6.2
-)
+# Default build configuration:
 
-FetchContent_MakeAvailable(cli11_proj)
+if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
+endif()
+
+
+# Testing infrastructure:
 
 if(BUILD_TESTS)
-  FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG        v3.7.0
-  )
-
-  FetchContent_MakeAvailable(Catch2)
+    include(cmake/third_party/Catch2.cmake)
+    include(CTest)
 endif()
 
-# build type:
 
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
-endif()
+# Project structure:
 
-# testing:
-
-if(BUILD_TESTS)
-  enable_testing()
-endif()
-
-# subdirectories:
-
-add_subdirectory(hack)
-add_subdirectory(hasm)
-add_subdirectory(utilities)
-
-if(BUILD_APP_COMMAND_LINE)
-  add_subdirectory(app-command-line)
-endif()
+add_subdirectory(libraries)
+add_subdirectory(apps)

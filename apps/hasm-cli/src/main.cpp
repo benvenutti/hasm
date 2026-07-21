@@ -1,7 +1,8 @@
+#include "CommandLineParser.hpp"
+
 #include <hasm/AssemblerEngine.hpp>
 #include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/HasmInfo.hpp>
-#include <utilities/CommandLineParser.hpp>
 
 #include <cstdlib>
 #include <format>
@@ -10,7 +11,7 @@
 
 struct RequestVisitor
 {
-    bool operator()( const Utilities::CommandLineParser::Config& config ) const
+    bool operator()( const CommandLineParser::Config& config ) const
     {
         try
         {
@@ -26,21 +27,21 @@ struct RequestVisitor
         }
     }
 
-    bool operator()( const Utilities::CommandLineParser::RequestToPrintHelp& help ) const
+    bool operator()( const CommandLineParser::RequestToPrintHelp& help ) const
     {
         std::cout << help.message << std::endl;
 
         return true;
     }
 
-    bool operator()( const Utilities::CommandLineParser::RequestToPrintVersion& ) const
+    bool operator()( const CommandLineParser::RequestToPrintVersion& ) const
     {
         std::cout << std::format( "{} {}", Hasm::projectName, Hasm::Version::full ) << std::endl;
 
         return true;
     }
 
-    bool operator()( const Utilities::CommandLineParser::Error& error ) const
+    bool operator()( const CommandLineParser::Error& error ) const
     {
         std::cerr << error.message << std::endl;
 
@@ -50,7 +51,7 @@ struct RequestVisitor
 
 int main( int argc, char** argv )
 {
-    const auto userRequest = Utilities::CommandLineParser::parse( argc, argv );
+    const auto userRequest = CommandLineParser::parse( argc, argv );
 
     return std::visit( RequestVisitor{}, userRequest ) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
