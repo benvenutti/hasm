@@ -66,44 +66,30 @@ bool AssemblerEngine::run( const AssemblerOptions& options ) const
 
     std::ifstream inputFile{ options.inputFile() };
 
-    if ( !inputFile.good() )
+    if ( !inputFile )
     {
-        m_logger( "error: unable to open input stream" );
-
+        m_logger( std::format( R"(error: unable to open input stream "{}")", options.inputFile().string() ) );
         return false;
     }
 
-    auto outputPath = options.inputFile();
-    outputPath.replace_extension( "hack" );
+    std::ofstream outputFile{ options.outputFile() };
 
-    std::ofstream outputFile{ outputPath };
-
-    if ( !outputFile.good() )
+    if ( !outputFile )
     {
-        m_logger( std::format( R"(error: unable to open "{}")", outputPath.string() ) );
-
+        m_logger( std::format( R"(error: unable to open output stream "{}")", options.outputFile().string() ) );
         return false;
     }
 
-    Assembler hasm{ inputFile, outputFile, m_logger };
-    bool      isOk{ hasm.assemble() };
+    Assembler assembler{ inputFile, outputFile, m_logger };
 
-    if ( options.exportSymbols() )
+    bool success = assembler.assemble();
+
+    if ( success && options.exportSymbols() )
     {
-        isOk = exportSymbolTable( options, hasm.getSymbolTable() );
+        success = exportSymbolTable( options, assembler.getSymbolTable() );
     }
 
-    if ( inputFile.is_open() )
-    {
-        inputFile.close();
-    }
-
-    if ( outputFile.is_open() )
-    {
-        outputFile.close();
-    }
-
-    return isOk;
+    return success;
 }
 
 bool AssemblerEngine::exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const

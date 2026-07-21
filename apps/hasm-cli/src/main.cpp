@@ -8,46 +8,51 @@
 #include <iostream>
 #include <variant>
 
+namespace
+{
+
+[[nodiscard]] Hasm::AssemblerOptions makeAssemblerOptions( const CommandLineParser::ParsedArguments& parsedArguments )
+{
+    // When the user does not specify an output file, write to
+    // the input file with the .hack extension.
+
+    auto outputFile = parsedArguments.outputFile.value_or(
+        std::filesystem::path( parsedArguments.inputFile ).replace_extension( ".hack" ) );
+
+    return { parsedArguments.inputFile, std::move( outputFile ), parsedArguments.exportSymbols };
+}
+
 struct RequestVisitor
 {
     bool operator()( const CommandLineParser::ParsedArguments& parsedArguments ) const
     {
-        try
-        {
-            const Hasm::AssemblerEngine assembler{ []( const auto& log ) { std::cout << log << std::endl; } };
+        const auto logger = []( const auto& message ) { std::cout << message << '\n'; };
 
-            // TODO: provide output file
-            return assembler.run( { parsedArguments.inputFile, {}, parsedArguments.exportSymbols } );
-        }
-        catch ( const std::exception& exception )
-        {
-            std::cerr << exception.what() << std::endl;
+        const Hasm::AssemblerEngine assembler{ std::move( logger ) };
 
-            return false;
-        }
+        return assembler.run( makeAssemblerOptions( parsedArguments ) );
     }
 
     bool operator()( const CommandLineParser::RequestToPrintHelp& help ) const
     {
         std::cout << help.message << std::endl;
-
         return true;
     }
 
     bool operator()( const CommandLineParser::RequestToPrintVersion& ) const
     {
         std::cout << std::format( "{} {}", Hasm::projectName, Hasm::Version::full ) << std::endl;
-
         return true;
     }
 
     bool operator()( const CommandLineParser::Error& error ) const
     {
         std::cerr << error.message << std::endl;
-
-        return true;
+        return false;
     }
 };
+
+} // namespace
 
 int main( const int argc, char** argv )
 {
