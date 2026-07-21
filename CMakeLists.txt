@@ -66,7 +66,4 @@ endif()
 add_subdirectory(hack)
 add_subdirectory(hasm)
 add_subdirectory(utilities)
-
-if(BUILD_APP_COMMAND_LINE)
-  add_subdirectory(hasm-cli)
-endif()
+add_subdirectory(apps)
