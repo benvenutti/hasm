@@ -46,6 +46,26 @@ namespace
            && isValidOutputFile( options.outputFile(), logger );
 }
 
+[[nodiscard]] bool exportSymbolTable( std::filesystem::path    outputPath,
+                                      const SymbolTable&       table,
+                                      const Assembler::Logger& logger )
+{
+    outputPath.replace_extension( ".sym" );
+
+    std::ofstream outStream{ outputPath };
+
+    if ( !outStream )
+    {
+        logger( std::format( R"(error: unable to open output stream "{}")", outputPath.string() ) );
+        return false;
+    }
+
+    SymbolTableWriter tableWriter{ table };
+    tableWriter.write( outStream );
+
+    return true;
+}
+
 } // namespace
 
 AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
@@ -86,36 +106,10 @@ bool AssemblerEngine::run( const AssemblerOptions& options ) const
 
     if ( success && options.exportSymbols() )
     {
-        success = exportSymbolTable( options, assembler.getSymbolTable() );
+        success = exportSymbolTable( options.inputFile(), assembler.getSymbolTable(), m_logger );
     }
 
     return success;
-}
-
-bool AssemblerEngine::exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const
-{
-    auto outputPath = options.inputFile();
-    outputPath.replace_extension( "sym" );
-
-    std::ofstream outStream{ outputPath };
-
-    if ( !outStream.good() )
-    {
-        m_logger( "error: unable to open output stream" );
-
-        return false;
-    }
-
-    outputSymbolTable( outStream, table );
-    outStream.close();
-
-    return true;
-}
-
-void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& table ) const
-{
-    SymbolTableWriter tableWriter{ table };
-    tableWriter.write( out );
 }
 
 } // namespace Hasm

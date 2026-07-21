@@ -19,9 +19,6 @@ public:
     bool run( const AssemblerOptions& options ) const;
 
 private:
-    bool exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const;
-    void outputSymbolTable( std::ostream& out, const SymbolTable& table ) const;
-
     const Assembler::Logger m_logger;
 };
 
