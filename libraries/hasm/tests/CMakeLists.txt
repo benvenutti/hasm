@@ -17,7 +17,7 @@ apply_target_coverage(hasm_assembler_tests)
 target_link_libraries(
   hasm_assembler_tests
   PRIVATE
-    hack_assembler
+    hasm
     Catch2::Catch2WithMain
 )
 

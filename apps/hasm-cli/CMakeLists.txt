@@ -10,6 +10,6 @@ target_sources(hasm-cli
 
 target_link_libraries(hasm-cli
     PRIVATE
-        hack_assembler
+        hasm
         utilities
 )
