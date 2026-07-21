@@ -1,19 +1,24 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
-# project:
+
+# Project:
 
 project(
-  hasm
-  DESCRIPTION  "hasm is an assembler for the nand2tetris hack platform"
-  HOMEPAGE_URL https://github.com/benvenutti/hasm
-  VERSION      0.3.0
-  LANGUAGES    CXX
+    hasm
+    VERSION      0.3.0
+    DESCRIPTION  "An assembler for the nand2tetris Hack platform"
+    HOMEPAGE_URL "https://github.com/benvenutti/hasm"
+    LANGUAGES    CXX
 )
 
 
-# cmake modules and scripts:
+# Project CMake utilities:
 
 include(cmake/DefaultTargetSettings.cmake)
+
+
+# Standard CMake modules:
+
 include(CMakeDependentOption)
 
 
@@ -39,7 +44,7 @@ if(BUILD_TESTS)
 endif()
 
 
-# subdirectories:
+# Project structure:
 
 add_subdirectory(libraries)
 add_subdirectory(apps)
