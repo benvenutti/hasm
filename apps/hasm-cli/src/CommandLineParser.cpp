@@ -1,4 +1,4 @@
-#include <utilities/CommandLineParser.hpp>
+#include "CommandLineParser.hpp"
 
 #include <CLI/CLI.hpp>
 
@@ -7,7 +7,7 @@
 namespace
 {
 
-Utilities::CommandLineParser::Result createCLIAndParse( const int argc, char const* const* argv )
+CommandLineParser::Result createCLIAndParse( const int argc, char const* const* argv )
 {
     CLI::App app{ "hasm: assembler for the nand2tetris hack platform" };
 
@@ -26,22 +26,19 @@ Utilities::CommandLineParser::Result createCLIAndParse( const int argc, char con
     {
         app.parse( argc, argv );
 
-        return Utilities::CommandLineParser::Config{ std::move( inputFile ), exportSymbolTable };
+        return CommandLineParser::Config{ std::move( inputFile ), exportSymbolTable };
     }
     catch ( const CLI::CallForHelp& )
     {
-        return Utilities::CommandLineParser::RequestToPrintHelp{ app.help() };
+        return CommandLineParser::RequestToPrintHelp{ app.help() };
     }
     catch ( const CLI::CallForVersion& )
     {
-        return Utilities::CommandLineParser::RequestToPrintVersion{};
+        return CommandLineParser::RequestToPrintVersion{};
     }
 }
 
 } // namespace
-
-namespace Utilities
-{
 
 CommandLineParser::Result CommandLineParser::parse( const int argc, char const* const* argv )
 {
@@ -58,5 +55,3 @@ CommandLineParser::Result CommandLineParser::parse( const int argc, char const* 
         return Error{};
     }
 }
-
-} // namespace Utilities

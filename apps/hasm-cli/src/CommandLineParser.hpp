@@ -4,7 +4,7 @@
 #include <string>
 #include <variant>
 
-namespace Utilities::CommandLineParser
+namespace CommandLineParser
 {
 
 struct Config
@@ -31,4 +31,4 @@ using Result = std::variant< Config, RequestToPrintHelp, RequestToPrintVersion, 
 
 Result parse( int argc, char const* const* argv );
 
-} // namespace Utilities::CommandLineParser
+} // namespace CommandLineParser
