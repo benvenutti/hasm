@@ -64,6 +64,5 @@ endif()
 # subdirectories:
 
 add_subdirectory(libraries)
-add_subdirectory(hasm)
 add_subdirectory(utilities)
 add_subdirectory(apps)
