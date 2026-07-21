@@ -5,10 +5,10 @@
 namespace Hasm
 {
 
-class AssemblerEngineConfig
+class AssemblerOptions
 {
 public:
-    AssemblerEngineConfig( std::filesystem::path inputFile, bool exportSymbols )
+    AssemblerOptions( std::filesystem::path inputFile, bool exportSymbols )
     : m_inputFile{ std::move( inputFile ) }
     , m_exportSymbols{ exportSymbols }
     {

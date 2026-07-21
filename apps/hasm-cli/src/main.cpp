@@ -1,7 +1,6 @@
 #include "CommandLineParser.hpp"
 
 #include <hasm/AssemblerEngine.hpp>
-#include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/HasmInfo.hpp>
 
 #include <cstdlib>

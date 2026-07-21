@@ -32,7 +32,7 @@ target_sources(hasm
         FILES
             include/hasm/Assembler.hpp
             include/hasm/AssemblerEngine.hpp
-            include/hasm/AssemblerEngineConfig.hpp
+            include/hasm/AssemblerOptions.hpp
             include/hasm/Coder.hpp
             include/hasm/ErrorMessage.hpp
             include/hasm/HackGrammar.hpp

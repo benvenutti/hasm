@@ -1,6 +1,5 @@
 #include <hasm/AssemblerEngine.hpp>
 
-#include <hasm/AssemblerEngineConfig.hpp>
 #include <hasm/SymbolTableWriter.hpp>
 
 #include <format>
@@ -19,14 +18,14 @@ AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
     }
 }
 
-bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
+bool AssemblerEngine::run( const AssemblerOptions& options ) const
 {
-    if ( !isAsmFile( config.inputFile() ) )
+    if ( !isAsmFile( options.inputFile() ) )
     {
         return false;
     }
 
-    std::ifstream inputFile{ config.inputFile() };
+    std::ifstream inputFile{ options.inputFile() };
 
     if ( !inputFile.good() )
     {
@@ -35,7 +34,7 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
         return false;
     }
 
-    auto outputPath = config.inputFile();
+    auto outputPath = options.inputFile();
     outputPath.replace_extension( "hack" );
 
     std::ofstream outputFile{ outputPath };
@@ -50,9 +49,9 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
     Assembler hasm{ inputFile, outputFile, m_logger };
     bool      isOk{ hasm.assemble() };
 
-    if ( config.exportSymbols() )
+    if ( options.exportSymbols() )
     {
-        isOk = exportSymbolTable( config, hasm.getSymbolTable() );
+        isOk = exportSymbolTable( options, hasm.getSymbolTable() );
     }
 
     if ( inputFile.is_open() )
@@ -68,9 +67,9 @@ bool AssemblerEngine::run( const AssemblerEngineConfig& config ) const
     return isOk;
 }
 
-bool AssemblerEngine::exportSymbolTable( const AssemblerEngineConfig& config, const SymbolTable& table ) const
+bool AssemblerEngine::exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const
 {
-    auto outputPath = config.inputFile();
+    auto outputPath = options.inputFile();
     outputPath.replace_extension( "sym" );
 
     std::ofstream outStream{ outputPath };

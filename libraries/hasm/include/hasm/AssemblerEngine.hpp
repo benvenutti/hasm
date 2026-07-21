@@ -1,6 +1,7 @@
 #pragma once
 
 #include <hasm/Assembler.hpp>
+#include <hasm/AssemblerOptions.hpp>
 
 #include <filesystem>
 #include <ostream>
@@ -8,7 +9,6 @@
 namespace Hasm
 {
 
-class AssemblerEngineConfig;
 class SymbolTable;
 
 class AssemblerEngine
@@ -16,11 +16,11 @@ class AssemblerEngine
 public:
     AssemblerEngine( Assembler::Logger logger );
 
-    bool run( const AssemblerEngineConfig& config ) const;
+    bool run( const AssemblerOptions& options ) const;
 
 private:
     bool isAsmFile( const std::filesystem::path& path ) const;
-    bool exportSymbolTable( const AssemblerEngineConfig& cfg, const SymbolTable& table ) const;
+    bool exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const;
     void outputSymbolTable( std::ostream& out, const SymbolTable& table ) const;
 
     const Assembler::Logger m_logger;
