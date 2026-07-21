@@ -17,18 +17,11 @@ include(cmake/DefaultTargetSettings.cmake)
 include(CMakeDependentOption)
 
 
-# project options:
+# Project options:
 
 option(BUILD_HASM_CLI "Build the hasm command-line application" ON)
-option(BUILD_TESTS "Build tests" ON)
+option(BUILD_TESTS "Build the project's test suite" ON)
 cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
-
-
-# 3rd party dependencies:
-
-if(BUILD_TESTS)
-    include(cmake/third_party/Catch2.cmake)
-endif()
 
 
 # build type:
@@ -38,10 +31,11 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 
-# testing:
+# Testing infrastructure:
 
 if(BUILD_TESTS)
-  enable_testing()
+    include(cmake/third_party/Catch2.cmake)
+    include(CTest)
 endif()
 
 
