@@ -13,14 +13,8 @@ project(
 
 # cmake modules and scripts:
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-# custom modules:
-include(DefaultTargetSettings)
-
-# standard/built-in modules:
+include(cmake/DefaultTargetSettings.cmake)
 include(CMakeDependentOption)
-include(FetchContent)
 
 
 # project options:
@@ -29,17 +23,13 @@ option(BUILD_HASM_CLI "Build the hasm command-line application" ON)
 option(BUILD_TESTS "Build tests" ON)
 cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
 
+
 # 3rd party dependencies:
 
 if(BUILD_TESTS)
-  FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG        v3.7.0
-  )
-
-  FetchContent_MakeAvailable(Catch2)
+    include(cmake/third_party/Catch2.cmake)
 endif()
+
 
 # build type:
 
@@ -47,11 +37,13 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
 endif()
 
+
 # testing:
 
 if(BUILD_TESTS)
   enable_testing()
 endif()
+
 
 # subdirectories:
 
