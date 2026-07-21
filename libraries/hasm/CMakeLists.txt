@@ -5,6 +5,7 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/include/hasm/HasmInfo.hpp
 )
 
+
 # Library:
 
 add_library(hasm STATIC)
@@ -44,6 +45,7 @@ target_sources(hasm
             ${CMAKE_CURRENT_BINARY_DIR}/include/hasm/HasmInfo.hpp
 )
 
+
 # Dependencies:
 
 target_include_directories(hasm
@@ -56,6 +58,7 @@ target_link_libraries(hasm
     PUBLIC
         hack
 )
+
 
 # Tests:
 

@@ -1,20 +1,18 @@
-# ----------------------------------------------------------------------------------------------------------------------
-# Prevent double inclusion
+# Prevent double inclusion:
 
 include_guard(GLOBAL)
 
-# ----------------------------------------------------------------------------------------------------------------------
-# 'target_options'
+
+# Target: default_target_options
 #
 # Default compiler and linker settings shared by every target in the project.
 #
 # Includes:
 #   - Required C++ standard
 #   - Compiler conformance settings
-
+#
 add_library(default_target_options INTERFACE)
 
-# C++ language configuration:
 target_compile_features(default_target_options INTERFACE cxx_std_20)
 
 set_target_properties(default_target_options
@@ -22,8 +20,6 @@ set_target_properties(default_target_options
         INTERFACE_CXX_STANDARD_REQUIRED ON
         INTERFACE_CXX_EXTENSIONS        OFF
 )
-
-# Compiler configuration:
 
 target_compile_options(default_target_options INTERFACE
     # MSVC
@@ -36,8 +32,8 @@ target_compile_options(default_target_options INTERFACE
     >
 )
 
-# ----------------------------------------------------------------------------------------------------------------------
-# 'target_warnings'
+
+# Target: default_target_warnings
 #
 # Default warning policy shared by every target in the project.
 #
@@ -45,7 +41,7 @@ target_compile_options(default_target_options INTERFACE
 #   - Warning level
 #   - Warnings as errors
 #   - Extra diagnostics
-
+#
 add_library(default_target_warnings INTERFACE)
 
 target_compile_options(default_target_warnings INTERFACE
@@ -82,14 +78,13 @@ target_compile_options(default_target_warnings INTERFACE
     >
 )
 
-# ----------------------------------------------------------------------------------------------------------------------
-# 'default_target_coverage'
+
+# Target: default_target_coverage
 #
 # Code coverage instrumentation.
 #
 # Enabled only when CODE_COVERAGE is ON.
 #
-
 add_library(default_target_coverage INTERFACE)
 
 target_compile_options(default_target_coverage INTERFACE
@@ -104,12 +99,10 @@ target_link_options(default_target_coverage INTERFACE
     >
 )
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Public API
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Applies the project's default compiler and build configuration to a target.
+# Function: apply_target_options
 #
+# Applies the project's default compiler and build configuration to a target.
 # This function configures the target with the project's standard build settings,
 # including:
 #
@@ -135,9 +128,10 @@ function(apply_target_options target)
     target_link_libraries(${target} ${scope} default_target_options)
 endfunction()
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Applies the project's default compiler warning policy to a target.
+
+# Function: apply_target_warnings
 #
+# Applies the project's default compiler warning policy to a target.
 # This function enables the project's standard warning level and treats warnings
 # as errors. The exact warning flags are selected automatically based on the
 # active compiler.
@@ -160,9 +154,10 @@ function(apply_target_warnings target)
     target_link_libraries(${target} ${scope} default_target_warnings)
 endfunction()
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Applies code coverage instrumentation to a target.
+
+# Function: apply_target_coverage
 #
+# Applies code coverage instrumentation to a target.
 # This function configures compiler and linker flags required to generate coverage
 # metrics (e.g., GCC/Clang gcov flags or MSVC coverage flags) for debug builds.
 #

@@ -18,11 +18,17 @@ target_sources(hasm_tests
         src/SymbolTable.test.cpp
 )
 
+
+# Dependencies:
+
 target_link_libraries(hasm_tests
     PRIVATE
         hasm
         Catch2::Catch2WithMain
 )
+
+
+# Test registration:
 
 add_test(
     NAME    HasmTestSuite

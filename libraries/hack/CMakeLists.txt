@@ -18,6 +18,9 @@ target_sources(hack
             include/Hack/Word.hpp
 )
 
+
+# Dependencies:
+
 target_include_directories(hack
     INTERFACE
         include
