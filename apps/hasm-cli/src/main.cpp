@@ -16,7 +16,8 @@ struct RequestVisitor
         {
             const Hasm::AssemblerEngine assembler{ []( const auto& log ) { std::cout << log << std::endl; } };
 
-            return assembler.run( { config.inputFile, config.exportSymbols } );
+            // TODO: provide output file
+            return assembler.run( { config.inputFile, {}, config.exportSymbols } );
         }
         catch ( const std::exception& exception )
         {

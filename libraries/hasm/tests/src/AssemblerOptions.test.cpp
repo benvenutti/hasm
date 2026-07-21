@@ -5,16 +5,18 @@
 SCENARIO( "constructor", "[AssemblerEngineConfig]" )
 {
     {
-        const Hasm::AssemblerOptions options( "file", false );
+        const Hasm::AssemblerOptions options( "in", "out", false );
 
+        REQUIRE( options.inputFile() == std::filesystem::path{ "in" } );
+        REQUIRE( options.outputFile() == std::filesystem::path{ "out" } );
         REQUIRE_FALSE( options.exportSymbols() );
-        REQUIRE( options.inputFile() == std::filesystem::path{ "file" } );
     }
 
     {
-        const Hasm::AssemblerOptions options( "file", true );
+        const Hasm::AssemblerOptions options( "in", "out", true );
 
+        REQUIRE( options.inputFile() == std::filesystem::path{ "in" } );
+        REQUIRE( options.outputFile() == std::filesystem::path{ "out" } );
         REQUIRE( options.exportSymbols() );
-        REQUIRE( options.inputFile() == std::filesystem::path{ "file" } );
     }
 }

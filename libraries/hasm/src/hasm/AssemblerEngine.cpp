@@ -29,9 +29,21 @@ namespace
     return true;
 }
 
+[[nodiscard]] bool isValidOutputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
+{
+    if ( path.extension() != ".hack" )
+    {
+        logger( "error: output file must have .hack extension" );
+        return false;
+    }
+
+    return true;
+}
+
 [[nodiscard]] bool validateOptions( const AssemblerOptions& options, const Assembler::Logger& logger )
 {
-    return isValidInputFile( options.inputFile(), logger );
+    return options.inputFile() != options.outputFile() && isValidInputFile( options.inputFile(), logger )
+           && isValidOutputFile( options.outputFile(), logger );
 }
 
 } // namespace
