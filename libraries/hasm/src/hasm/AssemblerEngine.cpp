@@ -12,7 +12,15 @@ namespace Hasm
 namespace
 {
 
-[[nodiscard]] bool isValidInputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
+void validateLogger( const Assembler::Logger& logger )
+{
+    if ( !logger )
+    {
+        throw std::logic_error( "invalid logger" );
+    }
+}
+
+[[nodiscard]] bool validateInputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
 {
     if ( std::error_code errorCode; !std::filesystem::is_regular_file( path, errorCode ) )
     {
@@ -29,7 +37,7 @@ namespace
     return true;
 }
 
-[[nodiscard]] bool isValidOutputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
+[[nodiscard]] bool validateOutputFile( const std::filesystem::path& path, const Assembler::Logger& logger )
 {
     if ( path.extension() != ".hack" )
     {
@@ -42,24 +50,42 @@ namespace
 
 [[nodiscard]] bool validateOptions( const AssemblerOptions& options, const Assembler::Logger& logger )
 {
-    return options.inputFile() != options.outputFile() && isValidInputFile( options.inputFile(), logger )
-           && isValidOutputFile( options.outputFile(), logger );
+    if ( options.inputFile() == options.outputFile() )
+    {
+        logger( "error: input and output files must be different" );
+        return false;
+    }
+
+    return validateInputFile( options.inputFile(), logger ) && validateOutputFile( options.outputFile(), logger );
+}
+
+[[nodiscard]] bool exportSymbolTable( std::filesystem::path    outputPath,
+                                      const SymbolTable&       table,
+                                      const Assembler::Logger& logger )
+{
+    outputPath.replace_extension( ".sym" );
+
+    std::ofstream outStream{ outputPath };
+
+    if ( !outStream )
+    {
+        logger( std::format( R"(error: unable to open output stream "{}")", outputPath.string() ) );
+        return false;
+    }
+
+    SymbolTableWriter tableWriter{ table };
+    tableWriter.write( outStream );
+
+    return true;
 }
 
 } // namespace
 
-AssemblerEngine::AssemblerEngine( Assembler::Logger logger )
-: m_logger{ std::move( logger ) }
+bool AssemblerEngine::run( const AssemblerOptions& options, const Assembler::Logger& logger )
 {
-    if ( !m_logger )
-    {
-        throw std::logic_error( "invalid logger" );
-    }
-}
+    validateLogger( logger );
 
-bool AssemblerEngine::run( const AssemblerOptions& options ) const
-{
-    if ( !validateOptions( options, m_logger ) )
+    if ( !validateOptions( options, logger ) )
     {
         return false;
     }
@@ -68,7 +94,7 @@ bool AssemblerEngine::run( const AssemblerOptions& options ) const
 
     if ( !inputFile )
     {
-        m_logger( std::format( R"(error: unable to open input stream "{}")", options.inputFile().string() ) );
+        logger( std::format( R"(error: unable to open input stream "{}")", options.inputFile().string() ) );
         return false;
     }
 
@@ -76,46 +102,20 @@ bool AssemblerEngine::run( const AssemblerOptions& options ) const
 
     if ( !outputFile )
     {
-        m_logger( std::format( R"(error: unable to open output stream "{}")", options.outputFile().string() ) );
+        logger( std::format( R"(error: unable to open output stream "{}")", options.outputFile().string() ) );
         return false;
     }
 
-    Assembler assembler{ inputFile, outputFile, m_logger };
+    Assembler assembler{ inputFile, outputFile, logger };
 
     bool success = assembler.assemble();
 
     if ( success && options.exportSymbols() )
     {
-        success = exportSymbolTable( options, assembler.getSymbolTable() );
+        success = exportSymbolTable( options.outputFile(), assembler.getSymbolTable(), logger );
     }
 
     return success;
-}
-
-bool AssemblerEngine::exportSymbolTable( const AssemblerOptions& options, const SymbolTable& table ) const
-{
-    auto outputPath = options.inputFile();
-    outputPath.replace_extension( "sym" );
-
-    std::ofstream outStream{ outputPath };
-
-    if ( !outStream.good() )
-    {
-        m_logger( "error: unable to open output stream" );
-
-        return false;
-    }
-
-    outputSymbolTable( outStream, table );
-    outStream.close();
-
-    return true;
-}
-
-void AssemblerEngine::outputSymbolTable( std::ostream& out, const SymbolTable& table ) const
-{
-    SymbolTableWriter tableWriter{ table };
-    tableWriter.write( out );
 }
 
 } // namespace Hasm
