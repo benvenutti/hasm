@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Make AssemblerEngine stateless
 - Project structure: folders, CMake targets and modules reorganised
 
 ### Removed

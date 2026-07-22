@@ -9,6 +9,7 @@ apply_target_coverage(hasm_tests)
 target_sources(hasm_tests
     PRIVATE
         src/Assembler.test.cpp
+        src/AssemblerEngine.test.cpp
         src/AssemblerOptions.test.cpp
         src/Coder.test.cpp
         src/InstructionParser.computation.test.cpp
@@ -16,6 +17,11 @@ target_sources(hasm_tests
         src/InstructionParser.load.test.cpp
         src/Parser.test.cpp
         src/SymbolTable.test.cpp
+)
+
+target_compile_definitions(hasm_tests
+    PRIVATE
+        HASM_TEST_INPUT="${PROJECT_SOURCE_DIR}/tests/input"
 )
 
 
