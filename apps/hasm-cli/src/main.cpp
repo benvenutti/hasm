@@ -27,10 +27,7 @@ struct RequestVisitor
     bool operator()( const CommandLineParser::ParsedArguments& parsedArguments ) const
     {
         const auto logger = []( const auto& message ) { std::cout << message << '\n'; };
-
-        const Hasm::AssemblerEngine assembler{ std::move( logger ) };
-
-        return assembler.run( makeAssemblerOptions( parsedArguments ) );
+        return Hasm::AssemblerEngine::run( makeAssemblerOptions( parsedArguments ), logger );
     }
 
     bool operator()( const CommandLineParser::RequestToPrintHelp& help ) const

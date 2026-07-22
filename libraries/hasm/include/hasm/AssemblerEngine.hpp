@@ -3,23 +3,13 @@
 #include <hasm/Assembler.hpp>
 #include <hasm/AssemblerOptions.hpp>
 
-#include <filesystem>
-#include <ostream>
-
-namespace Hasm
+namespace Hasm::AssemblerEngine
 {
 
-class SymbolTable;
+/// Runs the assembler.
+///
+/// Returns false for assembly or I/O failures. Throws std::logic_error if logger is empty.
+///
+[[nodiscard]] bool run( const AssemblerOptions& options, const Assembler::Logger& logger );
 
-class AssemblerEngine
-{
-public:
-    AssemblerEngine( Assembler::Logger logger );
-
-    bool run( const AssemblerOptions& options ) const;
-
-private:
-    const Assembler::Logger m_logger;
-};
-
-} // namespace Hasm
+} // namespace Hasm::AssemblerEngine
