@@ -1,4 +1,4 @@
-#include <hasm/SymbolTableWriter.hpp>
+#include <hasm/SymbolListingWriter.hpp>
 
 #include <hasm/SymbolTable.hpp>
 
@@ -7,7 +7,7 @@
 namespace Hasm
 {
 
-SymbolTableWriter::SymbolTableWriter( const SymbolTable& symbolTable )
+SymbolListingWriter::SymbolListingWriter( const SymbolTable& symbolTable )
 {
     for ( const auto& [symbol, address] : symbolTable )
     {
@@ -15,7 +15,7 @@ SymbolTableWriter::SymbolTableWriter( const SymbolTable& symbolTable )
     }
 }
 
-void SymbolTableWriter::write( std::ostream& out )
+void SymbolListingWriter::write( std::ostream& out )
 {
     for ( const auto& [address, symbol] : m_symbolMap )
     {

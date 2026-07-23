@@ -22,8 +22,8 @@ target_sources(hasm
         src/hasm/ErrorMessage.cpp
         src/hasm/InstructionParser.cpp
         src/hasm/Parser.cpp
+        src/hasm/SymbolListingWriter.cpp
         src/hasm/SymbolTable.cpp
-        src/hasm/SymbolTableWriter.cpp
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
@@ -40,8 +40,8 @@ target_sources(hasm
             include/hasm/InstructionParser.hpp
             include/hasm/Parser.hpp
             include/hasm/PredefinedSymbols.hpp
+            include/hasm/SymbolListingWriter.hpp
             include/hasm/SymbolTable.hpp
-            include/hasm/SymbolTableWriter.hpp
             ${CMAKE_CURRENT_BINARY_DIR}/include/hasm/HasmInfo.hpp
 )
 

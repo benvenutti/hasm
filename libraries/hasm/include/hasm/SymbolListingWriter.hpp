@@ -10,10 +10,10 @@ namespace Hasm
 
 class SymbolTable;
 
-class SymbolTableWriter
+class SymbolListingWriter
 {
 public:
-    SymbolTableWriter( const SymbolTable& symbolTable );
+    SymbolListingWriter( const SymbolTable& symbolTable );
 
     void write( std::ostream& out );
 

@@ -1,6 +1,6 @@
 #include <hasm/AssemblerEngine.hpp>
 
-#include <hasm/SymbolTableWriter.hpp>
+#include <hasm/SymbolListingWriter.hpp>
 
 #include <format>
 #include <fstream>
@@ -73,7 +73,7 @@ void validateLogger( const Assembler::Logger& logger )
         return false;
     }
 
-    SymbolTableWriter tableWriter{ table };
+    SymbolListingWriter tableWriter{ table };
     tableWriter.write( outStream );
 
     return true;
