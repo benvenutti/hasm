@@ -1,24 +1,12 @@
 #pragma once
 
-#include <Hack/Hack.hpp>
+#include <hasm/SymbolTable.hpp>
 
-#include <map>
 #include <ostream>
 
-namespace Hasm
+namespace Hasm::SymbolListingWriter
 {
 
-class SymbolTable;
+void write( std::ostream& out, const SymbolTable& symbolTable );
 
-class SymbolListingWriter
-{
-public:
-    SymbolListingWriter( const SymbolTable& symbolTable );
-
-    void write( std::ostream& out );
-
-private:
-    std::multimap< Hack::word, std::string > m_symbolMap;
-};
-
-} // namespace Hasm
+} // namespace Hasm::SymbolListingWriter

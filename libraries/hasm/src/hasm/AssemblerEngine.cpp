@@ -73,8 +73,7 @@ void validateLogger( const Assembler::Logger& logger )
         return false;
     }
 
-    SymbolListingWriter tableWriter{ table };
-    tableWriter.write( outStream );
+    SymbolListingWriter::write( outStream, table );
 
     return true;
 }

@@ -1,28 +1,26 @@
 #include <hasm/SymbolListingWriter.hpp>
 
-#include <hasm/SymbolTable.hpp>
-
+#include <algorithm>
 #include <format>
+#include <vector>
 
-namespace Hasm
+void Hasm::SymbolListingWriter::write( std::ostream& out, const SymbolTable& symbolTable )
 {
+    using Entry = std::pair< Hack::word, std::string >;
 
-SymbolListingWriter::SymbolListingWriter( const SymbolTable& symbolTable )
-{
+    std::vector< Entry > entries;
+
+    entries.reserve( symbolTable.size() );
+
     for ( const auto& [symbol, address] : symbolTable )
     {
-        m_symbolMap.emplace( address, symbol );
+        entries.emplace_back( address, symbol );
     }
-}
 
-void SymbolListingWriter::write( std::ostream& out )
-{
-    for ( const auto& [address, symbol] : m_symbolMap )
+    std::ranges::sort( entries );
+
+    for ( const auto& [address, symbol] : entries )
     {
         out << std::format( "{:#06x} {}\n", address, symbol );
     }
-
-    out.flush();
 }
-
-} // namespace Hasm
