@@ -21,6 +21,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Coverage reports CLI11 source code
+
 ## [0.3.0] - Jul 20, 2026
 
 ### Added

@@ -46,6 +46,7 @@ jobs:
           # filter paths from report:
           lcov --remove coverage.info '/usr/include/*' --output-file coverage.info
           lcov --remove coverage.info '*/catch2-src/*' --output-file coverage.info
+          lcov --remove coverage.info '*/cli11-src/*' --output-file coverage.info
 
           # generate the HTML files:
           genhtml --demangle-cpp -o coverage coverage.info
