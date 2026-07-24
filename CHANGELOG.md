@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Rename `SymbolTableWriter` to `SymbolListingWriter` and make it stateless
 - Make AssemblerEngine stateless
 - Project structure: folders, CMake targets and modules reorganised
 
