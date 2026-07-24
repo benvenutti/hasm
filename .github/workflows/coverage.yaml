@@ -10,6 +10,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.9.1
+          cache: true
+
       - name: Install dependencies
         run: sudo apt-get install -o Acquire::Retries=3 lcov
 
