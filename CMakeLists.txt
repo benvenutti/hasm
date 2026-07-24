@@ -25,6 +25,7 @@ include(CMakeDependentOption)
 # Project options:
 
 option(BUILD_HASM_CLI "Build the hasm command-line application" ON)
+option(BUILD_HASM_GUI "Build the hasm GUI application" ON)
 option(BUILD_TESTS "Build the project's test suite" ON)
 cmake_dependent_option(CODE_COVERAGE "Enable code coverage" OFF "BUILD_TESTS" OFF)
 

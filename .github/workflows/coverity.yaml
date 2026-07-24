@@ -12,6 +12,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.9.1
+          cache: true
+
       - name: Create build directory
         run: cmake -E make_directory ${{github.workspace}}/build
 

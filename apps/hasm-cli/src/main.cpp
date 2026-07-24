@@ -51,7 +51,7 @@ struct RequestVisitor
 
 } // namespace
 
-int main( const int argc, char** argv )
+int main( const int argc, char* argv[] )
 {
     const auto userRequest = CommandLineParser::parse( argc, argv );
 
