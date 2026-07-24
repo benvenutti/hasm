@@ -21,6 +21,11 @@ public:
 
     [[nodiscard]] std::optional< Hack::word > getAddress( const std::string& symbol ) const;
 
+    [[nodiscard]] size_t size() const
+    {
+        return m_table.size();
+    }
+
     [[nodiscard]] inline auto begin() noexcept
     {
         return m_table.begin();

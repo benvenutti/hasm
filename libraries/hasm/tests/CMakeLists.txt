@@ -16,6 +16,7 @@ target_sources(hasm_tests
         src/InstructionParser.label.test.cpp
         src/InstructionParser.load.test.cpp
         src/Parser.test.cpp
+        src/SymbolListingWriter.test.cpp
         src/SymbolTable.test.cpp
 )
 
