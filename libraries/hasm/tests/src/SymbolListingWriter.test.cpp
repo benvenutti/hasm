@@ -15,9 +15,10 @@ TEST_CASE( "SymbolListingWriter::write writes an empty symbol table" )
 TEST_CASE( "SymbolListingWriter::write writes symbols ordered by address" )
 {
     Hasm::SymbolTable symbolTable;
-    symbolTable.addEntry( "z", 0x2010 );
-    symbolTable.addEntry( "a", 0x1030 );
-    symbolTable.addEntry( "m", 0x3020 );
+
+    REQUIRE( symbolTable.addEntry( "z", 0x2010 ) );
+    REQUIRE( symbolTable.addEntry( "a", 0x1030 ) );
+    REQUIRE( symbolTable.addEntry( "m", 0x3020 ) );
 
     std::stringstream out;
     Hasm::SymbolListingWriter::write( out, symbolTable );

@@ -12,12 +12,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Extend unit tests for `SymbolTable` 
 - Rename `SymbolTableWriter` to `SymbolListingWriter` and make it stateless
 - Make AssemblerEngine stateless
 - Project structure: folders, CMake targets and modules reorganised
 
 ### Removed
 
+- `ErrorMessage` dropped: code moved to `Assembler.cpp`
 - `utilities` folder dropped: command line parser moved to new `hasm-cli`
 
 ### Fixed

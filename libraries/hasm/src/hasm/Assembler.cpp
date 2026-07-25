@@ -1,12 +1,23 @@
 #include <hasm/Assembler.hpp>
 
 #include <hasm/Coder.hpp>
-#include <hasm/ErrorMessage.hpp>
 
 #include <bitset>
+#include <cassert>
 #include <cctype>
+#include <format>
 #include <iomanip>
 #include <stdexcept>
+
+namespace
+{
+
+std::string createMessage( const std::string& instruction, const size_t lineNumber, const std::string& info )
+{
+    return std::format( R"(line {}: error: "{}" {})", lineNumber, instruction, info );
+}
+
+} // namespace
 
 namespace Hasm
 {
@@ -40,7 +51,14 @@ bool Assembler::firstPass()
     {
         if ( m_parser.getInstructionType() == Hack::InstructionType::label )
         {
-            m_symbolTable.addEntry( m_parser.symbol(), lineCounter );
+            if ( !m_symbolTable.addEntry( m_parser.symbol(), lineCounter ) )
+            {
+                m_logger( createMessage( m_parser.getInstruction(),
+                                         m_parser.getCurrentLineNumber(),
+                                         std::format( R"(duplicates symbol "{}")", m_parser.symbol() ) ) );
+
+                return false;
+            }
         }
         else
         {
@@ -50,7 +68,8 @@ bool Assembler::firstPass()
 
     if ( m_parser.getStatus() == Parser::Status::invalid_instruction )
     {
-        m_logger( ErrorMessage::invalidInstruction( m_parser.getInstruction(), m_parser.getCurrentLineNumber() ) );
+        m_logger(
+            createMessage( m_parser.getInstruction(), m_parser.getCurrentLineNumber(), "is an invalid command" ) );
     }
 
     return m_parser.getStatus() == Parser::Status::end_of_file;
@@ -90,8 +109,8 @@ bool Assembler::assembleInstruction( const Hack::InstructionType instructionType
 
 bool Assembler::assembleAddressingInstruction()
 {
-    const auto symbol  = m_parser.symbol();
-    const auto value   = computeValue( symbol );
+    const auto symbol = m_parser.symbol();
+    const auto value  = computeValue( symbol );
 
     if ( value <= Hack::max_loadable_value )
     {
@@ -100,7 +119,9 @@ bool Assembler::assembleAddressingInstruction()
         return true;
     }
 
-    m_logger( ErrorMessage::invalidLoadValue( m_parser.getInstruction(), m_parser.getCurrentLineNumber() ) );
+    m_logger( createMessage( m_parser.getInstruction(),
+                             m_parser.getCurrentLineNumber(),
+                             "loads a value greater than an unsigned 15-bit number" ) );
 
     return false;
 }
@@ -131,8 +152,11 @@ Hack::word Assembler::computeValue( const std::string& symbol )
     }
     else
     {
-        value = m_ramAddress++;
-        m_symbolTable.addEntry( symbol, value );
+        value                                = m_ramAddress++;
+        [[maybe_unused]] const auto inserted = m_symbolTable.addEntry( symbol, value );
+
+        // The symbol was just looked up and found to be absent, so insertion must succeed.
+        assert( inserted );
     }
 
     return value;
