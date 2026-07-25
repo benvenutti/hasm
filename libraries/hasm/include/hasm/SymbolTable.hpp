@@ -15,7 +15,7 @@ public:
     SymbolTable() = default;
     explicit SymbolTable( std::unordered_map< std::string, Hack::word > symbols );
 
-    void addEntry( const std::string& symbol, const Hack::word address );
+    void addEntry( const std::string& symbol, Hack::word address );
 
     [[nodiscard]] bool contains( const std::string& symbol ) const;
 
@@ -26,24 +26,14 @@ public:
         return m_table.size();
     }
 
-    [[nodiscard]] inline auto begin() noexcept
+    [[nodiscard]] auto begin() const noexcept
     {
-        return m_table.begin();
+        return m_table.cbegin();
     }
 
-    [[nodiscard]] inline auto begin() const noexcept
+    [[nodiscard]] auto end() const noexcept
     {
-        return m_table.begin();
-    }
-
-    [[nodiscard]] inline auto end() noexcept
-    {
-        return m_table.end();
-    }
-
-    [[nodiscard]] inline auto end() const noexcept
-    {
-        return m_table.end();
+        return m_table.cend();
     }
 
 private:
