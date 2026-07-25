@@ -1,6 +1,5 @@
 #include <hasm/Parser.hpp>
 
-#include <hasm/ErrorMessage.hpp>
 #include <hasm/HackLex.hpp>
 #include <hasm/InstructionParser.hpp>
 

@@ -1,13 +1,23 @@
 #include <hasm/Assembler.hpp>
 
 #include <hasm/Coder.hpp>
-#include <hasm/ErrorMessage.hpp>
 
 #include <bitset>
 #include <cassert>
 #include <cctype>
+#include <format>
 #include <iomanip>
 #include <stdexcept>
+
+namespace
+{
+
+std::string createMessage( const std::string& instruction, const size_t lineNumber, const std::string& info )
+{
+    return std::format( R"(line {}: error: "{}" {})", lineNumber, instruction, info );
+}
+
+} // namespace
 
 namespace Hasm
 {
@@ -43,8 +53,10 @@ bool Assembler::firstPass()
         {
             if ( !m_symbolTable.addEntry( m_parser.symbol(), lineCounter ) )
             {
-                m_logger( ErrorMessage::symbolAlreadyRegistered(
-                    m_parser.getInstruction(), m_parser.getCurrentLineNumber(), m_parser.symbol() ) );
+                m_logger( createMessage( m_parser.getInstruction(),
+                                         m_parser.getCurrentLineNumber(),
+                                         std::format( R"(duplicates symbol "{}")", m_parser.symbol() ) ) );
+
                 return false;
             }
         }
@@ -56,7 +68,8 @@ bool Assembler::firstPass()
 
     if ( m_parser.getStatus() == Parser::Status::invalid_instruction )
     {
-        m_logger( ErrorMessage::invalidInstruction( m_parser.getInstruction(), m_parser.getCurrentLineNumber() ) );
+        m_logger(
+            createMessage( m_parser.getInstruction(), m_parser.getCurrentLineNumber(), "is an invalid command" ) );
     }
 
     return m_parser.getStatus() == Parser::Status::end_of_file;
@@ -106,7 +119,9 @@ bool Assembler::assembleAddressingInstruction()
         return true;
     }
 
-    m_logger( ErrorMessage::invalidLoadValue( m_parser.getInstruction(), m_parser.getCurrentLineNumber() ) );
+    m_logger( createMessage( m_parser.getInstruction(),
+                             m_parser.getCurrentLineNumber(),
+                             "loads a value greater than an unsigned 15-bit number" ) );
 
     return false;
 }

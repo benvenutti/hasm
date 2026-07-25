@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+- `ErrorMessage` dropped: code moved to `Assembler.cpp`
 - `utilities` folder dropped: command line parser moved to new `hasm-cli`
 
 ### Fixed

@@ -19,7 +19,6 @@ target_sources(hasm
         src/hasm/Assembler.cpp
         src/hasm/AssemblerEngine.cpp
         src/hasm/Coder.cpp
-        src/hasm/ErrorMessage.cpp
         src/hasm/InstructionParser.cpp
         src/hasm/Parser.cpp
         src/hasm/SymbolListingWriter.cpp
@@ -34,7 +33,6 @@ target_sources(hasm
             include/hasm/AssemblerEngine.hpp
             include/hasm/AssemblerOptions.hpp
             include/hasm/Coder.hpp
-            include/hasm/ErrorMessage.hpp
             include/hasm/HackGrammar.hpp
             include/hasm/HackLex.hpp
             include/hasm/InstructionParser.hpp
