@@ -15,7 +15,7 @@ void SymbolTable::addEntry( const std::string& symbol, const Hack::word address 
 
 bool SymbolTable::contains( const std::string& symbol ) const
 {
-    return m_table.find( symbol ) != m_table.end();
+    return m_table.contains( symbol );
 }
 
 std::optional< Hack::word > SymbolTable::getAddress( const std::string& symbol ) const
