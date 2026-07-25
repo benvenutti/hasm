@@ -11,9 +11,9 @@ namespace
 {
     Hasm::SymbolTable table;
 
-    table.addEntry( "s1", 0x1010 );
-    table.addEntry( "s2", 0x2020 );
-    table.addEntry( "s3", 0x3030 );
+    REQUIRE( table.addEntry( "s1", 0x1010 ) );
+    REQUIRE( table.addEntry( "s2", 0x2020 ) );
+    REQUIRE( table.addEntry( "s3", 0x3030 ) );
 
     return table;
 }
@@ -33,11 +33,21 @@ TEST_CASE( "SymbolTable::addEntry inserts symbols" )
 {
     Hasm::SymbolTable table;
 
-    table.addEntry( "s1", 0x1010 );
-
+    REQUIRE( table.addEntry( "s1", 0x1010 ) );
     REQUIRE( table.size() == 1 );
     REQUIRE( table.contains( "s1" ) );
     REQUIRE( table.getAddress( "s1" ) == 0x1010 );
+}
+
+TEST_CASE( "SymbolTable::addEntry returns false when the symbol already exists" )
+{
+    Hasm::SymbolTable table;
+
+    REQUIRE( table.addEntry( "foo", 1 ) );
+    REQUIRE_FALSE( table.addEntry( "foo", 2 ) );
+
+    REQUIRE( table.size() == 1 );
+    REQUIRE( table.getAddress( "foo" ) == 1 );
 }
 
 TEST_CASE( "SymbolTable::contains reports whether a symbol exists" )

@@ -8,9 +8,9 @@ SymbolTable::SymbolTable( std::unordered_map< std::string, Hack::word > symbols 
 {
 }
 
-void SymbolTable::addEntry( const std::string& symbol, const Hack::word address )
+bool SymbolTable::addEntry( const std::string& symbol, const Hack::word address )
 {
-    m_table.emplace( symbol, address );
+    return m_table.emplace( symbol, address ).second;
 }
 
 bool SymbolTable::contains( const std::string& symbol ) const

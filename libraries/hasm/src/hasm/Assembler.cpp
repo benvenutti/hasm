@@ -4,6 +4,7 @@
 #include <hasm/ErrorMessage.hpp>
 
 #include <bitset>
+#include <cassert>
 #include <cctype>
 #include <iomanip>
 #include <stdexcept>
@@ -40,7 +41,12 @@ bool Assembler::firstPass()
     {
         if ( m_parser.getInstructionType() == Hack::InstructionType::label )
         {
-            m_symbolTable.addEntry( m_parser.symbol(), lineCounter );
+            if ( !m_symbolTable.addEntry( m_parser.symbol(), lineCounter ) )
+            {
+                m_logger( ErrorMessage::symbolAlreadyRegistered(
+                    m_parser.getInstruction(), m_parser.getCurrentLineNumber(), m_parser.symbol() ) );
+                return false;
+            }
         }
         else
         {
@@ -90,8 +96,8 @@ bool Assembler::assembleInstruction( const Hack::InstructionType instructionType
 
 bool Assembler::assembleAddressingInstruction()
 {
-    const auto symbol  = m_parser.symbol();
-    const auto value   = computeValue( symbol );
+    const auto symbol = m_parser.symbol();
+    const auto value  = computeValue( symbol );
 
     if ( value <= Hack::max_loadable_value )
     {
@@ -131,8 +137,11 @@ Hack::word Assembler::computeValue( const std::string& symbol )
     }
     else
     {
-        value = m_ramAddress++;
-        m_symbolTable.addEntry( symbol, value );
+        value                                = m_ramAddress++;
+        [[maybe_unused]] const auto inserted = m_symbolTable.addEntry( symbol, value );
+
+        // The symbol was just looked up and found to be absent, so insertion must succeed.
+        assert( inserted );
     }
 
     return value;

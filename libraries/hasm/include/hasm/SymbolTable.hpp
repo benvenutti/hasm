@@ -15,7 +15,7 @@ public:
     SymbolTable() = default;
     explicit SymbolTable( std::unordered_map< std::string, Hack::word > symbols );
 
-    void addEntry( const std::string& symbol, Hack::word address );
+    [[nodiscard]] bool addEntry( const std::string& symbol, Hack::word address );
 
     [[nodiscard]] bool contains( const std::string& symbol ) const;
 

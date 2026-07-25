@@ -25,4 +25,11 @@ std::string ErrorMessage::invalidLoadValue( const std::string& instruction, cons
     return createMessage( instruction, lineNumber, "loads a value greater than an unsigned 15-bit number" );
 }
 
+std::string ErrorMessage::symbolAlreadyRegistered( const std::string& instruction,
+                                                   const size_t       lineNumber,
+                                                   const std::string& symbol )
+{
+    return createMessage( instruction, lineNumber, std::format( "duplicates symbol {}", symbol ) );
+}
+
 } // namespace Hasm
