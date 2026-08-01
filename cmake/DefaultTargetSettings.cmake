@@ -13,7 +13,7 @@ include_guard(GLOBAL)
 #
 add_library(default_target_options INTERFACE)
 
-target_compile_features(default_target_options INTERFACE cxx_std_20)
+target_compile_features(default_target_options INTERFACE cxx_std_23)
 
 set_target_properties(default_target_options
     PROPERTIES
@@ -25,7 +25,7 @@ target_compile_options(default_target_options INTERFACE
     # MSVC
     $<$<CXX_COMPILER_ID:MSVC>:
     /permissive-     # Enforce strict standard C++ conformity (Disables legacy MSVC workarounds)
-    /Zc:__cplusplus  # Force MSVC (__cplusplus macro) to report  the chosen C++20 standard value.
+    /Zc:__cplusplus  # Force MSVC (__cplusplus macro) to report the chosen C++ standard value.
                      # See (https://learn.microsoft.com/en-us/cpp/build/reference/zc-cplusplus)
     /Zc:inline       # Removes unreferenced inline functions from object files. This can Speed up compilation
                      # and reduce binary size.
