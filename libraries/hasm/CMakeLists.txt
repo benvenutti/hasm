@@ -29,6 +29,9 @@ target_sources(hasm
             include
             ${CMAKE_CURRENT_BINARY_DIR}/include
         FILES
+            include/hasm/model/Comp.hpp
+            include/hasm/model/Dest.hpp
+            include/hasm/model/Jump.hpp
             include/hasm/Assembler.hpp
             include/hasm/AssemblerEngine.hpp
             include/hasm/AssemblerOptions.hpp
