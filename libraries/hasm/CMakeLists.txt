@@ -31,6 +31,7 @@ target_sources(hasm
         FILES
             include/hasm/model/Comp.hpp
             include/hasm/model/Dest.hpp
+            include/hasm/model/Instruction.hpp
             include/hasm/model/Jump.hpp
             include/hasm/model/Located.hpp
             include/hasm/model/ParseError.hpp
