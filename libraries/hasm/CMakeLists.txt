@@ -32,6 +32,7 @@ target_sources(hasm
             include/hasm/model/Comp.hpp
             include/hasm/model/Dest.hpp
             include/hasm/model/Jump.hpp
+            include/hasm/model/Located.hpp
             include/hasm/model/SourceLocation.hpp
             include/hasm/Assembler.hpp
             include/hasm/AssemblerEngine.hpp
