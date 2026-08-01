@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- `InstructionMatcher` functions
 - Instruction model
 - Qt/Qml infrastructure for new `hasm-gui`
 - Support user-defined output paths

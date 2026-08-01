@@ -16,6 +16,7 @@ apply_target_coverage(hasm)
 
 target_sources(hasm
     PRIVATE
+        src/hasm/parser/InstructionMatcher.cpp
         src/hasm/Assembler.cpp
         src/hasm/AssemblerEngine.cpp
         src/hasm/Coder.cpp
@@ -29,6 +30,8 @@ target_sources(hasm
             include
             ${CMAKE_CURRENT_BINARY_DIR}/include
         FILES
+            include/hasm/language/Grammar.hpp
+            include/hasm/language/Lex.hpp
             include/hasm/model/Comp.hpp
             include/hasm/model/Dest.hpp
             include/hasm/model/Instruction.hpp
@@ -36,6 +39,7 @@ target_sources(hasm
             include/hasm/model/Located.hpp
             include/hasm/model/ParseError.hpp
             include/hasm/model/SourceLocation.hpp
+            include/hasm/parser/InstructionMatcher.hpp
             include/hasm/Assembler.hpp
             include/hasm/AssemblerEngine.hpp
             include/hasm/AssemblerOptions.hpp
