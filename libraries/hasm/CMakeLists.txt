@@ -30,6 +30,8 @@ target_sources(hasm
             include
             ${CMAKE_CURRENT_BINARY_DIR}/include
         FILES
+            include/hasm/language/Grammar.hpp
+            include/hasm/language/Lex.hpp
             include/hasm/model/Comp.hpp
             include/hasm/model/Dest.hpp
             include/hasm/model/Instruction.hpp
