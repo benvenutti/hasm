@@ -9,6 +9,7 @@ apply_target_coverage(hasm_tests)
 target_sources(hasm_tests
     PRIVATE
         src/parser/InstructionMatcher.test.cpp
+        src/parser/InstructionParser.test.cpp
         src/Assembler.test.cpp
         src/AssemblerEngine.test.cpp
         src/AssemblerOptions.test.cpp
