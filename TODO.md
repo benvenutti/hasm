@@ -5,12 +5,15 @@
 - [ ] Add READMEs to other folders
 - [ ] Rewrite root README
 - [ ] Integration tests for `hasm-cli`
-- [x] Add CHANGELOG
+- [ ] Model-based parsing:
+  - [ ] Use `parser/InstructionParser` in `Parser`
+  - [ ] Mover `Parser` class to `parser/` 
+  - [x] Add `parser/InstructionParser`
+  - [x] Add model
 
 ## 🐛 Bugs
 
 ## 🛠️ Tech Debt & Refactoring
-
 
 - [ ] Consider using CMake TARGET ALIAS
 - [x] Rename CMake targets

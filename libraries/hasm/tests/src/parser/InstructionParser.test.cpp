@@ -80,3 +80,82 @@ TEST_CASE( "InstructionParser::parse rejects invalid A-instructions" )
     REQUIRE_FALSE( Hasm::Parser::parse( "@+symbol" ) );
     REQUIRE_FALSE( Hasm::Parser::parse( "@symbol+" ) );
 }
+
+TEST_CASE( "InstructionParser::parse parses C-instructions without destination or jump" )
+{
+    const auto result = Hasm::Parser::parse( "D" );
+
+    REQUIRE( result );
+    REQUIRE( std::holds_alternative< Hasm::Model::ComputeInstruction >( *result ) );
+
+    const auto& instruction = std::get< Hasm::Model::ComputeInstruction >( *result );
+
+    REQUIRE_FALSE( instruction.dest );
+    REQUIRE( instruction.comp == Hasm::Model::Comp::D );
+    REQUIRE_FALSE( instruction.jump );
+}
+
+TEST_CASE( "InstructionParser::parse parses C-instructions with a destination" )
+{
+    const auto result = Hasm::Parser::parse( "AD=D+1" );
+
+    REQUIRE( result );
+    REQUIRE( std::holds_alternative< Hasm::Model::ComputeInstruction >( *result ) );
+
+    const auto& instruction = std::get< Hasm::Model::ComputeInstruction >( *result );
+
+    REQUIRE( instruction.dest == Hasm::Model::Dest::AD );
+    REQUIRE( instruction.comp == Hasm::Model::Comp::IncrementD );
+    REQUIRE_FALSE( instruction.jump );
+}
+
+TEST_CASE( "InstructionParser::parse parses C-instructions with a jump" )
+{
+    const auto result = Hasm::Parser::parse( "D;JGT" );
+
+    REQUIRE( result );
+    REQUIRE( std::holds_alternative< Hasm::Model::ComputeInstruction >( *result ) );
+
+    const auto& instruction = std::get< Hasm::Model::ComputeInstruction >( *result );
+
+    REQUIRE_FALSE( instruction.dest );
+    REQUIRE( instruction.comp == Hasm::Model::Comp::D );
+    REQUIRE( instruction.jump == Hasm::Model::Jump::JGT );
+}
+
+TEST_CASE( "InstructionParser::parse parses complete C-instructions" )
+{
+    const auto result = Hasm::Parser::parse( "AMD=M-1;JNE" );
+
+    REQUIRE( result );
+    REQUIRE( std::holds_alternative< Hasm::Model::ComputeInstruction >( *result ) );
+
+    const auto& instruction = std::get< Hasm::Model::ComputeInstruction >( *result );
+
+    REQUIRE( instruction.dest == Hasm::Model::Dest::AMD );
+    REQUIRE( instruction.comp == Hasm::Model::Comp::DecrementM );
+    REQUIRE( instruction.jump == Hasm::Model::Jump::JNE );
+}
+
+TEST_CASE( "InstructionParser::parse rejects C-instructions with invalid destinations" )
+{
+    REQUIRE_FALSE( Hasm::Parser::parse( "DA=D" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "MA=M" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "DM=D" ) );
+}
+
+TEST_CASE( "InstructionParser::parse rejects C-instructions with invalid computations" )
+{
+    REQUIRE_FALSE( Hasm::Parser::parse( "=" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "D==" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "D=M+A" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "D=A+D" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "D=42" ) );
+}
+
+TEST_CASE( "InstructionParser::parse rejects C-instructions with invalid jumps" )
+{
+    REQUIRE_FALSE( Hasm::Parser::parse( "D;JXX" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "D;J" ) );
+    REQUIRE_FALSE( Hasm::Parser::parse( "D;" ) );
+}
