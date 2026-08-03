@@ -1,4 +1,4 @@
-#include <hasm/Parser.hpp>
+#include <hasm/parser/Parser.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -25,7 +25,7 @@ struct Fixture
 
 SCENARIO_METHOD( Fixture, "commands", "[Parser]" )
 {
-    Hasm::Parser parser{ asmProgram };
+    Hasm::Parser::Parser parser{ asmProgram };
 
     REQUIRE( parser.advance() );
     REQUIRE( parser.getInstruction() == "@30" );
@@ -47,7 +47,7 @@ SCENARIO_METHOD( Fixture, "commands", "[Parser]" )
 
 SCENARIO_METHOD( Fixture, "commands types", "[Parser]" )
 {
-    Hasm::Parser parser{ asmProgram };
+    Hasm::Parser::Parser parser{ asmProgram };
 
     REQUIRE( parser.advance() );
     REQUIRE( parser.getInstructionType() == Hack::InstructionType::addressing );
@@ -69,7 +69,7 @@ SCENARIO_METHOD( Fixture, "commands types", "[Parser]" )
 
 SCENARIO_METHOD( Fixture, "line number", "[Parser]" )
 {
-    Hasm::Parser parser{ asmProgram };
+    Hasm::Parser::Parser parser{ asmProgram };
 
     REQUIRE( parser.advance() );
     REQUIRE( parser.getCurrentLineNumber() == 1 );
@@ -91,7 +91,7 @@ SCENARIO_METHOD( Fixture, "line number", "[Parser]" )
 
 SCENARIO_METHOD( Fixture, "reset", "[Parser]" )
 {
-    Hasm::Parser parser{ asmProgram };
+    Hasm::Parser::Parser parser{ asmProgram };
 
     for ( [[maybe_unused]] const auto _ : std::views::iota( 0, 2 ) )
     {
@@ -117,7 +117,7 @@ SCENARIO_METHOD( Fixture, "reset", "[Parser]" )
 
 SCENARIO_METHOD( Fixture, "command full info", "[Parser]" )
 {
-    Hasm::Parser parser{ asmProgram };
+    Hasm::Parser::Parser parser{ asmProgram };
 
     REQUIRE( parser.advance() );
     REQUIRE( parser.getInstruction() == "@30" );
@@ -163,29 +163,29 @@ SCENARIO_METHOD( Fixture, "command full info", "[Parser]" )
 SCENARIO_METHOD( Fixture, "status", "[Parser]" )
 {
     {
-        std::stringstream ss{ "" };
-        Hasm::Parser      parser{ ss };
-        REQUIRE( parser.getStatus() == Hasm::Parser::Status::start_of_file );
+        std::stringstream    ss{ "" };
+        Hasm::Parser::Parser parser{ ss };
+        REQUIRE( parser.getStatus() == Hasm::Parser::Parser::Status::start_of_file );
     }
 
     {
-        std::stringstream ss{ "@1" };
-        Hasm::Parser      parser{ ss };
+        std::stringstream    ss{ "@1" };
+        Hasm::Parser::Parser parser{ ss };
         REQUIRE( parser.advance() );
-        REQUIRE( parser.getStatus() == Hasm::Parser::Status::valid_instruction );
+        REQUIRE( parser.getStatus() == Hasm::Parser::Parser::Status::valid_instruction );
     }
 
     {
-        std::stringstream ss{ "+a" };
-        Hasm::Parser      parser{ ss };
+        std::stringstream    ss{ "+a" };
+        Hasm::Parser::Parser parser{ ss };
         REQUIRE_FALSE( parser.advance() );
-        REQUIRE( parser.getStatus() == Hasm::Parser::Status::invalid_instruction );
+        REQUIRE( parser.getStatus() == Hasm::Parser::Parser::Status::invalid_instruction );
     }
 
     {
-        std::stringstream ss{ "" };
-        Hasm::Parser      parser{ ss };
+        std::stringstream    ss{ "" };
+        Hasm::Parser::Parser parser{ ss };
         REQUIRE_FALSE( parser.advance() );
-        REQUIRE( parser.getStatus() == Hasm::Parser::Status::end_of_file );
+        REQUIRE( parser.getStatus() == Hasm::Parser::Parser::Status::end_of_file );
     }
 }

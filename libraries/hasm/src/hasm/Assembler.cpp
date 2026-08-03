@@ -66,13 +66,13 @@ bool Assembler::firstPass()
         }
     }
 
-    if ( m_parser.getStatus() == Parser::Status::invalid_instruction )
+    if ( m_parser.getStatus() == Parser::Parser::Status::invalid_instruction )
     {
         m_logger(
             createMessage( m_parser.getInstruction(), m_parser.getCurrentLineNumber(), "is an invalid command" ) );
     }
 
-    return m_parser.getStatus() == Parser::Status::end_of_file;
+    return m_parser.getStatus() == Parser::Parser::Status::end_of_file;
 }
 
 bool Assembler::secondPass()

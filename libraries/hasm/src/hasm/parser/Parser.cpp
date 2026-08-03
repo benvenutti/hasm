@@ -1,4 +1,4 @@
-#include <hasm/Parser.hpp>
+#include <hasm/parser/Parser.hpp>
 
 #include <hasm/HackLex.hpp>
 #include <hasm/InstructionParser.hpp>
@@ -47,7 +47,7 @@ std::optional< Hack::InstructionType > instructionType( const std::string& instr
 
 } // namespace
 
-namespace Hasm
+namespace Hasm::Parser
 {
 
 Parser::Parser( std::istream& in )
@@ -179,4 +179,4 @@ bool Parser::reset()
     return m_input.good();
 }
 
-} // namespace Hasm
+} // namespace Hasm::Parser

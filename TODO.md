@@ -5,9 +5,9 @@
 - [ ] Add READMEs to other folders
 - [ ] Rewrite root README
 - [ ] Integration tests for `hasm-cli`
-- [ ] Model-based parsing:
+- [ ] Model-based parsing: 
   - [ ] Use `parser/InstructionParser` in `Parser`
-  - [ ] Mover `Parser` class to `parser/` 
+  - [x] Mover `Parser` class to `parser/` 
   - [x] Add `parser/InstructionParser`
   - [x] Add model
 
