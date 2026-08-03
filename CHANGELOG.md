@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Move `Parser` to `parser/` folder
 - Switch from C++20 to C++23
 - Extend unit tests for `SymbolTable` 
 - Rename `SymbolTableWriter` to `SymbolListingWriter` and make it stateless

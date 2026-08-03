@@ -6,7 +6,7 @@
 #include <optional>
 #include <string>
 
-namespace Hasm
+namespace Hasm::Parser
 {
 
 class Parser
@@ -48,4 +48,4 @@ private:
     Status                                 m_status{ Status::start_of_file };
 };
 
-} // namespace Hasm
+} // namespace Hasm::Parser

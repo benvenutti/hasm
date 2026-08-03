@@ -10,6 +10,7 @@ target_sources(hasm_tests
     PRIVATE
         src/parser/InstructionMatcher.test.cpp
         src/parser/InstructionParser.test.cpp
+        src/parser/Parser.test.cpp
         src/Assembler.test.cpp
         src/AssemblerEngine.test.cpp
         src/AssemblerOptions.test.cpp
@@ -17,7 +18,6 @@ target_sources(hasm_tests
         src/InstructionParser.computation.test.cpp
         src/InstructionParser.label.test.cpp
         src/InstructionParser.load.test.cpp
-        src/Parser.test.cpp
         src/SymbolListingWriter.test.cpp
         src/SymbolTable.test.cpp
 )

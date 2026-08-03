@@ -18,11 +18,11 @@ target_sources(hasm
     PRIVATE
         src/hasm/parser/InstructionMatcher.cpp
         src/hasm/parser/InstructionParser.cpp
+        src/hasm/parser/Parser.cpp
         src/hasm/Assembler.cpp
         src/hasm/AssemblerEngine.cpp
         src/hasm/Coder.cpp
         src/hasm/InstructionParser.cpp
-        src/hasm/Parser.cpp
         src/hasm/SymbolListingWriter.cpp
         src/hasm/SymbolTable.cpp
     PUBLIC
@@ -42,6 +42,7 @@ target_sources(hasm
             include/hasm/model/SourceLocation.hpp
             include/hasm/parser/InstructionMatcher.hpp
             include/hasm/parser/InstructionParser.hpp
+            include/hasm/parser/Parser.hpp
             include/hasm/Assembler.hpp
             include/hasm/AssemblerEngine.hpp
             include/hasm/AssemblerOptions.hpp
@@ -49,7 +50,6 @@ target_sources(hasm
             include/hasm/HackGrammar.hpp
             include/hasm/HackLex.hpp
             include/hasm/InstructionParser.hpp
-            include/hasm/Parser.hpp
             include/hasm/PredefinedSymbols.hpp
             include/hasm/SymbolListingWriter.hpp
             include/hasm/SymbolTable.hpp
