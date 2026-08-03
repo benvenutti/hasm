@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- `InstructionParser` with model-based parse
 - `InstructionMatcher` functions
 - Instruction model
 - Qt/Qml infrastructure for new `hasm-gui`

@@ -17,6 +17,7 @@ apply_target_coverage(hasm)
 target_sources(hasm
     PRIVATE
         src/hasm/parser/InstructionMatcher.cpp
+        src/hasm/parser/InstructionParser.cpp
         src/hasm/Assembler.cpp
         src/hasm/AssemblerEngine.cpp
         src/hasm/Coder.cpp
@@ -40,6 +41,7 @@ target_sources(hasm
             include/hasm/model/ParseError.hpp
             include/hasm/model/SourceLocation.hpp
             include/hasm/parser/InstructionMatcher.hpp
+            include/hasm/parser/InstructionParser.hpp
             include/hasm/Assembler.hpp
             include/hasm/AssemblerEngine.hpp
             include/hasm/AssemblerOptions.hpp
